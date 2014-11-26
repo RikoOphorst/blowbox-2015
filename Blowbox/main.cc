@@ -54,7 +54,7 @@ int main (int argc, char** argv)
 
 		//std::cout << "Mouse X: " << Mouse::Instance()->GetPosition().x << " Mouse Y: " << Mouse::Instance()->GetPosition().y << " Mouse Left Down: " << Mouse::Instance()->IsDown(MouseLeft) << " Left key down: " << Keyboard::Instance()->IsDown(kLeft) << " Right key down: " << Keyboard::Instance()->IsDown(kRight) << std::endl;
 		
-		std::cout << KeyToString(Keyboard::Instance()->LastKey());
+		std::cout << Mouse::Instance()->GetPosition().x << " \t||\t " << Mouse::Instance()->GetPosition().y << std::endl;
 		
 		
 		if (Mouse::Instance()->IsDown(MouseLeft))
