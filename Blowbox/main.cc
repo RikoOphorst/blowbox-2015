@@ -38,7 +38,7 @@ int main (int argc, char** argv)
 
 	d3d11DisplayDevice->AddElement(quad1.get());
 
-	quad1->SetTexture("penis.png");
+	quad1->SetTexture("tex1.png");
 
 	camera->SetPosition(0.0f, 0.0f, -8.0f);
 
@@ -54,11 +54,7 @@ int main (int argc, char** argv)
 
 		//std::cout << "Mouse X: " << Mouse::Instance()->GetPosition().x << " Mouse Y: " << Mouse::Instance()->GetPosition().y << " Mouse Left Down: " << Mouse::Instance()->IsDown(MouseLeft) << " Left key down: " << Keyboard::Instance()->IsDown(kLeft) << " Right key down: " << Keyboard::Instance()->IsDown(kRight) << std::endl;
 		
-		
-		
 		std::cout << KeyToString(Keyboard::Instance()->LastKey());
-
-		
 		
 		
 		if (Mouse::Instance()->IsDown(MouseLeft))
