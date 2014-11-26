@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="d3d11">
+      <UniqueIdentifier>{229b81bb-400b-4f69-949f-fb5e31926a9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="win32">
+      <UniqueIdentifier>{03bf7b62-a6f6-4e64-9701-e0ba72e14c38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="memory">
+      <UniqueIdentifier>{b768df7a-bf71-4cae-861a-07e5bf199aae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="precompile">
+      <UniqueIdentifier>{a41dbb7c-fa40-4717-b3eb-d143f69573fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shaders">
+      <UniqueIdentifier>{60d44784-d7d0-417c-9f1a-4014f93a70f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="geom">
+      <UniqueIdentifier>{af2f6ce7-2f82-468f-be4e-fec0c402edfd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="input">
+      <UniqueIdentifier>{34b879e5-fa59-4368-a94f-24da96cb3c49}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="win32\window.cc">
+      <Filter>win32</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cc" />
+    <ClCompile Include="d3d11\d3d11_display_device.cc">
+      <Filter>d3d11</Filter>
+    </ClCompile>
+    <ClCompile Include="geom\quad.cc">
+      <Filter>geom</Filter>
+    </ClCompile>
+    <ClCompile Include="geom\cube.cc">
+      <Filter>geom</Filter>
+    </ClCompile>
+    <ClCompile Include="d3d11\d3d11_camera.cc">
+      <Filter>d3d11</Filter>
+    </ClCompile>
+    <ClCompile Include="d3d11\d3d11_render_element.cc">
+      <Filter>d3d11</Filter>
+    </ClCompile>
+    <ClCompile Include="d3d11\d3d11_texture.cc">
+      <Filter>d3d11</Filter>
+    </ClCompile>
+    <ClCompile Include="input\keyboard.cc">
+      <Filter>input</Filter>
+    </ClCompile>
+    <ClCompile Include="input\mouse.cc">
+      <Filter>input</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="win32\window.h">
+      <Filter>win32</Filter>
+    </ClInclude>
+    <ClInclude Include="d3d11\d3d11_display_device.h">
+      <Filter>d3d11</Filter>
+    </ClInclude>
+    <ClInclude Include="precompile\definitions.h">
+      <Filter>precompile</Filter>
+    </ClInclude>
+    <ClInclude Include="memory\shared_ptr.h">
+      <Filter>memory</Filter>
+    </ClInclude>
+    <ClInclude Include="geom\quad.h">
+      <Filter>geom</Filter>
+    </ClInclude>
+    <ClInclude Include="geom\cube.h">
+      <Filter>geom</Filter>
+    </ClInclude>
+    <ClInclude Include="d3d11\d3d11_camera.h">
+      <Filter>d3d11</Filter>
+    </ClInclude>
+    <ClInclude Include="d3d11\d3d11_render_element.h">
+      <Filter>d3d11</Filter>
+    </ClInclude>
+    <ClInclude Include="d3d11\d3d11_texture.h">
+      <Filter>d3d11</Filter>
+    </ClInclude>
+    <ClInclude Include="input\keyboard.h">
+      <Filter>input</Filter>
+    </ClInclude>
+    <ClInclude Include="input\key.h">
+      <Filter>input</Filter>
+    </ClInclude>
+    <ClInclude Include="input\mouse.h">
+      <Filter>input</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="shaders\effects.fx">
+      <Filter>shaders</Filter>
+    </FxCompile>
+  </ItemGroup>
+</Project>
