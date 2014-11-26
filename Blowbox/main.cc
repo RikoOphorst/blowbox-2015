@@ -10,8 +10,10 @@
 #include "geom/quad.h"
 #include "geom/cube.h"
 #include <math.h>
+#include <chrono>
 
 using namespace blowbox;
+using namespace std::chrono;
 
 namespace memory
 {
@@ -34,6 +36,8 @@ int main (int argc, char** argv)
 	Mouse::Instance();
 	Keyboard::Instance();
 
+	high_resolution_clock::time_point lastTime_ = high_resolution_clock::now();
+
 	SharedPtr<Quad> quad1(new Quad());
 
 	d3d11DisplayDevice->AddElement(quad1.get());
@@ -48,14 +52,20 @@ int main (int argc, char** argv)
 
 	while (window->started())
 	{
+		high_resolution_clock::time_point now = high_resolution_clock::now();
+
+		std::cout << duration_cast<duration<double, std::milli>>(now - lastTime_).count() * 1e-3f << std::endl;
+
+		auto dt = duration_cast<duration<double, std::milli>>(now - lastTime_).count() * 1e-3f;
+
+		lastTime_ = now;
+
 		window->ProcessMessages();
 		Keyboard::Instance()->Update();
 		Mouse::Instance()->Update();
 
-		//std::cout << "Mouse X: " << Mouse::Instance()->GetPosition().x << " Mouse Y: " << Mouse::Instance()->GetPosition().y << " Mouse Left Down: " << Mouse::Instance()->IsDown(MouseLeft) << " Left key down: " << Keyboard::Instance()->IsDown(kLeft) << " Right key down: " << Keyboard::Instance()->IsDown(kRight) << std::endl;
-		
-		std::cout << Mouse::Instance()->GetPosition().x << " \t||\t " << Mouse::Instance()->GetPosition().y << std::endl;
-		
+		quad1->SetPosition(XMVectorGetX(quad1->GetPosition()) - 20.0f * dt, 0.0f, 0.0f);
+
 		
 		if (Mouse::Instance()->IsDown(MouseLeft))
 		{
