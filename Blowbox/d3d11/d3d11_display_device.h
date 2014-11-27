@@ -59,7 +59,7 @@ namespace blowbox
 		
 		void						SetProjectionMatrix(float fov, float aspectRatio, float nearZ, float farZ);
 
-		void						Update();
+		void						Update(double deltaTime);
 
 		void						SetVertexBuffer(ID3D11Buffer* vertexBuffer);
 		ID3D11Buffer*				CreateVertexBuffer(const std::vector<Vertex>& verts);

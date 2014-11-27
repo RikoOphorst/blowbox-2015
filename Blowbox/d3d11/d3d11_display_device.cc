@@ -167,7 +167,7 @@ namespace blowbox
 	}
 
 	//----------------------------------------------------------------------------------------------------------------
-	void D3D11DisplayDevice::Update()
+	void D3D11DisplayDevice::Update(double deltaTime)
 	{
 		
 	}

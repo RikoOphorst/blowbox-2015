@@ -52,6 +52,7 @@
     <ClCompile Include="input\mouse.cc">
       <Filter>input</Filter>
     </ClCompile>
+    <ClCompile Include="game.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="win32\window.h">
@@ -90,6 +91,7 @@
     <ClInclude Include="input\mouse.h">
       <Filter>input</Filter>
     </ClInclude>
+    <ClInclude Include="game.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="shaders\effects.fx">

@@ -23,6 +23,7 @@
     <ClCompile Include="d3d11\d3d11_display_device.cc" />
     <ClCompile Include="d3d11\d3d11_render_element.cc" />
     <ClCompile Include="d3d11\d3d11_texture.cc" />
+    <ClCompile Include="game.cc" />
     <ClCompile Include="geom\cube.cc" />
     <ClCompile Include="geom\quad.cc" />
     <ClCompile Include="input\keyboard.cc" />
@@ -37,6 +38,7 @@
     <ClInclude Include="d3d11\d3d11_display_device.h" />
     <ClInclude Include="d3d11\d3d11_render_element.h" />
     <ClInclude Include="d3d11\d3d11_texture.h" />
+    <ClInclude Include="game.h" />
     <ClInclude Include="geom\cube.h" />
     <ClInclude Include="geom\quad.h" />
     <ClInclude Include="input\key.h" />
