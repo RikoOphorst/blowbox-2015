@@ -62,6 +62,12 @@
     <ClCompile Include="content\content.cc">
       <Filter>content</Filter>
     </ClCompile>
+    <ClCompile Include="content\content_manager.cc">
+      <Filter>content</Filter>
+    </ClCompile>
+    <ClCompile Include="lua\lua_manager.cc">
+      <Filter>lua</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="win32\window.h">
@@ -101,11 +107,14 @@
       <Filter>input</Filter>
     </ClInclude>
     <ClInclude Include="game.h" />
-    <ClInclude Include="lua\lua.h">
-      <Filter>lua</Filter>
-    </ClInclude>
     <ClInclude Include="content\content.h">
       <Filter>content</Filter>
+    </ClInclude>
+    <ClInclude Include="content\content_manager.h">
+      <Filter>content</Filter>
+    </ClInclude>
+    <ClInclude Include="lua\lua_manager.h">
+      <Filter>lua</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

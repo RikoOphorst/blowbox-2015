@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="content\content.cc" />
+    <ClCompile Include="content\content_manager.cc" />
     <ClCompile Include="d3d11\d3d11_camera.cc" />
     <ClCompile Include="d3d11\d3d11_display_device.cc" />
     <ClCompile Include="d3d11\d3d11_render_element.cc" />
@@ -29,6 +30,7 @@
     <ClCompile Include="geom\quad.cc" />
     <ClCompile Include="input\keyboard.cc" />
     <ClCompile Include="input\mouse.cc" />
+    <ClCompile Include="lua\lua_manager.cc" />
     <ClCompile Include="main.cc">
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(DXSDK_DIR)\Include</AdditionalIncludeDirectories>
     </ClCompile>
@@ -36,6 +38,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="content\content.h" />
+    <ClInclude Include="content\content_manager.h" />
     <ClInclude Include="d3d11\d3d11_camera.h" />
     <ClInclude Include="d3d11\d3d11_display_device.h" />
     <ClInclude Include="d3d11\d3d11_render_element.h" />
@@ -46,7 +49,7 @@
     <ClInclude Include="input\key.h" />
     <ClInclude Include="input\keyboard.h" />
     <ClInclude Include="input\mouse.h" />
-    <ClInclude Include="lua\lua.h" />
+    <ClInclude Include="lua\lua_manager.h" />
     <ClInclude Include="memory\shared_ptr.h" />
     <ClInclude Include="precompile\definitions.h" />
     <ClInclude Include="win32\window.h" />
