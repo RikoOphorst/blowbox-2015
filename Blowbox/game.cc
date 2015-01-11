@@ -4,7 +4,7 @@ namespace blowbox
 {
 	Game::Game()
 	{
-
+		
 	}
 
 	Game::~Game()

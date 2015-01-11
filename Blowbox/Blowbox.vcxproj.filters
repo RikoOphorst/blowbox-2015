@@ -22,6 +22,12 @@
     <Filter Include="input">
       <UniqueIdentifier>{34b879e5-fa59-4368-a94f-24da96cb3c49}</UniqueIdentifier>
     </Filter>
+    <Filter Include="lua">
+      <UniqueIdentifier>{34fe196d-3d97-4196-bc7e-ddcedf4be01d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="content">
+      <UniqueIdentifier>{d371b5cc-5655-4df3-9199-9753a9e58185}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="win32\window.cc">
@@ -53,6 +59,9 @@
       <Filter>input</Filter>
     </ClCompile>
     <ClCompile Include="game.cc" />
+    <ClCompile Include="content\content.cc">
+      <Filter>content</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="win32\window.h">
@@ -92,6 +101,12 @@
       <Filter>input</Filter>
     </ClInclude>
     <ClInclude Include="game.h" />
+    <ClInclude Include="lua\lua.h">
+      <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="content\content.h">
+      <Filter>content</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="shaders\effects.fx">
