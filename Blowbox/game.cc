@@ -31,6 +31,8 @@ namespace blowbox
 	void Game::Run()
 	{
 		displayDevice_->InitScene();
+
+		luaManager_->LoadScript("main.lua");
 		
 		InitDeltaTime();
 

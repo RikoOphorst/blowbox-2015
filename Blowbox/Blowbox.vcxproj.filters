@@ -68,6 +68,9 @@
     <ClCompile Include="lua\lua_manager.cc">
       <Filter>lua</Filter>
     </ClCompile>
+    <ClCompile Include="win32\file_watch.cc">
+      <Filter>win32</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="win32\window.h">
@@ -115,6 +118,9 @@
     </ClInclude>
     <ClInclude Include="lua\lua_manager.h">
       <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="win32\file_watch.h">
+      <Filter>win32</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

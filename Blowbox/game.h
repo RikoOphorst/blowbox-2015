@@ -9,6 +9,7 @@
 #include "d3d11/d3d11_render_element.h"
 
 #include "win32/window.h"
+#include "win32/file_watch.h"
 
 #include "memory/shared_ptr.h"
 
@@ -17,6 +18,8 @@
 
 #include "geom/quad.h"
 #include "geom/cube.h"
+
+#include "lua/lua_manager.h"
 
 using namespace std::chrono;
 
@@ -43,6 +46,8 @@ namespace blowbox
 		D3D11DisplayDevice* displayDevice_	= D3D11DisplayDevice::Instance();
 		Keyboard*			keyboard_		= Keyboard::Instance();
 		Mouse*				mouse_			= Mouse::Instance();
+		FileWatch*			fileWatch_		= FileWatch::Instance();
+		LuaManager*			luaManager_		= LuaManager::Instance();
 		SharedPtr<Window>	window_			= new Window();
 
 		void								InitDeltaTime();

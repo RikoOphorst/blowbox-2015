@@ -7,11 +7,8 @@ extern "C"
 	#include <lualib.h>
 }
 
-#include <stdarg.h>
-#include <stdio.h>
-#include <stdlib.h>
-
 #include "../memory/shared_ptr.h"
+#include "../win32/file_watch.h"
 
 namespace blowbox
 {
@@ -23,9 +20,11 @@ namespace blowbox
 
 		static LuaManager* Instance();
 
-		void LoadScript(std::string path);
+		void LoadScript(std::string path, bool reloading = false);
+
+		void MakeError(std::string);
 
 	private:
-		lua_State* _state;
+		lua_State* state_;
 	};
 }

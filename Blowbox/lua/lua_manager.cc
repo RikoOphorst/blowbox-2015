@@ -13,11 +13,11 @@ namespace blowbox
 {
 	LuaManager::LuaManager() 
 	{
-		_state = lua_open();
-		luaopen_base(_state);
-		luaopen_io(_state);
-		luaopen_string(_state);
-		luaopen_math(_state);
+		state_ = lua_open();
+		luaopen_base(state_);
+		luaopen_io(state_);
+		luaopen_string(state_);
+		luaopen_math(state_);
 	};
 
 	LuaManager::~LuaManager() 
@@ -31,12 +31,22 @@ namespace blowbox
 		return ptr.get();
 	}
 
-	void LuaManager::LoadScript(std::string path)
+	void LuaManager::MakeError(std::string err)
 	{
-		if (luaL_loadfile(_state, path.c_str()) || lua_pcall(_state, 0, 0, 0))
-			error("cannot run file: %s", lua_tostring(_state, -1));
+		std::cout << "Lua error: " << err << std::endl;
+	}
 
-		lua_getglobal(_state, "tree");
-		std::cout << "tree is " << (int)lua_tonumber(_state, -1) << std::endl;
+	void LuaManager::LoadScript(std::string path, bool reloading)
+	{
+		if (luaL_dofile(state_, path.c_str()))
+			MakeError(lua_tostring(state_, -1));
+
+		lua_getglobal(state_, "tree");
+		std::cout << "tree is " << lua_tonumber(state_, -1) << std::endl;
+
+		if (!reloading)
+		{
+			FileWatch::Instance()->Add(path, FileType::Script);
+		}
 	}
 }

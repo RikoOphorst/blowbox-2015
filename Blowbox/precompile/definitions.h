@@ -9,3 +9,4 @@
 #define BLOW_ASSERT_HR(hr, msg) if (hr != S_OK) { BLOW_BREAK(msg); } 
 #define BLOW_ASSERT_NOT_NULL(obj, msg) if (obj == NULL) { BLOW_BREAK(msg); }
 #define BLOW_ASSERT_NULL(obj, msg) if (obj != NULL) { BLOW_BREAK(msg); }
+#define BLOW_LOG(msg) std::string m = ##msg; std::cout << m << std::endl;

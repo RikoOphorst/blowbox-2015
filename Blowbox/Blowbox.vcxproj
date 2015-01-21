@@ -34,6 +34,7 @@
     <ClCompile Include="main.cc">
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(DXSDK_DIR)\Include</AdditionalIncludeDirectories>
     </ClCompile>
+    <ClCompile Include="win32\file_watch.cc" />
     <ClCompile Include="win32\window.cc" />
   </ItemGroup>
   <ItemGroup>
@@ -52,6 +53,7 @@
     <ClInclude Include="lua\lua_manager.h" />
     <ClInclude Include="memory\shared_ptr.h" />
     <ClInclude Include="precompile\definitions.h" />
+    <ClInclude Include="win32\file_watch.h" />
     <ClInclude Include="win32\window.h" />
   </ItemGroup>
   <ItemGroup>
