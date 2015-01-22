@@ -25,6 +25,8 @@ using namespace std::chrono;
 
 namespace blowbox
 {
+	class D3D11DisplayDevice;
+
 	class Game
 	{
 	public:

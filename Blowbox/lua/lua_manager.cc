@@ -1,9 +1,5 @@
 #include "lua_manager.h"
 
-#define LM_STATE LuaManager::Instance()->GetState()
-#define LM_GAMECALL(state, fnc) lua_getglobal(##state, "Game"); lua_getfield(##state, -1, ##fnc); lua_call(##state, 0, 0)
-#define LM_CALL(state, fnc) lua_getglobal(##state, ##fnc); lua_call(##state, 0, 0)
-
 namespace blowbox
 {
 	LuaManager::LuaManager() 
@@ -13,6 +9,12 @@ namespace blowbox
 		luaopen_io(state_);
 		luaopen_string(state_);
 		luaopen_math(state_);
+		luaopen_table(state_);
+		luaopen_os(state_);
+		luaopen_bit(state_);
+		luaopen_ffi(state_);
+		luaopen_jit(state_);
+		luaopen_debug(state_);
 	};
 
 	LuaManager::~LuaManager() 
@@ -26,23 +28,12 @@ namespace blowbox
 		return ptr.get();
 	}
 
-	void LuaManager::MakeError(std::string err)
-	{
-		std::cout << "Lua error: " << err << std::endl;
-	}
-
 	void LuaManager::LoadScript(std::string path, bool reloading)
 	{
 		if (luaL_dofile(state_, path.c_str()))
 		{
 			BLOW_BREAK(lua_tostring(state_, -1));
 		}
-
-		LM_GAMECALL(state_, "Init");
-		LM_GAMECALL(state_, "Update");
-		LM_GAMECALL(state_, "Render");
-
-		LM_CALL(state_, "hurdur");
 
 		if (!reloading)
 		{

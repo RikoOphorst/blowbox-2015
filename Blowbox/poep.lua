@@ -1,5 +1,3 @@
-require("poep.lua")
-
 Game = {};
 
 Game.Init = function () 

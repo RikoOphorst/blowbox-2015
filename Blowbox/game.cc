@@ -33,6 +33,8 @@ namespace blowbox
 		displayDevice_->InitScene();
 
 		luaManager_->LoadScript("main.lua");
+
+		LuaCallback<double> update("Game", "Update");
 		
 		InitDeltaTime();
 
@@ -45,6 +47,8 @@ namespace blowbox
 
 		while (window_->started())
 		{
+			update.Call(deltaTime_);
+			
 			UpdateDeltaTime();
 			Update();
 			Draw();
