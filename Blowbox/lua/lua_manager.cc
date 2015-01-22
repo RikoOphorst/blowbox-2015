@@ -17,7 +17,7 @@ namespace blowbox
 
 	LuaManager::~LuaManager() 
 	{
-
+		lua_close(state_);
 	};
 
 	LuaManager* LuaManager::Instance()
@@ -34,7 +34,9 @@ namespace blowbox
 	void LuaManager::LoadScript(std::string path, bool reloading)
 	{
 		if (luaL_dofile(state_, path.c_str()))
-			MakeError(lua_tostring(state_, -1));
+		{
+			BLOW_BREAK(lua_tostring(state_, -1));
+		}
 
 		LM_GAMECALL(state_, "Init");
 		LM_GAMECALL(state_, "Update");
