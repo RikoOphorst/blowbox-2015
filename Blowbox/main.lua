@@ -1,9 +1,17 @@
-function sum (a, b)
-	return a + b;
+Game = {};
+
+Game.Init = function () 
+	print("Initur")
 end
 
-tree = sum(5, 8)
+Game.Update = function () 
+	print("Updatur")
+end
 
-print("hurdurururrrfgdkjhgkfdhj")
+Game.Render = function () 
+	print("Rendur")
+end
 
-
+function hurdur ()
+	print("hurdur")
+end

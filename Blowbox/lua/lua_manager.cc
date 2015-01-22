@@ -1,13 +1,8 @@
 #include "lua_manager.h"
 
-
-
-void error(const char *fmt, ...) {
-	va_list argp;
-	va_start(argp, fmt);
-	vfprintf(stderr, fmt, argp);
-	va_end(argp);
-}
+#define LM_STATE LuaManager::Instance()->GetState()
+#define LM_GAMECALL(state, fnc) lua_getglobal(##state, "Game"); lua_getfield(##state, -1, ##fnc); lua_call(##state, 0, 0)
+#define LM_CALL(state, fnc) lua_getglobal(##state, ##fnc); lua_call(##state, 0, 0)
 
 namespace blowbox
 {
@@ -41,12 +36,20 @@ namespace blowbox
 		if (luaL_dofile(state_, path.c_str()))
 			MakeError(lua_tostring(state_, -1));
 
-		lua_getglobal(state_, "tree");
-		std::cout << "tree is " << lua_tonumber(state_, -1) << std::endl;
+		LM_GAMECALL(state_, "Init");
+		LM_GAMECALL(state_, "Update");
+		LM_GAMECALL(state_, "Render");
+
+		LM_CALL(state_, "hurdur");
 
 		if (!reloading)
 		{
 			FileWatch::Instance()->Add(path, FileType::Script);
 		}
+	}
+
+	lua_State* LuaManager::GetState()
+	{
+		return state_;
 	}
 }

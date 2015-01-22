@@ -24,6 +24,7 @@ namespace blowbox
 
 		void MakeError(std::string);
 
+		lua_State* GetState();
 	private:
 		lua_State* state_;
 	};
