@@ -61,7 +61,7 @@ namespace blowbox
 		file.lastTime = GetTimeForFile(path, &failed);
 		file.type = type;
 
-		BLOW_ASSERT(failed, "Can not watch file '" + path + "'.");
+		BLOW_ASSERT(!failed, "Can not watch file '" + path + "'.");
 
 		queue_.push(file);
 	}

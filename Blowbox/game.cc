@@ -57,6 +57,8 @@ namespace blowbox
 	{
 		window_->ProcessMessages();
 
+		fileWatch_->Update();
+
 		keyboard_->Update();
 		mouse_->Update();
 
