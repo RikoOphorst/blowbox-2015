@@ -51,6 +51,9 @@ namespace blowbox
 		FileWatch*			fileWatch_		= FileWatch::Instance();
 		LuaManager*			luaManager_		= LuaManager::Instance();
 		SharedPtr<Window>	window_			= new Window();
+		LuaCallback<>		LuaInit_		= LuaCallback<>("Game", "Init");
+		LuaCallback<double>	LuaUpdate_		= LuaCallback<double>("Game", "Update");
+		LuaCallback<double>	LuaRender_		= LuaCallback<double>("Game", "Render");
 
 		void								InitDeltaTime();
 		void								UpdateDeltaTime();

@@ -31,12 +31,10 @@ namespace blowbox
 	void Game::Run()
 	{
 		displayDevice_->InitScene();
-
-		luaManager_->LoadScript("main.lua");
-
-		LuaCallback<double> update("Game", "Update");
 		
 		InitDeltaTime();
+		LuaManager::Instance()->LoadScript("main.lua");
+		LuaInit_.Call();
 
 		SharedPtr<D3D11Camera> camera(new D3D11Camera(CAM_ORTHOGRAPHIC));
 		displayDevice_->SetCamera(camera.get());
@@ -46,9 +44,7 @@ namespace blowbox
 		displayDevice_->AddElement(myQuad.get());
 
 		while (window_->started())
-		{
-			update.Call(deltaTime_);
-			
+		{	
 			UpdateDeltaTime();
 			Update();
 			Draw();
@@ -66,11 +62,12 @@ namespace blowbox
 		keyboard_->Update();
 		mouse_->Update();
 
-		displayDevice_->Update(deltaTime_);
+		LuaUpdate_.Call(deltaTime_);
 	}
 
 	void Game::Draw()
 	{
+		LuaRender_.Call(deltaTime_);
 		displayDevice_->BeginDraw();
 		displayDevice_->Draw();
 		displayDevice_->EndDraw();

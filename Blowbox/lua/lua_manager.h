@@ -14,6 +14,7 @@ extern "C"
 #define LM_STATE LuaManager::Instance()->GetState()
 #define LM_GAMECALL(state, fnc) lua_getglobal(##state, "Game"); lua_getfield(##state, -1, ##fnc); lua_call(##state, 0, 0)
 #define LM_CALL(state, fnc) lua_getglobal(##state, ##fnc); lua_call(##state, 0, 0)
+#define LM_FUNCTION(state, fnc, name) lua_pushcfunction(##state, ##fnc); lua_setglobal(##state, ##name);
 
 namespace blowbox
 {
@@ -27,7 +28,14 @@ namespace blowbox
 
 		void LoadScript(std::string path, bool reloading = false);
 
+		static int LuaRequire(lua_State *L);
+
 		lua_State* GetState();
+
+		inline int push_data()
+		{
+			return 0;
+		}
 
 		template<typename T>
 		inline int push_data(T first)

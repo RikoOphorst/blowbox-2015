@@ -1,7 +1,7 @@
 #include "lua_manager.h"
 
 namespace blowbox
-{
+{	
 	LuaManager::LuaManager() 
 	{
 		state_ = lua_open();
@@ -15,6 +15,8 @@ namespace blowbox
 		luaopen_ffi(state_);
 		luaopen_jit(state_);
 		luaopen_debug(state_);
+
+		LM_FUNCTION(state_, LuaManager::LuaRequire, "require");
 	};
 
 	LuaManager::~LuaManager() 
@@ -44,5 +46,12 @@ namespace blowbox
 	lua_State* LuaManager::GetState()
 	{
 		return state_;
+	}
+
+	int LuaManager::LuaRequire (lua_State *L) {
+		const char* path = luaL_checkstring(L, 1);
+		LuaManager::Instance()->LoadScript(path);
+
+		return 0;
 	}
 }

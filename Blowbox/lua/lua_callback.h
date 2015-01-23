@@ -41,6 +41,7 @@ namespace blowbox
 				lua_getglobal(LuaManager::Instance()->GetState(), fnc_.c_str());
 			}
 			
+
 			int nargs = LuaManager::Instance()->push_data(args...);
 
 			int result = lua_pcall(LuaManager::Instance()->GetState(), nargs, 0, 0);
