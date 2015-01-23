@@ -17,6 +17,7 @@ namespace blowbox
 		enum ContentTypes
 		{
 			kTexture,
+			kShader
 		};
 
 		struct PendingContent
@@ -28,9 +29,15 @@ namespace blowbox
 		ContentManager();
 		~ContentManager();
 
-		void LoadTexture(std::string path);
+		static ContentManager* Instance();
+
+		void Update();
+
+		D3D11Texture* GetTexture(std::string path);
+		D3D11Texture* LoadTexture(std::string path);
+		std::map<std::string, SharedPtr<D3D11Texture>>::const_iterator FindTexture(std::string path);
 	private:
-		std::map<std::string, SharedPtr<Content<D3D11Texture>>>		loaded_textures_;
+		std::map<std::string, SharedPtr<D3D11Texture>>		loaded_textures_;
 		std::queue<PendingContent>									pending_content_;
 	};
 }

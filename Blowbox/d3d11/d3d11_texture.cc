@@ -78,7 +78,13 @@ namespace blowbox
 			texture_->Release();
 		}
 		
-		D3DX11CreateShaderResourceViewFromFileA(D3D11DisplayDevice::Instance()->GetDevice(), filePath.c_str(), NULL, NULL, &texture_, NULL);
+		HRESULT hr = S_OK;
+
+		hr = D3DX11CreateShaderResourceViewFromFileA(D3D11DisplayDevice::Instance()->GetDevice(), filePath.c_str(), NULL, NULL, &texture_, NULL);
+
+		BLOW_ASSERT_HR(hr, "There was an error loading a texture, filepath: " + filePath);
+
+		FileWatch::Instance()->Add(filePath, FileType::Texture);
 	}
 
 	std::string& D3D11Texture::GetName()

@@ -30,12 +30,12 @@ namespace blowbox
 
 	void D3D11RenderElement::SetTexture()
 	{
-		texture_->Set();
+		texture_ = nullptr;
 	}
 
 	void D3D11RenderElement::SetTexture(std::string filePath)
 	{
-		texture_->Set(filePath);
+		texture_ = ContentManager::Instance()->GetTexture(filePath);
 	}
 
 	ID3D11ShaderResourceView* D3D11RenderElement::GetTexture()

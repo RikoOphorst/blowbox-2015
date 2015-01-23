@@ -8,6 +8,7 @@
 
 #include "../memory/shared_ptr.h"
 #include "../lua/lua_manager.h"
+#include "../content/content_manager.h"
 
 namespace blowbox
 {

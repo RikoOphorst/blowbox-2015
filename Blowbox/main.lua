@@ -10,9 +10,9 @@ end
 Game.dts = Game.dts or {}
 
 Game.Update = function (a) 
-	print("Soo edge")
+	--print("Soo edge")
 end
 
 Game.Render = function () 
-	print("Rendur")
+	--print("Rendur")
 end

@@ -45,6 +45,9 @@ namespace blowbox
 					case FileType::Shader:
 						//ReloadShader(it);
 						break;
+					case FileType::Texture:
+						ReloadTexture(it);
+						break;
 					}
 					it.lastTime = lastTime;
 					break;
@@ -70,6 +73,12 @@ namespace blowbox
 	{
 		LuaManager::Instance()->LoadScript(file.path, true);
 		BLOW_LOG("Hot reloaded a script:" + file.path)
+	}
+
+	void FileWatch::ReloadTexture(FileWatched& file)
+	{
+		ContentManager::Instance()->LoadTexture(file.path);
+		BLOW_LOG("Hot reloaded a texture:" + file.path);
 	}
 
 	FILETIME FileWatch::GetTimeForFile(std::string& path, bool* failed)

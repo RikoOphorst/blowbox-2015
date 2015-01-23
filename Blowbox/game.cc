@@ -33,6 +33,7 @@ namespace blowbox
 		displayDevice_->InitScene();
 		
 		InitDeltaTime();
+		
 		LuaManager::Instance()->LoadScript("main.lua");
 		LuaInit_.Call();
 

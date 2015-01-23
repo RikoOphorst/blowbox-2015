@@ -2,6 +2,7 @@
 
 #include "d3d11_display_device.h"
 #include "d3d11_texture.h"
+#include "../content/content_manager.h"
 
 namespace blowbox
 {
@@ -36,7 +37,7 @@ namespace blowbox
 		XMVECTOR							rotation_;
 		XMVECTOR							scale_;
 		XMFLOAT2							size_;
-		SharedPtr<D3D11Texture>				texture_;
+		D3D11Texture*						texture_;
 		float								alpha_;
 	};
 }
