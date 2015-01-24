@@ -2,6 +2,7 @@
 
 #include "d3d11_display_device.h"
 #include "d3d11_texture.h"
+#include "d3d11_shader.h"
 #include "../content/content_manager.h"
 
 namespace blowbox
@@ -15,9 +16,11 @@ namespace blowbox
 		virtual void						Draw() = 0;
 		virtual XMMATRIX&					GetWorld();
 
-		ID3D11ShaderResourceView*			GetTexture();
-		void								SetTexture();
-		void								SetTexture(std::string filePath);
+		void								SetTexture(D3D11Texture* texture);
+		D3D11Texture*						GetTexture();
+
+		void								SetShader(D3D11Shader* shader);
+		D3D11Shader*						GetShader();
 
 		void								SetPosition(float x, float y, float z);
 		void								SetRotation(float x, float y, float z);
@@ -38,6 +41,7 @@ namespace blowbox
 		XMVECTOR							scale_;
 		XMFLOAT2							size_;
 		D3D11Texture*						texture_;
+		D3D11Shader*						shader_;
 		float								alpha_;
 	};
 }

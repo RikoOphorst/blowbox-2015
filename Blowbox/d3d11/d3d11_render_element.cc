@@ -4,6 +4,7 @@ namespace blowbox
 {
 	D3D11RenderElement::D3D11RenderElement()
 		: texture_(new D3D11Texture())
+		, shader_(new D3D11Shader("shaders/effects.fx"))
 	{
 		SetPosition(0.0f, 0.0f, 0.0f);
 		SetRotation(0.0f, 0.0f, 0.0f);
@@ -20,6 +21,12 @@ namespace blowbox
 		}
 	}
 
+	D3D11RenderElement::~D3D11RenderElement()
+	{
+		delete texture_;
+		delete shader_;
+	}
+
 	XMMATRIX& D3D11RenderElement::GetWorld()
 	{
 		float sx = XMVectorGetX(scale_) * size_.x;
@@ -28,19 +35,24 @@ namespace blowbox
 		return world_;
 	}
 
-	void D3D11RenderElement::SetTexture()
+	void D3D11RenderElement::SetTexture(D3D11Texture* texture)
 	{
-		texture_ = nullptr;
+		texture_ = texture;
 	}
 
-	void D3D11RenderElement::SetTexture(std::string filePath)
+	D3D11Texture* D3D11RenderElement::GetTexture()
 	{
-		texture_ = ContentManager::Instance()->GetTexture(filePath);
+		return texture_;
 	}
 
-	ID3D11ShaderResourceView* D3D11RenderElement::GetTexture()
+	void D3D11RenderElement::SetShader(D3D11Shader* shader)
 	{
-		return texture_->Get();
+		shader_ = shader;
+	}
+
+	D3D11Shader* D3D11RenderElement::GetShader()
+	{
+		return shader_;
 	}
 
 	void D3D11RenderElement::SetPosition(float x, float y, float z)
@@ -92,10 +104,5 @@ namespace blowbox
 	XMFLOAT2& D3D11RenderElement::GetSize()
 	{
 		return size_;
-	}
-
-	D3D11RenderElement::~D3D11RenderElement()
-	{
-		
 	}
 }

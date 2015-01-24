@@ -58,27 +58,33 @@ namespace blowbox
 
 	void FileWatch::Add(std::string& path, FileType type) 
 	{
-		FileWatched file;
-		file.path = path;
-		bool failed = false;
-		file.lastTime = GetTimeForFile(path, &failed);
-		file.type = type;
+		if (files_.find(path) == files_.end())
+		{
+			FileWatched file;
+			file.path = path;
+			bool failed = false;
+			file.lastTime = GetTimeForFile(path, &failed);
+			file.type = type;
 
-		BLOW_ASSERT(!failed, "Can not watch file '" + path + "'.");
+			while (failed)
+			{
+				file.lastTime = GetTimeForFile(path, &failed);
+			}
 
-		queue_.push(file);
+			queue_.push(file);
+		}
 	}
 
 	void FileWatch::ReloadScript(FileWatched& file)
 	{
 		LuaManager::Instance()->LoadScript(file.path, true);
-		BLOW_LOG("Hot reloaded a script:" + file.path)
+		BLOW_LOG("Hot reloaded a script: " + file.path)
 	}
 
 	void FileWatch::ReloadTexture(FileWatched& file)
 	{
 		ContentManager::Instance()->LoadTexture(file.path);
-		BLOW_LOG("Hot reloaded a texture:" + file.path);
+		BLOW_LOG("Hot reloaded a texture: " + file.path);
 	}
 
 	FILETIME FileWatch::GetTimeForFile(std::string& path, bool* failed)

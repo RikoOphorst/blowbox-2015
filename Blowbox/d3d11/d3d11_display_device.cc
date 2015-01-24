@@ -202,13 +202,17 @@ namespace blowbox
 	//----------------------------------------------------------------------------------------------------------------
 	void D3D11DisplayDevice::DrawElement(D3D11RenderElement* renderElement)
 	{
+		context_->VSSetShader(renderElement->GetShader()->GetVS(), 0, 0);
+		context_->PSSetShader(renderElement->GetShader()->GetPS(), 0, 0);
+
 		cBufferData_.WVP = XMMatrixTranspose(renderElement->GetWorld() * camera_->GetView() * camera_->GetProjection());
 		cBufferData_.alpha = renderElement->GetAlpha();
 		context_->UpdateSubresource(cBuffer_, 0, NULL, &cBufferData_, 0, 0);
+
 		context_->VSSetConstantBuffers(0, 1, &cBuffer_);
 		context_->PSSetConstantBuffers(0, 1, &cBuffer_);
 
-		ID3D11ShaderResourceView* tex = renderElement->GetTexture();
+		ID3D11ShaderResourceView* tex = renderElement->GetTexture()->Get();
 		context_->PSSetShaderResources(0, 1, &tex);
 		context_->PSSetSamplers(0, 1, &samplerState_);
 

@@ -11,6 +11,8 @@ namespace blowbox
 	template<typename T>
 	class Content;
 	
+	class D3D11Texture;
+
 	class ContentManager
 	{
 	public:

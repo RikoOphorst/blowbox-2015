@@ -41,8 +41,17 @@ namespace blowbox
 		displayDevice_->SetCamera(camera.get());
 
 		SharedPtr<Quad> myQuad(new Quad());
-		myQuad->SetTexture("tex1.png");
+		myQuad->GetTexture()->Set("tex1.png");
+		myQuad->GetShader()->Set("shaders/anotherFile.fx");
+		myQuad->SetPosition(-50.0f, 0, 0);
+
+		SharedPtr<Quad> myQuad2(new Quad());
+		myQuad2->GetTexture()->Set("tex1.png");
+		myQuad2->GetShader()->Set("shaders/effects.fx");
+		myQuad2->SetPosition(50.0f, 0, 0);
+
 		displayDevice_->AddElement(myQuad.get());
+		displayDevice_->AddElement(myQuad2.get());
 
 		while (window_->started())
 		{	
