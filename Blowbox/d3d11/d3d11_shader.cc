@@ -58,6 +58,11 @@ namespace blowbox
 	{
 		HRESULT hr = S_OK;
 
+		BLOW_SAFE_RELEASE_NB(vs_);
+		BLOW_SAFE_RELEASE_NB(vsBuffer_);
+		BLOW_SAFE_RELEASE_NB(ps_);
+		BLOW_SAFE_RELEASE_NB(psBuffer_);
+
 		hr = D3DX11CompileFromFileA(vertexShaderPath.c_str(), 0, 0, "VS", "vs_4_0", 0, 0, 0, &vsBuffer_, 0, 0);
 		BLOW_ASSERT_HR(hr, "Error compiling vertex shader: " + vertexShaderPath);
 
