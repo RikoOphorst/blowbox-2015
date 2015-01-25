@@ -10,14 +10,50 @@ extern "C"
 #include "../memory/shared_ptr.h"
 #include "../win32/file_watch.h"
 #include "lua_callback.h"
+#include "lua_class.h"
 
 #define LM_STATE LuaManager::Instance()->GetState()
 #define LM_GAMECALL(state, fnc) lua_getglobal(##state, "Game"); lua_getfield(##state, -1, ##fnc); lua_call(##state, 0, 0)
+#define LM_METHODCALL(state, table, fnc) lua_getglobal(##state, ##table); lua_getfield(##state, -1, ##fnc); lua_call(##state, 0, 0)
 #define LM_CALL(state, fnc) lua_getglobal(##state, ##fnc); lua_call(##state, 0, 0)
 #define LM_FUNCTION(state, fnc, name) lua_pushcfunction(##state, ##fnc); lua_setglobal(##state, ##name);
+#define LM_METHOD(state, fnc, table, name) lua_getglobal(##state, ##table); lua_pushcfunction(##state, ##fnc); lua_setfield(##state, -2, ##name)
 
 namespace blowbox
 {
+	template<typename T>
+	class LuaRegister
+	{
+	public:
+		inline static void Register(lua_State* state, bool constructable = false)
+		{
+			T::RegisterFunctions(state);
+
+			if (constructable)
+			{
+				lua_pushcfunction(state, LuaRegister<T>::LuaNew);
+				lua_setfield(state, -2, "new");
+
+				lua_pushvalue(state, -1);
+				lua_setfield(state, -1, "__index");
+				lua_setglobal(state, T::class_name());
+			}
+		};
+
+		inline static int LuaNew(lua_State* state)
+		{
+			T* p = new T(state);
+			
+			typedef struct { T* pT; } userDataType;
+
+			userDataType** udata = (userDataType**)lua_newuserdata(state, sizeof(userDataType*));
+			
+			luaL_getmetatable(state, T::class_name());
+			lua_setmetatable(state, -2);
+			return 1;
+		}
+	};
+
 	class LuaManager
 	{
 	public:
@@ -28,7 +64,9 @@ namespace blowbox
 
 		void LoadScript(std::string path, bool reloading = false);
 
-		static int LuaRequire(lua_State *L);
+		static int LuaRequire(lua_State* state);
+
+		static int LuaNew(lua_State* state);
 
 		lua_State* GetState();
 

@@ -31,14 +31,16 @@ namespace blowbox
 	void Game::Run()
 	{
 		displayDevice_->InitScene();
+
+		SharedPtr<D3D11Camera> camera(new D3D11Camera(CAM_ORTHOGRAPHIC));
+		displayDevice_->SetCamera(camera.get());
 		
 		InitDeltaTime();
 		
 		LuaManager::Instance()->LoadScript("main.lua");
-		LuaInit_.Call();
+		//LuaInit_.Call();
 
-		SharedPtr<D3D11Camera> camera(new D3D11Camera(CAM_ORTHOGRAPHIC));
-		displayDevice_->SetCamera(camera.get());
+		
 
 		SharedPtr<Quad> myQuad(new Quad());
 		myQuad->SetTexture("tex1.png");
@@ -72,12 +74,12 @@ namespace blowbox
 		keyboard_->Update();
 		mouse_->Update();
 
-		LuaUpdate_.Call(deltaTime_);
+		//LuaUpdate_.Call(deltaTime_);
 	}
 
 	void Game::Draw()
 	{
-		LuaRender_.Call(deltaTime_);
+		//LuaRender_.Call(deltaTime_);
 		displayDevice_->BeginDraw();
 		displayDevice_->Draw();
 		displayDevice_->EndDraw();

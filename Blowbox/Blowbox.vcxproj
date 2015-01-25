@@ -32,6 +32,7 @@
     <ClCompile Include="input\keyboard.cc" />
     <ClCompile Include="input\mouse.cc" />
     <ClCompile Include="lua\lua_callback.cc" />
+    <ClCompile Include="lua\lua_class.cc" />
     <ClCompile Include="lua\lua_manager.cc" />
     <ClCompile Include="main.cc">
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(DXSDK_DIR)\Include</AdditionalIncludeDirectories>
@@ -54,6 +55,7 @@
     <ClInclude Include="input\keyboard.h" />
     <ClInclude Include="input\mouse.h" />
     <ClInclude Include="lua\lua_callback.h" />
+    <ClInclude Include="lua\lua_class.h" />
     <ClInclude Include="lua\lua_manager.h" />
     <ClInclude Include="memory\shared_ptr.h" />
     <ClInclude Include="precompile\definitions.h" />

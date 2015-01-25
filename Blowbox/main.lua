@@ -1,9 +1,9 @@
-require("poep.lua")
+--require("poep.lua")
 
 Game = {};
 
 Game.Init = function () 
-	print("Initur")
+	local acc = Account:new();
 end
 
 
@@ -16,3 +16,8 @@ end
 Game.Render = function () 
 	--print("Rendur")
 end
+
+local q = Quad:new()
+q:bleh()
+
+print(Content)

@@ -1,4 +1,5 @@
 #include "file_watch.h"
+#include "../content/content_manager.h"
 
 namespace blowbox
 {

@@ -1,5 +1,7 @@
 #include "content_manager.h"
-#include <fstream>
+
+#include "../d3d11/d3d11_texture.h"
+#include "../d3d11/d3d11_shader.h"
 
 namespace blowbox
 {
@@ -8,9 +10,27 @@ namespace blowbox
 		
 	}
 
+	ContentManager::ContentManager(lua_State* state)
+	{
+		
+	};
+
 	ContentManager::~ContentManager()
 	{
 		
+	}
+
+	int ContentManager::RegisterFunctions(lua_State* state)
+	{
+		luaL_Reg regist[] =
+		{
+			{ "bla", Bla },
+			{ NULL, NULL }
+		};
+
+		LM_SINGLETON_REGISTER(state, regist, "luaL_Content", "Content");
+
+		return 1;
 	}
 
 	ContentManager* ContentManager::Instance()

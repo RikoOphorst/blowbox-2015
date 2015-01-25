@@ -1,8 +1,14 @@
 #include "lua_manager.h"
 
+#include "lua_class.h"
+#include "../content/content_manager.h"
+#include "../geom/quad.h"
+
+#include <sstream>
+
 namespace blowbox
-{	
-	LuaManager::LuaManager() 
+{
+	LuaManager::LuaManager()
 	{
 		state_ = lua_open();
 		luaopen_base(state_);
@@ -16,10 +22,12 @@ namespace blowbox
 		luaopen_jit(state_);
 		luaopen_debug(state_);
 
-		LM_FUNCTION(state_, LuaManager::LuaRequire, "require");
+		LuaRegister<ContentManager>::Register(state_);
+		LuaRegister<Quad>::Register(state_, true);
+
 	};
 
-	LuaManager::~LuaManager() 
+	LuaManager::~LuaManager()
 	{
 		lua_close(state_);
 	};
@@ -48,9 +56,20 @@ namespace blowbox
 		return state_;
 	}
 
-	int LuaManager::LuaRequire (lua_State *L) {
+	int LuaManager::LuaRequire(lua_State *L) 
+	{
 		const char* path = luaL_checkstring(L, 1);
-		LuaManager::Instance()->LoadScript(path);
+		//LuaManager::Instance()->LoadScript(path);
+
+		return 0;
+	}
+
+	int LuaManager::LuaNew(lua_State* state)
+	{
+		if (lua_istable(state, -1))
+		{
+			
+		}
 
 		return 0;
 	}

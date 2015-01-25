@@ -3,9 +3,8 @@
 #include <map>
 #include <queue>
 #include "../memory/shared_ptr.h"
-#include "../d3d11/d3d11_texture.h"
-#include "../d3d11/d3d11_shader.h"
-#include "content.h"
+#include "../lua/lua_manager.h"
+#include "../lua/lua_class.h"
 
 namespace blowbox
 {
@@ -15,7 +14,7 @@ namespace blowbox
 	class D3D11Texture;
 	class D3D11Shader;
 
-	class ContentManager
+	class ContentManager : public LuaClass
 	{
 	public:
 		enum ContentTypes
@@ -31,9 +30,15 @@ namespace blowbox
 		};
 	public:
 		ContentManager();
+		ContentManager(lua_State* state);
+
 		~ContentManager();
 
 		static ContentManager* Instance();
+
+		static int RegisterFunctions(lua_State* state);
+
+		static int Bla(lua_State* state){ std::cout << "lmao" << std::endl; return 0; };
 
 		void Update();
 
@@ -42,6 +47,8 @@ namespace blowbox
 
 		D3D11Shader* GetShader(std::string path);
 		D3D11Shader* LoadShader(std::string path);
+
+		LM_NAME("Content");
 	private:
 		std::map<std::string, SharedPtr<D3D11Texture>>		loaded_textures_;
 		std::map<std::string, SharedPtr<D3D11Shader>>		loaded_shaders_;
