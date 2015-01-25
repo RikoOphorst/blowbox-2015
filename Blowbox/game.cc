@@ -38,7 +38,7 @@ namespace blowbox
 		InitDeltaTime();
 		
 		LuaManager::Instance()->LoadScript("main.lua");
-		//LuaInit_.Call();
+		LuaInit_.Call();
 
 		
 
@@ -74,12 +74,12 @@ namespace blowbox
 		keyboard_->Update();
 		mouse_->Update();
 
-		//LuaUpdate_.Call(deltaTime_);
+		LuaUpdate_.Call(deltaTime_);
 	}
 
 	void Game::Draw()
 	{
-		//LuaRender_.Call(deltaTime_);
+		LuaRender_.Call(deltaTime_);
 		displayDevice_->BeginDraw();
 		displayDevice_->Draw();
 		displayDevice_->EndDraw();

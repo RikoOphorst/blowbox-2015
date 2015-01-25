@@ -18,6 +18,7 @@ extern "C"
 #define LM_CALL(state, fnc) lua_getglobal(##state, ##fnc); lua_call(##state, 0, 0)
 #define LM_FUNCTION(state, fnc, name) lua_pushcfunction(##state, ##fnc); lua_setglobal(##state, ##name);
 #define LM_METHOD(state, fnc, table, name) lua_getglobal(##state, ##table); lua_pushcfunction(##state, ##fnc); lua_setfield(##state, -2, ##name)
+#define LM_GETSELF(type) struct userDataType { type* pT; } *ud; ud = (userDataType*)(lua_touserdata(state, 1)); type* self = ud->pT;
 
 namespace blowbox
 {
@@ -46,10 +47,30 @@ namespace blowbox
 			
 			typedef struct { T* pT; } userDataType;
 
-			userDataType** udata = (userDataType**)lua_newuserdata(state, sizeof(userDataType*));
-			
 			luaL_getmetatable(state, T::class_name());
-			lua_setmetatable(state, -2);
+			int mt = lua_gettop(state);
+
+			lua_pushlightuserdata(state, p);
+			lua_gettable(state, -2);
+
+			if (lua_isnil(state, -1))
+			{
+				lua_pop(state, 1);
+				lua_checkstack(state, 3);
+				userDataType* udata = (userDataType*)lua_newuserdata(state, sizeof(userDataType*));
+				lua_pushlightuserdata(state, p);
+				lua_pushvalue(state, -2);
+				lua_settable(state, -4);
+
+				udata->pT = p;
+
+				lua_pushvalue(state, mt);
+				lua_setmetatable(state, -2);
+			}
+
+			lua_replace(state, mt);
+
+			lua_settop(state, mt);
 			return 1;
 		}
 	};

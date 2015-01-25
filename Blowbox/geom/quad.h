@@ -5,15 +5,13 @@
 
 namespace blowbox
 {
-	class Quad : public D3D11RenderElement, public LuaClass
+	class Quad : public D3D11RenderElement
 	{
 	public:
 		Quad();
 		Quad(lua_State* state);
 
-		static int Bleh(lua_State* state){
-			std::cout << "dja moedahs toeltip" << std::endl; return 0;
-		}
+		static int CleanUp(lua_State* state);
 
 		void Draw();
 

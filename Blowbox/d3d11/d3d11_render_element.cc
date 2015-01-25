@@ -106,4 +106,25 @@ namespace blowbox
 	{
 		return size_;
 	}
+
+	int D3D11RenderElement::LuaGetAlpha(lua_State* state)
+	{
+		LM_GETSELF(D3D11RenderElement);
+
+		lua_pushnumber(state, (double)self->GetAlpha());
+
+		return 1;
+	}
+
+	int D3D11RenderElement::LuaSetAlpha(lua_State* state)
+	{
+		LM_GETSELF(D3D11RenderElement);
+
+		double d = luaL_checknumber(state, -1);
+		self->SetAlpha(d);
+
+		std::cout << "Set alpha to " << d << std::endl;
+
+		return 0;
+	}
 }

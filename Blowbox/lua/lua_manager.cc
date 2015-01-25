@@ -24,7 +24,6 @@ namespace blowbox
 
 		LuaRegister<ContentManager>::Register(state_);
 		LuaRegister<Quad>::Register(state_, true);
-
 	};
 
 	LuaManager::~LuaManager()

@@ -7,7 +7,7 @@
 
 namespace blowbox
 {
-	class D3D11RenderElement
+	class D3D11RenderElement: public LuaClass
 	{
 	public:
 		D3D11RenderElement();
@@ -34,6 +34,21 @@ namespace blowbox
 		XMFLOAT2&							GetSize();
 		float&								GetAlpha();
 
+		static int							LuaSetTexture(lua_State* state);
+		static int							LuaSetShader(lua_State* state);
+		static int							LuaSetPosition(lua_State* state);
+		static int							LuaSetRotation(lua_State* state);
+		static int							LuaSetScale(lua_State* state);
+		static int							LuaSetSize(lua_State* state);
+		static int							LuaSetAlpha(lua_State* state);
+
+		static int							LuaGetTexture(lua_State* state);
+		static int							LuaGetShader(lua_State* state);
+		static int							LuaGetPosition(lua_State* state);
+		static int							LuaGetRotation(lua_State* state);
+		static int							LuaGetScale(lua_State* state);
+		static int							LuaGetSize(lua_State* state);
+		static int							LuaGetAlpha(lua_State* state);
 	private:
 		XMMATRIX 							world_;
 		XMVECTOR 							position_;

@@ -47,7 +47,8 @@ namespace blowbox
 	{
 		luaL_Reg regist[] =
 		{
-			{ "bleh", Bleh },
+			{ "GetAlpha", LuaGetAlpha },
+			{ "SetAlpha", LuaSetAlpha },
 			{ NULL, NULL }
 		};
 
