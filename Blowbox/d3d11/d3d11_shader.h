@@ -2,6 +2,7 @@
 
 #include "../memory/shared_ptr.h"
 #include "d3d11_display_device.h"
+#include "../win32/file_watch.h"
 
 namespace blowbox
 {
@@ -9,12 +10,9 @@ namespace blowbox
 	{
 	public:
 		D3D11Shader(std::string path);
-		D3D11Shader(std::string vertexShaderPath, std::string pixelShaderPath);
 		~D3D11Shader();
 
-		void						Set();
 		void						Set(std::string path);
-		void						Set(std::string vertexShaderPath, std::string pixelShaderPath);
 
 		ID3D11VertexShader*			GetVS();
 		ID3D10Blob*					GetVSBuffer();

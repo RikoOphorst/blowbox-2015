@@ -28,8 +28,10 @@ namespace blowbox
 			switch (it.type)
 			{
 			case ContentTypes::kTexture:
-				SharedPtr<D3D11Texture> texture(new D3D11Texture(it.path));
-				loaded_textures_.emplace(it.path, texture);
+				LoadTexture(it.path);
+				break;
+			case ContentTypes::kShader:
+				LoadShader(it.path);
 				break;
 			}
 			
@@ -39,10 +41,10 @@ namespace blowbox
 
 	D3D11Texture* ContentManager::GetTexture(std::string path)
 	{
-		std::map<std::string, SharedPtr<D3D11Texture>>::const_iterator tex = FindTexture(path);
-		if (tex != loaded_textures_.end())
+		const auto& it = loaded_textures_.find(path);
+		if (it != loaded_textures_.end())
 		{
-			return tex->second.get();
+			return it->second.get();
 		}
 		else
 		{
@@ -52,26 +54,54 @@ namespace blowbox
 		return nullptr;
 	}
 
-	std::map<std::string, SharedPtr<D3D11Texture>>::const_iterator ContentManager::FindTexture(std::string path)
-	{
-		std::map<std::string, SharedPtr<D3D11Texture>>::const_iterator tex = loaded_textures_.find(path);
-		return tex;
-	}
-
 	D3D11Texture* ContentManager::LoadTexture(std::string path)
 	{
-		std::map<std::string, SharedPtr<D3D11Texture>>::const_iterator tex = FindTexture(path);
-		if (tex != loaded_textures_.end())
+		const auto& it = loaded_textures_.find(path);
+		if (it != loaded_textures_.end())
 		{
-			tex->second.get()->Set(path);
-			return tex->second.get();
+			it->second->Set(path);
+			return it->second.get();
 		}
 		else
 		{
 			SharedPtr<D3D11Texture> texture(new D3D11Texture(path));
-			loaded_textures_.emplace(path, texture);
+			D3D11Texture* tex = texture.get();
+			loaded_textures_.emplace(path, std::move(texture));
 
-			return texture.get();
+			return tex;
+		}
+	}
+
+	D3D11Shader* ContentManager::GetShader(std::string path)
+	{
+		const auto& it = loaded_shaders_.find(path);
+		if (loaded_shaders_.find(path) != loaded_shaders_.end())
+		{
+			return it->second.get();
+		}
+		else
+		{
+			return LoadShader(path);
+		}
+
+		return nullptr;
+	}
+
+	D3D11Shader* ContentManager::LoadShader(std::string path)
+	{
+		const auto& it = loaded_shaders_.find(path);
+		if (it != loaded_shaders_.end())
+		{
+			it->second.get()->Set(path);
+			return it->second.get();
+		}
+		else
+		{
+			SharedPtr<D3D11Shader> shader(new D3D11Shader(path));
+			D3D11Shader* ptr = shader.get();
+			loaded_shaders_.emplace(path, std::move(shader));
+
+			return ptr;
 		}
 	}
 }

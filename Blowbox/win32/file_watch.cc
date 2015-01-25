@@ -43,7 +43,7 @@ namespace blowbox
 						ReloadScript(it);
 						break;
 					case FileType::Shader:
-						//ReloadShader(it);
+						ReloadShader(it);
 						break;
 					case FileType::Texture:
 						ReloadTexture(it);
@@ -85,6 +85,12 @@ namespace blowbox
 	{
 		ContentManager::Instance()->LoadTexture(file.path);
 		BLOW_LOG("Hot reloaded a texture: " + file.path);
+	}
+
+	void FileWatch::ReloadShader(FileWatched& file)
+	{
+		ContentManager::Instance()->LoadShader(file.path);
+		BLOW_LOG("Hot reloaded a shader: " + file.path);
 	}
 
 	FILETIME FileWatch::GetTimeForFile(std::string& path, bool* failed)

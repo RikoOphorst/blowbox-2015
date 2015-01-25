@@ -26,7 +26,7 @@ float4 PS(VS_OUTPUT input) : SV_TARGET
 {
 	float4 base = ObjTexture.Sample(ObjSamplerState, input.TexCoord);
 
-	base.a *= 0.5f;
+	base.a *= 0.7f;
 
 	return base;
 }

@@ -3,13 +3,15 @@
 namespace blowbox
 {
 	D3D11RenderElement::D3D11RenderElement()
-		: texture_(new D3D11Texture())
-		, shader_(new D3D11Shader("shaders/effects.fx"))
 	{
 		SetPosition(0.0f, 0.0f, 0.0f);
 		SetRotation(0.0f, 0.0f, 0.0f);
 		SetScale(1.0f, 1.0f, 1.0f);
 		SetAlpha(1.0f);
+
+		texture_ = ContentManager::Instance()->GetTexture("tex1.png");
+
+		shader_ = ContentManager::Instance()->GetShader("shaders/effects.fx");
 
 		if (D3D11DisplayDevice::Instance()->GetCamera()->GetMode() == CAM_ORTHOGRAPHIC)
 		{
@@ -23,8 +25,7 @@ namespace blowbox
 
 	D3D11RenderElement::~D3D11RenderElement()
 	{
-		delete texture_;
-		delete shader_;
+		
 	}
 
 	XMMATRIX& D3D11RenderElement::GetWorld()
@@ -35,9 +36,9 @@ namespace blowbox
 		return world_;
 	}
 
-	void D3D11RenderElement::SetTexture(D3D11Texture* texture)
+	void D3D11RenderElement::SetTexture(std::string path)
 	{
-		texture_ = texture;
+		texture_ = ContentManager::Instance()->GetTexture(path);
 	}
 
 	D3D11Texture* D3D11RenderElement::GetTexture()
@@ -45,9 +46,9 @@ namespace blowbox
 		return texture_;
 	}
 
-	void D3D11RenderElement::SetShader(D3D11Shader* shader)
+	void D3D11RenderElement::SetShader(std::string path)
 	{
-		shader_ = shader;
+		shader_ = ContentManager::Instance()->GetShader(path);
 	}
 
 	D3D11Shader* D3D11RenderElement::GetShader()

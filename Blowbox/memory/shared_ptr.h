@@ -14,10 +14,10 @@ struct AllocatedMemory
 	}
 };
 
-static AllocatedMemory* allocated_memory()
+static AllocatedMemory& allocated_memory()
 {
 	static AllocatedMemory alloc;
-	return &alloc;
+	return alloc;
 }
 
 template<typename T>
@@ -27,15 +27,23 @@ public:
 	SharedPtr(T* ptr) :
 		std::shared_ptr<T>(ptr)
 	{
-		AllocatedMemory* alloc = allocated_memory();
-		++alloc->allocations;
-		alloc->allocated_memory += sizeof(this);
+		AllocatedMemory& alloc = allocated_memory();
+		++alloc.allocations;
+		alloc.allocated_memory += sizeof(this);
+	}
+
+	SharedPtr(SharedPtr&& other)
+	{
+		AllocatedMemory& alloc = allocated_memory();
+		++alloc.allocations;
+		alloc.allocated_memory += sizeof(this);
+		swap(other);
 	}
 
 	virtual ~SharedPtr()
 	{
-		AllocatedMemory* alloc = allocated_memory();
-		--alloc->allocations;
-		alloc->allocated_memory -= sizeof(this);
+		AllocatedMemory& alloc = allocated_memory();
+		--alloc.allocations;
+		alloc.allocated_memory -= sizeof(this);
 	}
 };

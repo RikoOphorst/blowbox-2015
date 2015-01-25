@@ -16,10 +16,10 @@ namespace blowbox
 		virtual void						Draw() = 0;
 		virtual XMMATRIX&					GetWorld();
 
-		void								SetTexture(D3D11Texture* texture);
+		void								SetTexture(std::string path);
 		D3D11Texture*						GetTexture();
 
-		void								SetShader(D3D11Shader* shader);
+		void								SetShader(std::string path);
 		D3D11Shader*						GetShader();
 
 		void								SetPosition(float x, float y, float z);
