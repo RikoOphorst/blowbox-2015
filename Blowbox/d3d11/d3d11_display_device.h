@@ -56,6 +56,7 @@ namespace blowbox
 		void						EndDraw();
 
 		void						AddElement(D3D11RenderElement* element);
+		void						RemoveElement(D3D11RenderElement* element);
 		
 		void						SetProjectionMatrix(float fov, float aspectRatio, float nearZ, float farZ);
 

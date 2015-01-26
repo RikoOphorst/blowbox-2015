@@ -7,14 +7,7 @@
 	*udata = new type(state); \
 	luaL_getmetatable(state, ##name); \
 	lua_setmetatable(state, -2);
-#define LM_SINGLETON_REGISTER(state, funcregister, identifier, name) \
-	luaL_newmetatable(state, ##identifier); \
-	luaL_register(state, NULL, funcregister); \
-	lua_pushvalue(state, -1); \
-	lua_setfield(state, -1, "__index"); \
-	lua_setglobal(state, ##name);
-#define LM_INSTANCE_REGISTER(state, funcregister, type) \
-	luaL_newmetatable(state, type::class_name()); \
+#define LM_REGISTER(state, funcregister) \
 	luaL_register(state, NULL, funcregister); 
 #define LM_NAME(name) static const char* class_name(){ return ##name; }
 

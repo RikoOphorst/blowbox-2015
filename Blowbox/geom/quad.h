@@ -3,6 +3,9 @@
 #include "../d3d11/d3d11_display_device.h"
 #include "../d3d11/d3d11_render_element.h"
 
+#include <array>
+#include <numeric>
+
 namespace blowbox
 {
 	class Quad : public D3D11RenderElement

@@ -52,7 +52,7 @@ namespace blowbox
 			{ NULL, NULL }
 		};
 
-		LM_INSTANCE_REGISTER(state, regist, Quad);
+		LM_REGISTER(state, regist);
 
 		return 0;
 	}
@@ -66,6 +66,8 @@ namespace blowbox
 
 	Quad::~Quad()
 	{
+		D3D11DisplayDevice::Instance()->RemoveElement(this);
+		
 		vertexBuffer_->Release();
 		indexBuffer_->Release();
 	};

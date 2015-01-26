@@ -1,5 +1,7 @@
 #include "d3d11_render_element.h"
 
+#include "../geom/quad.h"
+
 namespace blowbox
 {
 	D3D11RenderElement::D3D11RenderElement()
@@ -121,7 +123,7 @@ namespace blowbox
 		LM_GETSELF(D3D11RenderElement);
 
 		double d = luaL_checknumber(state, -1);
-		self->SetAlpha(d);
+		self->SetAlpha(static_cast<float>(d));
 
 		std::cout << "Set alpha to " << d << std::endl;
 

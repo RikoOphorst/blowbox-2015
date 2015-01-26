@@ -187,7 +187,7 @@ namespace blowbox
 		{
 			bool operator()(D3D11RenderElement* a, D3D11RenderElement* b)
 			{
-				return XMVectorGetZ(a->GetPosition()) < XMVectorGetZ(b->GetPosition());
+				return a != nullptr && b != nullptr && XMVectorGetZ(a->GetPosition()) < XMVectorGetZ(b->GetPosition());
 			}
 		} renderSorterZ;
 
@@ -195,6 +195,11 @@ namespace blowbox
 		
 		for (int i = static_cast<int>(renderElements_.size()) - 1; i >= 0; --i)
 		{
+			if (renderElements_[i] == nullptr)
+			{
+				renderElements_.erase(renderElements_.begin() + i);
+			}
+
 			DrawElement(renderElements_[i]);
 		}
 	}
@@ -231,6 +236,17 @@ namespace blowbox
 	void D3D11DisplayDevice::AddElement(D3D11RenderElement* renderElement)
 	{
 		renderElements_.push_back(renderElement);
+	}
+
+	void D3D11DisplayDevice::RemoveElement(D3D11RenderElement* renderElement)
+	{
+		for (auto& it : renderElements_)
+		{
+			if (it == renderElement)
+			{
+				it = nullptr;
+			}
+		}
 	}
 
 	//----------------------------------------------------------------------------------------------------------------

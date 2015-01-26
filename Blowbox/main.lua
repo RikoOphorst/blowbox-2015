@@ -2,8 +2,12 @@
 
 Game = {};
 
-local q = q or Quad:new()
-local t = t or 0
+function g ()
+	--local q = Quad:new()
+	q = nil
+end
+
+g();
 
 Game.Init = function () 
 	
@@ -13,8 +17,15 @@ end
 Game.dts = Game.dts or {}
 
 Game.Update = function (a)
-	t = t + a 
-	q:SetAlpha(math.abs(math.sin(t*5)))
+	--t = t + a 
+	--print(math.abs(math.sin(t)))
+
+	local a = Quad.new()
+
+	-- local abc = {}
+	-- for i=1,1000,1 do
+	-- 	table.insert(abc, Quad.new())
+	-- end
 end
 
 Game.Render = function () 

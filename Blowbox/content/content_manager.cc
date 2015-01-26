@@ -28,7 +28,7 @@ namespace blowbox
 			{ NULL, NULL }
 		};
 
-		LM_SINGLETON_REGISTER(state, regist, "luaL_Content", "Content");
+		LM_REGISTER(state, regist);
 
 		return 1;
 	}

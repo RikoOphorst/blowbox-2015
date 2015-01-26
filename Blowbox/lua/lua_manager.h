@@ -28,16 +28,43 @@ namespace blowbox
 	public:
 		inline static void Register(lua_State* state, bool constructable = false)
 		{
-			T::RegisterFunctions(state);
+			lua_newtable(state);
+			int methods = lua_gettop(state);
 
 			if (constructable)
 			{
-				lua_pushcfunction(state, LuaRegister<T>::LuaNew);
-				lua_setfield(state, -2, "new");
+				luaL_newmetatable(state, T::class_name());
+				int mt = lua_gettop(state);
 
+				lua_pushvalue(state, methods);
+				lua_setfield(state, LUA_GLOBALSINDEX, T::class_name());
+
+				lua_pushvalue(state, methods);
+				lua_pushvalue(state, methods);
+
+				lua_setfield(state, mt, "__index");
+
+				lua_pushcfunction(state, LuaRegister<T>::LuaGC);
+				lua_setfield(state, mt, "__gc");
+
+				lua_newtable(state);
+
+				lua_pushcfunction(state, LuaRegister<T>::LuaNew);
 				lua_pushvalue(state, -1);
-				lua_setfield(state, -1, "__index");
-				lua_setglobal(state, T::class_name());
+				lua_setfield(state, methods, "new");
+				lua_setfield(state, -3, "__call");
+				lua_setmetatable(state, methods);
+
+				lua_pushvalue(state, methods);
+
+				T::RegisterFunctions(state);
+
+				lua_pop(state, 3);
+			}
+			else
+			{
+				T::RegisterFunctions(state);
+				lua_setfield(state, LUA_GLOBALSINDEX, T::class_name());
 			}
 		};
 
@@ -49,6 +76,35 @@ namespace blowbox
 
 			luaL_getmetatable(state, T::class_name());
 			int mt = lua_gettop(state);
+
+			lua_pushstring(state, "userdata");
+
+			lua_gettable(state, mt);
+
+			if (lua_isnil(state, -1))
+			{
+				lua_pop(state, 1);
+
+				lua_checkstack(state, 3);
+
+				lua_newtable(state);
+
+				lua_pushvalue(state, -1);
+
+				lua_setmetatable(state, -2);
+
+				lua_pushliteral(state, "__mode");
+
+				lua_pushstring(state, "v");
+
+				lua_settable(state, -3);
+
+				lua_pushstring(state, "userdata");
+
+				lua_pushvalue(state, -2);
+
+				lua_settable(state, mt);
+			}
 
 			lua_pushlightuserdata(state, p);
 			lua_gettable(state, -2);
@@ -72,6 +128,16 @@ namespace blowbox
 
 			lua_settop(state, mt);
 			return 1;
+		}
+
+		inline static int LuaGC(lua_State* state)
+		{
+			LM_GETSELF(T);
+
+			delete self;
+			self = NULL;
+
+			return 0;
 		}
 	};
 
