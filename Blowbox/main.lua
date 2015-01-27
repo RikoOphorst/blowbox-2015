@@ -1,33 +1,21 @@
 --require("poep.lua")
 
-Game = {};
+Game = Game or {};
 
-function g ()
-	--local q = Quad:new()
-	q = nil
+Game.Init = function ()
+	Game.myQuad = Quad.new()
 end
-
-g();
-
-Game.Init = function () 
-	
-end
-
-
-Game.dts = Game.dts or {}
 
 Game.Update = function (a)
-	--t = t + a 
-	--print(math.abs(math.sin(t)))
+	Game.t = (Game.t or 0) + a
+	Game.myQuad:setAlpha(math.abs(math.sin(Game.t * 5)))
 
-	local a = Quad.new()
+	Game.myQuad:setPosition(math.floor(Game.t * 2), 0, 0)
 
-	-- local abc = {}
-	-- for i=1,1000,1 do
-	-- 	table.insert(abc, Quad.new())
-	-- end
+	local x, y, z = Game.myQuad:getPosition()
+	print(tostring(x) .. " " .. tostring(y) .. " " .. tostring(z) .. " " .. tostring(Game.myQuad:getAlpha()))
 end
 
 Game.Render = function () 
-	--print("Rendur")
+	
 end

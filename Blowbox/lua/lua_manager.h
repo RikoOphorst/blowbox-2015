@@ -18,7 +18,7 @@ extern "C"
 #define LM_CALL(state, fnc) lua_getglobal(##state, ##fnc); lua_call(##state, 0, 0)
 #define LM_FUNCTION(state, fnc, name) lua_pushcfunction(##state, ##fnc); lua_setglobal(##state, ##name);
 #define LM_METHOD(state, fnc, table, name) lua_getglobal(##state, ##table); lua_pushcfunction(##state, ##fnc); lua_setfield(##state, -2, ##name)
-#define LM_GETSELF(type) struct userDataType { type* pT; } *ud; ud = (userDataType*)(lua_touserdata(state, 1)); type* self = ud->pT;
+#define LM_GETSELF(type) if (!lua_isuserdata(LM_STATE, 1)) { BLOW_BREAK("Did you use a dot ( . ) instead of a colon ( : )?"); } struct userDataType { type* pT; } *ud; ud = (userDataType*)(lua_touserdata(state, 1)); type* self = ud->pT;
 
 namespace blowbox
 {
@@ -151,11 +151,20 @@ namespace blowbox
 
 		void LoadScript(std::string path, bool reloading = false);
 
-		static int LuaRequire(lua_State* state);
-
-		static int LuaNew(lua_State* state);
-
 		lua_State* GetState();
+
+		template<typename T>
+		static T GetValue(int stackIndex);
+
+		static int PushValue();
+		static int PushValue(int value);
+		static int PushValue(double value);
+		static int PushValue(float value);
+		static int PushValue(std::string value);
+		static int PushValue(const char* value);
+		static int PushValue(bool value);
+
+		static int LuaRequire(lua_State* state);
 
 		inline int push_data()
 		{

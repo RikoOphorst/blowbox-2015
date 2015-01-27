@@ -38,7 +38,7 @@ namespace blowbox
 		indexBuffer_ = D3D11DisplayDevice::Instance()->CreateIndexBuffer(indices);
 
 		D3D11DisplayDevice::Instance()->AddElement(this);
-		SetPosition(-50.0f, -20.0f, 0);
+		SetPosition(0, 0, 0);
 		SetTexture("tex1.png");
 		SetShader("shaders/anotherFile.fx");
 	}
@@ -47,8 +47,10 @@ namespace blowbox
 	{
 		luaL_Reg regist[] =
 		{
-			{ "GetAlpha", LuaGetAlpha },
-			{ "SetAlpha", LuaSetAlpha },
+			{ "getAlpha", LuaGetAlpha },
+			{ "setAlpha", LuaSetAlpha },
+			{ "getPosition", LuaGetPosition },
+			{ "setPosition", LuaSetPosition },
 			{ NULL, NULL }
 		};
 

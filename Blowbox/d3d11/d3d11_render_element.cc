@@ -113,7 +113,7 @@ namespace blowbox
 	{
 		LM_GETSELF(D3D11RenderElement);
 
-		lua_pushnumber(state, (double)self->GetAlpha());
+		LuaManager::PushValue(self->alpha_);
 
 		return 1;
 	}
@@ -121,11 +121,32 @@ namespace blowbox
 	int D3D11RenderElement::LuaSetAlpha(lua_State* state)
 	{
 		LM_GETSELF(D3D11RenderElement);
+		
+		self->SetAlpha(LuaManager::GetValue<float>(1));
 
-		double d = luaL_checknumber(state, -1);
-		self->SetAlpha(static_cast<float>(d));
+		return 0;
+	}
 
-		std::cout << "Set alpha to " << d << std::endl;
+	int D3D11RenderElement::LuaGetPosition(lua_State* state)
+	{
+		LM_GETSELF(D3D11RenderElement);
+
+		LuaManager::PushValue(XMVectorGetX(self->position_));
+		LuaManager::PushValue(XMVectorGetY(self->position_));
+		LuaManager::PushValue(XMVectorGetZ(self->position_));
+
+		return 3;
+	}
+
+	int D3D11RenderElement::LuaSetPosition(lua_State* state)
+	{
+		LM_GETSELF(D3D11RenderElement);
+
+		float x = LuaManager::GetValue<float>(1);
+		float y = LuaManager::GetValue<float>(2);
+		float z = LuaManager::GetValue<float>(3);
+
+		self->position_ = XMVectorSet(x, y, z, 1.0f);
 
 		return 0;
 	}
