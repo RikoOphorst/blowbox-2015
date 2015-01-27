@@ -57,6 +57,8 @@ namespace blowbox
 			{ "setShader", LuaSetShader },
 			{ "getTexture", LuaGetTexture },
 			{ "setTexture", LuaSetTexture },
+			{ "getScale", LuaGetScale },
+			{ "setScale", LuaSetScale },
 			{ NULL, NULL }
 		};
 

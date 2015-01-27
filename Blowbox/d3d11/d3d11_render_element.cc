@@ -191,4 +191,23 @@ namespace blowbox
 		return 0;
 	}
 
+	int D3D11RenderElement::LuaGetScale(lua_State* state)
+	{
+		LM_GETSELF(D3D11RenderElement);
+		LuaManager::PushValue(XMVectorGetX(self->scale_));
+		LuaManager::PushValue(XMVectorGetY(self->scale_));
+		LuaManager::PushValue(XMVectorGetZ(self->scale_));
+		return 3;
+	}
+
+	int D3D11RenderElement::LuaSetScale(lua_State* state)
+	{
+		LM_GETSELF(D3D11RenderElement);
+		self->SetScale(
+			LuaManager::GetValue<float>(1),
+			LuaManager::GetValue<float>(2),
+			LuaManager::GetValue<float>(3)
+		);
+		return 3;
+	}
 }

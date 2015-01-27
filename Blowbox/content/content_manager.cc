@@ -24,7 +24,8 @@ namespace blowbox
 	{
 		luaL_Reg regist[] =
 		{
-			{ "bla", Bla },
+			{ "loadTexture", LuaLoadTexture },
+			{ "loadShader", LuaLoadShader },
 			{ NULL, NULL }
 		};
 
@@ -123,5 +124,19 @@ namespace blowbox
 
 			return ptr;
 		}
+	}
+
+	int ContentManager::LuaLoadShader(lua_State* state)
+	{
+		ContentManager::Instance()->LoadShader(LuaManager::GetValue<std::string>(0));
+		std::cout << "Loaded a shader!" << std::endl;
+		return 0;
+	}
+
+	int ContentManager::LuaLoadTexture(lua_State* state)
+	{
+		ContentManager::Instance()->LoadTexture(LuaManager::GetValue<std::string>(0));
+		std::cout << "Loaded a texture!" << std::endl;
+		return 0;
 	}
 }

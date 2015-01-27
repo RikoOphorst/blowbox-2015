@@ -38,8 +38,6 @@ namespace blowbox
 
 		static int RegisterFunctions(lua_State* state);
 
-		static int Bla(lua_State* state){ std::cout << "lmao" << std::endl; return 0; };
-
 		void Update();
 
 		D3D11Texture* GetTexture(std::string path);
@@ -47,6 +45,9 @@ namespace blowbox
 
 		D3D11Shader* GetShader(std::string path);
 		D3D11Shader* LoadShader(std::string path);
+
+		static int LuaLoadTexture(lua_State* state);
+		static int LuaLoadShader(lua_State* state);
 
 		LM_NAME("Content");
 	private:
