@@ -18,10 +18,12 @@ namespace blowbox
 		ID3D10Blob*					GetVSBuffer();
 		ID3D11PixelShader*			GetPS();
 		ID3D10Blob*					GetPSBuffer();
+		std::string					GetPath();
 	private:
 		ID3D11PixelShader*			ps_;
 		ID3D11VertexShader*			vs_;
 		ID3D10Blob*					vsBuffer_;
 		ID3D10Blob*					psBuffer_;
+		std::string					path_;
 	};
 }

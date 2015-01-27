@@ -18,12 +18,9 @@ namespace blowbox
 		void							Set(std::string filePath);
 		void							Set();
 
-		std::string&					GetName();
-		void							SetName(std::string name);
-		
-		static int&						id();
+		std::string&					GetPath();
 	private:
 		ID3D11ShaderResourceView*		texture_;
-		std::string						name_;
+		std::string						path_;
 	};
 }

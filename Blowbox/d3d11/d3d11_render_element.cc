@@ -112,42 +112,83 @@ namespace blowbox
 	int D3D11RenderElement::LuaGetAlpha(lua_State* state)
 	{
 		LM_GETSELF(D3D11RenderElement);
-
 		LuaManager::PushValue(self->alpha_);
-
 		return 1;
 	}
 
 	int D3D11RenderElement::LuaSetAlpha(lua_State* state)
 	{
 		LM_GETSELF(D3D11RenderElement);
-		
 		self->SetAlpha(LuaManager::GetValue<float>(1));
-
 		return 0;
 	}
 
 	int D3D11RenderElement::LuaGetPosition(lua_State* state)
 	{
 		LM_GETSELF(D3D11RenderElement);
-
 		LuaManager::PushValue(XMVectorGetX(self->position_));
 		LuaManager::PushValue(XMVectorGetY(self->position_));
 		LuaManager::PushValue(XMVectorGetZ(self->position_));
-
 		return 3;
 	}
 
 	int D3D11RenderElement::LuaSetPosition(lua_State* state)
 	{
 		LM_GETSELF(D3D11RenderElement);
-
-		float x = LuaManager::GetValue<float>(1);
-		float y = LuaManager::GetValue<float>(2);
-		float z = LuaManager::GetValue<float>(3);
-
-		self->position_ = XMVectorSet(x, y, z, 1.0f);
-
+		self->SetPosition(
+			LuaManager::GetValue<float>(1), 
+			LuaManager::GetValue<float>(2), 
+			LuaManager::GetValue<float>(3)
+		);
 		return 0;
 	}
+
+	int D3D11RenderElement::LuaGetShader(lua_State* state)
+	{
+		LM_GETSELF(D3D11RenderElement);
+		LuaManager::PushValue(self->shader_->GetPath());
+		return 1;
+	}
+
+	int D3D11RenderElement::LuaSetShader(lua_State* state)
+	{
+		LM_GETSELF(D3D11RenderElement);
+		self->shader_->Set(LuaManager::GetValue<std::string>(1));
+		return 0;
+	}
+
+	int D3D11RenderElement::LuaGetTexture(lua_State* state)
+	{
+		LM_GETSELF(D3D11RenderElement);
+		LuaManager::PushValue(self->texture_->GetPath());
+		return 1;
+	}
+
+	int D3D11RenderElement::LuaSetTexture(lua_State* state)
+	{
+		LM_GETSELF(D3D11RenderElement);
+		self->texture_->Set(LuaManager::GetValue<std::string>(1));
+		return 0;
+	}
+
+	int D3D11RenderElement::LuaGetRotation(lua_State* state)
+	{
+		LM_GETSELF(D3D11RenderElement);
+		LuaManager::PushValue(XMVectorGetX(self->GetRotation()));
+		LuaManager::PushValue(XMVectorGetY(self->GetRotation()));
+		LuaManager::PushValue(XMVectorGetZ(self->GetRotation()));
+		return 3;
+	}
+
+	int D3D11RenderElement::LuaSetRotation(lua_State* state)
+	{
+		LM_GETSELF(D3D11RenderElement);
+		self->SetRotation(
+			LuaManager::GetValue<float>(1),
+			LuaManager::GetValue<float>(2),
+			LuaManager::GetValue<float>(3)
+		);
+		return 0;
+	}
+
 }

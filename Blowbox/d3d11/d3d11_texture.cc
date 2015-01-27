@@ -6,21 +6,18 @@ namespace blowbox
 		: texture_(nullptr)
 	{
 		Set();
-		SetName(std::to_string(++id()));
 	}
 
 	D3D11Texture::D3D11Texture(std::string filePath)
 		: texture_(nullptr)
 	{
 		Set(filePath);
-		SetName(filePath);
 	}
 
 	D3D11Texture::D3D11Texture(std::string filePath, std::string name)
 		: texture_(nullptr)
 	{
 		Set(filePath);
-		SetName(name);
 	}
 
 	D3D11Texture::~D3D11Texture()
@@ -57,10 +54,7 @@ namespace blowbox
 		initData.SysMemPitch = sizeof(data);
 		initData.SysMemSlicePitch = sizeof(data);
 
-		if (texture_ != NULL)
-		{
-			texture_->Release();
-		}
+		BLOW_SAFE_RELEASE_NB(texture_);
 
 		hr = D3D11DisplayDevice::Instance()->GetDevice()->CreateTexture2D(&texDesc, &initData, &texture);
 		BLOW_ASSERT_HR(hr, "Error creating texture");
@@ -68,15 +62,14 @@ namespace blowbox
 		hr = D3D11DisplayDevice::Instance()->GetDevice()->CreateShaderResourceView(texture, NULL, &texture_);
 		BLOW_ASSERT_HR(hr, "Error creating resource view");
 
+		path_ = "";
+
 		texture->Release();
 	}
 
 	void D3D11Texture::Set(std::string filePath)
 	{	
-		if (texture_ != NULL)
-		{
-			texture_->Release();
-		}
+		BLOW_SAFE_RELEASE_NB(texture_);
 		
 		HRESULT hr = S_OK;
 
@@ -84,23 +77,14 @@ namespace blowbox
 
 		BLOW_ASSERT_HR(hr, "There was an error loading a texture, filepath: " + filePath);
 
+		path_ = filePath;
+
 		FileWatch::Instance()->Add(filePath, FileType::Texture);
 	}
 
-	std::string& D3D11Texture::GetName()
+	std::string& D3D11Texture::GetPath()
 	{
-		return name_;
-	}
-
-	void D3D11Texture::SetName(std::string name)
-	{
-		name_ = name;
-	}
-
-	int& D3D11Texture::id()
-	{
-		static int id_ = 0;
-		return id_;
+		return path_;
 	}
 
 }

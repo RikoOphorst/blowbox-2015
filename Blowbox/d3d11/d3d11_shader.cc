@@ -38,6 +38,8 @@ namespace blowbox
 		hr = D3D11DisplayDevice::Instance()->GetDevice()->CreatePixelShader(psBuffer_->GetBufferPointer(), psBuffer_->GetBufferSize(), NULL, &ps_);
 		BLOW_ASSERT_HR(hr, "Error creating pixel shader: " + path);
 
+		path_ = path;
+
 		FileWatch::Instance()->Add(path, FileType::Shader);
 	}
 
@@ -59,5 +61,10 @@ namespace blowbox
 	ID3D10Blob* D3D11Shader::GetPSBuffer()
 	{
 		return psBuffer_;
+	}
+
+	std::string D3D11Shader::GetPath()
+	{
+		return path_;
 	}
 }

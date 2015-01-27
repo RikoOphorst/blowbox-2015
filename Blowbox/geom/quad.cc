@@ -51,6 +51,12 @@ namespace blowbox
 			{ "setAlpha", LuaSetAlpha },
 			{ "getPosition", LuaGetPosition },
 			{ "setPosition", LuaSetPosition },
+			{ "getRotation", LuaGetRotation },
+			{ "setRotation", LuaSetRotation },
+			{ "getShader", LuaGetShader },
+			{ "setShader", LuaSetShader },
+			{ "getTexture", LuaGetTexture },
+			{ "setTexture", LuaSetTexture },
 			{ NULL, NULL }
 		};
 

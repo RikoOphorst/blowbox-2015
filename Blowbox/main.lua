@@ -10,10 +10,11 @@ Game.Update = function (a)
 	Game.t = (Game.t or 0) + a
 	Game.myQuad:setAlpha(math.abs(math.sin(Game.t * 5)))
 
-	Game.myQuad:setPosition(math.floor(Game.t * 2), 0, 0)
+	Game.myQuad:setShader("shaders/anotherFile.fx")
+	Game.myQuad:setTexture("tex2.png")
+	Game.myQuad:setRotation(0, 0, math.sin(Game.t))
 
-	local x, y, z = Game.myQuad:getPosition()
-	print(tostring(x) .. " " .. tostring(y) .. " " .. tostring(z) .. " " .. tostring(Game.myQuad:getAlpha()))
+	Game.myQuad:setPosition(math.sin(Game.t) * 100, 0, 0)
 end
 
 Game.Render = function () 
