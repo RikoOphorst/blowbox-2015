@@ -9,8 +9,6 @@ extern "C"
 
 #include "../memory/shared_ptr.h"
 #include "../win32/file_watch.h"
-#include "lua_callback.h"
-#include "lua_class.h"
 
 #define LM_STATE LuaManager::Instance()->GetState()
 #define LM_GAMECALL(state, fnc) lua_getglobal(##state, "Game"); lua_getfield(##state, -1, ##fnc); lua_call(##state, 0, 0)

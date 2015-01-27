@@ -3,7 +3,8 @@
 #include "d3d11_display_device.h"
 #include "d3d11_texture.h"
 #include "d3d11_shader.h"
-#include "../content/content_manager.h"
+#include "../lua/lua_manager.h"
+#include "../lua/lua_class.h"
 
 namespace blowbox
 {

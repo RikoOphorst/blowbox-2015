@@ -3,8 +3,9 @@
 #include "lua_class.h"
 #include "../content/content_manager.h"
 #include "../geom/quad.h"
-
-#include <sstream>
+#include "../geom/cube.h"
+#include "lua_callback.h"
+#include "lua_class.h"
 
 namespace blowbox
 {
@@ -22,8 +23,11 @@ namespace blowbox
 		luaopen_jit(state_);
 		luaopen_debug(state_);
 
+		LM_FUNCTION(state_, LuaManager::LuaRequire, "require");
+
 		LuaRegister<ContentManager>::Register(state_);
 		LuaRegister<Quad>::Register(state_, true);
+		LuaRegister<Cube>::Register(state_, true);
 	};
 
 	LuaManager::~LuaManager()

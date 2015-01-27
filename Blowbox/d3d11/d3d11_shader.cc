@@ -1,5 +1,7 @@
 #include "d3d11_shader.h"
 
+#include "../win32/file_watch.h"
+
 namespace blowbox
 {
 	D3D11Shader::D3D11Shader(std::string path)

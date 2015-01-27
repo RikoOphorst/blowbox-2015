@@ -1,6 +1,9 @@
 #include "d3d11_render_element.h"
 
 #include "../geom/quad.h"
+#include "../content/content_manager.h"
+#include "../d3d11/d3d11_shader.h"
+#include "../d3d11/d3d11_texture.h"
 
 namespace blowbox
 {

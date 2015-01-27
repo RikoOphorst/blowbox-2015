@@ -1,6 +1,11 @@
---require("poep.lua")
+require("poep.lua")
 
 Game = Game or {};
+
+aCube = aCube or Cube.new()
+
+aCube:setPosition(0, 160, 0)
+aCube:setScale(-1, 1, 1)
 
 Game.Init = function ()
 	Content.loadTexture('tex1.png')

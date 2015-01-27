@@ -1,10 +1,31 @@
 #include "game.h"
 
+#include "input/keyboard.h"
+#include "input/mouse.h"
+
+#include "geom/quad.h"
+#include "geom/cube.h"
+
+#include "d3d11/d3d11_display_device.h"
+#include "d3d11/d3d11_camera.h"
+#include "d3d11/d3d11_render_element.h"
+
+#include "win32/window.h"
+#include "win32/file_watch.h"
+
 namespace blowbox
 {
-	Game::Game()
+	Game::Game() :
+		displayDevice_(D3D11DisplayDevice::Instance()),
+		keyboard_(Keyboard::Instance()),
+		mouse_(Mouse::Instance()),
+		fileWatch_(FileWatch::Instance()),
+		luaManager_(LuaManager::Instance())
 	{
-		
+		window_ = new Window();
+		LuaInit_ = LuaCallback<>("Game", "Init");
+		LuaUpdate_ = LuaCallback<double>("Game", "Update");
+		LuaRender_ = LuaCallback<double>("Game", "Render");
 	}
 
 	Game::~Game()

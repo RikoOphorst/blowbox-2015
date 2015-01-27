@@ -2,8 +2,6 @@
 
 #include "d3d11_display_device.h"
 
-#include "../win32/file_watch.h"
-
 namespace blowbox
 {
 	class D3D11Texture

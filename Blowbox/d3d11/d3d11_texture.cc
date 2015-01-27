@@ -1,4 +1,5 @@
 #include "d3d11_texture.h"
+#include "../win32/file_watch.h"
 
 namespace blowbox
 {

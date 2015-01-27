@@ -5,6 +5,22 @@ namespace blowbox
 	Cube::Cube()
 		: vertexBuffer_(nullptr), indexBuffer_(nullptr), D3D11RenderElement()
 	{
+		CreateBuffers();
+	};
+
+	Cube::Cube(lua_State* state)
+		: vertexBuffer_(nullptr), indexBuffer_(nullptr), D3D11RenderElement()
+	{
+		CreateBuffers();
+
+		D3D11DisplayDevice::Instance()->AddElement(this);
+		SetPosition(0, 0, 0);
+		SetTexture("tex1.png");
+		SetShader("shaders/effects.fx");
+	}
+
+	void Cube::CreateBuffers()
+	{
 		std::vector<Vertex> verts({
 			// Front Face
 			Vertex(-1.0f, -1.0f, -1.0f, 0.0f, 1.0f, 0, 0, 0, 0, 0, 0, 0, 0, 0),
@@ -71,7 +87,31 @@ namespace blowbox
 
 		vertexBuffer_ = D3D11DisplayDevice::Instance()->CreateVertexBuffer(verts);
 		indexBuffer_ = D3D11DisplayDevice::Instance()->CreateIndexBuffer(indices);
-	};
+	}
+
+	int Cube::RegisterFunctions(lua_State* state)
+	{
+		luaL_Reg regist[] =
+		{
+			{ "getAlpha", LuaGetAlpha },
+			{ "setAlpha", LuaSetAlpha },
+			{ "getPosition", LuaGetPosition },
+			{ "setPosition", LuaSetPosition },
+			{ "getRotation", LuaGetRotation },
+			{ "setRotation", LuaSetRotation },
+			{ "getShader", LuaGetShader },
+			{ "setShader", LuaSetShader },
+			{ "getTexture", LuaGetTexture },
+			{ "setTexture", LuaSetTexture },
+			{ "getScale", LuaGetScale },
+			{ "setScale", LuaSetScale },
+			{ NULL, NULL }
+		};
+
+		LM_REGISTER(state, regist);
+
+		return 0;
+	}
 
 	void Cube::Draw()
 	{
@@ -82,6 +122,8 @@ namespace blowbox
 
 	Cube::~Cube()
 	{
+		D3D11DisplayDevice::Instance()->RemoveElement(this);
+		
 		vertexBuffer_->Release();
 		indexBuffer_->Release();
 	}

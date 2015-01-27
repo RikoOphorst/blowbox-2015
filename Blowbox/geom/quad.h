@@ -2,6 +2,8 @@
 
 #include "../d3d11/d3d11_display_device.h"
 #include "../d3d11/d3d11_render_element.h"
+#include "../lua/lua_manager.h"
+#include "../lua/lua_class.h"
 
 namespace blowbox
 {
@@ -13,6 +15,7 @@ namespace blowbox
 
 		static int CleanUp(lua_State* state);
 
+		void CreateBuffers();
 		void Draw();
 
 		static int RegisterFunctions(lua_State* state);

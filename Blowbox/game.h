@@ -4,28 +4,21 @@
 #include <iostream>
 #include <math.h>
 
-#include "d3d11/d3d11_display_device.h"
-#include "d3d11/d3d11_camera.h"
-#include "d3d11/d3d11_render_element.h"
-
-#include "win32/window.h"
-#include "win32/file_watch.h"
-
 #include "memory/shared_ptr.h"
 
-#include "input/keyboard.h"
-#include "input/mouse.h"
+#include "lua/lua_callback.h"
 
-#include "geom/quad.h"
-#include "geom/cube.h"
-
-#include "lua/lua_manager.h"
+#include "win32/window.h"
 
 using namespace std::chrono;
 
 namespace blowbox
 {
 	class D3D11DisplayDevice;
+	class Keyboard;
+	class Mouse;
+	class FileWatch;
+	class LuaManager;
 
 	class Game
 	{
@@ -45,15 +38,15 @@ namespace blowbox
 
 		double&				GetDeltaTime();
 	private:
-		D3D11DisplayDevice* displayDevice_	= D3D11DisplayDevice::Instance();
-		Keyboard*			keyboard_		= Keyboard::Instance();
-		Mouse*				mouse_			= Mouse::Instance();
-		FileWatch*			fileWatch_		= FileWatch::Instance();
-		LuaManager*			luaManager_		= LuaManager::Instance();
-		SharedPtr<Window>	window_			= new Window();
-		LuaCallback<>		LuaInit_		= LuaCallback<>("Game", "Init");
-		LuaCallback<double>	LuaUpdate_		= LuaCallback<double>("Game", "Update");
-		LuaCallback<double>	LuaRender_		= LuaCallback<double>("Game", "Render");
+		D3D11DisplayDevice* displayDevice_;
+		Keyboard*			keyboard_;
+		Mouse*				mouse_;
+		FileWatch*			fileWatch_;
+		LuaManager*			luaManager_;
+		SharedPtr<Window>	window_	= new Window();
+		LuaCallback<>		LuaInit_ = LuaCallback<>("Game", "Init");
+		LuaCallback<double>	LuaUpdate_ = LuaCallback<double>("Game", "Update");
+		LuaCallback<double>	LuaRender_ = LuaCallback<double>("Game", "Render");
 
 		void								InitDeltaTime();
 		void								UpdateDeltaTime();
