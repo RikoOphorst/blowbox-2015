@@ -43,10 +43,10 @@ namespace blowbox
 		Mouse*				mouse_;
 		FileWatch*			fileWatch_;
 		LuaManager*			luaManager_;
-		SharedPtr<Window>	window_	= new Window();
-		LuaCallback<>		LuaInit_ = LuaCallback<>("Game", "Init");
-		LuaCallback<double>	LuaUpdate_ = LuaCallback<double>("Game", "Update");
-		LuaCallback<double>	LuaRender_ = LuaCallback<double>("Game", "Render");
+		SharedPtr<Window>	window_;
+		LuaCallback<>		LuaInit_;
+		LuaCallback<double>	LuaUpdate_;
+		LuaCallback<double>	LuaRender_;
 
 		void								InitDeltaTime();
 		void								UpdateDeltaTime();

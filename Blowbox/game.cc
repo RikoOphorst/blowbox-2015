@@ -20,17 +20,16 @@ namespace blowbox
 		keyboard_(Keyboard::Instance()),
 		mouse_(Mouse::Instance()),
 		fileWatch_(FileWatch::Instance()),
-		luaManager_(LuaManager::Instance())
-	{
-		window_ = new Window();
-		LuaInit_ = LuaCallback<>("Game", "Init");
-		LuaUpdate_ = LuaCallback<double>("Game", "Update");
-		LuaRender_ = LuaCallback<double>("Game", "Render");
-	}
+		luaManager_(LuaManager::Instance()),
+		window_(new Window()),
+		LuaInit_(LuaCallback<>("Game", "Init")),
+		LuaUpdate_(LuaCallback<double>("Game", "Update")),
+		LuaRender_(LuaCallback<double>("Game", "Render"))
+	{}
 
 	Game::~Game()
 	{
-
+		
 	}
 
 	Game* Game::Instance()

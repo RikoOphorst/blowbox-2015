@@ -10,6 +10,7 @@ namespace blowbox
 	class LuaCallback
 	{
 	public:
+		LuaCallback(){}
 		LuaCallback(const char* fnc)
 		{
 			fnc_ = fnc;
