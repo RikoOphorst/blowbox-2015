@@ -7,7 +7,8 @@ namespace blowbox
 {
 	
 	//----------------------------------------------------------------------------------------------------------------
-	D3D11DisplayDevice::D3D11DisplayDevice()
+	D3D11DisplayDevice::D3D11DisplayDevice() :
+		time_(0)
 	{
 		
 	}
@@ -182,7 +183,7 @@ namespace blowbox
 
 	//----------------------------------------------------------------------------------------------------------------
 	void D3D11DisplayDevice::Draw()
-	{
+	{	
 		struct RenderSorterZ
 		{
 			bool operator()(D3D11RenderElement* a, D3D11RenderElement* b)
@@ -212,6 +213,7 @@ namespace blowbox
 
 		cBufferData_.WVP = XMMatrixTranspose(renderElement->GetWorld() * camera_->GetView() * camera_->GetProjection());
 		cBufferData_.alpha = renderElement->GetAlpha();
+		cBufferData_.time = time_;
 		context_->UpdateSubresource(cBuffer_, 0, NULL, &cBufferData_, 0, 0);
 
 		context_->VSSetConstantBuffers(0, 1, &cBuffer_);
@@ -512,5 +514,11 @@ namespace blowbox
 	const int& D3D11DisplayDevice::GetHeight()
 	{
 		return height_;
+	}
+
+	//----------------------------------------------------------------------------------------------------------------
+	void D3D11DisplayDevice::AddTime(float time)
+	{
+		time_ += time;
 	}
 }

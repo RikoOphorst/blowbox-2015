@@ -5,9 +5,7 @@
 #include <math.h>
 
 #include "memory/shared_ptr.h"
-
 #include "lua/lua_callback.h"
-
 #include "win32/window.h"
 
 using namespace std::chrono;

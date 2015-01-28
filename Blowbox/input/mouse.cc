@@ -13,6 +13,11 @@ namespace blowbox
 		}
 	}
 
+	Mouse::Mouse(lua_State* state)
+	{
+
+	}
+
 	Mouse* Mouse::Instance()
 	{
 		static SharedPtr<Mouse> ptr(new Mouse());
@@ -94,8 +99,72 @@ namespace blowbox
 		}
 	}
 
+	MouseButton Mouse::StringToButton(const char* name)
+	{
+		if (strcmp(name, "L") == 0 || strcmp(name, "l") == 0 || strcmp(name, "Left") == 0 || strcmp(name, "left") == 0)		return MouseButton::MouseLeft;
+		if (strcmp(name, "M") == 0 || strcmp(name, "m") == 0 || strcmp(name, "Middle") == 0 || strcmp(name, "middle") == 0)	return MouseButton::MouseMiddle;
+		if (strcmp(name, "R") == 0 || strcmp(name, "r") == 0 || strcmp(name, "Right") == 0 || strcmp(name, "right") == 0)	return MouseButton::MouseRight;
+
+		//BLOW_BREAK("Error while attempting to convert string to button in Mouse class, given parameter:" + name);
+
+		return MouseButton::MouseLeft;
+	}
+
+	std::string Mouse::ButtonToString(MouseButton button)
+	{
+		switch (button)
+		{
+		case MouseButton::MouseLeft:	return "Left";
+		case MouseButton::MouseMiddle:	return "Middle";
+		case MouseButton::MouseRight:	return "Right";
+		default: return "Left";
+		}
+	}
+
 	Mouse::~Mouse()
 	{
 
+	}
+
+	int Mouse::RegisterFunctions(lua_State* state)
+	{
+		luaL_Reg regist[] =
+		{
+			{ "getPosition", LuaGetPosition },
+			{ "isDown", LuaIsDown },
+			{ "isPressed", LuaIsPressed },
+			{ "isDbl", LuaIsDbl },
+			{ NULL, NULL }
+		};
+
+		LM_REGISTER(state, regist);
+
+		return 1;
+	}
+
+	int Mouse::LuaGetPosition(lua_State* state)
+	{
+		XMFLOAT2 pos = Mouse::Instance()->GetPosition();
+		LuaManager::PushValue(pos.x);
+		LuaManager::PushValue(pos.y);
+		return 2;
+	}
+
+	int Mouse::LuaIsDown(lua_State* state)
+	{
+		LuaManager::PushValue(Mouse::Instance()->IsDown(Mouse::StringToButton(LuaManager::GetValue<const char*>(0))));
+		return 1;
+	}
+
+	int Mouse::LuaIsPressed(lua_State* state)
+	{
+		LuaManager::PushValue(Mouse::Instance()->IsPressed(Mouse::StringToButton(LuaManager::GetValue<const char*>(0))));
+		return 1;
+	}
+
+	int Mouse::LuaIsDbl(lua_State* state)
+	{
+		LuaManager::PushValue(Mouse::Instance()->IsDbl(Mouse::StringToButton(LuaManager::GetValue<const char*>(0))));
+		return 1;
 	}
 }

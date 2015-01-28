@@ -2,6 +2,7 @@ cbuffer cbPerObject : register(b0)
 {
 	float4x4 WVP;
 	float alpha;
+	float time;
 };
 
 Texture2D ObjTexture;
@@ -24,9 +25,10 @@ VS_OUTPUT VS(float4 inPos : POSITION, float2 inTexCoord : TEXCOORD)
 
 float4 PS(VS_OUTPUT input) : SV_TARGET
 {
+	input.TexCoord.y += sin(input.TexCoord.x * 100 + time * 0.5);
 	float4 base = ObjTexture.Sample(ObjSamplerState, input.TexCoord);
 
-	base.a *= alpha;
+	//base.a *= alpha;
 
 	return base;
 }

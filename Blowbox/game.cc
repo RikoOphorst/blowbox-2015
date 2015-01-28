@@ -65,6 +65,8 @@ namespace blowbox
 			UpdateDeltaTime();
 			Update();
 			Draw();
+
+			fileWatch_->Update();
 		}
 
 		displayDevice_->Release();
@@ -72,9 +74,9 @@ namespace blowbox
 
 	void Game::Update()
 	{
+		D3D11DisplayDevice::Instance()->AddTime(static_cast<float>(deltaTime_));
+		
 		window_->ProcessMessages();
-
-		fileWatch_->Update();
 
 		keyboard_->Update();
 		mouse_->Update();

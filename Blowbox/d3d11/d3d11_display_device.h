@@ -33,6 +33,7 @@ namespace blowbox
 	{
 		XMMATRIX WVP;
 		float alpha;
+		float time;
 	};
 
 	class D3D11Camera;
@@ -85,6 +86,8 @@ namespace blowbox
 
 		const int&					GetWidth();
 		const int&					GetHeight();
+
+		void						AddTime(float time);
 	private:
 		IDXGISwapChain*						swapChain_;
 		ID3D11Device*						device_;
@@ -119,5 +122,7 @@ namespace blowbox
 
 		int									width_;
 		int									height_;
+
+		float								time_;
 	};
 }

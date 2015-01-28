@@ -1,6 +1,8 @@
 #pragma once
 
 #include "../memory/shared_ptr.h"
+#include "../lua/lua_manager.h"
+#include "../lua/lua_class.h"
 #include <xnamath.h>
 #include <queue>
 
@@ -39,13 +41,21 @@ namespace blowbox
 		MouseButton button;
 	};
 
-	class Mouse
+	class Mouse : public LuaClass
 	{
 	public:
 		Mouse();
+		Mouse(lua_State* state);
 		~Mouse();
 
 		static Mouse*					Instance();
+
+		static int						RegisterFunctions(lua_State* state);
+		
+		static int						LuaGetPosition(lua_State* state);
+		static int						LuaIsDown(lua_State* state);
+		static int						LuaIsPressed(lua_State* state);
+		static int						LuaIsDbl(lua_State* state);
 
 		XMFLOAT2&						GetPosition();
 		bool&							IsDown(MouseButton btn);
@@ -57,6 +67,11 @@ namespace blowbox
 
 		void							ReceiveEvent(MouseMoveEvent moveEvent);
 		void							ReceiveEvent(MouseButtonEvent buttonEvent);
+
+		static MouseButton				StringToButton(const char* string);
+		static std::string				ButtonToString(MouseButton button);
+		
+		LM_NAME("Mouse");
 	private:
 		XMFLOAT2						pos_;
 		std::queue<MouseMoveEvent>		moveQueue_;

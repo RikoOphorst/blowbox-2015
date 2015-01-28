@@ -2,6 +2,8 @@
 
 #include "lua_class.h"
 #include "../content/content_manager.h"
+#include "../input/keyboard.h"
+#include "../input/mouse.h"
 #include "../geom/quad.h"
 #include "../geom/cube.h"
 #include "lua_callback.h"
@@ -26,6 +28,8 @@ namespace blowbox
 		LM_FUNCTION(state_, LuaManager::LuaRequire, "require");
 
 		LuaRegister<ContentManager>::Register(state_);
+		LuaRegister<Keyboard>::Register(state_);
+		LuaRegister<Mouse>::Register(state_);
 		LuaRegister<Quad>::Register(state_, true);
 		LuaRegister<Cube>::Register(state_, true);
 	};
