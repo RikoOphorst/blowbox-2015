@@ -2,6 +2,7 @@
 #include "d3d11_camera.h"
 #include "d3d11_render_element.h"
 #include "../precompile/definitions.h"
+#include "../content/content_manager.h"
 
 namespace blowbox
 {
@@ -62,23 +63,15 @@ namespace blowbox
 		};
 		UINT numElements = sizeof(layout) / sizeof(D3D11_INPUT_ELEMENT_DESC);
 		
-		//Compile Shaders from shader file
-		hr = D3DX11CompileFromFileA("shaders/effects.fx", 0, 0, "VS", "vs_4_0", 0, 0, 0, &vsBuffer_, 0, 0);
-		hr = D3DX11CompileFromFileA("shaders/effects.fx", 0, 0, "PS", "ps_4_0", 0, 0, 0, &psBuffer_, 0, 0);
-		BLOW_ASSERT_HR(hr, "Error compiling shaders");
+		baseShader_ = ContentManager::Instance()->GetShader("shaders/effects.fx");
 
-		//Create the Shader Objects
-		hr = device_->CreateVertexShader(vsBuffer_->GetBufferPointer(), vsBuffer_->GetBufferSize(), NULL, &vs_);
-		hr = device_->CreatePixelShader(psBuffer_->GetBufferPointer(), psBuffer_->GetBufferSize(), NULL, &ps_);
-
-		//Set Vertex and Pixel Shaders
-		context_->VSSetShader(vs_, 0, 0);
-		context_->PSSetShader(ps_, 0, 0);
+		vsBuffer_ = baseShader_->GetVSBuffer();
+		psBuffer_ = baseShader_->GetPSBuffer();
 
 		//Create the Input Layout
 		hr = device_->CreateInputLayout( layout, numElements, vsBuffer_->GetBufferPointer(), 
 			vsBuffer_->GetBufferSize(), &inputLayout_ );
-		BLOW_ASSERT_HR(hr, "err");
+		BLOW_ASSERT_HR(hr, "Could not create input layout from base shader");
 
 		//Set the Input Layout
 		context_->IASetInputLayout(inputLayout_);
@@ -472,24 +465,20 @@ namespace blowbox
 	//----------------------------------------------------------------------------------------------------------------
 	void D3D11DisplayDevice::Release()
 	{
-		swapChain_->Release();
-		device_->Release();
-		context_->Release();
-		renderTarget_->Release();
-		vs_->Release();
-		ps_->Release();
-		vsBuffer_->Release();
-		psBuffer_->Release();
-		inputLayout_->Release();
-		depthStencilBuffer_->Release();
-		depthStencilView_->Release();
-		cBuffer_->Release();
-		rasterizerState_->Release();
-		samplerState_->Release();
-		depthState_->Release();
-		Transparency->Release();
-		CCWcullMode->Release();
-		CWcullMode->Release();
+		BLOW_SAFE_RELEASE(swapChain_);
+		BLOW_SAFE_RELEASE(device_);
+		BLOW_SAFE_RELEASE(context_);
+		BLOW_SAFE_RELEASE(renderTarget_);
+		BLOW_SAFE_RELEASE(inputLayout_);
+		BLOW_SAFE_RELEASE(depthStencilBuffer_);
+		BLOW_SAFE_RELEASE(depthStencilView_);
+		BLOW_SAFE_RELEASE(cBuffer_);
+		BLOW_SAFE_RELEASE(rasterizerState_);
+		BLOW_SAFE_RELEASE(samplerState_);
+		BLOW_SAFE_RELEASE(depthState_);
+		BLOW_SAFE_RELEASE(Transparency);
+		BLOW_SAFE_RELEASE(CCWcullMode);
+		BLOW_SAFE_RELEASE(CWcullMode);
 	}
 
 	//----------------------------------------------------------------------------------------------------------------

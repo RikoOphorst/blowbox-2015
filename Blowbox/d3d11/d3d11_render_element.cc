@@ -4,6 +4,7 @@
 #include "../content/content_manager.h"
 #include "../d3d11/d3d11_shader.h"
 #include "../d3d11/d3d11_texture.h"
+#include "../d3d11/d3d11_camera.h"
 
 namespace blowbox
 {

@@ -9,7 +9,7 @@
 #include <vector>
 #include <algorithm>
 #include "../memory/shared_ptr.h"
-#include "d3d11_camera.h"
+#include "d3d11_shader.h"
 
 namespace blowbox
 {
@@ -38,6 +38,7 @@ namespace blowbox
 
 	class D3D11Camera;
 	class D3D11RenderElement;
+	class D3D11Shader;
 	
 	class D3D11DisplayDevice
 	{
@@ -119,6 +120,7 @@ namespace blowbox
 		XMMATRIX							world_;
 
 		D3D11Camera*						camera_;
+		D3D11Shader*						baseShader_;
 
 		int									width_;
 		int									height_;
