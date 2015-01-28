@@ -23,7 +23,7 @@ Game.Update = function (a)
 
 	Game.myQuad:setScale(math.abs(math.sin(Game.t)) + 1, 1, 1);
 
-	print(Mouse.isPressed("L"))
+	print(Mouse.isDbl("L"))
 end
 
 Game.Render = function () 
