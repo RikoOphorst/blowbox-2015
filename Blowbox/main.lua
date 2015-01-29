@@ -23,7 +23,9 @@ Game.Update = function (a)
 
 	Game.myQuad:setScale(math.abs(math.sin(Game.t)) + 1, 1, 1);
 
-	print(Mouse.isDbl("L"))
+	local x, y = Mouse.getPosition()
+
+	print (x .. " " .. y)
 end
 
 Game.Render = function () 
