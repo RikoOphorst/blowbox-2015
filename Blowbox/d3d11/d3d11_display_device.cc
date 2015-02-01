@@ -9,7 +9,25 @@ namespace blowbox
 	
 	//----------------------------------------------------------------------------------------------------------------
 	D3D11DisplayDevice::D3D11DisplayDevice() :
-		time_(0)
+		time_(0),
+		vsync_(TRUE),
+		swapChain_(nullptr),
+		device_(nullptr),
+		context_(nullptr),
+		renderTarget_(nullptr),
+		vs_(nullptr),
+		ps_(nullptr),
+		vsBuffer_(nullptr),
+		psBuffer_(nullptr),
+		inputLayout_(nullptr),
+		depthStencilView_(nullptr),
+		depthStencilBuffer_(nullptr),
+		rasterizerState_(nullptr),
+		samplerState_(nullptr),
+		depthState_(nullptr),
+		Transparency(nullptr),
+		CCWcullMode(nullptr),
+		CWcullMode(nullptr)
 	{
 		
 	}
@@ -158,6 +176,8 @@ namespace blowbox
 		cmdesc.FrontCounterClockwise = false;
 		hr = device_->CreateRasterizerState(&cmdesc, &CWcullMode);
 		BLOW_ASSERT_HR(hr, "Cannot create rasterizer state");
+
+		
 	}
 
 	//----------------------------------------------------------------------------------------------------------------
@@ -224,7 +244,7 @@ namespace blowbox
 	//----------------------------------------------------------------------------------------------------------------
 	void D3D11DisplayDevice::EndDraw()
 	{
-		swapChain_->Present(1, 0);
+		swapChain_->Present(vsync_, 0);
 	}
 
 	//----------------------------------------------------------------------------------------------------------------
@@ -328,17 +348,22 @@ namespace blowbox
 		bufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
 		bufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
 
+		//UINT sdq = 0;
+
+		/*hr = device_->CheckMultisampleQualityLevels(DXGI_FORMAT_D24_UNORM_S8_UINT, D3D11_MAX_MULTISAMPLE_SAMPLE_COUNT, &sdq);
+		BLOW_ASSERT_HR(hr, "hurdur");*/
+
 		DXGI_SWAP_CHAIN_DESC swapChainDesc;
 		ZeroMemory(&swapChainDesc, sizeof(DXGI_SWAP_CHAIN_DESC));
 
 		swapChainDesc.BufferDesc = bufferDesc;
-		swapChainDesc.SampleDesc.Count = 1;
-		swapChainDesc.SampleDesc.Quality = 0;
+		swapChainDesc.SampleDesc.Count = 8;
+		swapChainDesc.SampleDesc.Quality = 16;
 		swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 		swapChainDesc.BufferCount = 1;
 		swapChainDesc.OutputWindow = hWnd;
 		swapChainDesc.Windowed = TRUE;
-		swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
+		swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT::DXGI_SWAP_EFFECT_DISCARD;
 
 		hr = D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, D3D11_CREATE_DEVICE_DEBUG, NULL, NULL,
 			D3D11_SDK_VERSION, &swapChainDesc, &swapChain_, &device_, NULL, &context_);
@@ -375,8 +400,8 @@ namespace blowbox
 		depthStencilDesc.MipLevels = 1;
 		depthStencilDesc.ArraySize = 1;
 		depthStencilDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
-		depthStencilDesc.SampleDesc.Count = 1;
-		depthStencilDesc.SampleDesc.Quality = 0;
+		depthStencilDesc.SampleDesc.Count = 8;
+		depthStencilDesc.SampleDesc.Quality = 16;
 		depthStencilDesc.Usage = D3D11_USAGE_DEFAULT;
 		depthStencilDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
 
@@ -414,7 +439,7 @@ namespace blowbox
 		dsDesc.BackFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
 
 		hr = device_->CreateDepthStencilState(&dsDesc, &depthState_);
-		BLOW_ASSERT_HR(hr, "ga maar lekker dood");
+		BLOW_ASSERT_HR(hr, "Error creating depth stencil state");
 
 		context_->OMSetDepthStencilState(depthState_, 1);
 	}
@@ -425,6 +450,8 @@ namespace blowbox
 		if (fillMode_ == fillMode && cullMode_ == cullMode)
 			return;
 
+		BLOW_SAFE_RELEASE_NB(rasterizerState_);
+
 		HRESULT hr = S_OK;
 
 		D3D11_RASTERIZER_DESC rasterizerDesc;
@@ -434,6 +461,9 @@ namespace blowbox
 		hr = device_->CreateRasterizerState(&rasterizerDesc, &rasterizerState_);
 
 		BLOW_ASSERT_HR(hr, "Cannot create rasterizer state");
+
+		fillMode_ = fillMode;
+		cullMode_ = cullMode;
 
 		context_->RSSetState(rasterizerState_);
 	}
@@ -460,6 +490,18 @@ namespace blowbox
 	D3D11Camera* D3D11DisplayDevice::GetCamera()
 	{
 		return camera_;
+	}
+
+	//----------------------------------------------------------------------------------------------------------------
+	void D3D11DisplayDevice::SetVsync(BOOL vsync)
+	{
+		vsync_ = vsync;
+	}
+
+	//----------------------------------------------------------------------------------------------------------------
+	BOOL& D3D11DisplayDevice::GetVsync()
+	{
+		return vsync_;
 	}
 
 	//----------------------------------------------------------------------------------------------------------------
@@ -503,6 +545,11 @@ namespace blowbox
 	const int& D3D11DisplayDevice::GetHeight()
 	{
 		return height_;
+	}
+
+	IDXGISwapChain* D3D11DisplayDevice::GetSwapChain()
+	{
+		return swapChain_;
 	}
 
 	//----------------------------------------------------------------------------------------------------------------

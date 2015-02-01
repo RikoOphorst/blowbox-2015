@@ -6,6 +6,8 @@
 #include "../input/mouse.h"
 #include "../geom/quad.h"
 #include "../geom/cube.h"
+#include "../d3d11/d3d11_settings.h"
+#include "../d3d11/d3d11_camera.h"
 #include "lua_callback.h"
 #include "lua_class.h"
 
@@ -32,6 +34,8 @@ namespace blowbox
 		LuaRegister<Mouse>::Register(state_);
 		LuaRegister<Quad>::Register(state_, true);
 		LuaRegister<Cube>::Register(state_, true);
+		LuaRegister<D3D11Settings>::Register(state_);
+		LuaRegister<D3D11Camera>::Register(state_);
 	};
 
 	LuaManager::~LuaManager()
@@ -96,7 +100,7 @@ namespace blowbox
 	template<>
 	bool LuaManager::GetValue<bool>(int stackIndex)
 	{
-		return static_cast<bool>(lua_isboolean(LM_STATE, stackIndex + 1));
+		return lua_isboolean(LM_STATE, stackIndex + 1);
 	}
 
 	int LuaManager::PushValue()

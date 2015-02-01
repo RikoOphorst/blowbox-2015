@@ -27,12 +27,13 @@ namespace blowbox
 		static int LuaSetCullMode(lua_State* state);
 		static int LuaSetFullscreen(lua_State* state);
 		static int LuaSetVsync(lua_State* state);
-		static int LuaSetBackbufferColour(lua_State* state);
 
+		static int LuaGetFillMode(lua_State* state);
 		static int LuaGetCullMode(lua_State* state);
 		static int LuaGetFullscreen(lua_State* state);
 		static int LuaGetVsync(lua_State* state);
-		static int LuaGetBackbufferColour(lua_State* state);
+
+		LM_NAME("RenderSettings");
 
 	private:
 		Resolution resolution_;

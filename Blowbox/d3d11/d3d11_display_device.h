@@ -88,6 +88,11 @@ namespace blowbox
 		const int&					GetWidth();
 		const int&					GetHeight();
 
+		void						SetVsync(BOOL vsync);
+		BOOL&						GetVsync();
+
+		IDXGISwapChain*				GetSwapChain();
+
 		void						AddTime(float time);
 	private:
 		IDXGISwapChain*						swapChain_;
@@ -124,6 +129,8 @@ namespace blowbox
 
 		int									width_;
 		int									height_;
+
+		BOOL								vsync_;
 
 		float								time_;
 	};

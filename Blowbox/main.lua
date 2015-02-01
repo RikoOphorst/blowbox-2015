@@ -4,6 +4,13 @@ Game = Game or {};
 
 Game.myQuad = Game.myQuad or Quad.new()
 Game.myQuad:setShader('shaders/effects.fx')
+Game.myQuad:setPosition(-320, 0, 0)
+
+RenderSettings.setFillMode('solid')
+RenderSettings.setCullMode('back')
+
+RenderSettings.setFullscreen(0)
+RenderSettings.setVsync(1)
 
 Game.Init = function ()
 	Content.loadTexture('tex1.png')
@@ -14,18 +21,11 @@ end
 
 Game.Update = function (a)
 	Game.t = (Game.t or 0) + a
-	Game.myQuad:setAlpha(math.abs(math.sin(Game.t * 25)))
 
-	Game.myQuad:setTexture("tex2.png")
-	Game.myQuad:setRotation(0, 0, math.sin(Game.t))
+	local x, y, z = Game.myQuad:getPosition()
+	Game.myQuad:setPosition(0, 0, 0)
 
-	Game.myQuad:setPosition(math.sin(Game.t) * 100, 0, 0)
-
-	Game.myQuad:setScale(math.abs(math.sin(Game.t)) + 1, 1, 1);
-
-	local x, y = Mouse.getPosition()
-
-	print (x .. " " .. y)
+	Camera.setPosition((math.sin(Game.t) * 100), (math.cos(Game.t) * 100), 0)
 end
 
 Game.Render = function () 

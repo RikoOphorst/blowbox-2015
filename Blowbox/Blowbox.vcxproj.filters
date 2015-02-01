@@ -80,6 +80,9 @@
     <ClCompile Include="lua\lua_class.cc">
       <Filter>lua</Filter>
     </ClCompile>
+    <ClCompile Include="d3d11\d3d11_settings.cc">
+      <Filter>d3d11</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="win32\window.h">
@@ -139,6 +142,9 @@
     </ClInclude>
     <ClInclude Include="lua\lua_class.h">
       <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="d3d11\d3d11_settings.h">
+      <Filter>d3d11</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

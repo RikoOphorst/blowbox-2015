@@ -24,6 +24,10 @@
     <ClCompile Include="d3d11\d3d11_camera.cc" />
     <ClCompile Include="d3d11\d3d11_display_device.cc" />
     <ClCompile Include="d3d11\d3d11_render_element.cc" />
+    <ClCompile Include="d3d11\d3d11_settings.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="d3d11\d3d11_shader.cc" />
     <ClCompile Include="d3d11\d3d11_texture.cc" />
     <ClCompile Include="game.cc" />
@@ -46,6 +50,10 @@
     <ClInclude Include="d3d11\d3d11_camera.h" />
     <ClInclude Include="d3d11\d3d11_display_device.h" />
     <ClInclude Include="d3d11\d3d11_render_element.h" />
+    <ClInclude Include="d3d11\d3d11_settings.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="d3d11\d3d11_shader.h" />
     <ClInclude Include="d3d11\d3d11_texture.h" />
     <ClInclude Include="game.h" />
