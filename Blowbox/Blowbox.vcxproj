@@ -32,6 +32,7 @@
     <ClCompile Include="d3d11\d3d11_texture.cc" />
     <ClCompile Include="game.cc" />
     <ClCompile Include="geom\cube.cc" />
+    <ClCompile Include="geom\line.cc" />
     <ClCompile Include="geom\quad.cc" />
     <ClCompile Include="input\keyboard.cc" />
     <ClCompile Include="input\mouse.cc" />
@@ -58,6 +59,7 @@
     <ClInclude Include="d3d11\d3d11_texture.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="geom\cube.h" />
+    <ClInclude Include="geom\line.h" />
     <ClInclude Include="geom\quad.h" />
     <ClInclude Include="input\key.h" />
     <ClInclude Include="input\keyboard.h" />

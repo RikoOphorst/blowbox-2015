@@ -6,6 +6,7 @@
 #include "../input/mouse.h"
 #include "../geom/quad.h"
 #include "../geom/cube.h"
+#include "../geom/line.h"
 #include "../d3d11/d3d11_settings.h"
 #include "../d3d11/d3d11_camera.h"
 #include "lua_callback.h"
@@ -36,6 +37,7 @@ namespace blowbox
 		LuaRegister<Cube>::Register(state_, true);
 		LuaRegister<D3D11Settings>::Register(state_);
 		LuaRegister<D3D11Camera>::Register(state_);
+		LuaRegister<Line>::Register(state_);
 	};
 
 	LuaManager::~LuaManager()

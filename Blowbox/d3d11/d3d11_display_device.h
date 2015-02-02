@@ -10,23 +10,23 @@
 #include <algorithm>
 #include "../memory/shared_ptr.h"
 #include "d3d11_shader.h"
+#include "d3d11_texture.h"
 
 namespace blowbox
 {
 	struct Vertex
 	{
-		Vertex(float x, float y, float z, float u, float v, float nx, float ny, float nz, float bx, float by, float bz, float tx, float ty, float tz) :
+		Vertex(float x, float y, float z, float u, float v, float nx, float ny, float nz, float cr, float cg, float cb) :
 			pos(x, y, z, 1),
 			texCoord(u, v),
 			normal(nx, ny, nz, 1),
-			binormal(bx, by, bz, 1),
-			tangent(tx, ty, tz, 1) 
+			color(cr, cg, cb, 1)
 		{}
+		Vertex(){}
 		XMFLOAT4 pos;
 		XMFLOAT2 texCoord;
 		XMFLOAT4 normal;
-		XMFLOAT4 binormal;
-		XMFLOAT4 tangent;
+		XMFLOAT4 color;
 	};
 
 	struct cBufferData
@@ -36,9 +36,16 @@ namespace blowbox
 		float time;
 	};
 
+	enum SamplerStates
+	{
+		Linear,
+		Point
+	};
+
 	class D3D11Camera;
 	class D3D11RenderElement;
 	class D3D11Shader;
+	class D3D11Texture;
 	
 	class D3D11DisplayDevice
 	{
@@ -79,9 +86,25 @@ namespace blowbox
 		void						SetRasterizerState(D3D11_FILL_MODE fillMode, D3D11_CULL_MODE cullMode);
 		D3D11_FILL_MODE&			GetFillMode();
 		D3D11_CULL_MODE&			GetCullMode();
+
+		void						SetTopology(D3D11_PRIMITIVE_TOPOLOGY topology);
+		D3D11_PRIMITIVE_TOPOLOGY	GetTopology();
 		 
+		void						SetShader(D3D11Shader* shader);
+		D3D11Shader*				GetShader();
+
+		void						SetBaseShader(D3D11Shader* shader);
+		D3D11Shader*				GetBaseShader();
+
 		void						SetCamera(D3D11Camera* camera);
 		D3D11Camera*				GetCamera();
+
+		void						UpdateConstantBuffer(XMMATRIX world_matrix, float alpha);
+
+		void						SetShaderResources(D3D11Texture* texture);
+
+		void						SetSamplers();
+		void						SetBlendState();
 
 		void						Release();
 
@@ -109,7 +132,7 @@ namespace blowbox
 		ID3D11RasterizerState*				rasterizerState_;
 		ID3D11SamplerState*					samplerState_;
 		ID3D11DepthStencilState*			depthState_;
-		ID3D11BlendState*					Transparency;
+		ID3D11BlendState*					blendState_;
 		ID3D11RasterizerState*				CCWcullMode;
 		ID3D11RasterizerState*				CWcullMode;
 
@@ -125,7 +148,14 @@ namespace blowbox
 		XMMATRIX							world_;
 
 		D3D11Camera*						camera_;
+
 		D3D11Shader*						baseShader_;
+		D3D11Shader*						currentShader_;
+
+		D3D11Texture*						baseTexture_;
+		D3D11Texture*						currentTexture_;
+
+		D3D11_PRIMITIVE_TOPOLOGY			topology_;
 
 		int									width_;
 		int									height_;

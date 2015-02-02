@@ -29,6 +29,9 @@ namespace blowbox
 		void								SetSize(float w, float h);
 		void								SetAlpha(float a);
 
+		D3D11_PRIMITIVE_TOPOLOGY			GetTopology();
+		void								SetTopology(D3D11_PRIMITIVE_TOPOLOGY topology);
+
 		XMVECTOR&							GetPosition();
 		XMVECTOR&							GetRotation();
 		XMVECTOR&							GetScale();
@@ -58,6 +61,7 @@ namespace blowbox
 		XMFLOAT2							size_;
 		D3D11Texture*						texture_;
 		D3D11Shader*						shader_;
+		D3D11_PRIMITIVE_TOPOLOGY			topology_;
 		float								alpha_;
 	};
 }

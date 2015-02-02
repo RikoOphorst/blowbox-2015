@@ -42,6 +42,19 @@ namespace blowbox
 		return world_;
 	}
 
+	void D3D11RenderElement::SetTopology(D3D11_PRIMITIVE_TOPOLOGY topology)
+	{
+		if (topology != topology_)
+		{
+			topology_ = topology;
+		}
+	}
+
+	D3D11_PRIMITIVE_TOPOLOGY D3D11RenderElement::GetTopology()
+	{
+		return topology_;
+	}
+
 	void D3D11RenderElement::SetTexture(std::string path)
 	{
 		texture_ = ContentManager::Instance()->GetTexture(path);

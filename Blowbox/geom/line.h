@@ -7,21 +7,27 @@
 
 namespace blowbox
 {
-	class Quad : public D3D11RenderElement
+	class Line
 	{
 	public:
-		Quad();
-		Quad(lua_State* state);
+		Line();
+		Line(lua_State* state);
 
-		void CreateBuffers();
-		void Draw();
+		static Line* Instance();
+
+		virtual ~Line();
 
 		static int RegisterFunctions(lua_State* state);
-		virtual ~Quad();
 
-		LM_NAME("Quad");
+		static int LuaDraw(lua_State* state);
+
+		void PushVertex(Vertex vert);
+
+		void Draw();
+
+		LM_NAME("Line");
 	private:
 		ID3D11Buffer* vertexBuffer_;
-		ID3D11Buffer* indexBuffer_;
+		std::vector<Vertex> lines_;
 	};
 }

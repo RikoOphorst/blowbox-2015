@@ -83,6 +83,9 @@
     <ClCompile Include="d3d11\d3d11_settings.cc">
       <Filter>d3d11</Filter>
     </ClCompile>
+    <ClCompile Include="geom\line.cc">
+      <Filter>geom</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="win32\window.h">
@@ -145,6 +148,9 @@
     </ClInclude>
     <ClInclude Include="d3d11\d3d11_settings.h">
       <Filter>d3d11</Filter>
+    </ClInclude>
+    <ClInclude Include="geom\line.h">
+      <Filter>geom</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

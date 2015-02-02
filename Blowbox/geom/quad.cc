@@ -6,12 +6,14 @@ namespace blowbox
 		: vertexBuffer_(nullptr), indexBuffer_(nullptr), D3D11RenderElement()
 	{
 		CreateBuffers();
+		SetTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 	};
 
 	Quad::Quad(lua_State* state)
 		: vertexBuffer_(nullptr), indexBuffer_(nullptr), D3D11RenderElement()
 	{
 		CreateBuffers();
+		SetTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 
 		D3D11DisplayDevice::Instance()->AddElement(this);
 		SetPosition(0, 0, 0);
@@ -22,10 +24,10 @@ namespace blowbox
 	void Quad::CreateBuffers()
 	{
 		std::vector<Vertex> verts({
-			Vertex(-0.5f, -0.5f, 0.0f, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-			Vertex(-0.5f, 0.5f, 0.0f, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-			Vertex(0.5f, 0.5f, 0.0f, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-			Vertex(0.5f, -0.5f, 0.0f, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+			Vertex(-0.5f, -0.5f, 0.0f, 0, 1, 0, 0, 0, 0, 0, 0),
+			Vertex(-0.5f, 0.5f, 0.0f, 0, 0, 0, 0, 0, 0, 0, 0),
+			Vertex(0.5f, 0.5f, 0.0f, 1, 0, 0, 0, 0, 0, 0, 0),
+			Vertex(0.5f, -0.5f, 0.0f, 1, 1, 0, 0, 0, 0, 0, 0)
 		});
 
 		std::vector<int> indices({

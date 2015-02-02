@@ -3,6 +3,7 @@
 #include "d3d11_render_element.h"
 #include "../precompile/definitions.h"
 #include "../content/content_manager.h"
+#include "../geom/line.h"
 
 namespace blowbox
 {
@@ -25,7 +26,6 @@ namespace blowbox
 		rasterizerState_(nullptr),
 		samplerState_(nullptr),
 		depthState_(nullptr),
-		Transparency(nullptr),
 		CCWcullMode(nullptr),
 		CWcullMode(nullptr)
 	{
@@ -76,26 +76,22 @@ namespace blowbox
 			{ "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 			{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 16, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 			{ "NORMAL", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 24, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-			{ "BINORMAL", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 40, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-			{ "TANGENT", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 56, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 40, D3D11_INPUT_PER_VERTEX_DATA, 0 }
 		};
 		UINT numElements = sizeof(layout) / sizeof(D3D11_INPUT_ELEMENT_DESC);
 		
-		baseShader_ = ContentManager::Instance()->GetShader("shaders/effects.fx");
-
-		vsBuffer_ = baseShader_->GetVSBuffer();
-		psBuffer_ = baseShader_->GetPSBuffer();
+		SetBaseShader(ContentManager::Instance()->GetShader("shaders/effects.fx"));
 
 		//Create the Input Layout
-		hr = device_->CreateInputLayout( layout, numElements, vsBuffer_->GetBufferPointer(), 
-			vsBuffer_->GetBufferSize(), &inputLayout_ );
+		hr = device_->CreateInputLayout( layout, numElements, baseShader_->GetVSBuffer()->GetBufferPointer(), 
+			baseShader_->GetVSBuffer()->GetBufferSize(), &inputLayout_);
 		BLOW_ASSERT_HR(hr, "Could not create input layout from base shader");
 
 		//Set the Input Layout
 		context_->IASetInputLayout(inputLayout_);
 
 		//Set Primitive Topology
-		context_->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
+		SetTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 
 		//Create the Viewport
 		D3D11_VIEWPORT viewport;
@@ -160,24 +156,8 @@ namespace blowbox
 		blendDesc.AlphaToCoverageEnable = false;
 		blendDesc.RenderTarget[0] = rtbd;
 
-		hr = device_->CreateBlendState(&blendDesc, &Transparency);
+		hr = device_->CreateBlendState(&blendDesc, &blendState_);
 		BLOW_ASSERT_HR(hr, "Cannot create blend state");
-
-		D3D11_RASTERIZER_DESC cmdesc;
-		ZeroMemory(&cmdesc, sizeof(D3D11_RASTERIZER_DESC));
-
-		cmdesc.FillMode = D3D11_FILL_SOLID;
-		cmdesc.CullMode = D3D11_CULL_BACK;
-
-		cmdesc.FrontCounterClockwise = true;
-		hr = device_->CreateRasterizerState(&cmdesc, &CCWcullMode);
-		BLOW_ASSERT_HR(hr, "Cannot create rasterizer state");
-
-		cmdesc.FrontCounterClockwise = false;
-		hr = device_->CreateRasterizerState(&cmdesc, &CWcullMode);
-		BLOW_ASSERT_HR(hr, "Cannot create rasterizer state");
-
-		
 	}
 
 	//----------------------------------------------------------------------------------------------------------------
@@ -216,29 +196,59 @@ namespace blowbox
 
 			DrawElement(renderElements_[i]);
 		}
+
+		// Draw all debug lines
+		Line::Instance()->Draw();
 	}
 
 	//----------------------------------------------------------------------------------------------------------------
 	void D3D11DisplayDevice::DrawElement(D3D11RenderElement* renderElement)
 	{
-		context_->VSSetShader(renderElement->GetShader()->GetVS(), 0, 0);
-		context_->PSSetShader(renderElement->GetShader()->GetPS(), 0, 0);
+		SetShader(renderElement->GetShader());
 
-		cBufferData_.WVP = XMMatrixTranspose(renderElement->GetWorld() * camera_->GetView() * camera_->GetProjection());
-		cBufferData_.alpha = renderElement->GetAlpha();
+		UpdateConstantBuffer(renderElement->GetWorld(), renderElement->GetAlpha());
+
+		SetShaderResources(renderElement->GetTexture());
+		SetSamplers();
+
+		SetBlendState();
+
+		SetTopology(renderElement->GetTopology());
+
+		renderElement->Draw();
+	}
+
+	//----------------------------------------------------------------------------------------------------------------
+	void D3D11DisplayDevice::UpdateConstantBuffer(XMMATRIX world, float alpha)
+	{
+		cBufferData_.WVP = XMMatrixTranspose(world * camera_->GetView() * camera_->GetProjection());
+		cBufferData_.alpha = alpha;
 		cBufferData_.time = time_;
 		context_->UpdateSubresource(cBuffer_, 0, NULL, &cBufferData_, 0, 0);
 
 		context_->VSSetConstantBuffers(0, 1, &cBuffer_);
 		context_->PSSetConstantBuffers(0, 1, &cBuffer_);
+	}
 
-		ID3D11ShaderResourceView* tex = renderElement->GetTexture()->Get();
-		context_->PSSetShaderResources(0, 1, &tex);
+	//----------------------------------------------------------------------------------------------------------------
+	void D3D11DisplayDevice::SetShaderResources(D3D11Texture* texture)
+	{
+		if (currentTexture_ != texture)
+		{
+			ID3D11ShaderResourceView* tex = texture->Get();
+			context_->PSSetShaderResources(0, 1, &tex);
+			currentTexture_ = texture;
+		}
+	}
+
+	void D3D11DisplayDevice::SetSamplers()
+	{
 		context_->PSSetSamplers(0, 1, &samplerState_);
+	}
 
-		context_->OMSetBlendState(Transparency, NULL, 0xffffffff);
-
-		renderElement->Draw();
+	void D3D11DisplayDevice::SetBlendState()
+	{
+		context_->OMSetBlendState(blendState_, NULL, 0xffffffff);
 	}
 
 	//----------------------------------------------------------------------------------------------------------------
@@ -524,9 +534,7 @@ namespace blowbox
 		BLOW_SAFE_RELEASE(rasterizerState_);
 		BLOW_SAFE_RELEASE(samplerState_);
 		BLOW_SAFE_RELEASE(depthState_);
-		BLOW_SAFE_RELEASE(Transparency);
-		BLOW_SAFE_RELEASE(CCWcullMode);
-		BLOW_SAFE_RELEASE(CWcullMode);
+		BLOW_SAFE_RELEASE(blendState_);
 	}
 
 	//----------------------------------------------------------------------------------------------------------------
@@ -556,6 +564,59 @@ namespace blowbox
 	IDXGISwapChain* D3D11DisplayDevice::GetSwapChain()
 	{
 		return swapChain_;
+	}
+
+	//----------------------------------------------------------------------------------------------------------------
+	void D3D11DisplayDevice::SetTopology(D3D11_PRIMITIVE_TOPOLOGY topology)
+	{
+		if (context_ == nullptr)
+		{
+			BLOW_BREAK("Context has not been created yet, cannot set topology");
+		}
+
+		if (topology_ != topology)
+		{
+			context_->IASetPrimitiveTopology(topology);
+			topology_ = topology;
+		}
+	}
+
+	//----------------------------------------------------------------------------------------------------------------
+	D3D11_PRIMITIVE_TOPOLOGY D3D11DisplayDevice::GetTopology()
+	{
+		return topology_;
+	}
+
+	//----------------------------------------------------------------------------------------------------------------
+	void D3D11DisplayDevice::SetShader(D3D11Shader* shader)
+	{
+		if (currentShader_ != shader)
+		{
+			context_->VSSetShader(shader->GetVS(), 0, 0);
+			context_->PSSetShader(shader->GetPS(), 0, 0);
+			currentShader_ = shader;
+		}
+	}
+
+	//----------------------------------------------------------------------------------------------------------------
+	D3D11Shader* D3D11DisplayDevice::GetShader()
+	{
+		return currentShader_;
+	}
+
+	//----------------------------------------------------------------------------------------------------------------
+	void D3D11DisplayDevice::SetBaseShader(D3D11Shader* shader)
+	{
+		if (baseShader_ != shader)
+		{
+			baseShader_ = shader;
+		}
+	}
+
+	//----------------------------------------------------------------------------------------------------------------
+	D3D11Shader* D3D11DisplayDevice::GetBaseShader()
+	{
+		return baseShader_;
 	}
 
 	//----------------------------------------------------------------------------------------------------------------
