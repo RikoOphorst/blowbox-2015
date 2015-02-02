@@ -357,15 +357,21 @@ namespace blowbox
 		ZeroMemory(&swapChainDesc, sizeof(DXGI_SWAP_CHAIN_DESC));
 
 		swapChainDesc.BufferDesc = bufferDesc;
-		swapChainDesc.SampleDesc.Count = 8;
-		swapChainDesc.SampleDesc.Quality = 16;
+		swapChainDesc.SampleDesc.Count = 1;
+		swapChainDesc.SampleDesc.Quality = 0;
 		swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 		swapChainDesc.BufferCount = 1;
 		swapChainDesc.OutputWindow = hWnd;
 		swapChainDesc.Windowed = TRUE;
 		swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT::DXGI_SWAP_EFFECT_DISCARD;
 
-		hr = D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, D3D11_CREATE_DEVICE_DEBUG, NULL, NULL,
+		UINT flags = 0;
+
+#ifdef _DEBUG
+		flags |= D3D11_CREATE_DEVICE_DEBUG;
+#endif
+
+		hr = D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, flags, NULL, NULL,
 			D3D11_SDK_VERSION, &swapChainDesc, &swapChain_, &device_, NULL, &context_);
 		
 		BLOW_ASSERT_HR(hr, "Error creating device & swap chain");
@@ -400,8 +406,8 @@ namespace blowbox
 		depthStencilDesc.MipLevels = 1;
 		depthStencilDesc.ArraySize = 1;
 		depthStencilDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
-		depthStencilDesc.SampleDesc.Count = 8;
-		depthStencilDesc.SampleDesc.Quality = 16;
+		depthStencilDesc.SampleDesc.Count = 1;
+		depthStencilDesc.SampleDesc.Quality = 0;
 		depthStencilDesc.Usage = D3D11_USAGE_DEFAULT;
 		depthStencilDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
 
