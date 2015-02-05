@@ -169,7 +169,7 @@ namespace blowbox
 	int D3D11RenderElement::LuaSetShader(lua_State* state)
 	{
 		LM_GETSELF(D3D11RenderElement);
-		self->shader_->Set(LuaManager::GetValue<std::string>(1));
+		self->shader_ = ContentManager::Instance()->GetShader(LuaManager::GetValue<std::string>(1));
 		return 0;
 	}
 
@@ -183,7 +183,7 @@ namespace blowbox
 	int D3D11RenderElement::LuaSetTexture(lua_State* state)
 	{
 		LM_GETSELF(D3D11RenderElement);
-		self->texture_->Set(LuaManager::GetValue<std::string>(1));
+		self->texture_ = ContentManager::Instance()->GetTexture(LuaManager::GetValue<std::string>(1));
 		return 0;
 	}
 

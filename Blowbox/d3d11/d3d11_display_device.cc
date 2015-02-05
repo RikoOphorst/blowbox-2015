@@ -318,6 +318,9 @@ namespace blowbox
 	void D3D11DisplayDevice::EndDraw()
 	{
 		swapChain_->Present(vsync_, 0);
+
+		currentShader_.clear();
+		currentTexture_.clear();
 	}
 
 	//----------------------------------------------------------------------------------------------------------------
