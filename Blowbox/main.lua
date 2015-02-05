@@ -29,7 +29,7 @@ Game.Update = function (a)
 
 	--Game.myQuad:setPosition(x+1, 0, 0)
 
-	Camera.setPosition((math.sin(Game.t) * 100), (math.cos(Game.t) * 100), 0)
+	Game.w2:setAlpha(1)
 
 	--Line.draw(-200, 0, 0, 1, 1, 1, 100, 200, 0, 0, 0, 0)
 end
