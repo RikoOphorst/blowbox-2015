@@ -101,7 +101,7 @@ namespace blowbox
 		D3D11_PRIMITIVE_TOPOLOGY	GetTopology();
 		 
 		void						SetShader(D3D11Shader* shader);
-		D3D11Shader*				GetShader();
+		std::string					GetShader();
 
 		void						SetBaseShader(D3D11Shader* shader);
 		D3D11Shader*				GetBaseShader();
@@ -163,8 +163,8 @@ namespace blowbox
 		D3D11Camera*						camera_;
 		D3D11Camera*						uiCamera_;
 
-		D3D11Shader*						currentShader_;
-		D3D11Texture*						currentTexture_;
+		std::string							currentShader_;
+		std::string							currentTexture_;
 
 		D3D11_PRIMITIVE_TOPOLOGY			topology_;
 

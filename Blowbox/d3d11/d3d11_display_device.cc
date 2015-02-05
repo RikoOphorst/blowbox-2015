@@ -27,9 +27,7 @@ namespace blowbox
 		samplerState_(nullptr),
 		depthState_(nullptr),
 		CCWcullMode(nullptr),
-		CWcullMode(nullptr),
-		currentTexture_(nullptr),
-		currentShader_(nullptr)
+		CWcullMode(nullptr)
 	{
 		camera_ = new D3D11Camera(D3D11CameraMode::CAM_ORTHOGRAPHIC);
 		uiCamera_ = new D3D11Camera(D3D11CameraMode::CAM_ORTHOGRAPHIC);
@@ -165,8 +163,6 @@ namespace blowbox
 		/*camera_ = SharedPtr<D3D11Camera>(new D3D11Camera(camMode));
 		uiCamera_ = SharedPtr<D3D11Camera>(new D3D11Camera(D3D11CameraMode::CAM_ORTHOGRAPHIC));*/
 
-		currentShader_ = nullptr;
-		currentTexture_ = nullptr;
 	}
 
 	//----------------------------------------------------------------------------------------------------------------
@@ -298,11 +294,11 @@ namespace blowbox
 	//----------------------------------------------------------------------------------------------------------------
 	void D3D11DisplayDevice::SetShaderResources(D3D11Texture* texture)
 	{
-		if (currentTexture_ == nullptr || currentTexture_ == NULL || currentTexture_ != texture)
+		if (currentTexture_.compare(texture->GetPath().c_str()) != 0)
 		{
 			ID3D11ShaderResourceView* tex = texture->Get();
 			context_->PSSetShaderResources(0, 1, &tex);
-			currentTexture_ = texture;
+			currentTexture_ = texture->GetPath();
 		}
 	}
 
@@ -670,16 +666,16 @@ namespace blowbox
 	//----------------------------------------------------------------------------------------------------------------
 	void D3D11DisplayDevice::SetShader(D3D11Shader* shader)
 	{
-		if (currentShader_ == NULL || currentShader_ == nullptr || currentShader_ == shader)
+		if (currentShader_.compare(shader->GetPath().c_str()) != 0)
 		{
 			context_->VSSetShader(shader->GetVS(), 0, 0);
 			context_->PSSetShader(shader->GetPS(), 0, 0);
-			currentShader_ = shader;
+			currentShader_ = shader->GetPath();
 		}
 	}
 
 	//----------------------------------------------------------------------------------------------------------------
-	D3D11Shader* D3D11DisplayDevice::GetShader()
+	std::string D3D11DisplayDevice::GetShader()
 	{
 		return currentShader_;
 	}
