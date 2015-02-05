@@ -5,13 +5,17 @@ Game = Game or {};
 RenderSettings.setFillMode('solid')
 RenderSettings.setCullMode('none')
 
-Game.myWidget = Game.myWidget or Widget.new()
-Game.myWidget:setPosition(0, 100, 0)
+Game.w1 = Game.w1 or Widget.new()
+Game.w1:setPosition(0, 50, 0)
+Game.w1:setRotation(0, 0, 3.14)
+Game.w1:setTexture("tex1.png")
+
+Game.w2 = Game.w2 or Widget.new(Game.w1)
+Game.w2:setPosition(100, 100, 0)
+Game.w2:setTexture("tex2.png")
 
 RenderSettings.setFullscreen(0)
 RenderSettings.setVsync(1)
-
-Game.myWidget:setTexture("tex1.png")
 
 Game.Init = function ()
 	Content.loadTexture('tex1.png')
