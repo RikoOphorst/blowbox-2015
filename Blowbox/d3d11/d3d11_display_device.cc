@@ -164,6 +164,9 @@ namespace blowbox
 
 		/*camera_ = SharedPtr<D3D11Camera>(new D3D11Camera(camMode));
 		uiCamera_ = SharedPtr<D3D11Camera>(new D3D11Camera(D3D11CameraMode::CAM_ORTHOGRAPHIC));*/
+
+		currentShader_ = nullptr;
+		currentTexture_ = nullptr;
 	}
 
 	//----------------------------------------------------------------------------------------------------------------
@@ -295,9 +298,12 @@ namespace blowbox
 	//----------------------------------------------------------------------------------------------------------------
 	void D3D11DisplayDevice::SetShaderResources(D3D11Texture* texture)
 	{
-		ID3D11ShaderResourceView* tex = texture->Get();
-		context_->PSSetShaderResources(0, 1, &tex);
-		currentTexture_ = texture;
+		if (currentTexture_ == nullptr || currentTexture_ == NULL || currentTexture_ != texture)
+		{
+			ID3D11ShaderResourceView* tex = texture->Get();
+			context_->PSSetShaderResources(0, 1, &tex);
+			currentTexture_ = texture;
+		}
 	}
 
 	//----------------------------------------------------------------------------------------------------------------
@@ -664,7 +670,7 @@ namespace blowbox
 	//----------------------------------------------------------------------------------------------------------------
 	void D3D11DisplayDevice::SetShader(D3D11Shader* shader)
 	{
-		if (currentShader_ != shader)
+		if (currentShader_ == NULL || currentShader_ == nullptr || currentShader_ == shader)
 		{
 			context_->VSSetShader(shader->GetVS(), 0, 0);
 			context_->PSSetShader(shader->GetPS(), 0, 0);
