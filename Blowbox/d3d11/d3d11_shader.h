@@ -2,6 +2,8 @@
 
 #include "d3d11_display_device.h"
 
+#define BASE_SHADER std::string("shaders/effects.fx")
+
 namespace blowbox
 {
 	class D3D11Shader

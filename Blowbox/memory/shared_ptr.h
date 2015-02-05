@@ -24,6 +24,8 @@ template<typename T>
 class SharedPtr : public std::shared_ptr<T>
 {
 public:
+	SharedPtr() {}
+	
 	SharedPtr(T* ptr) :
 		std::shared_ptr<T>(ptr)
 	{

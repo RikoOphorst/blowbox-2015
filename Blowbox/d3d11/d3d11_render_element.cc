@@ -15,9 +15,8 @@ namespace blowbox
 		SetScale(1.0f, 1.0f, 1.0f);
 		SetAlpha(1.0f);
 
-		texture_ = ContentManager::Instance()->GetTexture("tex1.png");
-
-		shader_ = ContentManager::Instance()->GetShader("shaders/effects.fx");
+		texture_ = ContentManager::Instance()->GetTexture(BASE_TEXTURE);
+		shader_ = ContentManager::Instance()->GetShader(BASE_SHADER);
 
 		if (D3D11DisplayDevice::Instance()->GetCamera()->GetMode() == CAM_ORTHOGRAPHIC)
 		{

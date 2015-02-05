@@ -86,6 +86,9 @@
     <ClCompile Include="geom\line.cc">
       <Filter>geom</Filter>
     </ClCompile>
+    <ClCompile Include="geom\widget.cc">
+      <Filter>geom</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="win32\window.h">
@@ -150,6 +153,9 @@
       <Filter>d3d11</Filter>
     </ClInclude>
     <ClInclude Include="geom\line.h">
+      <Filter>geom</Filter>
+    </ClInclude>
+    <ClInclude Include="geom\widget.h">
       <Filter>geom</Filter>
     </ClInclude>
   </ItemGroup>

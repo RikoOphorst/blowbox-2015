@@ -11,6 +11,7 @@
 #include "../memory/shared_ptr.h"
 #include "d3d11_shader.h"
 #include "d3d11_texture.h"
+#include "d3d11_camera.h"
 
 namespace blowbox
 {
@@ -46,6 +47,8 @@ namespace blowbox
 	class D3D11RenderElement;
 	class D3D11Shader;
 	class D3D11Texture;
+
+	enum D3D11CameraMode;
 	
 	class D3D11DisplayDevice
 	{
@@ -58,14 +61,21 @@ namespace blowbox
 		ID3D11DeviceContext*		GetContext();
 
 		void						Create(HWND hWnd);
-		void						InitScene();
+		void						InitScene(D3D11CameraMode camMode);
 		void						BeginDraw();
 		void						Draw();
-		void 						DrawElement(D3D11RenderElement *cube);
+		void						DrawAllRenderElements();
+		void 						DrawElement(D3D11RenderElement* element);
+		void 						DrawUIElement(D3D11RenderElement* element);
+		void						DrawAllLines();
+		void						DrawAllUIElements();
 		void						EndDraw();
 
 		void						AddElement(D3D11RenderElement* element);
 		void						RemoveElement(D3D11RenderElement* element);
+
+		void						AddUIElement(D3D11RenderElement* element);
+		void						RemoveUIElement(D3D11RenderElement* element);
 		
 		void						SetProjectionMatrix(float fov, float aspectRatio, float nearZ, float farZ);
 
@@ -96,10 +106,12 @@ namespace blowbox
 		void						SetBaseShader(D3D11Shader* shader);
 		D3D11Shader*				GetBaseShader();
 
-		void						SetCamera(D3D11Camera* camera);
+		void						SetBaseTexture(D3D11Texture* texture);
+		D3D11Texture*				GetBaseTexture();
+
 		D3D11Camera*				GetCamera();
 
-		void						UpdateConstantBuffer(XMMATRIX world_matrix, float alpha);
+		void						UpdateConstantBuffer(XMMATRIX world_matrix, XMMATRIX view_matrix, XMMATRIX projection_matrix, float alpha);
 
 		void						SetShaderResources(D3D11Texture* texture);
 
@@ -143,16 +155,15 @@ namespace blowbox
 		D3D11_CULL_MODE						cullMode_;
 
 		std::vector<D3D11RenderElement*>	renderElements_;
+		std::vector<D3D11RenderElement*>	uiElements_;
 
 		XMMATRIX							WVP_;
 		XMMATRIX							world_;
 
 		D3D11Camera*						camera_;
+		D3D11Camera*						uiCamera_;
 
-		D3D11Shader*						baseShader_;
 		D3D11Shader*						currentShader_;
-
-		D3D11Texture*						baseTexture_;
 		D3D11Texture*						currentTexture_;
 
 		D3D11_PRIMITIVE_TOPOLOGY			topology_;

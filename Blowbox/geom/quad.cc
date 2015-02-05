@@ -16,9 +16,6 @@ namespace blowbox
 		SetTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 
 		D3D11DisplayDevice::Instance()->AddElement(this);
-		SetPosition(0, 0, 0);
-		SetTexture("tex1.png");
-		SetShader("shaders/effects.fx");
 	}
 
 	void Quad::CreateBuffers()

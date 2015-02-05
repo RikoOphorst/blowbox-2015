@@ -3,19 +3,7 @@
 
 namespace blowbox
 {
-	D3D11Texture::D3D11Texture()
-		: texture_(nullptr)
-	{
-		Set();
-	}
-
 	D3D11Texture::D3D11Texture(std::string filePath)
-		: texture_(nullptr)
-	{
-		Set(filePath);
-	}
-
-	D3D11Texture::D3D11Texture(std::string filePath, std::string name)
 		: texture_(nullptr)
 	{
 		Set(filePath);
@@ -31,7 +19,7 @@ namespace blowbox
 		return texture_;
 	}
 
-	void D3D11Texture::Set()
+	void D3D11Texture::CreateBaseTexture()
 	{
 		HRESULT hr = S_OK;
 		
@@ -69,21 +57,28 @@ namespace blowbox
 	}
 
 	void D3D11Texture::Set(std::string filePath)
-	{	
-		BLOW_SAFE_RELEASE_NB(texture_);
-		
-		HRESULT hr = S_OK;
+	{
+		if (filePath == BASE_TEXTURE)
+		{
+			CreateBaseTexture();
+		}
+		else
+		{
+			BLOW_SAFE_RELEASE_NB(texture_);
 
-		hr = D3DX11CreateShaderResourceViewFromFileA(D3D11DisplayDevice::Instance()->GetDevice(), filePath.c_str(), NULL, NULL, &texture_, NULL);
+			HRESULT hr = S_OK;
 
-		BLOW_ASSERT_HR(hr, "There was an error loading a texture, filepath: " + filePath);
+			hr = D3DX11CreateShaderResourceViewFromFileA(D3D11DisplayDevice::Instance()->GetDevice(), filePath.c_str(), NULL, NULL, &texture_, NULL);
 
-		path_ = filePath;
+			BLOW_ASSERT_HR(hr, "There was an error loading a texture, filepath: " + filePath);
 
-		FileWatch::Instance()->Add(filePath, FileType::Texture);
+			path_ = filePath;
+
+			FileWatch::Instance()->Add(filePath, FileType::Texture);
+		}
 	}
 
-	std::string& D3D11Texture::GetPath()
+	std::string D3D11Texture::GetPath()
 	{
 		return path_;
 	}

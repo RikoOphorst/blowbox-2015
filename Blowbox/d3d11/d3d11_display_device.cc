@@ -27,9 +27,12 @@ namespace blowbox
 		samplerState_(nullptr),
 		depthState_(nullptr),
 		CCWcullMode(nullptr),
-		CWcullMode(nullptr)
+		CWcullMode(nullptr),
+		currentTexture_(nullptr),
+		currentShader_(nullptr)
 	{
-		
+		camera_ = new D3D11Camera(D3D11CameraMode::CAM_ORTHOGRAPHIC);
+		uiCamera_ = new D3D11Camera(D3D11CameraMode::CAM_ORTHOGRAPHIC);
 	}
 
 	//----------------------------------------------------------------------------------------------------------------
@@ -67,7 +70,7 @@ namespace blowbox
 	}
 
 	//----------------------------------------------------------------------------------------------------------------
-	void D3D11DisplayDevice::InitScene()
+	void D3D11DisplayDevice::InitScene(D3D11CameraMode camMode)
 	{
 		HRESULT hr = S_OK;
 
@@ -80,11 +83,11 @@ namespace blowbox
 		};
 		UINT numElements = sizeof(layout) / sizeof(D3D11_INPUT_ELEMENT_DESC);
 		
-		SetBaseShader(ContentManager::Instance()->GetShader("shaders/effects.fx"));
+		D3D11Shader* baseShader = ContentManager::Instance()->GetShader(BASE_SHADER);
 
 		//Create the Input Layout
-		hr = device_->CreateInputLayout( layout, numElements, baseShader_->GetVSBuffer()->GetBufferPointer(), 
-			baseShader_->GetVSBuffer()->GetBufferSize(), &inputLayout_);
+		hr = device_->CreateInputLayout(layout, numElements, baseShader->GetVSBuffer()->GetBufferPointer(),
+			baseShader->GetVSBuffer()->GetBufferSize(), &inputLayout_);
 		BLOW_ASSERT_HR(hr, "Could not create input layout from base shader");
 
 		//Set the Input Layout
@@ -158,6 +161,9 @@ namespace blowbox
 
 		hr = device_->CreateBlendState(&blendDesc, &blendState_);
 		BLOW_ASSERT_HR(hr, "Cannot create blend state");
+
+		/*camera_ = SharedPtr<D3D11Camera>(new D3D11Camera(camMode));
+		uiCamera_ = SharedPtr<D3D11Camera>(new D3D11Camera(D3D11CameraMode::CAM_ORTHOGRAPHIC));*/
 	}
 
 	//----------------------------------------------------------------------------------------------------------------
@@ -177,6 +183,17 @@ namespace blowbox
 	//----------------------------------------------------------------------------------------------------------------
 	void D3D11DisplayDevice::Draw()
 	{	
+		DrawAllRenderElements();
+
+		DrawAllLines();
+
+		DrawAllUIElements();
+	}
+
+	//----------------------------------------------------------------------------------------------------------------
+	void D3D11DisplayDevice::DrawAllRenderElements()
+	{
+		// Sort all items based on their Z axis
 		struct RenderSorterZ
 		{
 			bool operator()(D3D11RenderElement* a, D3D11RenderElement* b)
@@ -184,9 +201,9 @@ namespace blowbox
 				return a != nullptr && b != nullptr && XMVectorGetZ(a->GetPosition()) < XMVectorGetZ(b->GetPosition());
 			}
 		} renderSorterZ;
-
 		std::sort(renderElements_.begin(), renderElements_.end(), renderSorterZ);
-		
+
+		// Render the Render Elements
 		for (int i = static_cast<int>(renderElements_.size()) - 1; i >= 0; --i)
 		{
 			if (renderElements_[i] == nullptr)
@@ -196,9 +213,37 @@ namespace blowbox
 
 			DrawElement(renderElements_[i]);
 		}
+	}
 
-		// Draw all debug lines
+	//----------------------------------------------------------------------------------------------------------------
+	void D3D11DisplayDevice::DrawAllLines()
+	{
 		Line::Instance()->Draw();
+	}
+
+	//----------------------------------------------------------------------------------------------------------------
+	void D3D11DisplayDevice::DrawAllUIElements()
+	{
+		// Sort all items based on their Z axis
+		struct RenderSorterZ
+		{
+			bool operator()(D3D11RenderElement* a, D3D11RenderElement* b)
+			{
+				return a != nullptr && b != nullptr && XMVectorGetZ(a->GetPosition()) < XMVectorGetZ(b->GetPosition());
+			}
+		} renderSorterZ;
+		std::sort(uiElements_.begin(), uiElements_.end(), renderSorterZ);
+
+		// Render the Render Elements
+		for (int i = static_cast<int>(uiElements_.size()) - 1; i >= 0; --i)
+		{
+			if (uiElements_[i] == nullptr)
+			{
+				uiElements_.erase(uiElements_.begin() + i);
+			}
+
+			DrawUIElement(uiElements_[i]);
+		}
 	}
 
 	//----------------------------------------------------------------------------------------------------------------
@@ -206,7 +251,7 @@ namespace blowbox
 	{
 		SetShader(renderElement->GetShader());
 
-		UpdateConstantBuffer(renderElement->GetWorld(), renderElement->GetAlpha());
+		UpdateConstantBuffer(renderElement->GetWorld(), camera_->GetView(), camera_->GetProjection(), renderElement->GetAlpha());
 
 		SetShaderResources(renderElement->GetTexture());
 		SetSamplers();
@@ -219,9 +264,26 @@ namespace blowbox
 	}
 
 	//----------------------------------------------------------------------------------------------------------------
-	void D3D11DisplayDevice::UpdateConstantBuffer(XMMATRIX world, float alpha)
+	void D3D11DisplayDevice::DrawUIElement(D3D11RenderElement* renderElement)
 	{
-		cBufferData_.WVP = XMMatrixTranspose(world * camera_->GetView() * camera_->GetProjection());
+		SetShader(renderElement->GetShader());
+
+		UpdateConstantBuffer(renderElement->GetWorld(), uiCamera_->GetView(), uiCamera_->GetProjection(), renderElement->GetAlpha());
+
+		SetShaderResources(renderElement->GetTexture());
+		SetSamplers();
+
+		SetBlendState();
+
+		SetTopology(renderElement->GetTopology());
+
+		renderElement->Draw();
+	}
+
+	//----------------------------------------------------------------------------------------------------------------
+	void D3D11DisplayDevice::UpdateConstantBuffer(XMMATRIX world, XMMATRIX view, XMMATRIX projection, float alpha)
+	{
+		cBufferData_.WVP = XMMatrixTranspose(world * view * projection);
 		cBufferData_.alpha = alpha;
 		cBufferData_.time = time_;
 		context_->UpdateSubresource(cBuffer_, 0, NULL, &cBufferData_, 0, 0);
@@ -233,19 +295,18 @@ namespace blowbox
 	//----------------------------------------------------------------------------------------------------------------
 	void D3D11DisplayDevice::SetShaderResources(D3D11Texture* texture)
 	{
-		if (currentTexture_ != texture)
-		{
-			ID3D11ShaderResourceView* tex = texture->Get();
-			context_->PSSetShaderResources(0, 1, &tex);
-			currentTexture_ = texture;
-		}
+		ID3D11ShaderResourceView* tex = texture->Get();
+		context_->PSSetShaderResources(0, 1, &tex);
+		currentTexture_ = texture;
 	}
 
+	//----------------------------------------------------------------------------------------------------------------
 	void D3D11DisplayDevice::SetSamplers()
 	{
 		context_->PSSetSamplers(0, 1, &samplerState_);
 	}
 
+	//----------------------------------------------------------------------------------------------------------------
 	void D3D11DisplayDevice::SetBlendState()
 	{
 		context_->OMSetBlendState(blendState_, NULL, 0xffffffff);
@@ -263,9 +324,28 @@ namespace blowbox
 		renderElements_.push_back(renderElement);
 	}
 
+	//----------------------------------------------------------------------------------------------------------------
 	void D3D11DisplayDevice::RemoveElement(D3D11RenderElement* renderElement)
 	{
 		for (auto& it : renderElements_)
+		{
+			if (it == renderElement)
+			{
+				it = nullptr;
+			}
+		}
+	}
+
+	//----------------------------------------------------------------------------------------------------------------
+	void D3D11DisplayDevice::AddUIElement(D3D11RenderElement* renderElement)
+	{
+		uiElements_.push_back(renderElement);
+	}
+
+	//----------------------------------------------------------------------------------------------------------------
+	void D3D11DisplayDevice::RemoveUIElement(D3D11RenderElement* renderElement)
+	{
+		for (auto& it : uiElements_)
 		{
 			if (it == renderElement)
 			{
@@ -497,12 +577,6 @@ namespace blowbox
 	}
 
 	//----------------------------------------------------------------------------------------------------------------
-	void D3D11DisplayDevice::SetCamera(D3D11Camera* camera)
-	{
-		camera_ = camera;
-	}
-
-	//----------------------------------------------------------------------------------------------------------------
 	D3D11Camera* D3D11DisplayDevice::GetCamera()
 	{
 		return camera_;
@@ -602,21 +676,6 @@ namespace blowbox
 	D3D11Shader* D3D11DisplayDevice::GetShader()
 	{
 		return currentShader_;
-	}
-
-	//----------------------------------------------------------------------------------------------------------------
-	void D3D11DisplayDevice::SetBaseShader(D3D11Shader* shader)
-	{
-		if (baseShader_ != shader)
-		{
-			baseShader_ = shader;
-		}
-	}
-
-	//----------------------------------------------------------------------------------------------------------------
-	D3D11Shader* D3D11DisplayDevice::GetBaseShader()
-	{
-		return baseShader_;
 	}
 
 	//----------------------------------------------------------------------------------------------------------------

@@ -7,6 +7,7 @@
 #include "../geom/quad.h"
 #include "../geom/cube.h"
 #include "../geom/line.h"
+#include "../geom/widget.h"
 #include "../d3d11/d3d11_settings.h"
 #include "../d3d11/d3d11_camera.h"
 #include "lua_callback.h"
@@ -38,6 +39,7 @@ namespace blowbox
 		LuaRegister<D3D11Settings>::Register(state_);
 		LuaRegister<D3D11Camera>::Register(state_);
 		LuaRegister<Line>::Register(state_);
+		LuaRegister<Widget>::Register(state_, true);
 	};
 
 	LuaManager::~LuaManager()
@@ -103,6 +105,12 @@ namespace blowbox
 	bool LuaManager::GetValue<bool>(int stackIndex)
 	{
 		return lua_isboolean(LM_STATE, stackIndex + 1);
+	}
+
+	template<>
+	void* LuaManager::GetValue<void*>(int stackIndex)
+	{
+		return lua_touserdata(LM_STATE, stackIndex + 1);
 	}
 
 	int LuaManager::PushValue()

@@ -53,7 +53,7 @@ namespace blowbox
 		static int							LuaGetScale(lua_State* state);
 		static int							LuaGetSize(lua_State* state);
 		static int							LuaGetAlpha(lua_State* state);
-	private:
+	protected:
 		XMMATRIX 							world_;
 		XMVECTOR 							position_;
 		XMVECTOR							rotation_;

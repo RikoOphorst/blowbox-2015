@@ -34,6 +34,7 @@
     <ClCompile Include="geom\cube.cc" />
     <ClCompile Include="geom\line.cc" />
     <ClCompile Include="geom\quad.cc" />
+    <ClCompile Include="geom\widget.cc" />
     <ClCompile Include="input\keyboard.cc" />
     <ClCompile Include="input\mouse.cc" />
     <ClCompile Include="lua\lua_callback.cc" />
@@ -61,6 +62,7 @@
     <ClInclude Include="geom\cube.h" />
     <ClInclude Include="geom\line.h" />
     <ClInclude Include="geom\quad.h" />
+    <ClInclude Include="geom\widget.h" />
     <ClInclude Include="input\key.h" />
     <ClInclude Include="input\keyboard.h" />
     <ClInclude Include="input\mouse.h" />

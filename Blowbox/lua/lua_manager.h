@@ -137,6 +137,11 @@ namespace blowbox
 
 			return 0;
 		}
+
+		inline static const char* GetClassN()
+		{
+			return T::class_name();
+		}
 	};
 
 	class LuaManager

@@ -1,5 +1,7 @@
 #include "line.h"
 
+#include "../content/content_manager.h"
+
 namespace blowbox
 {
 	Line::Line()
@@ -93,9 +95,10 @@ namespace blowbox
 
 			displayDevice->SetTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
 
-			displayDevice->SetShader(displayDevice->GetBaseShader());
+			displayDevice->SetShader(ContentManager::Instance()->GetShader(BASE_SHADER));
+			displayDevice->SetShaderResources(ContentManager::Instance()->GetTexture(BASE_TEXTURE));
 
-			displayDevice->UpdateConstantBuffer(XMMatrixIdentity(), 1);
+			displayDevice->UpdateConstantBuffer(XMMatrixIdentity(), displayDevice->GetCamera()->GetView(), displayDevice->GetCamera()->GetProjection(), 1);
 
 			displayDevice->GetContext()->Draw(static_cast<UINT>(lines_.size()), 0);
 

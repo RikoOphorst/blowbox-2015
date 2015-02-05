@@ -50,10 +50,7 @@ namespace blowbox
 
 	void Game::Run()
 	{
-		displayDevice_->InitScene();
-
-		SharedPtr<D3D11Camera> camera(new D3D11Camera(CAM_ORTHOGRAPHIC));
-		displayDevice_->SetCamera(camera.get());
+		displayDevice_->InitScene(D3D11CameraMode::CAM_ORTHOGRAPHIC);
 		
 		InitDeltaTime();
 		
