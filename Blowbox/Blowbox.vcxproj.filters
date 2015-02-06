@@ -28,6 +28,9 @@
     <Filter Include="content">
       <UniqueIdentifier>{d371b5cc-5655-4df3-9199-9753a9e58185}</UniqueIdentifier>
     </Filter>
+    <Filter Include="console">
+      <UniqueIdentifier>{94085a69-9a29-4a6d-bd35-dab3bcf7818b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="win32\window.cc">
@@ -88,6 +91,9 @@
     </ClCompile>
     <ClCompile Include="geom\widget.cc">
       <Filter>geom</Filter>
+    </ClCompile>
+    <ClCompile Include="console\console.cc">
+      <Filter>console</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -157,6 +163,12 @@
     </ClInclude>
     <ClInclude Include="geom\widget.h">
       <Filter>geom</Filter>
+    </ClInclude>
+    <ClInclude Include="console\console.h">
+      <Filter>console</Filter>
+    </ClInclude>
+    <ClInclude Include="console\console_ui.h">
+      <Filter>console</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

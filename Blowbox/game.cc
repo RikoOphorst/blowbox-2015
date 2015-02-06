@@ -13,6 +13,8 @@
 #include "win32/window.h"
 #include "win32/file_watch.h"
 
+#include <QtWidgets\qapplication.h>
+
 namespace blowbox
 {
 	Game::Game() :
@@ -64,6 +66,8 @@ namespace blowbox
 			Draw();
 
 			fileWatch_->Update();
+
+			qApp->processEvents();
 		}
 
 		displayDevice_->Release();
