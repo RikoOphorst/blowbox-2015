@@ -1,9 +1,9 @@
 #include "console.h"
 
-#include "../lua/lua_manager.h"
-
 namespace blowbox
 {
+	bool Console::DEBUG = false;
+
 	Console::Console()
 	{
 		window_ = new QMainWindow();
@@ -19,7 +19,7 @@ namespace blowbox
 
 		lineEdit_->installEventFilter(this);
 
-		qApp->setApplicationName("Snuffbox Console");
+		qApp->setApplicationName("Blowbox Console");
 		qApp->setStyle(QStyleFactory::create("Fusion"));
 
 		QPalette steamPalette;
@@ -49,6 +49,13 @@ namespace blowbox
 
 		textEdit_->setFont(courier);
 		lineEdit_->setFont(courier);
+
+		LuaRegister<Console>::Register(LM_STATE);
+	}
+
+	Console::Console(lua_State* state)
+	{
+
 	}
 
 	Console::~Console()
@@ -64,65 +71,61 @@ namespace blowbox
 
 	bool Console::eventFilter(QObject* obj, QEvent* evt)
 	{
-		if (obj == lineEdit_)
+		if (DEBUG == true)
 		{
-			switch (evt->type()) 
+			if (obj == lineEdit_)
 			{
+				switch (evt->type())
+				{
 				case QEvent::KeyPress:
 					QKeyEvent* keyEvent = static_cast<QKeyEvent*>(evt);
 					switch (keyEvent->key())
 					{
-						case Qt::Key_Return:
+					case Qt::Key_Return:
+					{
+						QString str = lineEdit_->text();
+
+						if (str.length() != 0)
 						{
-							QString str = lineEdit_->text();
+							std::string string = str.toStdString();
+							LuaManager::ExecuteString(string.c_str(), "@Console");
 
-							if (str.length() != 0)
-							{
-								std::string string = "";
-
-								for (int i = 0; i < str.length(); ++i)
-								{
-									string += str.at(i).toLatin1();
-								}
-
-								LuaManager::ExecuteString(string.c_str(), "HALLO");
-
-								history_.push_back(string);
-								historyIndex_ = static_cast<int>(history_.size());
-								lineEdit_->clear();
-								return true;
-							}
-							break;
+							history_.push_back(string);
+							historyIndex_ = static_cast<int>(history_.size());
+							lineEdit_->clear();
+							return true;
 						}
-						case Qt::Key_Up:
-						{
-							int size = history_.size();
-							if (historyIndex_ > 0)
-							{
-								QString string = history_.at(--historyIndex_).c_str();
-								lineEdit_->setText(string);
-								return true;
-							}
-							break;
-						}
-						case Qt::Key_Down:
-						{
-							if (historyIndex_ < static_cast<int>(history_.size()))
-							{
-								QString string = history_.at(historyIndex_++).c_str();
-								lineEdit_->setText(string);
-								return true;
-							}
-							else
-							{
-								lineEdit_->setText("");
-							}
-							break;
-						}
+						break;
 					}
-				break;
-			}
+					case Qt::Key_Up:
+					{
+						if (historyIndex_ > 0)
+						{
+							QString string = history_.at(--historyIndex_).c_str();
+							lineEdit_->setText(string);
+							return true;
+						}
+						break;
+					}
+					case Qt::Key_Down:
+					{
+						if (historyIndex_ < static_cast<int>(history_.size()))
+						{
+							QString string = history_.at(historyIndex_++).c_str();
+							lineEdit_->setText(string);
+							return true;
+						}
+						else
+						{
+							lineEdit_->setText("");
+						}
+						break;
+					}
+					}
+					break;
+				}
 
+			}
 		}
 
 		return false;
@@ -130,13 +133,56 @@ namespace blowbox
 
 	void Console::Show()
 	{
-		window_->show();
+		window_->activateWindow();
 	}
 
 	void Console::Log(const char* msg)
 	{
-		std::string str = static_cast<std::string>(msg);
-		
-		textEdit_->appendPlainText(msg);
+		if (DEBUG == true)
+		{
+			std::string str = static_cast<std::string>(msg);
+
+			textEdit_->appendPlainText(msg);
+		}
+	}
+
+	void Console::Activate()
+	{
+		window_->show();
+
+		Console::DEBUG = true;
+	}
+
+	int Console::RegisterFunctions(lua_State* state)
+	{
+		luaL_Reg regist[] =
+		{
+			{ "Log", LuaLog },
+			{ "Error", LuaError },
+			{ "Watch", LuaWatch },
+			{ NULL, NULL }
+		};
+
+		LM_REGISTER(state, regist);
+
+		return 0;
+	}
+
+	int Console::LuaLog(lua_State* state)
+	{
+		BLOW_CONSOLE_LOG(LuaManager::GetValue<const char*>(0));
+		return 0;
+	}
+
+	int Console::LuaError(lua_State* state)
+	{
+		BLOW_CONSOLE_ERROR(LuaManager::GetValue<const char*>(0));
+		return 0;
+	}
+
+	int Console::LuaWatch(lua_State* state)
+	{
+		//BLOW_CONSOLE_LOG(LuaManager::GetValue<const char*>(0));
+		return 0;
 	}
 }

@@ -171,6 +171,7 @@ namespace blowbox
 		static void ExecuteString(const char* string, const char* source);
 
 		static int LuaRequire(lua_State* state);
+		static int LuaPrint(lua_State* state);
 
 		inline int push_data()
 		{

@@ -2,6 +2,7 @@
 
 #include "../d3d11/d3d11_texture.h"
 #include "../d3d11/d3d11_shader.h"
+#include "../console/console.h"
 
 namespace blowbox
 {
@@ -129,14 +130,14 @@ namespace blowbox
 	int ContentManager::LuaLoadShader(lua_State* state)
 	{
 		ContentManager::Instance()->LoadShader(LuaManager::GetValue<std::string>(0));
-		std::cout << "Loaded a shader!" << std::endl;
+		BLOW_CONSOLE_LOG("Loaded shader: " + LuaManager::GetValue<std::string>(0));
 		return 0;
 	}
 
 	int ContentManager::LuaLoadTexture(lua_State* state)
 	{
 		ContentManager::Instance()->LoadTexture(LuaManager::GetValue<std::string>(0));
-		std::cout << "Loaded a texture!" << std::endl;
+		BLOW_CONSOLE_LOG("Loaded texture: " + LuaManager::GetValue<std::string>(0));
 		return 0;
 	}
 }

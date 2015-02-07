@@ -1,5 +1,6 @@
 #include "file_watch.h"
 #include "../content/content_manager.h"
+#include "../console/console.h"
 
 namespace blowbox
 {
@@ -79,19 +80,19 @@ namespace blowbox
 	void FileWatch::ReloadScript(FileWatched& file)
 	{
 		LuaManager::Instance()->LoadScript(file.path, true);
-		BLOW_LOG("Hot reloaded a script: " + file.path)
+		BLOW_CONSOLE_LOG("Hot reloaded a script: " + file.path);
 	}
 
 	void FileWatch::ReloadTexture(FileWatched& file)
 	{
 		ContentManager::Instance()->LoadTexture(file.path);
-		BLOW_LOG("Hot reloaded a texture: " + file.path);
+		BLOW_CONSOLE_LOG("Hot reloaded a texture: " + file.path);
 	}
 
 	void FileWatch::ReloadShader(FileWatched& file)
 	{
 		ContentManager::Instance()->LoadShader(file.path);
-		BLOW_LOG("Hot reloaded a shader: " + file.path);
+		BLOW_CONSOLE_LOG("Hot reloaded a shader: " + file.path);
 	}
 
 	FILETIME FileWatch::GetTimeForFile(std::string& path, bool* failed)

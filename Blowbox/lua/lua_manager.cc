@@ -32,6 +32,7 @@ namespace blowbox
 		luaopen_debug(state_);
 
 		LM_FUNCTION(state_, LuaManager::LuaRequire, "require");
+		LM_FUNCTION(state_, Console::LuaLog, "print");
 
 		LuaRegister<ContentManager>::Register(state_);
 		LuaRegister<Keyboard>::Register(state_);
@@ -174,8 +175,7 @@ namespace blowbox
 
 	int LuaManager::LuaRequire(lua_State *L) 
 	{
-		const char* path = luaL_checkstring(L, 1);
-		LuaManager::Instance()->LoadScript(path);
+		LuaManager::Instance()->LoadScript(luaL_checkstring(L, 1));
 
 		return 0;
 	}
