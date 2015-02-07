@@ -38,7 +38,7 @@ Game.Update = function (a)
 
 	--Game.myQuad:setPosition(x+1, 0, 0)
 
-	Game.w2:setAlpha(1)
+	Game.w2:setAlpha(math.sin(Game.t * 10))
 
 	--Line.draw(-200, 0, 0, 1, 1, 1, 100, 200, 0, 0, 0, 0)
 end

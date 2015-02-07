@@ -167,6 +167,9 @@ namespace blowbox
 		static int PushValue(const char* value);
 		static int PushValue(bool value);
 
+		static void ExecuteFile(const char* string);
+		static void ExecuteString(const char* string, const char* source);
+
 		static int LuaRequire(lua_State* state);
 
 		inline int push_data()

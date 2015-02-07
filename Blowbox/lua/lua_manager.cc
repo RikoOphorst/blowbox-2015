@@ -12,6 +12,8 @@
 #include "../d3d11/d3d11_camera.h"
 #include "lua_callback.h"
 #include "lua_class.h"
+#include "../console/console.h"
+#include "../game.h"
 
 namespace blowbox
 {
@@ -55,10 +57,7 @@ namespace blowbox
 
 	void LuaManager::LoadScript(std::string path, bool reloading)
 	{
-		if (luaL_dofile(state_, path.c_str()))
-		{
-			BLOW_BREAK(lua_tostring(state_, -1));
-		}
+		LuaManager::ExecuteFile(path.c_str());
 
 		if (!reloading)
 		{
@@ -69,6 +68,24 @@ namespace blowbox
 	lua_State* LuaManager::GetState()
 	{
 		return state_;
+	}
+
+	void LuaManager::ExecuteFile(const char* file)
+	{
+		BLOW_CONSOLE_INPUT(std::string("Running: ") + std::string(file));
+		if (luaL_dofile(LM_STATE, file))
+		{
+			BLOW_CONSOLE_ERROR(lua_tostring(LM_STATE, -1));
+		}
+	}
+
+	void LuaManager::ExecuteString(const char* string, const char* source)
+	{
+		BLOW_CONSOLE_INPUT(string);
+		if ((luaL_loadbuffer(LM_STATE, string, strlen(string), source) || lua_pcall(LM_STATE, 0, 0, 0)))
+		{
+			BLOW_CONSOLE_ERROR(lua_tostring(LM_STATE, -1));
+		}
 	}
 
 	template<>
