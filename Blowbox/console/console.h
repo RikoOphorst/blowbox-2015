@@ -28,6 +28,7 @@ namespace blowbox
 		bool eventFilter(QObject* obj, QEvent* evt);
 
 		void Log(const char* string);
+		void Watch(const char* string);
 		void Activate();
 
 		static int RegisterFunctions(lua_State* state);
@@ -45,6 +46,7 @@ namespace blowbox
 		Ui::Console* console_;
 		QLineEdit* lineEdit_;
 		QPlainTextEdit* textEdit_;
+		QTreeView* treeView_;
 		std::vector<std::string> history_;
 		int historyIndex_;
 	};

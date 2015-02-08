@@ -12,6 +12,7 @@ namespace blowbox
 
 		lineEdit_ = console_->lineEdit;
 		textEdit_ = console_->plainTextEdit;
+		treeView_ = console_->treeView;
 
 		historyIndex_ = 0;
 
@@ -30,7 +31,7 @@ namespace blowbox
 		steamPalette.setColor(QPalette::ToolTipBase, Qt::white);
 		steamPalette.setColor(QPalette::ToolTipText, Qt::white);
 		steamPalette.setColor(QPalette::Text, QColor(166, 207, 207));
-		steamPalette.setColor(QPalette::Button, QColor(88, 106, 80));
+		steamPalette.setColor(QPalette::Button, QColor(23, 24, 26));
 		steamPalette.setColor(QPalette::ButtonText, Qt::white);
 		steamPalette.setColor(QPalette::BrightText, Qt::red);
 		steamPalette.setColor(QPalette::Link, QColor(159, 164, 98));
@@ -146,6 +147,11 @@ namespace blowbox
 		}
 	}
 
+	void Console::Watch(const char* name)
+	{
+		
+	}
+
 	void Console::Activate()
 	{
 		window_->show();
@@ -182,7 +188,12 @@ namespace blowbox
 
 	int Console::LuaWatch(lua_State* state)
 	{
-		//BLOW_CONSOLE_LOG(LuaManager::GetValue<const char*>(0));
+		if (lua_istable(state, 1))
+			lua_gettable(state, 1);
+		
+		if (lua_isboolean(state, 1))
+			lua_toboolean(state, 1);
+
 		return 0;
 	}
 }
