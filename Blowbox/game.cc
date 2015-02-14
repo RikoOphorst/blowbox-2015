@@ -26,7 +26,8 @@ namespace blowbox
 		window_(new Window()),
 		LuaInit_(LuaCallback<>("Game", "Init")),
 		LuaUpdate_(LuaCallback<double>("Game", "Update")),
-		LuaRender_(LuaCallback<double>("Game", "Render"))
+		LuaRender_(LuaCallback<double>("Game", "Render")),
+		paused_(false)
 	{}
 
 	Game::~Game()
@@ -79,20 +80,26 @@ namespace blowbox
 		
 		window_->ProcessMessages();
 
-		keyboard_->Update();
-		mouse_->Update();
+		if (paused_ == false)
+		{
+			keyboard_->Update();
+			mouse_->Update();
 
-		LuaUpdate_.Call(deltaTime_);
+			LuaUpdate_.Call(deltaTime_);
+		}
 
 		lua_gc(LM_STATE, LUA_GCSTEP, 0);
 	}
 
 	void Game::Draw()
 	{
-		LuaRender_.Call(deltaTime_);
-		displayDevice_->BeginDraw();
-		displayDevice_->Draw();
-		displayDevice_->EndDraw();
+		if (paused_ == false)
+		{
+			LuaRender_.Call(deltaTime_);
+			displayDevice_->BeginDraw();
+			displayDevice_->Draw();
+			displayDevice_->EndDraw();
+		}
 	}
 
 	double& Game::GetDeltaTime()
@@ -111,5 +118,15 @@ namespace blowbox
 		currentTime_ = high_resolution_clock::now();
 		deltaTime_ = duration_cast<duration<double, std::milli>>(currentTime_ - lastTime_).count() * 1e-3f;
 		lastTime_ = currentTime_;
+	}
+
+	bool Game::GetPaused()
+	{
+		return paused_;
+	}
+
+	void Game::SetPaused(bool paused)
+	{
+		paused_ = paused;
 	}
 }

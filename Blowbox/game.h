@@ -35,6 +35,9 @@ namespace blowbox
 		void				Draw();
 
 		double&				GetDeltaTime();
+
+		void				SetPaused(bool pause);
+		bool				GetPaused();
 	private:
 		D3D11DisplayDevice* displayDevice_;
 		Keyboard*			keyboard_;
@@ -45,6 +48,7 @@ namespace blowbox
 		LuaCallback<>		LuaInit_;
 		LuaCallback<double>	LuaUpdate_;
 		LuaCallback<double>	LuaRender_;
+		bool				paused_;
 
 		void								InitDeltaTime();
 		void								UpdateDeltaTime();

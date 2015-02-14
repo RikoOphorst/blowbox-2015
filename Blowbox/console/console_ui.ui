@@ -42,13 +42,13 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
       <string>Tab 1</string>
      </attribute>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -91,21 +91,40 @@
      <attribute name="title">
       <string>Tab 2</string>
      </attribute>
-     <widget class="QTreeView" name="treeView">
+     <widget class="QTreeWidget" name="treeWidget">
       <property name="geometry">
        <rect>
         <x>10</x>
         <y>10</y>
         <width>675</width>
-        <height>450</height>
+        <height>451</height>
        </rect>
       </property>
       <property name="maximumSize">
        <size>
         <width>675</width>
-        <height>450</height>
+        <height>16777215</height>
        </size>
       </property>
+      <attribute name="headerDefaultSectionSize">
+       <number>337</number>
+      </attribute>
+      <attribute name="headerHighlightSections">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="headerShowSortIndicator" stdset="0">
+       <bool>false</bool>
+      </attribute>
+      <column>
+       <property name="text">
+        <string>Name</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Value</string>
+       </property>
+      </column>
      </widget>
     </widget>
    </widget>

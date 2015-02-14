@@ -170,6 +170,9 @@
     <ClInclude Include="console\console_ui.h">
       <Filter>console</Filter>
     </ClInclude>
+    <ClInclude Include="lua\lua_include.h">
+      <Filter>lua</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="shaders\effects.fx">

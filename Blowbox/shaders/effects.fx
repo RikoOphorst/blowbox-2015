@@ -32,5 +32,5 @@ float4 PS(VS_OUTPUT input) : SV_TARGET
 
 	color.a *= alpha;
 
-	return color;
+	return input.color;
 }

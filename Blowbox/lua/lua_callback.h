@@ -41,17 +41,17 @@ namespace blowbox
 			{
 				lua_getglobal(LuaManager::Instance()->GetState(), fnc_.c_str());
 			}
-			
+
 
 			int nargs = LuaManager::Instance()->push_data(args...);
 
 			int result = lua_pcall(LuaManager::Instance()->GetState(), nargs, 0, 0);
 
-			if (result == 2)
+			if (result != 0)
 			{
-				BLOW_BREAK(lua_tostring(LuaManager::Instance()->GetState(), -1));
+				BLOW_CONSOLE_ERROR("There was an error executing a lua callback, error code: " + result);
 			}
-			
+
 			lua_pop(LuaManager::Instance()->GetState(), toPop);
 		}
 	private:

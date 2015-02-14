@@ -54,7 +54,7 @@ namespace blowbox
 	{
 		static SharedPtr<LuaManager> ptr(new LuaManager());
 		return ptr.get();
-	}
+	};
 
 	void LuaManager::LoadScript(std::string path, bool reloading)
 	{
@@ -64,16 +64,17 @@ namespace blowbox
 		{
 			FileWatch::Instance()->Add(path, FileType::Script);
 		}
-	}
+	};
 
 	lua_State* LuaManager::GetState()
 	{
 		return state_;
-	}
+	};
 
 	void LuaManager::ExecuteFile(const char* file)
 	{
 		BLOW_CONSOLE_INPUT(std::string("Running: ") + std::string(file));
+		
 		if (luaL_dofile(LM_STATE, file))
 		{
 			BLOW_CONSOLE_ERROR(lua_tostring(LM_STATE, -1));
@@ -178,5 +179,33 @@ namespace blowbox
 		LuaManager::Instance()->LoadScript(luaL_checkstring(L, 1));
 
 		return 0;
+	}
+
+	void LuaManager::StackDump()
+	{
+		int i;
+		int top = lua_gettop(LM_STATE);
+
+		printf("total in stack %d\n", top);
+
+		for (i = 1; i <= top; i++)
+		{  /* repeat for each level */
+			int t = lua_type(LM_STATE, i);
+			switch (t) {
+			case LUA_TSTRING:  /* strings */
+				printf("string: '%s'\n", lua_tostring(LM_STATE, i));
+				break;
+			case LUA_TBOOLEAN:  /* booleans */
+				printf("boolean %s\n", lua_toboolean(LM_STATE, i) ? "true" : "false");
+				break;
+			case LUA_TNUMBER:  /* numbers */
+				printf("number: %g\n", lua_tonumber(LM_STATE, i));
+				break;
+			default:  /* other values */
+				printf("%s\n", lua_typename(LM_STATE, t));
+				break;
+			}
+		}
+		printf("\n");  /* end the listing */
 	}
 }

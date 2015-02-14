@@ -1,11 +1,6 @@
 #pragma once
 
-extern "C"
-{
-	#include <lua.h>
-	#include <lauxlib.h>
-	#include <lualib.h>
-}
+#include "lua_include.h"
 
 #include "../memory/shared_ptr.h"
 #include "../win32/file_watch.h"
@@ -173,6 +168,10 @@ namespace blowbox
 		static int LuaRequire(lua_State* state);
 		static int LuaPrint(lua_State* state);
 
+		static void StackDump();
+
+		void HaltExecution();
+
 		inline int push_data()
 		{
 			return 0;
@@ -185,7 +184,6 @@ namespace blowbox
 
 			return 1;
 		}
-
 
 		template<typename T, typename ... Args>
 		inline int push_data(T first, Args ... others)

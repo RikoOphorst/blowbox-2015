@@ -1,9 +1,10 @@
 #include "console.h"
 
+#include "../game.h"
+#include "../lua/lua_manager.h"
+
 namespace blowbox
 {
-	bool Console::DEBUG = false;
-
 	Console::Console()
 	{
 		window_ = new QMainWindow();
@@ -12,7 +13,7 @@ namespace blowbox
 
 		lineEdit_ = console_->lineEdit;
 		textEdit_ = console_->plainTextEdit;
-		treeView_ = console_->treeView;
+		treeView_ = console_->treeWidget;
 
 		historyIndex_ = 0;
 
@@ -149,7 +150,7 @@ namespace blowbox
 
 	void Console::Watch(const char* name)
 	{
-		
+
 	}
 
 	void Console::Activate()
@@ -188,12 +189,59 @@ namespace blowbox
 
 	int Console::LuaWatch(lua_State* state)
 	{
-		if (lua_istable(state, 1))
-			lua_gettable(state, 1);
-		
-		if (lua_isboolean(state, 1))
-			lua_toboolean(state, 1);
+		Console* console = Console::Instance();
+
+		QTreeWidgetItem* item = new QTreeWidgetItem();
+
+		item->setText(0, LuaManager::GetValue<const char*>(0));
+
+		//console->TraverseTable(state, 2, item);
+
+		console->treeView_->addTopLevelItem(item);
 
 		return 0;
 	}
+
+	void Console::TraverseTable(lua_State* state, int idx, QTreeWidgetItem* parent)
+	{
+		lua_pushvalue(state, idx);
+
+		lua_pushnil(state);
+
+		while (lua_next(state, -2))
+		{
+			QTreeWidgetItem* item = new QTreeWidgetItem(parent);
+			
+			lua_pushvalue(state, -2);
+
+			const char* key = lua_tostring(state, -1);
+			const char* valuetype = lua_typename(state, lua_type(state, -2));
+			const char* value = lua_tostring(state, -2);
+
+			item->setText(0, key);
+
+			if (strcmp(valuetype, "table") == 0)
+			{
+				item->setText(1, "[table]");
+				lua_pop(state, 2);
+				TraverseTable(state, 0, item);
+			}
+			else
+			{
+				std::string str = "[";
+
+				str += valuetype;
+
+				str += "] ";
+
+				str += value;
+
+				item->setText(1, QString(str.c_str()));
+				lua_pop(state, 2);
+			}
+		}
+		lua_pop(state, 1);
+	}
+
+	bool Console::DEBUG = false;
 }

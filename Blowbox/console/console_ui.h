@@ -19,7 +19,7 @@
 #include <QtWidgets/QPlainTextEdit>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTabWidget>
-#include <QtWidgets/QTreeView>
+#include <QtWidgets/QTreeWidget>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -31,12 +31,12 @@ public:
     QWidget *centralwidget;
     QTabWidget *tabWidget;
     QWidget *tab;
-    QWidget *widget;
+    QWidget *layoutWidget;
     QVBoxLayout *verticalLayout;
     QPlainTextEdit *plainTextEdit;
     QLineEdit *lineEdit;
     QWidget *tab_2;
-    QTreeView *treeView;
+    QTreeWidget *treeWidget;
     QStatusBar *statusbar;
 
     void setupUi(QMainWindow *Console)
@@ -55,20 +55,20 @@ public:
         tabWidget->setGeometry(QRect(10, 10, 701, 501));
         tab = new QWidget();
         tab->setObjectName(QStringLiteral("tab"));
-        widget = new QWidget(tab);
-        widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(10, 10, 702, 458));
-        verticalLayout = new QVBoxLayout(widget);
+        layoutWidget = new QWidget(tab);
+        layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
+        layoutWidget->setGeometry(QRect(10, 10, 702, 458));
+        verticalLayout = new QVBoxLayout(layoutWidget);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, 0, 0);
-        plainTextEdit = new QPlainTextEdit(widget);
+        plainTextEdit = new QPlainTextEdit(layoutWidget);
         plainTextEdit->setObjectName(QStringLiteral("plainTextEdit"));
         plainTextEdit->setMinimumSize(QSize(400, 430));
         plainTextEdit->setMaximumSize(QSize(675, 460));
 
         verticalLayout->addWidget(plainTextEdit);
 
-        lineEdit = new QLineEdit(widget);
+        lineEdit = new QLineEdit(layoutWidget);
         lineEdit->setObjectName(QStringLiteral("lineEdit"));
         lineEdit->setMaximumSize(QSize(675, 16777215));
 
@@ -77,10 +77,13 @@ public:
         tabWidget->addTab(tab, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QStringLiteral("tab_2"));
-        treeView = new QTreeView(tab_2);
-        treeView->setObjectName(QStringLiteral("treeView"));
-        treeView->setGeometry(QRect(10, 10, 675, 450));
-        treeView->setMaximumSize(QSize(675, 450));
+        treeWidget = new QTreeWidget(tab_2);
+        treeWidget->setObjectName(QStringLiteral("treeWidget"));
+        treeWidget->setGeometry(QRect(10, 10, 675, 451));
+        treeWidget->setMaximumSize(QSize(675, 16777215));
+        treeWidget->header()->setDefaultSectionSize(337);
+        treeWidget->header()->setHighlightSections(false);
+        treeWidget->header()->setProperty("showSortIndicator", QVariant(false));
         tabWidget->addTab(tab_2, QString());
         Console->setCentralWidget(centralwidget);
         statusbar = new QStatusBar(Console);
@@ -89,7 +92,7 @@ public:
 
         retranslateUi(Console);
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(Console);
@@ -99,6 +102,9 @@ public:
     {
         Console->setWindowTitle(QApplication::translate("Console", "Blowbox - Console", 0));
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("Console", "Tab 1", 0));
+        QTreeWidgetItem *___qtreewidgetitem = treeWidget->headerItem();
+        ___qtreewidgetitem->setText(1, QApplication::translate("Console", "Value", 0));
+        ___qtreewidgetitem->setText(0, QApplication::translate("Console", "Name", 0));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("Console", "Tab 2", 0));
     } // retranslateUi
 
