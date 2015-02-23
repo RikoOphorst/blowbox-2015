@@ -1,8 +1,12 @@
+#pragma once
+
 #include <chrono>
 #include <iostream>
 #include <math.h>
 
-#include "memory/shared_ptr.h"
+#include "../blowbox/memory/shared_ptr.h"
+#include "../blowbox/win32/window.h"
+#include "../blowbox/input/keyboard.h"
 
 namespace blowbox
 {
@@ -28,7 +32,24 @@ namespace blowbox
 		* @return A pointer to the Game's instance
 		*/
 		static Game* Instance();
+
+		/**
+		* @brief Runs the game
+		*/
+		void Run();
+
+		/**
+		* @brief Updates the game
+		*/
+		void Update();
+
+		/**
+		* @brief Draws the game
+		*/
+		void Draw();
 	private:
-		
+		SharedPtr<Window> window_;
+		Mouse* mouse_;
+		Keyboard* keyboard_;
 	};
 }

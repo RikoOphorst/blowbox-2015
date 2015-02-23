@@ -3,8 +3,44 @@
   <ItemGroup>
     <ClCompile Include="main.cc" />
     <ClCompile Include="game.cc" />
+    <ClCompile Include="win32\window.cc">
+      <Filter>win32</Filter>
+    </ClCompile>
+    <ClCompile Include="input\mouse.cc">
+      <Filter>input</Filter>
+    </ClCompile>
+    <ClCompile Include="input\keyboard.cc">
+      <Filter>input</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game.h" />
+    <ClInclude Include="memory\shared_ptr.h">
+      <Filter>memory</Filter>
+    </ClInclude>
+    <ClInclude Include="win32\window.h">
+      <Filter>win32</Filter>
+    </ClInclude>
+    <ClInclude Include="logging.h" />
+    <ClInclude Include="input\keyboard.h">
+      <Filter>input</Filter>
+    </ClInclude>
+    <ClInclude Include="input\mouse.h">
+      <Filter>input</Filter>
+    </ClInclude>
+    <ClInclude Include="input\key.h">
+      <Filter>input</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="memory">
+      <UniqueIdentifier>{a5e62d8d-fc65-4c56-adc6-d2cc6f82e1cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="win32">
+      <UniqueIdentifier>{6e2139d6-c432-48a6-aa12-ab3050be4c66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="input">
+      <UniqueIdentifier>{40f249a9-c248-4196-aa69-6cc4884898bc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
