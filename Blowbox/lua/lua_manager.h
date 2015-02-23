@@ -170,8 +170,6 @@ namespace blowbox
 
 		static void StackDump();
 
-		void HaltExecution();
-
 		inline int push_data()
 		{
 			return 0;
