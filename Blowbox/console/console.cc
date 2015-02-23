@@ -195,7 +195,7 @@ namespace blowbox
 
 		item->setText(0, LuaManager::GetValue<const char*>(0));
 
-		//console->TraverseTable(state, 2, item);
+		console->TraverseTable(state, 2, item);
 
 		console->treeView_->addTopLevelItem(item);
 
@@ -216,7 +216,6 @@ namespace blowbox
 
 			const char* key = lua_tostring(state, -1);
 			const char* valuetype = lua_typename(state, lua_type(state, -2));
-			const char* value = lua_tostring(state, -2);
 
 			item->setText(0, key);
 
@@ -228,6 +227,29 @@ namespace blowbox
 			}
 			else
 			{
+				const char* value;
+				if (lua_isnumber(state, -2) || lua_isstring(state, -2))
+					value = lua_tostring(state, -2);
+
+				if (lua_isboolean(state, -2))
+					value = lua_toboolean(state, -2) ? "true" : "false";
+
+				if (lua_isfunction(state, -2))
+					value = "function";
+
+				if (lua_isnil(state, -2))
+					value = "nil";
+
+				if (lua_isnone(state, -2))
+					value = "none";
+
+				if (lua_islightuserdata(state, -2) || lua_isuserdata(state, -2))
+					value = "userdata";
+
+				if (lua_isthread(state, -2))
+					value = "thread";
+
+
 				std::string str = "[";
 
 				str += valuetype;

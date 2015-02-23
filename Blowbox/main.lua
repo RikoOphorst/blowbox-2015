@@ -1,5 +1,7 @@
 Game = Game or {};
 
+Game.quad = Game.quad or Quad.new()
+
 RenderSettings.setFullscreen(0)
 RenderSettings.setVsync(1)
 
@@ -13,15 +15,11 @@ end
 Game.Update = function (a)
 	Game.t = (Game.t or 0) + a
 
-	print("kjhsdksahgkdhkdsjs")
+	--print("kjhsdksahgkdhkdsjs")
 end
 
 Game.Render = function ()
 	
 end
 
-function balabla ()
-
-	return unpack(sdakhbksd);
-
-end
+Console.Watch('derp', Game)
