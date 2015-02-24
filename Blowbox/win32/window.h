@@ -55,13 +55,19 @@ namespace blowbox
 		* @brief Gets this window's HINSTANCE
 		* @return HINSTANCE of this window
 		*/
-		HINSTANCE getInstance();
+		HINSTANCE GetInstance();
 
 		/**
 		* @brief Gets this window's HWND
 		* @return The handle of this window
 		*/
-		HWND getHandle();
+		HWND GetHandle();
+
+		/**
+		* @brief Get this window's dimensions
+		* @return RECT a struct holding the window's dimensions
+		*/
+		RECT GetDimensions();
 
 		/**
 		* @brief Handler for when the window gets focusses

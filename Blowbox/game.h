@@ -5,11 +5,14 @@
 #include <math.h>
 
 #include "../blowbox/memory/shared_ptr.h"
-#include "../blowbox/win32/window.h"
-#include "../blowbox/input/keyboard.h"
 
 namespace blowbox
 {
+	class Window;
+	class Keyboard;
+	class Mouse;
+	class D3D11RenderDevice;
+	
 	/**
 	* @class blowbox::Game
 	* @brief Manages the Game
@@ -51,5 +54,6 @@ namespace blowbox
 		SharedPtr<Window> window_;
 		Mouse* mouse_;
 		Keyboard* keyboard_;
+		D3D11RenderDevice* renderDevice_;
 	};
 }

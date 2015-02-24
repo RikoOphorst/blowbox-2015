@@ -3,52 +3,55 @@
 #include <memory>
 #include "../../blowbox/logging.h"
 
-struct AllocatedMemory
+namespace blowbox
 {
-	int allocations;
-	int allocated_memory;
-
-	~AllocatedMemory()
+	struct AllocatedMemory
 	{
-		BLOW_ASSERT(allocations == 0 && allocated_memory == 0, "One or more memory leaks detected!");
-	}
-};
+		int allocations;
+		int allocated_memory;
 
-static AllocatedMemory& allocated_memory()
-{
-	static AllocatedMemory alloc;
-	return alloc;
-}
+		~AllocatedMemory()
+		{
+			BLOW_ASSERT(allocations == 0 && allocated_memory == 0, "One or more memory leaks detected!");
+		}
+	};
 
-template<typename T>
-class SharedPtr : public std::shared_ptr<T>
-{
-public:
-	SharedPtr()
+	static AllocatedMemory& allocated_memory()
 	{
-	
+		static AllocatedMemory alloc;
+		return alloc;
 	}
 
-	SharedPtr(T* ptr) :
-		std::shared_ptr<T>(ptr)
+	template<typename T>
+	class SharedPtr : public std::shared_ptr < T >
 	{
-		AllocatedMemory& alloc = allocated_memory();
-		++alloc.allocations;
-		alloc.allocated_memory += sizeof(this);
-	}
+	public:
+		SharedPtr()
+		{
 
-	SharedPtr(SharedPtr&& other)
-	{
-		swap(other);
-	}
+		}
 
-	virtual ~SharedPtr()
-	{
-		if (use_count() <= 1)
+		SharedPtr(T* ptr) :
+			std::shared_ptr<T>(ptr)
 		{
 			AllocatedMemory& alloc = allocated_memory();
-			--alloc.allocations;
-			alloc.allocated_memory -= sizeof(this);
+			++alloc.allocations;
+			alloc.allocated_memory += sizeof(this);
 		}
-	}
-};
+
+		SharedPtr(SharedPtr&& other)
+		{
+			swap(other);
+		}
+
+		virtual ~SharedPtr()
+		{
+			if (use_count() <= 1)
+			{
+				AllocatedMemory& alloc = allocated_memory();
+				--alloc.allocations;
+				alloc.allocated_memory -= sizeof(this);
+			}
+		}
+	};
+}

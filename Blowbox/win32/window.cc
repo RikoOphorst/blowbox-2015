@@ -54,6 +54,15 @@ namespace blowbox
 	}
 
 	//------------------------------------------------------------------------------------------------------
+	RECT Window::GetDimensions()
+	{
+		RECT rect;
+		GetWindowRect(handle_, &rect);
+
+		return rect;
+	}
+
+	//------------------------------------------------------------------------------------------------------
 	void Window::OnClose()
 	{
 		SetStarted(false);
@@ -236,13 +245,13 @@ namespace blowbox
 	}
 
 	//------------------------------------------------------------------------------------------------------
-	HINSTANCE Window::getInstance()
+	HINSTANCE Window::GetInstance()
 	{
 		return instance_;
 	}
 
 	//------------------------------------------------------------------------------------------------------
-	HWND Window::getHandle()
+	HWND Window::GetHandle()
 	{
 		return handle_;
 	}

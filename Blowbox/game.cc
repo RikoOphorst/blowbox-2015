@@ -1,7 +1,9 @@
 #include "game.h"
 
+#include "../blowbox/win32/window.h"
 #include "../blowbox/input/mouse.h"
 #include "../blowbox/input/keyboard.h"
+#include "../blowbox/d3d11/d3d11_render_device.h"
 
 namespace blowbox
 {
@@ -11,6 +13,7 @@ namespace blowbox
 		window_ = SharedPtr<Window>(new Window());
 		mouse_ = Mouse::Instance();
 		keyboard_ = Keyboard::Instance();
+		renderDevice_ = D3D11RenderDevice::Instance();
 	}
 
 	//------------------------------------------------------------------------------------------------------
@@ -33,6 +36,8 @@ namespace blowbox
 		
 		window->Create(std::string("blowbox"), 640, 480);
 		window->SetStarted(true);
+
+		renderDevice_->Initialize(window);
 
 		while (window->GetStarted())
 		{
