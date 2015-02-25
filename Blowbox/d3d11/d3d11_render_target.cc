@@ -17,10 +17,28 @@ namespace blowbox
 	}
 
 	//------------------------------------------------------------------------------------------------------
+	ID3D11Texture2D* D3D11RenderTarget::GetTarget() const
+	{
+		return target_;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	ID3D11RenderTargetView* D3D11RenderTarget::GetView() const
+	{
+		return view_;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	ID3D11ShaderResourceView* D3D11RenderTarget::GetResource() const
+	{
+		return resource_;
+	}
+
+	//------------------------------------------------------------------------------------------------------
 	void D3D11RenderTarget::Create()
 	{
-		BLOW_RELEASE(view_);
 		BLOW_RELEASE(target_);
+		BLOW_RELEASE(view_);
 		BLOW_RELEASE(resource_);
 
 		HRESULT hr = S_OK;

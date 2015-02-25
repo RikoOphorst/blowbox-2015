@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['window',['Window',['../classblowbox_1_1_window.html',1,'blowbox']]],
-  ['window',['Window',['../classblowbox_1_1_window.html#a3a3684af14a68149602d533b122c6637',1,'blowbox::Window']]]
+  ['keyboard',['Keyboard',['../classblowbox_1_1_keyboard.html',1,'blowbox']]],
+  ['keyboard',['Keyboard',['../classblowbox_1_1_keyboard.html#a6eaf6618f3c3ddeb8d48c39149ff97c7',1,'blowbox::Keyboard']]],
+  ['keydata',['KeyData',['../structblowbox_1_1_key_data.html',1,'blowbox']]],
+  ['keystate',['KeyState',['../structblowbox_1_1_key_state.html',1,'blowbox']]]
 ];

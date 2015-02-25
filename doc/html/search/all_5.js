@@ -1,4 +1,22 @@
 var searchData=
 [
-  ['processmessages',['ProcessMessages',['../classblowbox_1_1_window.html#a2523984c848ed0c294f8e41773a59170',1,'blowbox::Window']]]
+  ['game',['Game',['../classblowbox_1_1_game.html',1,'blowbox']]],
+  ['game',['Game',['../classblowbox_1_1_game.html#a906fae2ddc2d3e268629fa2d054df92d',1,'blowbox::Game']]],
+  ['getalpha',['GetAlpha',['../classblowbox_1_1_d3_d11_render_element.html#afb1bc1b63f4035db641bbebcb6abd216',1,'blowbox::D3D11RenderElement']]],
+  ['getcontext',['GetContext',['../classblowbox_1_1_d3_d11_swap_chain.html#acc5906d33eae7ada2d9300ee2175a41f',1,'blowbox::D3D11SwapChain']]],
+  ['getdevice',['GetDevice',['../classblowbox_1_1_d3_d11_render_device.html#acd6fd559ec3fe33efd3cc3b9acc299fe',1,'blowbox::D3D11RenderDevice::GetDevice()'],['../classblowbox_1_1_d3_d11_swap_chain.html#ab058121c49235e6506f10a721c51048e',1,'blowbox::D3D11SwapChain::GetDevice()']]],
+  ['getdimensions',['GetDimensions',['../classblowbox_1_1_window.html#af5f6bfefbb9a7c96cecb1e0226b50c7a',1,'blowbox::Window']]],
+  ['gethandle',['GetHandle',['../classblowbox_1_1_window.html#a9fe7c134e30a34c65bd974c2b26f9f20',1,'blowbox::Window']]],
+  ['getinstance',['GetInstance',['../classblowbox_1_1_window.html#a89fb6e42d6592100ba65b52455636cd0',1,'blowbox::Window']]],
+  ['getoffset',['GetOffset',['../classblowbox_1_1_d3_d11_render_element.html#a0eeccd3e2bde9d9214f9db2191adcbe2',1,'blowbox::D3D11RenderElement']]],
+  ['getposition',['GetPosition',['../classblowbox_1_1_d3_d11_render_element.html#ae16e9d759ef7a25fbfccbde0da30d1e3',1,'blowbox::D3D11RenderElement']]],
+  ['getrotation',['GetRotation',['../classblowbox_1_1_d3_d11_render_element.html#ace6e5a41c553aedcb273116004295445',1,'blowbox::D3D11RenderElement']]],
+  ['getscale',['GetScale',['../classblowbox_1_1_d3_d11_render_element.html#a5919dfee8de4843c32a5be39141415f5',1,'blowbox::D3D11RenderElement']]],
+  ['getshader',['GetShader',['../classblowbox_1_1_d3_d11_render_element.html#a248306864ec7c39a82fbc97b452536b7',1,'blowbox::D3D11RenderElement']]],
+  ['getstarted',['GetStarted',['../classblowbox_1_1_window.html#a72b23c3a150d5de5455b06381c1fb68e',1,'blowbox::Window']]],
+  ['getswapchain',['GetSwapChain',['../classblowbox_1_1_d3_d11_swap_chain.html#afe0807b94325514bf2e71bb4f0aa6854',1,'blowbox::D3D11SwapChain']]],
+  ['gettexture',['GetTexture',['../classblowbox_1_1_d3_d11_render_element.html#a6dca4d08063bb8a17349f411e812ead6',1,'blowbox::D3D11RenderElement']]],
+  ['getx',['GetX',['../classblowbox_1_1_d3_d11_render_element.html#aa415b95dd03ed0a8b246fb0acd7bb4eb',1,'blowbox::D3D11RenderElement']]],
+  ['gety',['GetY',['../classblowbox_1_1_d3_d11_render_element.html#aeec00a55a00978a9d6f6fff0522f1a89',1,'blowbox::D3D11RenderElement']]],
+  ['getz',['GetZ',['../classblowbox_1_1_d3_d11_render_element.html#a1d38eecedd21a2496e3349adb730e4ec',1,'blowbox::D3D11RenderElement']]]
 ];

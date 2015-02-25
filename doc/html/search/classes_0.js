@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['allocatedmemory',['AllocatedMemory',['../struct_allocated_memory.html',1,'']]]
+  ['allocatedmemory',['AllocatedMemory',['../structblowbox_1_1_allocated_memory.html',1,'blowbox']]]
 ];

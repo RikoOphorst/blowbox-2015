@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['game',['Game',['../classblowbox_1_1_game.html',1,'blowbox']]],
-  ['game',['Game',['../classblowbox_1_1_game.html#a906fae2ddc2d3e268629fa2d054df92d',1,'blowbox::Game']]],
-  ['gethandle',['getHandle',['../classblowbox_1_1_window.html#ad3e4f1352fca13ca2d378beba46d842e',1,'blowbox::Window']]],
-  ['getinstance',['getInstance',['../classblowbox_1_1_window.html#a84d3954b2840cea493b220e8cc9cc95f',1,'blowbox::Window']]]
+  ['begindraw',['BeginDraw',['../classblowbox_1_1_d3_d11_render_device.html#af7ecc98dd32fded944427c954a639d8b',1,'blowbox::D3D11RenderDevice']]],
+  ['buttontostring',['ButtonToString',['../classblowbox_1_1_mouse.html#aa706ffd1733541ad1e10f79a33db6f23',1,'blowbox::Mouse']]]
 ];

@@ -2,6 +2,7 @@
 
 namespace blowbox
 {
+	//------------------------------------------------------------------------------------------------------
 	Mouse::Mouse()
 		//: pos_(0.0f, 0.0f)
 	{
@@ -13,11 +14,13 @@ namespace blowbox
 		}
 	}
 
+	//------------------------------------------------------------------------------------------------------
 	Mouse::~Mouse()
 	{
 
 	}
 
+	//------------------------------------------------------------------------------------------------------
 	Mouse* Mouse::Instance()
 	{
 		static SharedPtr<Mouse> ptr(new Mouse());
@@ -29,21 +32,25 @@ namespace blowbox
 		return pos_;
 	}*/
 
+	//------------------------------------------------------------------------------------------------------
 	bool& Mouse::IsDown(MouseButton btn)
 	{
 		return mouseStates_[btn].down;
 	}
 
+	//------------------------------------------------------------------------------------------------------
 	bool& Mouse::IsPressed(MouseButton btn)
 	{
 		return mouseStates_[btn].pressed;
 	}
 
+	//------------------------------------------------------------------------------------------------------
 	bool& Mouse::IsDbl(MouseButton btn)
 	{
 		return mouseStates_[btn].dbl;
 	}
 
+	//------------------------------------------------------------------------------------------------------
 	void Mouse::ResetStates()
 	{
 		for (unsigned int i = 0; i < 3; ++i)
@@ -53,16 +60,19 @@ namespace blowbox
 		}
 	}
 
+	//------------------------------------------------------------------------------------------------------
 	void Mouse::ReceiveEvent(MouseMoveEvent evt)
 	{
 		moveQueue_.push(evt);
 	}
 
+	//------------------------------------------------------------------------------------------------------
 	void Mouse::ReceiveEvent(MouseButtonData button)
 	{
 		clickQueue_.push(button);
 	}
 
+	//------------------------------------------------------------------------------------------------------
 	void Mouse::Update()
 	{
 		ResetStates();
@@ -99,6 +109,7 @@ namespace blowbox
 		}
 	}
 
+	//------------------------------------------------------------------------------------------------------
 	MouseButton Mouse::StringToButton(const char* name)
 	{
 		if (strcmp(name, "L") == 0 || strcmp(name, "l") == 0 || strcmp(name, "Left") == 0 || strcmp(name, "left") == 0)		return MouseButton::MouseLeft;
@@ -110,6 +121,7 @@ namespace blowbox
 		return MouseButton::MouseLeft;
 	}
 
+	//------------------------------------------------------------------------------------------------------
 	std::string Mouse::ButtonToString(MouseButton button)
 	{
 		switch (button)

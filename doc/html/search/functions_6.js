@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['window',['Window',['../classblowbox_1_1_window.html#a3a3684af14a68149602d533b122c6637',1,'blowbox::Window']]]
+  ['keyboard',['Keyboard',['../classblowbox_1_1_keyboard.html#a6eaf6618f3c3ddeb8d48c39149ff97c7',1,'blowbox::Keyboard']]]
 ];

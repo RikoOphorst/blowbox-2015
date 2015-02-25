@@ -8,6 +8,7 @@
 #include "../../blowbox/d3d11/d3d11_index_buffer.h"
 #include "../../blowbox/d3d11/d3d11_input_layout.h"
 #include "../../blowbox/d3d11/d3d11_render_element.h"
+#include "../../blowbox/d3d11/d3d11_render_target.h"
 #include "../../blowbox/d3d11/d3d11_sampler_state.h"
 #include "../../blowbox/d3d11/d3d11_shader.h"
 #include "../../blowbox/d3d11/d3d11_swap_chain.h"
@@ -20,7 +21,11 @@
 namespace blowbox
 {
 	//------------------------------------------------------------------------------------------------------
-	D3D11RenderDevice::D3D11RenderDevice()
+	D3D11RenderDevice::D3D11RenderDevice() :
+		context_(nullptr),
+		device_(nullptr),
+		back_buffer_(nullptr),
+		back_buffer_view_(nullptr)
 	{
 		
 	}
@@ -28,7 +33,8 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	D3D11RenderDevice::~D3D11RenderDevice()
 	{
-
+		BLOW_SAFE_RELEASE(back_buffer_);
+		BLOW_SAFE_RELEASE(back_buffer_view_);
 	}
 
 	//------------------------------------------------------------------------------------------------------
@@ -42,24 +48,39 @@ namespace blowbox
 	void D3D11RenderDevice::Initialize(Window* window)
 	{
 		swap_chain_ = new D3D11SwapChain(window);
+		context_ = swap_chain_->GetContext();
+		device_ = swap_chain_->GetDevice();
+
+		CreateBackBuffer();
+
+		D3D11_VIEWPORT viewport;
+		ZeroMemory(&viewport, sizeof(D3D11_VIEWPORT));
+
+		DXGI_SWAP_CHAIN_DESC desc;
+		swap_chain_->GetSwapChain()->GetDesc(&desc);
+
+		viewport.TopLeftX = 0;
+		viewport.TopLeftY = 0;
+		viewport.Width = (FLOAT)desc.BufferDesc.Width;
+		viewport.Height = (FLOAT)desc.BufferDesc.Height;
+		viewport.MinDepth = 0.0f;
+		viewport.MaxDepth = 1.0f;
+
+		context_->RSSetViewports(1, &viewport);
 	}
 
 	//------------------------------------------------------------------------------------------------------
-	void D3D11RenderDevice::BeginDraw()
+	void D3D11RenderDevice::DrawRenderTargets()
 	{
+		context_->ClearRenderTargetView(back_buffer_view_, D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.0f));
 
-	}
+		std::map<std::string, D3D11RenderTarget*>::iterator it = render_targets_.begin();
+		while (it != render_targets_.end())
+		{
+			
+		}
 
-	//------------------------------------------------------------------------------------------------------
-	void D3D11RenderDevice::Draw()
-	{
-
-	}
-
-	//------------------------------------------------------------------------------------------------------
-	void D3D11RenderDevice::EndDraw()
-	{
-
+		swap_chain_->GetSwapChain()->Present(1, 0);
 	}
 
 	//------------------------------------------------------------------------------------------------------
