@@ -172,6 +172,12 @@
     <ClInclude Include="memory\shared_ptr.h" />
     <ClInclude Include="win32\window.h" />
   </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="shaders\base.fx">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </FxCompile>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

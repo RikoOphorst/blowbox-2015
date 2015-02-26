@@ -156,5 +156,13 @@
     <Filter Include="elements">
       <UniqueIdentifier>{426e0dbb-bbad-4f83-8ea7-87d72370d1ac}</UniqueIdentifier>
     </Filter>
+    <Filter Include="shaders">
+      <UniqueIdentifier>{3e47977d-7aee-4706-bb8c-35f79c1b04e7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="shaders\base.fx">
+      <Filter>shaders</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

@@ -23,7 +23,8 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	D3D11RenderDevice::D3D11RenderDevice() :
 		context_(nullptr),
-		device_(nullptr)
+		device_(nullptr),
+		buffer_type_(BUFFER_TYPE::BUFFER_TYPE_UNKNOWN)
 	{
 		
 	}
@@ -57,13 +58,12 @@ namespace blowbox
 
 		screen_quad_ = new D3D11VertexBuffer();
 
-		std::vector<int> indices({0, 1, 2, 3});
 		screen_quad_->Create(
 			{
-				{ XMFLOAT4(-1.0f, -1.0f, 0.0f, 1.0f), XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), XMFLOAT2(0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 1.0f) },
-				{ XMFLOAT4(-1.0f, 1.0f, 0.0f, 1.0f), XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), XMFLOAT2(0.0f, 1.0f), XMFLOAT3(0.0f, 0.0f, 1.0f) },
-				{ XMFLOAT4(1.0f, -1.0f, 0.0f, 1.0f), XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), XMFLOAT2(1.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 1.0f) },
-				{ XMFLOAT4(1.0f, 1.0f, 0.0f, 1.0f), XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), XMFLOAT2(1.0f, 1.0f), XMFLOAT3(0.0f, 0.0f, 1.0f) }
+				{ XMFLOAT4(-1.0f, -1.0f, 0.0f, 1.0f), XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f), XMFLOAT2(0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 1.0f) },
+				{ XMFLOAT4(-1.0f, 1.0f, 0.0f, 1.0f), XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f), XMFLOAT2(0.0f, 1.0f), XMFLOAT3(0.0f, 0.0f, 1.0f) },
+				{ XMFLOAT4(1.0f, -1.0f, 0.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f), XMFLOAT2(1.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 1.0f) },
+				{ XMFLOAT4(1.0f, 1.0f, 0.0f, 1.0f), XMFLOAT4(0.5f, 0.5f, 0.5f, 1.0f), XMFLOAT2(1.0f, 1.0f), XMFLOAT3(0.0f, 0.0f, 1.0f) }
 			}, 
 			{ 0, 1, 2, 3 },
 			D3D11_PRIMITIVE_TOPOLOGY::D3D10_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP, 
@@ -73,6 +73,19 @@ namespace blowbox
 		target_ = new D3D11RenderTarget();
 		target_->Create(RENDER_TARGET_TYPE::RENDER_TARGET_TYPE_RENDER_TARGET, swap_chain_, device_);
 
+		default_shader_ = new D3D11Shader(std::string("shaders/base.fx"));
+
+		D3D11_INPUT_ELEMENT_DESC layout[] = {
+			{ "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			{ "COLOUR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 16, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 32, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			{ "NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 40, D3D11_INPUT_PER_VERTEX_DATA, 0 }
+		};
+		UINT stride = sizeof(layout);
+		input_layout_ = new D3D11InputLayout(layout, stride, default_shader_.get());
+
+		input_layout_->Set(context_);
+
 		AddRenderTarget(std::string("hurdur"), target_.get());
 	}
 
@@ -80,6 +93,9 @@ namespace blowbox
 	void D3D11RenderDevice::Draw()
 	{
 		back_buffer_->Clear(context_);
+
+		context_->VSSetShader(default_shader_->GetVertexShader(), 0, 0);
+		context_->PSSetShader(default_shader_->GetPixelShader(), 0, 0);
 
 		for (auto it = render_targets_.begin(); it != render_targets_.end(); it++)
 		{

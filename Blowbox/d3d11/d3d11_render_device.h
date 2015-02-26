@@ -13,6 +13,8 @@ namespace blowbox
 	class D3D11RenderTarget;
 	class D3D11Viewport;
 	class D3D11VertexBuffer;
+	class D3D11InputLayout;
+	class D3D11Shader;
 	enum BUFFER_TYPE;
 	
 	/**
@@ -114,6 +116,10 @@ namespace blowbox
 		SharedPtr<D3D11VertexBuffer> screen_quad_;
 
 		SharedPtr<D3D11RenderTarget> target_;
+
+		SharedPtr<D3D11Shader> default_shader_;
+
+		SharedPtr<D3D11InputLayout> input_layout_;
 
 		std::map<std::string, D3D11RenderTarget*> render_targets_;
 
