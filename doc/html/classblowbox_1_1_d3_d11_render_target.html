@@ -111,22 +111,217 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classblowbox_1_1_d3_d11_render_target.html#ab1fc05179b4602849a517b96be50f0eb">~D3D11RenderTarget</a> ()</td></tr>
 <tr class="memdesc:ab1fc05179b4602849a517b96be50f0eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default <a class="el" href="classblowbox_1_1_d3_d11_render_target.html" title="A RenderTarget handler. ">D3D11RenderTarget</a> constructor. <br /></td></tr>
 <tr class="separator:ab1fc05179b4602849a517b96be50f0eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afc404a957e0a349e39b656e9b0bcc529"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afc404a957e0a349e39b656e9b0bcc529"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classblowbox_1_1_d3_d11_render_target.html#afc404a957e0a349e39b656e9b0bcc529">Create</a> ()</td></tr>
-<tr class="memdesc:afc404a957e0a349e39b656e9b0bcc529"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the render target. <br /></td></tr>
-<tr class="separator:afc404a957e0a349e39b656e9b0bcc529"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7e7ecc745074677acb714b273076da7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classblowbox_1_1_d3_d11_render_target.html#ae7e7ecc745074677acb714b273076da7">Create</a> (RENDER_TARGET_TYPE type, IDXGISwapChain *swap_chain, ID3D11Device *device)</td></tr>
+<tr class="memdesc:ae7e7ecc745074677acb714b273076da7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the render target.  <a href="#ae7e7ecc745074677acb714b273076da7">More...</a><br /></td></tr>
+<tr class="separator:ae7e7ecc745074677acb714b273076da7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6cab5be2492865ac3798310085c151d0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classblowbox_1_1_d3_d11_render_target.html#a6cab5be2492865ac3798310085c151d0">Set</a> (ID3D11DeviceContext *context)</td></tr>
+<tr class="memdesc:a6cab5be2492865ac3798310085c151d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets this render target.  <a href="#a6cab5be2492865ac3798310085c151d0">More...</a><br /></td></tr>
+<tr class="separator:a6cab5be2492865ac3798310085c151d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed9e7adb3271df9676d5f3780308f9fa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classblowbox_1_1_d3_d11_render_target.html#aed9e7adb3271df9676d5f3780308f9fa">Draw</a> (ID3D11DeviceContext *context)</td></tr>
+<tr class="memdesc:aed9e7adb3271df9676d5f3780308f9fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws this render target.  <a href="#aed9e7adb3271df9676d5f3780308f9fa">More...</a><br /></td></tr>
+<tr class="separator:aed9e7adb3271df9676d5f3780308f9fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a3e984531de52a74edffd74ca72e1b4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classblowbox_1_1_d3_d11_render_target.html#a3a3e984531de52a74edffd74ca72e1b4">Clear</a> (ID3D11DeviceContext *context)</td></tr>
+<tr class="memdesc:a3a3e984531de52a74edffd74ca72e1b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear this render target.  <a href="#a3a3e984531de52a74edffd74ca72e1b4">More...</a><br /></td></tr>
+<tr class="separator:a3a3e984531de52a74edffd74ca72e1b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3eb6b61b9461c7d5cc97be73dfcefafb"><td class="memItemLeft" align="right" valign="top">ID3D11Texture2D *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classblowbox_1_1_d3_d11_render_target.html#a3eb6b61b9461c7d5cc97be73dfcefafb">GetTarget</a> () const </td></tr>
+<tr class="separator:a3eb6b61b9461c7d5cc97be73dfcefafb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe141a28130340006ed1d4ba156aa2c3"><td class="memItemLeft" align="right" valign="top">ID3D11RenderTargetView *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classblowbox_1_1_d3_d11_render_target.html#afe141a28130340006ed1d4ba156aa2c3">GetView</a> () const </td></tr>
+<tr class="separator:afe141a28130340006ed1d4ba156aa2c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeeab3efc68801055d7ac9735ccef8aa4"><td class="memItemLeft" align="right" valign="top">ID3D11ShaderResourceView *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classblowbox_1_1_d3_d11_render_target.html#aeeab3efc68801055d7ac9735ccef8aa4">GetResource</a> () const </td></tr>
+<tr class="separator:aeeab3efc68801055d7ac9735ccef8aa4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32c0e54f8a2a0c2df63ded7190222c80"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classblowbox_1_1_d3_d11_render_queue.html">D3D11RenderQueue</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classblowbox_1_1_d3_d11_render_target.html#a32c0e54f8a2a0c2df63ded7190222c80">GetQueue</a> () const </td></tr>
+<tr class="separator:a32c0e54f8a2a0c2df63ded7190222c80"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A RenderTarget handler. </p>
 <dl class="section author"><dt>Author</dt><dd>Riko Ophorst </dd></dl>
-</div><hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/Users/Riko pc/Documents/Visual Studio 2013/Projects/blowbox/Blowbox/d3d11/<a class="el" href="d3d11__render__target_8h_source.html">d3d11_render_target.h</a></li>
-<li>C:/Users/Riko pc/Documents/Visual Studio 2013/Projects/blowbox/Blowbox/d3d11/d3d11_render_target.cc</li>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a3a3e984531de52a74edffd74ca72e1b4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void blowbox::D3D11RenderTarget::Clear </td>
+          <td>(</td>
+          <td class="paramtype">ID3D11DeviceContext *&#160;</td>
+          <td class="paramname"><em>context</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Clear this render target. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">context</td><td>(ID3D11DeviceContext*) the device context </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ae7e7ecc745074677acb714b273076da7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void blowbox::D3D11RenderTarget::Create </td>
+          <td>(</td>
+          <td class="paramtype">RENDER_TARGET_TYPE&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">IDXGISwapChain *&#160;</td>
+          <td class="paramname"><em>swap_chain</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ID3D11Device *&#160;</td>
+          <td class="paramname"><em>device</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates the render target. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">type</td><td>(RENDER_TARGET_TYPE) the type of render target </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">swap_chain</td><td>(IDXGISwapChain*) the swap chain </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">device</td><td>(ID3D11Device*) the device </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="aed9e7adb3271df9676d5f3780308f9fa"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void blowbox::D3D11RenderTarget::Draw </td>
+          <td>(</td>
+          <td class="paramtype">ID3D11DeviceContext *&#160;</td>
+          <td class="paramname"><em>context</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Draws this render target. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">context</td><td>(ID3D11DeviceContext*) the device context </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a32c0e54f8a2a0c2df63ded7190222c80"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classblowbox_1_1_d3_d11_render_queue.html">D3D11RenderQueue</a> * blowbox::D3D11RenderTarget::GetQueue </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>D3D11RenderQueue* The render queue of this render target </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aeeab3efc68801055d7ac9735ccef8aa4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ID3D11ShaderResourceView * blowbox::D3D11RenderTarget::GetResource </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>ID3D11RenderTargetView* The render target resource </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a3eb6b61b9461c7d5cc97be73dfcefafb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ID3D11Texture2D * blowbox::D3D11RenderTarget::GetTarget </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>ID3D11RenderTargetView* The render target </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="afe141a28130340006ed1d4ba156aa2c3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ID3D11RenderTargetView * blowbox::D3D11RenderTarget::GetView </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>ID3D11RenderTargetView* The render target view </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a6cab5be2492865ac3798310085c151d0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void blowbox::D3D11RenderTarget::Set </td>
+          <td>(</td>
+          <td class="paramtype">ID3D11DeviceContext *&#160;</td>
+          <td class="paramname"><em>context</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets this render target. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">context</td><td>(ID3D11DeviceContext*) the device context </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>C:/Users/Riko/Documents/Visual Studio 2013/Projects/blowbox/Blowbox/d3d11/<a class="el" href="d3d11__render__target_8h_source.html">d3d11_render_target.h</a></li>
+<li>C:/Users/Riko/Documents/Visual Studio 2013/Projects/blowbox/Blowbox/d3d11/d3d11_render_target.cc</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 25 2015 00:20:53 for blowbox by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Feb 26 2015 16:54:51 for blowbox by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

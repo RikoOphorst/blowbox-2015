@@ -1,11 +1,14 @@
 var searchData=
 [
-  ['d3d11renderdevice',['D3D11RenderDevice',['../classblowbox_1_1_d3_d11_render_device.html#a0dcf1eaf30f4194e706c0c09610d1c30',1,'blowbox::D3D11RenderDevice']]],
-  ['d3d11renderelement',['D3D11RenderElement',['../classblowbox_1_1_d3_d11_render_element.html#abe9f5a60095387434deb2c71567311ef',1,'blowbox::D3D11RenderElement']]],
-  ['d3d11rendertarget',['D3D11RenderTarget',['../classblowbox_1_1_d3_d11_render_target.html#a4350f673994781caaf3e55ccc60ecca4',1,'blowbox::D3D11RenderTarget']]],
-  ['d3d11shader',['D3D11Shader',['../classblowbox_1_1_d3_d11_shader.html#afbf35e0eb23bff0e54bab2ff91e949ef',1,'blowbox::D3D11Shader']]],
-  ['d3d11swapchain',['D3D11SwapChain',['../classblowbox_1_1_d3_d11_swap_chain.html#a141c3ba28b0d59a8124aee215d882b25',1,'blowbox::D3D11SwapChain']]],
-  ['d3d11texture',['D3D11Texture',['../classblowbox_1_1_d3_d11_texture.html#ac6907628a5af554e91f9c16cd68455bd',1,'blowbox::D3D11Texture']]],
-  ['draw',['Draw',['../classblowbox_1_1_d3_d11_render_device.html#a4c106a4134abd4d8e8d59aef26c41c3f',1,'blowbox::D3D11RenderDevice::Draw()'],['../classblowbox_1_1_d3_d11_render_element.html#a9211e3396fe6c8c2064a177671be36da',1,'blowbox::D3D11RenderElement::Draw()'],['../classblowbox_1_1_game.html#a9ece9f5dc078b18e0822a773117e50ed',1,'blowbox::Game::Draw()']]],
-  ['drawrendertargets',['DrawRenderTargets',['../classblowbox_1_1_d3_d11_render_device.html#abd6f6732231823b31332a03ce6d3db1e',1,'blowbox::D3D11RenderDevice']]]
+  ['calculateoffset',['CalculateOffset',['../classblowbox_1_1_d3_d11_render_element.html#a2c3024bb957a34b3d44b947b8e6959d0',1,'blowbox::D3D11RenderElement']]],
+  ['calculateposition',['CalculatePosition',['../classblowbox_1_1_d3_d11_render_element.html#ab8c7eca9df88a92c9edafc033e3f4f25',1,'blowbox::D3D11RenderElement']]],
+  ['calculaterotation',['CalculateRotation',['../classblowbox_1_1_d3_d11_render_element.html#aeff25c0e08faea82180f4a9807cf38c1',1,'blowbox::D3D11RenderElement']]],
+  ['calculatescaling',['CalculateScaling',['../classblowbox_1_1_d3_d11_render_element.html#aead5560b8b6e11a33d279e51ab22544e',1,'blowbox::D3D11RenderElement']]],
+  ['clear',['Clear',['../classblowbox_1_1_d3_d11_render_target.html#a3a3e984531de52a74edffd74ca72e1b4',1,'blowbox::D3D11RenderTarget']]],
+  ['create',['Create',['../classblowbox_1_1_d3_d11_render_target.html#ae7e7ecc745074677acb714b273076da7',1,'blowbox::D3D11RenderTarget::Create()'],['../classblowbox_1_1_d3_d11_vertex_buffer.html#a966cbe8e381f2609c1c91acfef2fb7b3',1,'blowbox::D3D11VertexBuffer::Create()'],['../classblowbox_1_1_window.html#a31a23c6ccc86237755f04fe41f00a928',1,'blowbox::Window::Create()']]],
+  ['createbackbuffer',['CreateBackBuffer',['../classblowbox_1_1_d3_d11_render_device.html#aca07dd0f49738faea160f11a2da956fa',1,'blowbox::D3D11RenderDevice']]],
+  ['createinputlayout',['CreateInputLayout',['../classblowbox_1_1_d3_d11_render_device.html#a43700f3248b0f91ae99baa3100c7a039',1,'blowbox::D3D11RenderDevice']]],
+  ['createscreenquad',['CreateScreenQuad',['../classblowbox_1_1_d3_d11_render_device.html#a1be6a2341f0c10b3daf924b6dc0d373b',1,'blowbox::D3D11RenderDevice']]],
+  ['createswapchain',['CreateSwapChain',['../classblowbox_1_1_d3_d11_render_device.html#a6414527baad56f8c578d9784aca63f66',1,'blowbox::D3D11RenderDevice']]],
+  ['createviewport',['CreateViewport',['../classblowbox_1_1_d3_d11_render_device.html#abe2fde15eea2d24c07d3d5bd6af59ceb',1,'blowbox::D3D11RenderDevice']]]
 ];

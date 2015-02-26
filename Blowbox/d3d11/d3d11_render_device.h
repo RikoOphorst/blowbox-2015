@@ -104,6 +104,32 @@ namespace blowbox
 		* @return Gets the back buffer
 		*/
 		D3D11RenderTarget* GetBackBuffer() const;
+
+		/**
+		* @brief Creates the swap chain
+		* @param[in] window (Window*) the window
+		*/
+		void CreateSwapChain(Window* window);
+
+		/**
+		* @brief Creates the viewport
+		*/
+		void CreateViewport();
+
+		/**
+		* @brief Creates the input layout
+		*/
+		void CreateInputLayout();
+
+		/**
+		* @brief Creates the back buffer
+		*/
+		void CreateBackBuffer();
+
+		/**
+		* @brief Creates the screen quad
+		*/
+		void CreateScreenQuad();
 	private:
 		SharedPtr<D3D11SwapChain> swap_chain_manager_;
 		IDXGISwapChain* swap_chain_;

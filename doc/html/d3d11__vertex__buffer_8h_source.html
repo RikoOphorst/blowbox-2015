@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.9.1"/>
-<title>blowbox: C:/Users/Riko pc/Documents/Visual Studio 2013/Projects/blowbox/Blowbox/d3d11/d3d11_vertex_buffer.h Source File</title>
+<title>blowbox: C:/Users/Riko/Documents/Visual Studio 2013/Projects/blowbox/Blowbox/d3d11/d3d11_vertex_buffer.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -89,10 +89,71 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">d3d11_vertex_buffer.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"></div><!-- fragment --></div><!-- contents -->
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;../../blowbox/d3d11/d3d11.h&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;xnamath.h&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceblowbox.html">blowbox</a></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="structblowbox_1_1_vertex.html">   14</a></span>&#160;    <span class="keyword">struct </span><a class="code" href="structblowbox_1_1_vertex.html">Vertex</a></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    {</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        XMFLOAT4 position; </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        XMFLOAT4 color;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        XMFLOAT2 tex_coords;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        XMFLOAT3 normal;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    };</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">enum</span> BUFFER_TYPE</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    {</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        BUFFER_TYPE_QUAD,</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        BUFFER_TYPE_UNKNOWN</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    };</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="classblowbox_1_1_d3_d11_vertex_buffer.html">   37</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classblowbox_1_1_d3_d11_vertex_buffer.html">D3D11VertexBuffer</a></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    {</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <a class="code" href="classblowbox_1_1_d3_d11_vertex_buffer.html#a072d3f3cadfec1843878f42085691359">D3D11VertexBuffer</a>();</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <a class="code" href="classblowbox_1_1_d3_d11_vertex_buffer.html#a7e7fe370dc4299fecb5fc4c7263cd9d9">~D3D11VertexBuffer</a>();</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classblowbox_1_1_d3_d11_vertex_buffer.html#a966cbe8e381f2609c1c91acfef2fb7b3">Create</a>(<span class="keyword">const</span> std::vector&lt;Vertex&gt;&amp; vertices, <span class="keyword">const</span> std::vector&lt;int&gt;&amp; indices, <span class="keyword">const</span> D3D11_PRIMITIVE_TOPOLOGY&amp; topology, <span class="keyword">const</span> BUFFER_TYPE&amp; type);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classblowbox_1_1_d3_d11_vertex_buffer.html#aed2929948419a2527115af5f121c080d">Set</a>(ID3D11DeviceContext* context);</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classblowbox_1_1_d3_d11_vertex_buffer.html#a40048164f449fbb329ccc8eba8ff7a9e">Draw</a>(ID3D11DeviceContext* context);</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        <span class="keyword">const</span> D3D11_PRIMITIVE_TOPOLOGY&amp; <a class="code" href="classblowbox_1_1_d3_d11_vertex_buffer.html#a76f13605f5faf17b3fa22c95ae1b9172">GetTopology</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        ID3D11Buffer* vertex_buffer_;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        UINT vertex_stride_size_;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        UINT vertex_offset_;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        ID3D11Buffer* index_buffer_;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        DXGI_FORMAT index_format_;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        UINT index_offset_;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        UINT index_size_;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        BUFFER_TYPE type_;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        D3D11_PRIMITIVE_TOPOLOGY topology_;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    };</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;}</div>
+<div class="ttc" id="classblowbox_1_1_d3_d11_vertex_buffer_html_a072d3f3cadfec1843878f42085691359"><div class="ttname"><a href="classblowbox_1_1_d3_d11_vertex_buffer.html#a072d3f3cadfec1843878f42085691359">blowbox::D3D11VertexBuffer::D3D11VertexBuffer</a></div><div class="ttdeci">D3D11VertexBuffer()</div><div class="ttdoc">Default D3D11VertexBuffer constructor. </div><div class="ttdef"><b>Definition:</b> d3d11_vertex_buffer.cc:9</div></div>
+<div class="ttc" id="classblowbox_1_1_d3_d11_vertex_buffer_html_aed2929948419a2527115af5f121c080d"><div class="ttname"><a href="classblowbox_1_1_d3_d11_vertex_buffer.html#aed2929948419a2527115af5f121c080d">blowbox::D3D11VertexBuffer::Set</a></div><div class="ttdeci">void Set(ID3D11DeviceContext *context)</div><div class="ttdoc">Sets the vertex & index buffer. </div><div class="ttdef"><b>Definition:</b> d3d11_vertex_buffer.cc:76</div></div>
+<div class="ttc" id="classblowbox_1_1_d3_d11_vertex_buffer_html_a7e7fe370dc4299fecb5fc4c7263cd9d9"><div class="ttname"><a href="classblowbox_1_1_d3_d11_vertex_buffer.html#a7e7fe370dc4299fecb5fc4c7263cd9d9">blowbox::D3D11VertexBuffer::~D3D11VertexBuffer</a></div><div class="ttdeci">~D3D11VertexBuffer()</div><div class="ttdoc">Default D3D11VertexBuffer destructor. </div><div class="ttdef"><b>Definition:</b> d3d11_vertex_buffer.cc:17</div></div>
+<div class="ttc" id="classblowbox_1_1_d3_d11_vertex_buffer_html"><div class="ttname"><a href="classblowbox_1_1_d3_d11_vertex_buffer.html">blowbox::D3D11VertexBuffer</a></div><div class="ttdoc">Handles vertex & index buffers and topology settings. </div><div class="ttdef"><b>Definition:</b> d3d11_vertex_buffer.h:37</div></div>
+<div class="ttc" id="structblowbox_1_1_vertex_html"><div class="ttname"><a href="structblowbox_1_1_vertex.html">blowbox::Vertex</a></div><div class="ttdoc">A structure that holds vertex information. </div><div class="ttdef"><b>Definition:</b> d3d11_vertex_buffer.h:14</div></div>
+<div class="ttc" id="classblowbox_1_1_d3_d11_vertex_buffer_html_a966cbe8e381f2609c1c91acfef2fb7b3"><div class="ttname"><a href="classblowbox_1_1_d3_d11_vertex_buffer.html#a966cbe8e381f2609c1c91acfef2fb7b3">blowbox::D3D11VertexBuffer::Create</a></div><div class="ttdeci">void Create(const std::vector&lt; Vertex &gt; &amp;vertices, const std::vector&lt; int &gt; &amp;indices, const D3D11_PRIMITIVE_TOPOLOGY &amp;topology, const BUFFER_TYPE &amp;type)</div><div class="ttdoc">Creates the buffer. </div><div class="ttdef"><b>Definition:</b> d3d11_vertex_buffer.cc:24</div></div>
+<div class="ttc" id="classblowbox_1_1_d3_d11_vertex_buffer_html_a40048164f449fbb329ccc8eba8ff7a9e"><div class="ttname"><a href="classblowbox_1_1_d3_d11_vertex_buffer.html#a40048164f449fbb329ccc8eba8ff7a9e">blowbox::D3D11VertexBuffer::Draw</a></div><div class="ttdeci">void Draw(ID3D11DeviceContext *context)</div><div class="ttdoc">Draws the vertex buffer. </div><div class="ttdef"><b>Definition:</b> d3d11_vertex_buffer.cc:95</div></div>
+<div class="ttc" id="classblowbox_1_1_d3_d11_vertex_buffer_html_a76f13605f5faf17b3fa22c95ae1b9172"><div class="ttname"><a href="classblowbox_1_1_d3_d11_vertex_buffer.html#a76f13605f5faf17b3fa22c95ae1b9172">blowbox::D3D11VertexBuffer::GetTopology</a></div><div class="ttdeci">const D3D11_PRIMITIVE_TOPOLOGY &amp; GetTopology() const </div><div class="ttdef"><b>Definition:</b> d3d11_vertex_buffer.cc:101</div></div>
+<div class="ttc" id="namespaceblowbox_html"><div class="ttname"><a href="namespaceblowbox.html">blowbox</a></div><div class="ttdef"><b>Definition:</b> d3d11_input_layout.cc:6</div></div>
+</div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 25 2015 00:20:53 for blowbox by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Feb 26 2015 16:54:51 for blowbox by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

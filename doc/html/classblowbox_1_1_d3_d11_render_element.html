@@ -90,6 +90,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classblowbox_1_1_d3_d11_render_element-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">blowbox::D3D11RenderElement Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
@@ -135,6 +136,8 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <tr class="separator:a6dca4d08063bb8a17349f411e812ead6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a248306864ec7c39a82fbc97b452536b7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classblowbox_1_1_d3_d11_shader.html">D3D11Shader</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classblowbox_1_1_d3_d11_render_element.html#a248306864ec7c39a82fbc97b452536b7">GetShader</a> () const </td></tr>
 <tr class="separator:a248306864ec7c39a82fbc97b452536b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aada40bfce511eb98a948c4aad38179da"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classblowbox_1_1_d3_d11_vertex_buffer.html">D3D11VertexBuffer</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classblowbox_1_1_d3_d11_render_element.html#aada40bfce511eb98a948c4aad38179da">GetVertexBuffer</a> () const </td></tr>
+<tr class="separator:aada40bfce511eb98a948c4aad38179da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adbcf34d55f7f81eaef9fc93c6b37c238"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classblowbox_1_1_d3_d11_render_element.html#adbcf34d55f7f81eaef9fc93c6b37c238">SetPosition</a> (float x, float y, float z)</td></tr>
 <tr class="memdesc:adbcf34d55f7f81eaef9fc93c6b37c238"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the position of the element.  <a href="#adbcf34d55f7f81eaef9fc93c6b37c238">More...</a><br /></td></tr>
 <tr class="separator:adbcf34d55f7f81eaef9fc93c6b37c238"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -184,11 +187,59 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classblowbox_1_1_d3_d11_render_element.html#a2c3024bb957a34b3d44b947b8e6959d0">CalculateOffset</a> ()</td></tr>
 <tr class="memdesc:a2c3024bb957a34b3d44b947b8e6959d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses the private XMFLOAT3 offset_ struct to an XMVECTOR. <br /></td></tr>
 <tr class="separator:a2c3024bb957a34b3d44b947b8e6959d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:a18a6d7e0c6f60c32e5282bf6a7e20007"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a18a6d7e0c6f60c32e5282bf6a7e20007"></a>
+XMFLOAT3&#160;</td><td class="memItemRight" valign="bottom"><b>position_</b></td></tr>
+<tr class="separator:a18a6d7e0c6f60c32e5282bf6a7e20007"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4011f8022806e02291376a15b3b9b9c5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4011f8022806e02291376a15b3b9b9c5"></a>
+XMVECTOR&#160;</td><td class="memItemRight" valign="bottom"><b>v_position_</b></td></tr>
+<tr class="separator:a4011f8022806e02291376a15b3b9b9c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76cd2a2705cef03e014600c78b694fc0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a76cd2a2705cef03e014600c78b694fc0"></a>
+XMFLOAT3&#160;</td><td class="memItemRight" valign="bottom"><b>rotation_</b></td></tr>
+<tr class="separator:a76cd2a2705cef03e014600c78b694fc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2c119983cd96ae3234b71437593dc67"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab2c119983cd96ae3234b71437593dc67"></a>
+XMVECTOR&#160;</td><td class="memItemRight" valign="bottom"><b>v_rotation_</b></td></tr>
+<tr class="separator:ab2c119983cd96ae3234b71437593dc67"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aafd10c33674bb4985ae897a54e9606cc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aafd10c33674bb4985ae897a54e9606cc"></a>
+XMFLOAT3&#160;</td><td class="memItemRight" valign="bottom"><b>scaling_</b></td></tr>
+<tr class="separator:aafd10c33674bb4985ae897a54e9606cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16c9e57209a3b553c1da65844d28240f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a16c9e57209a3b553c1da65844d28240f"></a>
+XMVECTOR&#160;</td><td class="memItemRight" valign="bottom"><b>v_scaling_</b></td></tr>
+<tr class="separator:a16c9e57209a3b553c1da65844d28240f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16aa9ee8d318b67887b4ebd40d4101e5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a16aa9ee8d318b67887b4ebd40d4101e5"></a>
+XMFLOAT3&#160;</td><td class="memItemRight" valign="bottom"><b>offset_</b></td></tr>
+<tr class="separator:a16aa9ee8d318b67887b4ebd40d4101e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6644f411070fb4e7c4a94ac201bcc85a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6644f411070fb4e7c4a94ac201bcc85a"></a>
+XMVECTOR&#160;</td><td class="memItemRight" valign="bottom"><b>v_offset_</b></td></tr>
+<tr class="separator:a6644f411070fb4e7c4a94ac201bcc85a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4395805cf44fdeadd2cc0360452f1e9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab4395805cf44fdeadd2cc0360452f1e9"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><b>alpha_</b></td></tr>
+<tr class="separator:ab4395805cf44fdeadd2cc0360452f1e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2531a5cc1d4bf8800fdafdb0c25fd26a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2531a5cc1d4bf8800fdafdb0c25fd26a"></a>
+<a class="el" href="classblowbox_1_1_d3_d11_texture.html">D3D11Texture</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>texture_</b></td></tr>
+<tr class="separator:a2531a5cc1d4bf8800fdafdb0c25fd26a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a930c616df28dc04412ed4c5e94aa5dc0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a930c616df28dc04412ed4c5e94aa5dc0"></a>
+<a class="el" href="classblowbox_1_1_d3_d11_shader.html">D3D11Shader</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>shader_</b></td></tr>
+<tr class="separator:a930c616df28dc04412ed4c5e94aa5dc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a391a205b7d57f56b8843812e62067843"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a391a205b7d57f56b8843812e62067843"></a>
+<a class="el" href="classblowbox_1_1_d3_d11_vertex_buffer.html">D3D11VertexBuffer</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>vertex_buffer_</b></td></tr>
+<tr class="separator:a391a205b7d57f56b8843812e62067843"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Base class for every element that should be rendered. </p>
 <dl class="section author"><dt>Author</dt><dd>Riko Ophorst </dd></dl>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+</div><div class="dynheader">
+Inheritance diagram for blowbox::D3D11RenderElement:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="classblowbox_1_1_d3_d11_render_element.png" usemap="#blowbox::D3D11RenderElement_map" alt=""/>
+  <map id="blowbox::D3D11RenderElement_map" name="blowbox::D3D11RenderElement_map">
+<area href="classblowbox_1_1_quad.html" alt="blowbox::Quad" shape="rect" coords="0,56,188,80"/>
+</map>
+ </div></div>
+<h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="afb1bc1b63f4035db641bbebcb6abd216"></a>
 <div class="memitem">
 <div class="memproto">
@@ -298,6 +349,22 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>D3D11Texture* The texture of the element </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aada40bfce511eb98a948c4aad38179da"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classblowbox_1_1_d3_d11_vertex_buffer.html">D3D11VertexBuffer</a> * blowbox::D3D11RenderElement::GetVertexBuffer </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>D3D11VertexBuffer* The vertex buffer of the element </dd></dl>
 
 </div>
 </div>
@@ -586,7 +653,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
   </table>
   </dd>
 </dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000002">Todo:</a></b></dt><dd>Implement the content manager </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000003">Todo:</a></b></dt><dd>Implement the content manager </dd></dl>
 
 </div>
 </div>
@@ -611,7 +678,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
   </table>
   </dd>
 </dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>Implement the content manager </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000002">Todo:</a></b></dt><dd>Implement the content manager </dd></dl>
 
 </div>
 </div>
@@ -688,13 +755,13 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/Users/Riko pc/Documents/Visual Studio 2013/Projects/blowbox/Blowbox/d3d11/<a class="el" href="d3d11__render__element_8h_source.html">d3d11_render_element.h</a></li>
-<li>C:/Users/Riko pc/Documents/Visual Studio 2013/Projects/blowbox/Blowbox/d3d11/d3d11_render_element.cc</li>
+<li>C:/Users/Riko/Documents/Visual Studio 2013/Projects/blowbox/Blowbox/d3d11/<a class="el" href="d3d11__render__element_8h_source.html">d3d11_render_element.h</a></li>
+<li>C:/Users/Riko/Documents/Visual Studio 2013/Projects/blowbox/Blowbox/d3d11/d3d11_render_element.cc</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 25 2015 00:20:53 for blowbox by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Feb 26 2015 16:54:51 for blowbox by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

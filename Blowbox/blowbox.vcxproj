@@ -125,7 +125,6 @@
     <ClCompile Include="d3d11\d3d11_camera.cc" />
     <ClCompile Include="d3d11\d3d11_constant_buffer.cc" />
     <ClCompile Include="d3d11\d3d11_depth_stencil.cc" />
-    <ClCompile Include="d3d11\d3d11_index_buffer.cc" />
     <ClCompile Include="d3d11\d3d11_input_layout.cc" />
     <ClCompile Include="d3d11\d3d11_rasterizer_state.cc" />
     <ClCompile Include="d3d11\d3d11_render_device.cc" />
@@ -150,7 +149,6 @@
     <ClInclude Include="d3d11\d3d11_camera.h" />
     <ClInclude Include="d3d11\d3d11_constant_buffer.h" />
     <ClInclude Include="d3d11\d3d11_depth_stencil.h" />
-    <ClInclude Include="d3d11\d3d11_index_buffer.h" />
     <ClInclude Include="d3d11\d3d11_input_layout.h" />
     <ClInclude Include="d3d11\d3d11_rasterizer_state.h" />
     <ClInclude Include="d3d11\d3d11_render_device.h" />

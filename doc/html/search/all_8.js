@@ -1,4 +1,8 @@
 var searchData=
 [
-  ['lastkey',['LastKey',['../classblowbox_1_1_keyboard.html#aa4dcd9aeed8220798f19bdee172d2803',1,'blowbox::Keyboard']]]
+  ['mouse',['Mouse',['../classblowbox_1_1_mouse.html',1,'blowbox']]],
+  ['mouse',['Mouse',['../classblowbox_1_1_mouse.html#a2c279f7a66ce1b67d9bbc2647c22648a',1,'blowbox::Mouse']]],
+  ['mousebuttondata',['MouseButtonData',['../structblowbox_1_1_mouse_button_data.html',1,'blowbox']]],
+  ['mousemoveevent',['MouseMoveEvent',['../structblowbox_1_1_mouse_move_event.html',1,'blowbox']]],
+  ['mousestate',['MouseState',['../structblowbox_1_1_mouse_state.html',1,'blowbox']]]
 ];

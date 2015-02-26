@@ -5,7 +5,6 @@
 #include "../../blowbox/d3d11/d3d11_camera.h"
 #include "../../blowbox/d3d11/d3d11_constant_buffer.h"
 #include "../../blowbox/d3d11/d3d11_depth_stencil.h"
-#include "../../blowbox/d3d11/d3d11_index_buffer.h"
 #include "../../blowbox/d3d11/d3d11_input_layout.h"
 #include "../../blowbox/d3d11/d3d11_render_element.h"
 #include "../../blowbox/d3d11/d3d11_render_target.h"
@@ -45,17 +44,50 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	void D3D11RenderDevice::Initialize(Window* window)
 	{
+		CreateSwapChain(window);
+
+		CreateInputLayout();
+
+		CreateViewport();
+
+		CreateBackBuffer();
+
+		CreateInputLayout();
+
+		CreateScreenQuad();
+
+		target_ = new D3D11RenderTarget();
+		target_->Create(RENDER_TARGET_TYPE::RENDER_TARGET_TYPE_RENDER_TARGET, swap_chain_, device_);
+
+		AddRenderTarget(std::string("hurdur"), target_.get());
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	void D3D11RenderDevice::CreateSwapChain(Window* window)
+	{
 		swap_chain_manager_ = new D3D11SwapChain(window);
 		swap_chain_ = swap_chain_manager_->GetSwapChain();
 		context_ = swap_chain_manager_->GetContext();
 		device_ = swap_chain_manager_->GetDevice();
+	}
 
+	//------------------------------------------------------------------------------------------------------
+	void D3D11RenderDevice::CreateViewport()
+	{
 		viewport_ = new D3D11Viewport();
 		viewport_->Set();
+	}
 
+	//------------------------------------------------------------------------------------------------------
+	void D3D11RenderDevice::CreateBackBuffer()
+	{
 		back_buffer_ = new D3D11RenderTarget();
 		back_buffer_->Create(RENDER_TARGET_TYPE::RENDER_TARGET_TYPE_BACKBUFFER, swap_chain_, device_);
+	}
 
+	//------------------------------------------------------------------------------------------------------
+	void D3D11RenderDevice::CreateScreenQuad()
+	{
 		screen_quad_ = new D3D11VertexBuffer();
 
 		screen_quad_->Create(
@@ -64,17 +96,21 @@ namespace blowbox
 				{ XMFLOAT4(-1.0f, 1.0f, 0.0f, 1.0f), XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f), XMFLOAT2(0.0f, 1.0f), XMFLOAT3(0.0f, 0.0f, 1.0f) },
 				{ XMFLOAT4(1.0f, -1.0f, 0.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f), XMFLOAT2(1.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 1.0f) },
 				{ XMFLOAT4(1.0f, 1.0f, 0.0f, 1.0f), XMFLOAT4(0.5f, 0.5f, 0.5f, 1.0f), XMFLOAT2(1.0f, 1.0f), XMFLOAT3(0.0f, 0.0f, 1.0f) }
-			}, 
+			},
 			{ 0, 1, 2, 3 },
-			D3D11_PRIMITIVE_TOPOLOGY::D3D10_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP, 
+			D3D11_PRIMITIVE_TOPOLOGY::D3D10_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP,
 			BUFFER_TYPE::BUFFER_TYPE_QUAD
 		);
+	}
 
-		target_ = new D3D11RenderTarget();
-		target_->Create(RENDER_TARGET_TYPE::RENDER_TARGET_TYPE_RENDER_TARGET, swap_chain_, device_);
-
+	//------------------------------------------------------------------------------------------------------
+	void D3D11RenderDevice::CreateInputLayout()
+	{
+		/**
+		* @todo Fix this shit
+		*/
 		default_shader_ = new D3D11Shader(std::string("shaders/base.fx"));
-
+		
 		D3D11_INPUT_ELEMENT_DESC layout[] = {
 			{ "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 			{ "COLOUR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 16, D3D11_INPUT_PER_VERTEX_DATA, 0 },
@@ -85,8 +121,6 @@ namespace blowbox
 		input_layout_ = new D3D11InputLayout(layout, stride, default_shader_.get());
 
 		input_layout_->Set(context_);
-
-		AddRenderTarget(std::string("hurdur"), target_.get());
 	}
 
 	//------------------------------------------------------------------------------------------------------

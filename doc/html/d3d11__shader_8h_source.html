@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.9.1"/>
-<title>blowbox: C:/Users/Riko pc/Documents/Visual Studio 2013/Projects/blowbox/Blowbox/d3d11/d3d11_shader.h Source File</title>
+<title>blowbox: C:/Users/Riko/Documents/Visual Studio 2013/Projects/blowbox/Blowbox/d3d11/d3d11_shader.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -93,26 +93,50 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;../../blowbox/d3d11/d3d11.h&quot;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceblowbox.html">blowbox</a></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="classblowbox_1_1_d3_d11_shader.html">   12</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classblowbox_1_1_d3_d11_shader.html">D3D11Shader</a></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    {</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        <a class="code" href="classblowbox_1_1_d3_d11_shader.html#afbf35e0eb23bff0e54bab2ff91e949ef">D3D11Shader</a>();</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        <a class="code" href="classblowbox_1_1_d3_d11_shader.html#a4056047dfc54eba9e5e7c8f91817c2c2">~D3D11Shader</a>();</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        ID3D11ShaderResourceView* resource_;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    };</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;}</div>
-<div class="ttc" id="classblowbox_1_1_d3_d11_shader_html_afbf35e0eb23bff0e54bab2ff91e949ef"><div class="ttname"><a href="classblowbox_1_1_d3_d11_shader.html#afbf35e0eb23bff0e54bab2ff91e949ef">blowbox::D3D11Shader::D3D11Shader</a></div><div class="ttdeci">D3D11Shader()</div><div class="ttdef"><b>Definition:</b> d3d11_shader.cc:5</div></div>
-<div class="ttc" id="classblowbox_1_1_d3_d11_shader_html_a4056047dfc54eba9e5e7c8f91817c2c2"><div class="ttname"><a href="classblowbox_1_1_d3_d11_shader.html#a4056047dfc54eba9e5e7c8f91817c2c2">blowbox::D3D11Shader::~D3D11Shader</a></div><div class="ttdeci">~D3D11Shader()</div><div class="ttdef"><b>Definition:</b> d3d11_shader.cc:10</div></div>
-<div class="ttc" id="namespaceblowbox_html"><div class="ttname"><a href="namespaceblowbox.html">blowbox</a></div><div class="ttdef"><b>Definition:</b> d3d11_render_device.cc:20</div></div>
-<div class="ttc" id="classblowbox_1_1_d3_d11_shader_html"><div class="ttname"><a href="classblowbox_1_1_d3_d11_shader.html">blowbox::D3D11Shader</a></div><div class="ttdoc">Creates a shader. </div><div class="ttdef"><b>Definition:</b> d3d11_shader.h:12</div></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceblowbox.html">blowbox</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="classblowbox_1_1_d3_d11_shader.html">   14</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classblowbox_1_1_d3_d11_shader.html">D3D11Shader</a></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    {</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        <a class="code" href="classblowbox_1_1_d3_d11_shader.html#a107520d3a404429abbaef2a0e70929e4">D3D11Shader</a>(<span class="keyword">const</span> std::string&amp; path);</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <a class="code" href="classblowbox_1_1_d3_d11_shader.html#a4056047dfc54eba9e5e7c8f91817c2c2">~D3D11Shader</a>();</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classblowbox_1_1_d3_d11_shader.html#aafa507f741bab228c50797596a03e805">SetShader</a>(<span class="keyword">const</span> std::string&amp; path);</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classblowbox_1_1_d3_d11_shader.html#ae818e56dccce8b2b9641ca6b0a84826b">Reload</a>();</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        ID3D11VertexShader* <a class="code" href="classblowbox_1_1_d3_d11_shader.html#a001f0c0cc62e5a78eb6eed61ee496ace">GetVertexShader</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        ID3D10Blob* <a class="code" href="classblowbox_1_1_d3_d11_shader.html#a52eb1aa1da3314b8a3233356bfdd6e6d">GetVertexShaderBuffer</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        ID3D11PixelShader* <a class="code" href="classblowbox_1_1_d3_d11_shader.html#aa66adfb5ecd113bbae05f1f884690d4f">GetPixelShader</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        ID3D10Blob* <a class="code" href="classblowbox_1_1_d3_d11_shader.html#ac57f41d8094f8fe8c3377e09ed508ba4">GetPixelShaderBuffer</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        ID3D11PixelShader*          pixel_shader_;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        ID3D10Blob*                 pixel_shader_buffer_;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        ID3D11VertexShader*         vertex_shader_;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        ID3D10Blob*                 vertex_shader_buffer_;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        std::string                 path_;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    };</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;}</div>
+<div class="ttc" id="classblowbox_1_1_d3_d11_shader_html_a52eb1aa1da3314b8a3233356bfdd6e6d"><div class="ttname"><a href="classblowbox_1_1_d3_d11_shader.html#a52eb1aa1da3314b8a3233356bfdd6e6d">blowbox::D3D11Shader::GetVertexShaderBuffer</a></div><div class="ttdeci">ID3D10Blob * GetVertexShaderBuffer() const </div><div class="ttdef"><b>Definition:</b> d3d11_shader.cc:65</div></div>
+<div class="ttc" id="classblowbox_1_1_d3_d11_shader_html_aafa507f741bab228c50797596a03e805"><div class="ttname"><a href="classblowbox_1_1_d3_d11_shader.html#aafa507f741bab228c50797596a03e805">blowbox::D3D11Shader::SetShader</a></div><div class="ttdeci">void SetShader(const std::string &amp;path)</div><div class="ttdoc">Sets the shader. </div><div class="ttdef"><b>Definition:</b> d3d11_shader.cc:28</div></div>
+<div class="ttc" id="classblowbox_1_1_d3_d11_shader_html_ae818e56dccce8b2b9641ca6b0a84826b"><div class="ttname"><a href="classblowbox_1_1_d3_d11_shader.html#ae818e56dccce8b2b9641ca6b0a84826b">blowbox::D3D11Shader::Reload</a></div><div class="ttdeci">void Reload()</div><div class="ttdoc">Reloads & recompiles its shader. </div><div class="ttdef"><b>Definition:</b> d3d11_shader.cc:53</div></div>
+<div class="ttc" id="classblowbox_1_1_d3_d11_shader_html_aa66adfb5ecd113bbae05f1f884690d4f"><div class="ttname"><a href="classblowbox_1_1_d3_d11_shader.html#aa66adfb5ecd113bbae05f1f884690d4f">blowbox::D3D11Shader::GetPixelShader</a></div><div class="ttdeci">ID3D11PixelShader * GetPixelShader() const </div><div class="ttdef"><b>Definition:</b> d3d11_shader.cc:71</div></div>
+<div class="ttc" id="classblowbox_1_1_d3_d11_shader_html_a4056047dfc54eba9e5e7c8f91817c2c2"><div class="ttname"><a href="classblowbox_1_1_d3_d11_shader.html#a4056047dfc54eba9e5e7c8f91817c2c2">blowbox::D3D11Shader::~D3D11Shader</a></div><div class="ttdeci">~D3D11Shader()</div><div class="ttdoc">Default D3D11Shader destructor. </div><div class="ttdef"><b>Definition:</b> d3d11_shader.cc:19</div></div>
+<div class="ttc" id="namespaceblowbox_html"><div class="ttname"><a href="namespaceblowbox.html">blowbox</a></div><div class="ttdef"><b>Definition:</b> d3d11_input_layout.cc:6</div></div>
+<div class="ttc" id="classblowbox_1_1_d3_d11_shader_html_a107520d3a404429abbaef2a0e70929e4"><div class="ttname"><a href="classblowbox_1_1_d3_d11_shader.html#a107520d3a404429abbaef2a0e70929e4">blowbox::D3D11Shader::D3D11Shader</a></div><div class="ttdeci">D3D11Shader(const std::string &amp;path)</div><div class="ttdoc">Default D3D11Shader constructor. </div><div class="ttdef"><b>Definition:</b> d3d11_shader.cc:9</div></div>
+<div class="ttc" id="classblowbox_1_1_d3_d11_shader_html_a001f0c0cc62e5a78eb6eed61ee496ace"><div class="ttname"><a href="classblowbox_1_1_d3_d11_shader.html#a001f0c0cc62e5a78eb6eed61ee496ace">blowbox::D3D11Shader::GetVertexShader</a></div><div class="ttdeci">ID3D11VertexShader * GetVertexShader() const </div><div class="ttdef"><b>Definition:</b> d3d11_shader.cc:59</div></div>
+<div class="ttc" id="classblowbox_1_1_d3_d11_shader_html"><div class="ttname"><a href="classblowbox_1_1_d3_d11_shader.html">blowbox::D3D11Shader</a></div><div class="ttdoc">Creates a shader. </div><div class="ttdef"><b>Definition:</b> d3d11_shader.h:14</div></div>
+<div class="ttc" id="classblowbox_1_1_d3_d11_shader_html_ac57f41d8094f8fe8c3377e09ed508ba4"><div class="ttname"><a href="classblowbox_1_1_d3_d11_shader.html#ac57f41d8094f8fe8c3377e09ed508ba4">blowbox::D3D11Shader::GetPixelShaderBuffer</a></div><div class="ttdeci">ID3D10Blob * GetPixelShaderBuffer() const </div><div class="ttdef"><b>Definition:</b> d3d11_shader.cc:77</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 25 2015 00:20:53 for blowbox by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Feb 26 2015 16:54:51 for blowbox by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.9.1"/>
-<title>blowbox: C:/Users/Riko pc/Documents/Visual Studio 2013/Projects/blowbox/Blowbox/d3d11/d3d11_render_target.h Source File</title>
+<title>blowbox: C:/Users/Riko/Documents/Visual Studio 2013/Projects/blowbox/Blowbox/d3d11/d3d11_render_target.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -99,34 +99,64 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceblowbox.html">blowbox</a></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <span class="keyword">class </span>D3D11RenderElement;</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="classblowbox_1_1_d3_d11_render_target.html">   17</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classblowbox_1_1_d3_d11_render_target.html">D3D11RenderTarget</a></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <span class="keyword">class </span>D3D11RenderQueue;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keyword">enum</span> RENDER_TARGET_TYPE</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    {</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        <a class="code" href="classblowbox_1_1_d3_d11_render_target.html#a4350f673994781caaf3e55ccc60ecca4">D3D11RenderTarget</a>();</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <a class="code" href="classblowbox_1_1_d3_d11_render_target.html#ab1fc05179b4602849a517b96be50f0eb">~D3D11RenderTarget</a>();</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classblowbox_1_1_d3_d11_render_target.html#afc404a957e0a349e39b656e9b0bcc529">Create</a>();</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        ID3D11Texture2D*                        target_;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        ID3D11RenderTargetView*                 view_;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        ID3D11ShaderResourceView*               resource_;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        std::queue&lt;D3D11RenderElement*&gt;         queue_;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        std::vector&lt;D3D11RenderElement*&gt;        render_elements_;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        std::vector&lt;D3D11RenderElement*&gt;        opaque_elements_;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        std::vector&lt;D3D11RenderElement*&gt;        ui_elements_;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    };</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;}</div>
-<div class="ttc" id="classblowbox_1_1_d3_d11_render_target_html_ab1fc05179b4602849a517b96be50f0eb"><div class="ttname"><a href="classblowbox_1_1_d3_d11_render_target.html#ab1fc05179b4602849a517b96be50f0eb">blowbox::D3D11RenderTarget::~D3D11RenderTarget</a></div><div class="ttdeci">~D3D11RenderTarget()</div><div class="ttdoc">Default D3D11RenderTarget constructor. </div><div class="ttdef"><b>Definition:</b> d3d11_render_target.cc:14</div></div>
-<div class="ttc" id="classblowbox_1_1_d3_d11_render_target_html_a4350f673994781caaf3e55ccc60ecca4"><div class="ttname"><a href="classblowbox_1_1_d3_d11_render_target.html#a4350f673994781caaf3e55ccc60ecca4">blowbox::D3D11RenderTarget::D3D11RenderTarget</a></div><div class="ttdeci">D3D11RenderTarget()</div><div class="ttdoc">Default D3D11RenderTarget constructor. </div><div class="ttdef"><b>Definition:</b> d3d11_render_target.cc:8</div></div>
-<div class="ttc" id="classblowbox_1_1_d3_d11_render_target_html_afc404a957e0a349e39b656e9b0bcc529"><div class="ttname"><a href="classblowbox_1_1_d3_d11_render_target.html#afc404a957e0a349e39b656e9b0bcc529">blowbox::D3D11RenderTarget::Create</a></div><div class="ttdeci">void Create()</div><div class="ttdoc">Creates the render target. </div><div class="ttdef"><b>Definition:</b> d3d11_render_target.cc:20</div></div>
-<div class="ttc" id="classblowbox_1_1_d3_d11_render_target_html"><div class="ttname"><a href="classblowbox_1_1_d3_d11_render_target.html">blowbox::D3D11RenderTarget</a></div><div class="ttdoc">A RenderTarget handler. </div><div class="ttdef"><b>Definition:</b> d3d11_render_target.h:17</div></div>
-<div class="ttc" id="namespaceblowbox_html"><div class="ttname"><a href="namespaceblowbox.html">blowbox</a></div><div class="ttdef"><b>Definition:</b> d3d11_render_device.cc:20</div></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        RENDER_TARGET_TYPE_BACKBUFFER,</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        RENDER_TARGET_TYPE_RENDER_TARGET</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    };</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="classblowbox_1_1_d3_d11_render_target.html">   28</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classblowbox_1_1_d3_d11_render_target.html">D3D11RenderTarget</a></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    {</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <a class="code" href="classblowbox_1_1_d3_d11_render_target.html#a4350f673994781caaf3e55ccc60ecca4">D3D11RenderTarget</a>();</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <a class="code" href="classblowbox_1_1_d3_d11_render_target.html#ab1fc05179b4602849a517b96be50f0eb">~D3D11RenderTarget</a>();</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classblowbox_1_1_d3_d11_render_target.html#ae7e7ecc745074677acb714b273076da7">Create</a>(RENDER_TARGET_TYPE type, IDXGISwapChain* swap_chain, ID3D11Device* device);</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classblowbox_1_1_d3_d11_render_target.html#a6cab5be2492865ac3798310085c151d0">Set</a>(ID3D11DeviceContext* context);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classblowbox_1_1_d3_d11_render_target.html#aed9e7adb3271df9676d5f3780308f9fa">Draw</a>(ID3D11DeviceContext* context);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classblowbox_1_1_d3_d11_render_target.html#a3a3e984531de52a74edffd74ca72e1b4">Clear</a>(ID3D11DeviceContext* context);</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        ID3D11Texture2D* <a class="code" href="classblowbox_1_1_d3_d11_render_target.html#a3eb6b61b9461c7d5cc97be73dfcefafb">GetTarget</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        ID3D11RenderTargetView* <a class="code" href="classblowbox_1_1_d3_d11_render_target.html#afe141a28130340006ed1d4ba156aa2c3">GetView</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        ID3D11ShaderResourceView* <a class="code" href="classblowbox_1_1_d3_d11_render_target.html#aeeab3efc68801055d7ac9735ccef8aa4">GetResource</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        <a class="code" href="classblowbox_1_1_d3_d11_render_queue.html">D3D11RenderQueue</a>* <a class="code" href="classblowbox_1_1_d3_d11_render_target.html#a32c0e54f8a2a0c2df63ded7190222c80">GetQueue</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        RENDER_TARGET_TYPE                      type_;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        ID3D11Texture2D*                        target_;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        ID3D11RenderTargetView*                 view_;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        ID3D11ShaderResourceView*               resource_;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <a class="code" href="classblowbox_1_1_shared_ptr.html">SharedPtr&lt;D3D11RenderQueue&gt;</a>             queue_;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        std::vector&lt;D3D11RenderElement*&gt;        render_elements_;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        std::vector&lt;D3D11RenderElement*&gt;        ui_elements_;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    };</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;}</div>
+<div class="ttc" id="classblowbox_1_1_d3_d11_render_target_html_ab1fc05179b4602849a517b96be50f0eb"><div class="ttname"><a href="classblowbox_1_1_d3_d11_render_target.html#ab1fc05179b4602849a517b96be50f0eb">blowbox::D3D11RenderTarget::~D3D11RenderTarget</a></div><div class="ttdeci">~D3D11RenderTarget()</div><div class="ttdoc">Default D3D11RenderTarget constructor. </div><div class="ttdef"><b>Definition:</b> d3d11_render_target.cc:15</div></div>
+<div class="ttc" id="classblowbox_1_1_d3_d11_render_target_html_a4350f673994781caaf3e55ccc60ecca4"><div class="ttname"><a href="classblowbox_1_1_d3_d11_render_target.html#a4350f673994781caaf3e55ccc60ecca4">blowbox::D3D11RenderTarget::D3D11RenderTarget</a></div><div class="ttdeci">D3D11RenderTarget()</div><div class="ttdoc">Default D3D11RenderTarget constructor. </div><div class="ttdef"><b>Definition:</b> d3d11_render_target.cc:9</div></div>
+<div class="ttc" id="classblowbox_1_1_d3_d11_render_target_html_a6cab5be2492865ac3798310085c151d0"><div class="ttname"><a href="classblowbox_1_1_d3_d11_render_target.html#a6cab5be2492865ac3798310085c151d0">blowbox::D3D11RenderTarget::Set</a></div><div class="ttdeci">void Set(ID3D11DeviceContext *context)</div><div class="ttdoc">Sets this render target. </div><div class="ttdef"><b>Definition:</b> d3d11_render_target.cc:87</div></div>
+<div class="ttc" id="classblowbox_1_1_shared_ptr_html"><div class="ttname"><a href="classblowbox_1_1_shared_ptr.html">blowbox::SharedPtr</a></div><div class="ttdef"><b>Definition:</b> shared_ptr.h:26</div></div>
+<div class="ttc" id="classblowbox_1_1_d3_d11_render_target_html_ae7e7ecc745074677acb714b273076da7"><div class="ttname"><a href="classblowbox_1_1_d3_d11_render_target.html#ae7e7ecc745074677acb714b273076da7">blowbox::D3D11RenderTarget::Create</a></div><div class="ttdeci">void Create(RENDER_TARGET_TYPE type, IDXGISwapChain *swap_chain, ID3D11Device *device)</div><div class="ttdoc">Creates the render target. </div><div class="ttdef"><b>Definition:</b> d3d11_render_target.cc:41</div></div>
+<div class="ttc" id="classblowbox_1_1_d3_d11_render_target_html_a32c0e54f8a2a0c2df63ded7190222c80"><div class="ttname"><a href="classblowbox_1_1_d3_d11_render_target.html#a32c0e54f8a2a0c2df63ded7190222c80">blowbox::D3D11RenderTarget::GetQueue</a></div><div class="ttdeci">D3D11RenderQueue * GetQueue() const </div><div class="ttdef"><b>Definition:</b> d3d11_render_target.cc:112</div></div>
+<div class="ttc" id="classblowbox_1_1_d3_d11_render_target_html_a3eb6b61b9461c7d5cc97be73dfcefafb"><div class="ttname"><a href="classblowbox_1_1_d3_d11_render_target.html#a3eb6b61b9461c7d5cc97be73dfcefafb">blowbox::D3D11RenderTarget::GetTarget</a></div><div class="ttdeci">ID3D11Texture2D * GetTarget() const </div><div class="ttdef"><b>Definition:</b> d3d11_render_target.cc:23</div></div>
+<div class="ttc" id="classblowbox_1_1_d3_d11_render_target_html_a3a3e984531de52a74edffd74ca72e1b4"><div class="ttname"><a href="classblowbox_1_1_d3_d11_render_target.html#a3a3e984531de52a74edffd74ca72e1b4">blowbox::D3D11RenderTarget::Clear</a></div><div class="ttdeci">void Clear(ID3D11DeviceContext *context)</div><div class="ttdoc">Clear this render target. </div><div class="ttdef"><b>Definition:</b> d3d11_render_target.cc:99</div></div>
+<div class="ttc" id="classblowbox_1_1_d3_d11_render_target_html"><div class="ttname"><a href="classblowbox_1_1_d3_d11_render_target.html">blowbox::D3D11RenderTarget</a></div><div class="ttdoc">A RenderTarget handler. </div><div class="ttdef"><b>Definition:</b> d3d11_render_target.h:28</div></div>
+<div class="ttc" id="classblowbox_1_1_d3_d11_render_target_html_afe141a28130340006ed1d4ba156aa2c3"><div class="ttname"><a href="classblowbox_1_1_d3_d11_render_target.html#afe141a28130340006ed1d4ba156aa2c3">blowbox::D3D11RenderTarget::GetView</a></div><div class="ttdeci">ID3D11RenderTargetView * GetView() const </div><div class="ttdef"><b>Definition:</b> d3d11_render_target.cc:29</div></div>
+<div class="ttc" id="classblowbox_1_1_d3_d11_render_target_html_aeeab3efc68801055d7ac9735ccef8aa4"><div class="ttname"><a href="classblowbox_1_1_d3_d11_render_target.html#aeeab3efc68801055d7ac9735ccef8aa4">blowbox::D3D11RenderTarget::GetResource</a></div><div class="ttdeci">ID3D11ShaderResourceView * GetResource() const </div><div class="ttdef"><b>Definition:</b> d3d11_render_target.cc:35</div></div>
+<div class="ttc" id="namespaceblowbox_html"><div class="ttname"><a href="namespaceblowbox.html">blowbox</a></div><div class="ttdef"><b>Definition:</b> d3d11_input_layout.cc:6</div></div>
+<div class="ttc" id="classblowbox_1_1_d3_d11_render_target_html_aed9e7adb3271df9676d5f3780308f9fa"><div class="ttname"><a href="classblowbox_1_1_d3_d11_render_target.html#aed9e7adb3271df9676d5f3780308f9fa">blowbox::D3D11RenderTarget::Draw</a></div><div class="ttdeci">void Draw(ID3D11DeviceContext *context)</div><div class="ttdoc">Draws this render target. </div><div class="ttdef"><b>Definition:</b> d3d11_render_target.cc:93</div></div>
+<div class="ttc" id="classblowbox_1_1_d3_d11_render_queue_html"><div class="ttname"><a href="classblowbox_1_1_d3_d11_render_queue.html">blowbox::D3D11RenderQueue</a></div><div class="ttdoc">Handles render queues of render elements. </div><div class="ttdef"><b>Definition:</b> d3d11_render_queue.h:15</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 25 2015 00:20:53 for blowbox by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Feb 26 2015 16:54:51 for blowbox by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

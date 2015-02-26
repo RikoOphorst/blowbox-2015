@@ -39,9 +39,6 @@
     <ClCompile Include="d3d11\d3d11_depth_stencil.cc">
       <Filter>d3d11</Filter>
     </ClCompile>
-    <ClCompile Include="d3d11\d3d11_index_buffer.cc">
-      <Filter>d3d11</Filter>
-    </ClCompile>
     <ClCompile Include="d3d11\d3d11_input_layout.cc">
       <Filter>d3d11</Filter>
     </ClCompile>
@@ -113,9 +110,6 @@
       <Filter>d3d11</Filter>
     </ClInclude>
     <ClInclude Include="d3d11\d3d11_depth_stencil.h">
-      <Filter>d3d11</Filter>
-    </ClInclude>
-    <ClInclude Include="d3d11\d3d11_index_buffer.h">
       <Filter>d3d11</Filter>
     </ClInclude>
     <ClInclude Include="d3d11\d3d11_input_layout.h">

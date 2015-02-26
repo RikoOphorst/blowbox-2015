@@ -1,7 +1,4 @@
 var searchData=
 [
-  ['keyboard',['Keyboard',['../classblowbox_1_1_keyboard.html',1,'blowbox']]],
-  ['keyboard',['Keyboard',['../classblowbox_1_1_keyboard.html#a6eaf6618f3c3ddeb8d48c39149ff97c7',1,'blowbox::Keyboard']]],
-  ['keydata',['KeyData',['../structblowbox_1_1_key_data.html',1,'blowbox']]],
-  ['keystate',['KeyState',['../structblowbox_1_1_key_state.html',1,'blowbox']]]
+  ['lastkey',['LastKey',['../classblowbox_1_1_keyboard.html#aa4dcd9aeed8220798f19bdee172d2803',1,'blowbox::Keyboard']]]
 ];

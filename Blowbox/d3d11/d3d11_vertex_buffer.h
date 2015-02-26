@@ -29,6 +29,11 @@ namespace blowbox
 		BUFFER_TYPE_UNKNOWN
 	};
 
+	/**
+	* @class blowbox::D3D11VertexBuffer
+	* @brief Handles vertex & index buffers and topology settings
+	* @author Riko Ophorst
+	*/
 	class D3D11VertexBuffer
 	{
 	public:
