@@ -1,6 +1,7 @@
 #include "../../blowbox/d3d11/d3d11_render_element.h"
 
 #include "../../blowbox/d3d11/d3d11_texture.h"
+#include "../../blowbox/d3d11/d3d11_vertex_buffer.h"
 
 namespace blowbox
 {
@@ -74,6 +75,12 @@ namespace blowbox
 	D3D11Shader* D3D11RenderElement::GetShader() const
 	{
 		return shader_;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	D3D11VertexBuffer* D3D11RenderElement::GetVertexBuffer() const
+	{
+		return vertex_buffer_;
 	}
 
 	//------------------------------------------------------------------------------------------------------

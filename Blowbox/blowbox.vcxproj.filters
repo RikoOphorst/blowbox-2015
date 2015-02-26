@@ -60,6 +60,12 @@
     <ClCompile Include="d3d11\d3d11_render_target.cc">
       <Filter>d3d11</Filter>
     </ClCompile>
+    <ClCompile Include="d3d11\d3d11_render_queue.cc">
+      <Filter>d3d11</Filter>
+    </ClCompile>
+    <ClCompile Include="elements\quad.cc">
+      <Filter>elements</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game.h" />
@@ -127,6 +133,12 @@
     <ClInclude Include="d3d11\d3d11_render_target.h">
       <Filter>d3d11</Filter>
     </ClInclude>
+    <ClInclude Include="d3d11\d3d11_render_queue.h">
+      <Filter>d3d11</Filter>
+    </ClInclude>
+    <ClInclude Include="elements\quad.h">
+      <Filter>elements</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="memory">
@@ -140,6 +152,9 @@
     </Filter>
     <Filter Include="d3d11">
       <UniqueIdentifier>{468021d8-2e6e-4926-9e67-81c86f0f8717}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="elements">
+      <UniqueIdentifier>{426e0dbb-bbad-4f83-8ea7-87d72370d1ac}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

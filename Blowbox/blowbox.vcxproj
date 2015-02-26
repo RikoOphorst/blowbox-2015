@@ -130,6 +130,7 @@
     <ClCompile Include="d3d11\d3d11_rasterizer_state.cc" />
     <ClCompile Include="d3d11\d3d11_render_device.cc" />
     <ClCompile Include="d3d11\d3d11_render_element.cc" />
+    <ClCompile Include="d3d11\d3d11_render_queue.cc" />
     <ClCompile Include="d3d11\d3d11_render_target.cc" />
     <ClCompile Include="d3d11\d3d11_sampler_state.cc" />
     <ClCompile Include="d3d11\d3d11_shader.cc" />
@@ -137,6 +138,7 @@
     <ClCompile Include="d3d11\d3d11_texture.cc" />
     <ClCompile Include="d3d11\d3d11_vertex_buffer.cc" />
     <ClCompile Include="d3d11\d3d11_viewport.cc" />
+    <ClCompile Include="elements\quad.cc" />
     <ClCompile Include="game.cc" />
     <ClCompile Include="input\keyboard.cc" />
     <ClCompile Include="input\mouse.cc" />
@@ -153,6 +155,7 @@
     <ClInclude Include="d3d11\d3d11_rasterizer_state.h" />
     <ClInclude Include="d3d11\d3d11_render_device.h" />
     <ClInclude Include="d3d11\d3d11_render_element.h" />
+    <ClInclude Include="d3d11\d3d11_render_queue.h" />
     <ClInclude Include="d3d11\d3d11_render_target.h" />
     <ClInclude Include="d3d11\d3d11_sampler_state.h" />
     <ClInclude Include="d3d11\d3d11_shader.h" />
@@ -160,6 +163,7 @@
     <ClInclude Include="d3d11\d3d11_texture.h" />
     <ClInclude Include="d3d11\d3d11_vertex_buffer.h" />
     <ClInclude Include="d3d11\d3d11_viewport.h" />
+    <ClInclude Include="elements\quad.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="input\key.h" />
     <ClInclude Include="input\keyboard.h" />

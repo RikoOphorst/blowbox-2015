@@ -23,9 +23,7 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	D3D11RenderDevice::D3D11RenderDevice() :
 		context_(nullptr),
-		device_(nullptr),
-		back_buffer_(nullptr),
-		back_buffer_view_(nullptr)
+		device_(nullptr)
 	{
 		
 	}
@@ -33,8 +31,7 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	D3D11RenderDevice::~D3D11RenderDevice()
 	{
-		BLOW_SAFE_RELEASE(back_buffer_);
-		BLOW_SAFE_RELEASE(back_buffer_view_);
+		
 	}
 
 	//------------------------------------------------------------------------------------------------------
@@ -47,57 +44,116 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	void D3D11RenderDevice::Initialize(Window* window)
 	{
-		swap_chain_ = new D3D11SwapChain(window);
-		context_ = swap_chain_->GetContext();
-		device_ = swap_chain_->GetDevice();
+		swap_chain_manager_ = new D3D11SwapChain(window);
+		swap_chain_ = swap_chain_manager_->GetSwapChain();
+		context_ = swap_chain_manager_->GetContext();
+		device_ = swap_chain_manager_->GetDevice();
 
-		CreateBackBuffer();
+		viewport_ = new D3D11Viewport();
+		viewport_->Set();
 
-		D3D11_VIEWPORT viewport;
-		ZeroMemory(&viewport, sizeof(D3D11_VIEWPORT));
+		back_buffer_ = new D3D11RenderTarget();
+		back_buffer_->Create(RENDER_TARGET_TYPE::RENDER_TARGET_TYPE_BACKBUFFER, swap_chain_, device_);
 
-		DXGI_SWAP_CHAIN_DESC desc;
-		swap_chain_->GetSwapChain()->GetDesc(&desc);
+		screen_quad_ = new D3D11VertexBuffer();
 
-		viewport.TopLeftX = 0;
-		viewport.TopLeftY = 0;
-		viewport.Width = (FLOAT)desc.BufferDesc.Width;
-		viewport.Height = (FLOAT)desc.BufferDesc.Height;
-		viewport.MinDepth = 0.0f;
-		viewport.MaxDepth = 1.0f;
+		std::vector<int> indices({0, 1, 2, 3});
+		screen_quad_->Create(
+			{
+				{ XMFLOAT4(-1.0f, -1.0f, 0.0f, 1.0f), XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), XMFLOAT2(0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 1.0f) },
+				{ XMFLOAT4(-1.0f, 1.0f, 0.0f, 1.0f), XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), XMFLOAT2(0.0f, 1.0f), XMFLOAT3(0.0f, 0.0f, 1.0f) },
+				{ XMFLOAT4(1.0f, -1.0f, 0.0f, 1.0f), XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), XMFLOAT2(1.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 1.0f) },
+				{ XMFLOAT4(1.0f, 1.0f, 0.0f, 1.0f), XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), XMFLOAT2(1.0f, 1.0f), XMFLOAT3(0.0f, 0.0f, 1.0f) }
+			}, 
+			{ 0, 1, 2, 3 },
+			D3D11_PRIMITIVE_TOPOLOGY::D3D10_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP, 
+			BUFFER_TYPE::BUFFER_TYPE_QUAD
+		);
 
-		context_->RSSetViewports(1, &viewport);
+		target_ = new D3D11RenderTarget();
+		target_->Create(RENDER_TARGET_TYPE::RENDER_TARGET_TYPE_RENDER_TARGET, swap_chain_, device_);
+
+		AddRenderTarget(std::string("hurdur"), target_.get());
 	}
 
 	//------------------------------------------------------------------------------------------------------
-	void D3D11RenderDevice::DrawRenderTargets()
+	void D3D11RenderDevice::Draw()
 	{
-		context_->ClearRenderTargetView(back_buffer_view_, D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.0f));
+		back_buffer_->Clear(context_);
 
-		std::map<std::string, D3D11RenderTarget*>::iterator it = render_targets_.begin();
-		while (it != render_targets_.end())
+		for (auto it = render_targets_.begin(); it != render_targets_.end(); it++)
 		{
-			
+			DrawRenderTarget(it->second);
 		}
 
-		swap_chain_->GetSwapChain()->Present(1, 0);
+		swap_chain_->Present(1, 0);
 	}
 
 	//------------------------------------------------------------------------------------------------------
-	void D3D11RenderDevice::CreateBackBuffer()
+	void D3D11RenderDevice::DrawRenderTarget(D3D11RenderTarget* render_target)
 	{
-		HRESULT hr = S_OK;
+		render_target->Clear(context_);
+		render_target->Set(context_);
+		render_target->Draw(context_);
 
-		hr = swap_chain_->GetSwapChain()->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)&back_buffer_);
-		BLOW_ASSERT_HR(hr, "Error while creating back buffer");
+		back_buffer_->Set(context_);
 
-		hr = swap_chain_->GetDevice()->CreateRenderTargetView(back_buffer_, 0, &back_buffer_view_);
-		BLOW_ASSERT_HR(hr, "Error while creating back buffer view");
+		screen_quad_->Set(context_);
+
+		screen_quad_->Draw(context_);
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	void D3D11RenderDevice::AddRenderTarget(const std::string& name, D3D11RenderTarget* render_target)
+	{
+		render_targets_.emplace(name, render_target);
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	D3D11RenderTarget* D3D11RenderDevice::GetRenderTarget(const std::string& name)
+	{
+		return render_targets_.find(name)->second;
 	}
 
 	//------------------------------------------------------------------------------------------------------
 	ID3D11Device* D3D11RenderDevice::GetDevice() const
 	{
-		return swap_chain_.get()->GetDevice();
+		return device_;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	IDXGISwapChain* D3D11RenderDevice::GetSwapChain() const
+	{
+		return swap_chain_;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	ID3D11DeviceContext* D3D11RenderDevice::GetContext() const
+	{
+		return context_;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	D3D11Viewport* D3D11RenderDevice::GetViewport() const
+	{
+		return viewport_.get();
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	const BUFFER_TYPE& D3D11RenderDevice::GetBufferType() const
+	{
+		return buffer_type_;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	void D3D11RenderDevice::SetBufferType(const BUFFER_TYPE& buffer_type)
+	{
+		buffer_type_ = buffer_type;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	D3D11RenderTarget* D3D11RenderDevice::GetBackBuffer() const
+	{
+		return back_buffer_.get();
 	}
 }

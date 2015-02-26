@@ -57,6 +57,6 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	void Game::Draw()
 	{
-		renderDevice_->DrawRenderTargets();
+		renderDevice_->Draw();
 	}
 }

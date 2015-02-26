@@ -8,6 +8,7 @@ namespace blowbox
 {	
 	class D3D11Texture;
 	class D3D11Shader;
+	class D3D11VertexBuffer;
 	
 	/**
 	* @class blowbox::D3D11RenderElement
@@ -81,6 +82,11 @@ namespace blowbox
 		* @return D3D11Shader* The texture of the element
 		*/
 		D3D11Shader* GetShader() const;
+
+		/**
+		* @return D3D11VertexBuffer* The vertex buffer of the element
+		*/
+		D3D11VertexBuffer* GetVertexBuffer() const;
 
 		/**
 		* @brief Sets the position of the element
@@ -175,7 +181,7 @@ namespace blowbox
 		* @brief Parses the private XMFLOAT3 offset_ struct to an XMVECTOR
 		*/
 		void CalculateOffset();
-	private:
+	protected:
 		XMFLOAT3 position_;
 		XMVECTOR v_position_;
 		
@@ -192,5 +198,7 @@ namespace blowbox
 
 		D3D11Texture* texture_;
 		D3D11Shader* shader_;
+
+		D3D11VertexBuffer* vertex_buffer_;
 	};
 }

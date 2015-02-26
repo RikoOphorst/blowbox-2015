@@ -8,6 +8,17 @@
 namespace blowbox
 {
 	class D3D11RenderElement;
+	class D3D11RenderQueue;
+
+	/**
+	* @enum blowbox::RENDER_TARGET_TYPE
+	* @brief Describes a type of render target
+	*/
+	enum RENDER_TARGET_TYPE
+	{
+		RENDER_TARGET_TYPE_BACKBUFFER,
+		RENDER_TARGET_TYPE_RENDER_TARGET
+	};
 
 	/**
 	* @class blowbox::D3D11RenderTarget
@@ -29,8 +40,29 @@ namespace blowbox
 
 		/**
 		* @brief Creates the render target
+		* @param[in] type (RENDER_TARGET_TYPE) the type of render target
+		* @param[in] swap_chain (IDXGISwapChain*) the swap chain
+		* @param[in] device (ID3D11Device*) the device
 		*/
-		void Create();
+		void Create(RENDER_TARGET_TYPE type, IDXGISwapChain* swap_chain, ID3D11Device* device);
+
+		/**
+		* @brief Sets this render target
+		* @param[in] context (ID3D11DeviceContext*) the device context
+		*/
+		void Set(ID3D11DeviceContext* context);
+
+		/**
+		* @brief Draws this render target
+		* @param[in] context (ID3D11DeviceContext*) the device context
+		*/
+		void Draw(ID3D11DeviceContext* context);
+
+		/**
+		* @brief Clear this render target
+		* @param[in] context (ID3D11DeviceContext*) the device context
+		*/
+		void Clear(ID3D11DeviceContext* context);
 
 		/**
 		* @return ID3D11RenderTargetView* The render target
@@ -48,13 +80,15 @@ namespace blowbox
 		ID3D11ShaderResourceView* GetResource() const;
 
 		/**
-		* @brief Draws the RenderTarget on a
+		* @return D3D11RenderQueue* The render queue of this render target
 		*/
+		D3D11RenderQueue* GetQueue() const;
 	private:
+		RENDER_TARGET_TYPE						type_;
 		ID3D11Texture2D*						target_;
 		ID3D11RenderTargetView*					view_;
 		ID3D11ShaderResourceView*				resource_;
-		std::queue<D3D11RenderElement*>			queue_;
+		SharedPtr<D3D11RenderQueue>				queue_;
 		std::vector<D3D11RenderElement*>		render_elements_;
 		std::vector<D3D11RenderElement*>		ui_elements_;
 	};
