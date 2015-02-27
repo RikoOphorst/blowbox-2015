@@ -34,10 +34,10 @@ namespace blowbox
 		BLOW_RELEASE(pixel_shader_);
 		BLOW_RELEASE(pixel_shader_buffer_);
 
-		hr = D3DX11CompileFromFileA(path.c_str(), 0, 0, "VS", "vs_4_0", 0, 0, 0, &vertex_shader_buffer_, 0, 0);
+		hr = D3DX11CompileFromFileA(path.c_str(), 0, 0, "VS", "vs_4_0", D3D10_SHADER_PACK_MATRIX_ROW_MAJOR, 0, 0, &vertex_shader_buffer_, 0, 0);
 		BLOW_ASSERT_HR(hr, "Error compiling vertex shader: " + path);
 
-		hr = D3DX11CompileFromFileA(path.c_str(), 0, 0, "PS", "ps_4_0", 0, 0, 0, &pixel_shader_buffer_, 0, 0);
+		hr = D3DX11CompileFromFileA(path.c_str(), 0, 0, "PS", "ps_4_0", D3D10_SHADER_PACK_MATRIX_ROW_MAJOR, 0, 0, &pixel_shader_buffer_, 0, 0);
 		BLOW_ASSERT_HR(hr, "Error compiling pixel shader: " + path);
 
 		hr = D3D11RenderDevice::Instance()->GetDevice()->CreateVertexShader(vertex_shader_buffer_->GetBufferPointer(), vertex_shader_buffer_->GetBufferSize(), NULL, &vertex_shader_);

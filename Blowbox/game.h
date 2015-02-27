@@ -12,6 +12,7 @@ namespace blowbox
 	class Keyboard;
 	class Mouse;
 	class D3D11RenderDevice;
+	class Quad;
 	
 	/**
 	* @class blowbox::Game
@@ -55,5 +56,6 @@ namespace blowbox
 		Mouse* mouse_;
 		Keyboard* keyboard_;
 		D3D11RenderDevice* renderDevice_;
+		SharedPtr<Quad> quad_;
 	};
 }

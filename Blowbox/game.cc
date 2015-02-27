@@ -4,6 +4,9 @@
 #include "../blowbox/input/mouse.h"
 #include "../blowbox/input/keyboard.h"
 #include "../blowbox/d3d11/d3d11_render_device.h"
+#include "../blowbox/d3d11/d3d11_render_target.h"
+#include "../blowbox/d3d11/d3d11_render_queue.h"
+#include "../blowbox/elements/quad.h"
 
 namespace blowbox
 {
@@ -38,6 +41,12 @@ namespace blowbox
 		window->SetStarted(true);
 
 		renderDevice_->Initialize(window);
+
+		quad_ = new Quad();
+		renderDevice_->GetRenderTarget("hurdur")->GetQueue()->Add(quad_.get());
+
+		quad_->SetPosition(1.0f, 0.0f, 0.0f);
+		quad_->SetScale(50, 50, 1);
 
 		while (window->GetStarted())
 		{

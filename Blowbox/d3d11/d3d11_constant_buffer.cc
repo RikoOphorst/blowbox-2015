@@ -13,7 +13,7 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	D3D11ConstantBuffer::~D3D11ConstantBuffer()
 	{
-
+		BLOW_SAFE_RELEASE(constant_buffer_);
 	}
 
 	//------------------------------------------------------------------------------------------------------
@@ -24,20 +24,22 @@ namespace blowbox
 		D3D11_BUFFER_DESC buffer_desc;
 		ZeroMemory(&buffer_desc, sizeof(buffer_desc));
 
-		buffer_desc.Usage = D3D11_USAGE::D3D11_USAGE_DEFAULT;
+		buffer_desc.Usage = D3D11_USAGE::D3D11_USAGE_DYNAMIC;
 		buffer_desc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_CONSTANT_BUFFER;
-		buffer_desc.CPUAccessFlags = 0;
+		buffer_desc.CPUAccessFlags = D3D11_CPU_ACCESS_FLAG::D3D11_CPU_ACCESS_WRITE;
 		buffer_desc.MiscFlags = 0;
+		buffer_desc.StructureByteStride = 0;
 
 		D3D11_SUBRESOURCE_DATA data;
 		ZeroMemory(&data, sizeof(data));
 
-		data.pSysMem = &constant_buffer_;
 		data.SysMemPitch = 0;
 		data.SysMemSlicePitch = 0;
 
 		if (CONSTANT_BUFFER_TYPE::CONSTANT_BUFFER_GLOBAL == type)
 		{
+			ConstantBufferGlobal glob;
+			data.pSysMem = &glob;
 			buffer_desc.ByteWidth = sizeof(ConstantBufferGlobal) * 4;
 
 			hr = D3D11RenderDevice::Instance()->GetDevice()->CreateBuffer(&buffer_desc, &data, &constant_buffer_);
@@ -45,6 +47,8 @@ namespace blowbox
 		}
 		else if (CONSTANT_BUFFER_TYPE::CONSTANT_BUFFER_OBJECT == type)
 		{
+			ConstantBufferObject object;
+			data.pSysMem = &object;
 			buffer_desc.ByteWidth = sizeof(ConstantBufferObject) * 4;
 
 			hr = D3D11RenderDevice::Instance()->GetDevice()->CreateBuffer(&buffer_desc, &data, &constant_buffer_);

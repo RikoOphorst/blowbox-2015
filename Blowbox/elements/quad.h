@@ -8,6 +8,7 @@ namespace blowbox
 {
 	class Quad : public D3D11RenderElement
 	{
+	public:
 		Quad();
 
 		~Quad();

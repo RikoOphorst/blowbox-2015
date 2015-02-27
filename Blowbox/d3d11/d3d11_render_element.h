@@ -26,12 +26,7 @@ namespace blowbox
 		/**
 		* @brief Default D3D11RenderElement destructor
 		*/
-		~D3D11RenderElement();
-
-		/**
-		* @brief Draws the render element
-		*/
-		virtual void Draw() = 0;
+		virtual ~D3D11RenderElement();
 
 		/**
 		* @return const XMVECTOR& The position of the element
@@ -181,6 +176,11 @@ namespace blowbox
 		* @brief Parses the private XMFLOAT3 offset_ struct to an XMVECTOR
 		*/
 		void CalculateOffset();
+
+		/**
+		* @brief Retrieves the world matrix
+		*/
+		XMMATRIX& GetWorld();
 	protected:
 		XMFLOAT3 position_;
 		XMVECTOR v_position_;
@@ -193,12 +193,14 @@ namespace blowbox
 		
 		XMFLOAT3 offset_;
 		XMVECTOR v_offset_;
+
+		XMMATRIX world_matrix_;
 		
 		double alpha_;
 
-		D3D11Texture* texture_;
-		D3D11Shader* shader_;
+		SharedPtr<D3D11Texture> texture_;
+		SharedPtr<D3D11Shader> shader_;
 
-		D3D11VertexBuffer* vertex_buffer_;
+		SharedPtr<D3D11VertexBuffer> vertex_buffer_;
 	};
 }

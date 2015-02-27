@@ -22,6 +22,6 @@ namespace blowbox
 		*/
 		~D3D11Texture();
 	private:
-		ID3D11ShaderResourceView* resource_;
+		//ID3D11ShaderResourceView* resource_;
 	};
 }

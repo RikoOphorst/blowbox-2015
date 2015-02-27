@@ -15,6 +15,8 @@ namespace blowbox
 	class D3D11VertexBuffer;
 	class D3D11InputLayout;
 	class D3D11Shader;
+	class D3D11ConstantBuffer;
+	class D3D11Camera;
 	enum BUFFER_TYPE;
 	
 	/**
@@ -106,6 +108,11 @@ namespace blowbox
 		D3D11RenderTarget* GetBackBuffer() const;
 
 		/**
+		* @return The per object constant buffer
+		*/
+		D3D11ConstantBuffer* GetObjectBuffer();
+
+		/**
 		* @brief Creates the swap chain
 		* @param[in] window (Window*) the window
 		*/
@@ -130,6 +137,16 @@ namespace blowbox
 		* @brief Creates the screen quad
 		*/
 		void CreateScreenQuad();
+
+		/**
+		* @brief Creates the global constant buffer
+		*/
+		void CreateGlobalBuffer();
+
+		/**
+		* @brief Creates the per object constant buffer
+		*/
+		void CreateObjectBuffer();
 	private:
 		SharedPtr<D3D11SwapChain> swap_chain_manager_;
 		IDXGISwapChain* swap_chain_;
@@ -146,6 +163,11 @@ namespace blowbox
 		SharedPtr<D3D11Shader> default_shader_;
 
 		SharedPtr<D3D11InputLayout> input_layout_;
+
+		SharedPtr<D3D11ConstantBuffer> global_buffer_;
+		SharedPtr<D3D11ConstantBuffer> per_object_buffer_;
+
+		SharedPtr<D3D11Camera> camera_;
 
 		std::map<std::string, D3D11RenderTarget*> render_targets_;
 

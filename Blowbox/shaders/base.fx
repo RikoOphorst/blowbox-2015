@@ -1,19 +1,14 @@
-cbuffer ConstantBuffer : register(b0)
+cbuffer Global : register(b0)
 {
-	float Time;
-	float4x4 World;
-	float4x4 View;
-	float4x4 Projection;
-	float4x4 WorldViewProjection;
-	float Alpha;
-	float3 Blend;
-	float4x4 InvWorld;
-	float4 AnimationCoords;
+	float time;
+	float4x4 view;
+	float4x4 projection;
 }
 
-cbuffer Uniforms : register(b1)
+cbuffer Object : register(b1)
 {
-
+	float4x4 world;
+	float alpha;
 }
 
 struct VOut
@@ -27,7 +22,9 @@ struct VOut
 VOut VS(float4 position : POSITION, float3 normal : NORMAL, float2 texcoord : TEXCOORD0, float4 colour : COLOUR)
 {
 	VOut output;
-	output.position = position;
+	output.position = mul(position, world);
+	output.position = mul(output.position, view);
+	output.position = mul(output.position, projection);
 	output.colour = colour;
 	return output;
 }

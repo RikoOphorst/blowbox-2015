@@ -2,6 +2,8 @@
 
 #include "../../blowbox/d3d11/d3d11_render_element.h"
 #include "../../blowbox/d3d11/d3d11_vertex_buffer.h"
+#include "../../blowbox/d3d11/d3d11_constant_buffer.h"
+#include "../../blowbox/d3d11/d3d11_render_device.h"
 
 namespace blowbox
 {
@@ -14,7 +16,10 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	D3D11RenderQueue::~D3D11RenderQueue()
 	{
-
+		for (int i = static_cast<int>(queue_.size()) - 1; i >= 0; --i)
+		{
+			//queue_.at(i)->Destroy();
+		}
 	}
 
 	//------------------------------------------------------------------------------------------------------
@@ -39,8 +44,13 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	void D3D11RenderQueue::DrawElement(ID3D11DeviceContext* context, D3D11RenderElement* element)
 	{
-		element->GetVertexBuffer()->Set(context);
+		D3D11RenderDevice::Instance()->GetObjectBuffer()->Map(context, {
+			element->GetWorld(),
+			static_cast<float>(element->GetAlpha())
+		});
+		D3D11RenderDevice::Instance()->GetObjectBuffer()->Set(context, 1);
 		
+		element->GetVertexBuffer()->Set(context);
 		element->GetVertexBuffer()->Draw(context);
 	}
 }

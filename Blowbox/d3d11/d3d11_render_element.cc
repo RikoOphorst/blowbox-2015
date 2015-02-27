@@ -6,7 +6,16 @@
 namespace blowbox
 {
 	//------------------------------------------------------------------------------------------------------
-	D3D11RenderElement::D3D11RenderElement()
+	D3D11RenderElement::D3D11RenderElement() :
+		position_(0.0f, 0.0f, 0.0f),
+		v_position_(XMVectorSet(0.0f, 0.0f, 0.0f, 1.0f)),
+		rotation_(0.0f, 0.0f, 0.0f),
+		v_rotation_(XMVectorSet(0.0f, 0.0f, 0.0f, 1.0f)),
+		scaling_(1.0f, 1.0f, 1.0f),
+		v_scaling_(XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f)),
+		offset_(0.0f, 0.0f, 0.0f),
+		v_offset_(XMVectorSet(0.0f, 0.0f, 0.0f, 1.0f)),
+		alpha_(1)
 	{
 
 	}
@@ -68,19 +77,19 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	D3D11Texture* D3D11RenderElement::GetTexture() const
 	{
-		return texture_;
+		return texture_.get();
 	}
 
 	//------------------------------------------------------------------------------------------------------
 	D3D11Shader* D3D11RenderElement::GetShader() const
 	{
-		return shader_;
+		return shader_.get();
 	}
 
 	//------------------------------------------------------------------------------------------------------
 	D3D11VertexBuffer* D3D11RenderElement::GetVertexBuffer() const
 	{
-		return vertex_buffer_;
+		return vertex_buffer_.get();
 	}
 
 	//------------------------------------------------------------------------------------------------------
@@ -179,5 +188,17 @@ namespace blowbox
 	void D3D11RenderElement::CalculateOffset()
 	{
 		v_offset_ = XMVectorSet(offset_.x, offset_.y, offset_.z, 1.0f);
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	XMMATRIX& D3D11RenderElement::GetWorld()
+	{
+		world_matrix_ =
+			XMMatrixScalingFromVector(v_scaling_) *
+			XMMatrixTranslationFromVector(v_offset_ * v_scaling_) *
+			XMMatrixRotationRollPitchYawFromVector(v_rotation_) *
+			XMMatrixTranslationFromVector(v_position_);
+
+		return world_matrix_;
 	}
 }

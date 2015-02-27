@@ -25,7 +25,7 @@ namespace blowbox
 		device_(nullptr),
 		buffer_type_(BUFFER_TYPE::BUFFER_TYPE_UNKNOWN)
 	{
-		
+		camera_ = nullptr;
 	}
 
 	//------------------------------------------------------------------------------------------------------
@@ -46,8 +46,6 @@ namespace blowbox
 	{
 		CreateSwapChain(window);
 
-		CreateInputLayout();
-
 		CreateViewport();
 
 		CreateBackBuffer();
@@ -55,11 +53,17 @@ namespace blowbox
 		CreateInputLayout();
 
 		CreateScreenQuad();
+		
+		CreateGlobalBuffer();
+
+		CreateObjectBuffer();
 
 		target_ = new D3D11RenderTarget();
 		target_->Create(RENDER_TARGET_TYPE::RENDER_TARGET_TYPE_RENDER_TARGET, swap_chain_, device_);
 
 		AddRenderTarget(std::string("hurdur"), target_.get());
+
+		camera_ = new D3D11Camera();
 	}
 
 	//------------------------------------------------------------------------------------------------------
@@ -124,9 +128,35 @@ namespace blowbox
 	}
 
 	//------------------------------------------------------------------------------------------------------
+	void D3D11RenderDevice::CreateGlobalBuffer()
+	{
+		global_buffer_ = new D3D11ConstantBuffer();
+		global_buffer_->Create(CONSTANT_BUFFER_TYPE::CONSTANT_BUFFER_GLOBAL);
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	void D3D11RenderDevice::CreateObjectBuffer()
+	{
+		per_object_buffer_ = new D3D11ConstantBuffer();
+		per_object_buffer_->Create(CONSTANT_BUFFER_TYPE::CONSTANT_BUFFER_OBJECT);
+	}
+
+	//------------------------------------------------------------------------------------------------------
 	void D3D11RenderDevice::Draw()
 	{
+		if (camera_.get() == nullptr)
+		{
+			return;
+		}
+		
 		back_buffer_->Clear(context_);
+
+		global_buffer_->Map(context_, {
+			0.0f,
+			camera_->GetView(),
+			camera_->GetProjection()
+		});
+		global_buffer_->Set(context_, 0);
 
 		context_->VSSetShader(default_shader_->GetVertexShader(), 0, 0);
 		context_->PSSetShader(default_shader_->GetPixelShader(), 0, 0);
@@ -150,7 +180,13 @@ namespace blowbox
 
 		screen_quad_->Set(context_);
 
+		ID3D11ShaderResourceView* resource = render_target->GetResource();
+		context_->PSSetShaderResources(0, 1, &resource);
+
 		screen_quad_->Draw(context_);
+
+		ID3D11ShaderResourceView* buffer[] = { NULL };
+		context_->PSSetShaderResources(0, 1, buffer);
 	}
 
 	//------------------------------------------------------------------------------------------------------
@@ -205,5 +241,11 @@ namespace blowbox
 	D3D11RenderTarget* D3D11RenderDevice::GetBackBuffer() const
 	{
 		return back_buffer_.get();
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	D3D11ConstantBuffer* D3D11RenderDevice::GetObjectBuffer()
+	{
+		return per_object_buffer_.get();
 	}
 }
