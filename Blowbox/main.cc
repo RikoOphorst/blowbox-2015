@@ -4,8 +4,8 @@ using namespace blowbox;
 
 int main(int argc, char** argv)
 {
-	Game* game = Game::Instance();
-	game->Run();
+	AllocatedMemory& memory = AllocatedMemory::Instance();
+	Game::Instance()->Run();
 
 	return EXIT_SUCCESS;
 }

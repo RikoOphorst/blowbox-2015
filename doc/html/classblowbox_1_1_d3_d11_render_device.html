@@ -143,6 +143,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="separator:ab77ea4abdaf432151db4aa58119f52f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4e547c440ba64b349b3fd5e3969c4809"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classblowbox_1_1_d3_d11_render_target.html">D3D11RenderTarget</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classblowbox_1_1_d3_d11_render_device.html#a4e547c440ba64b349b3fd5e3969c4809">GetBackBuffer</a> () const </td></tr>
 <tr class="separator:a4e547c440ba64b349b3fd5e3969c4809"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a737e6b48013d367307868b859b79e118"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classblowbox_1_1_d3_d11_constant_buffer.html">D3D11ConstantBuffer</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classblowbox_1_1_d3_d11_render_device.html#a737e6b48013d367307868b859b79e118">GetObjectBuffer</a> ()</td></tr>
+<tr class="separator:a737e6b48013d367307868b859b79e118"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6414527baad56f8c578d9784aca63f66"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classblowbox_1_1_d3_d11_render_device.html#a6414527baad56f8c578d9784aca63f66">CreateSwapChain</a> (<a class="el" href="classblowbox_1_1_window.html">Window</a> *window)</td></tr>
 <tr class="memdesc:a6414527baad56f8c578d9784aca63f66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the swap chain.  <a href="#a6414527baad56f8c578d9784aca63f66">More...</a><br /></td></tr>
 <tr class="separator:a6414527baad56f8c578d9784aca63f66"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -161,6 +163,14 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classblowbox_1_1_d3_d11_render_device.html#a1be6a2341f0c10b3daf924b6dc0d373b">CreateScreenQuad</a> ()</td></tr>
 <tr class="memdesc:a1be6a2341f0c10b3daf924b6dc0d373b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the screen quad. <br /></td></tr>
 <tr class="separator:a1be6a2341f0c10b3daf924b6dc0d373b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ababd675171e7c2bf2dcd888975e9c2cb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ababd675171e7c2bf2dcd888975e9c2cb"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classblowbox_1_1_d3_d11_render_device.html#ababd675171e7c2bf2dcd888975e9c2cb">CreateGlobalBuffer</a> ()</td></tr>
+<tr class="memdesc:ababd675171e7c2bf2dcd888975e9c2cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the global constant buffer. <br /></td></tr>
+<tr class="separator:ababd675171e7c2bf2dcd888975e9c2cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec4d94944f62470c9ca17a70278efa18"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aec4d94944f62470c9ca17a70278efa18"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classblowbox_1_1_d3_d11_render_device.html#aec4d94944f62470c9ca17a70278efa18">CreateObjectBuffer</a> ()</td></tr>
+<tr class="memdesc:aec4d94944f62470c9ca17a70278efa18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the per object constant buffer. <br /></td></tr>
+<tr class="separator:aec4d94944f62470c9ca17a70278efa18"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -186,7 +196,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Creates the input layout. </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>Fix this shit </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000002">Todo:</a></b></dt><dd>Fix this shit </dd></dl>
 
 </div>
 </div>
@@ -299,6 +309,22 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>ID3D11Device* The Display Device from the Swap Chain </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a737e6b48013d367307868b859b79e118"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classblowbox_1_1_d3_d11_constant_buffer.html">D3D11ConstantBuffer</a> * blowbox::D3D11RenderDevice::GetObjectBuffer </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>The per object constant buffer </dd></dl>
 
 </div>
 </div>
@@ -432,13 +458,13 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/Users/Riko/Documents/Visual Studio 2013/Projects/blowbox/Blowbox/d3d11/<a class="el" href="d3d11__render__device_8h_source.html">d3d11_render_device.h</a></li>
-<li>C:/Users/Riko/Documents/Visual Studio 2013/Projects/blowbox/Blowbox/d3d11/d3d11_render_device.cc</li>
+<li>C:/Users/Riko pc/Documents/Visual Studio 2013/Projects/blowbox/Blowbox/d3d11/<a class="el" href="d3d11__render__device_8h_source.html">d3d11_render_device.h</a></li>
+<li>C:/Users/Riko pc/Documents/Visual Studio 2013/Projects/blowbox/Blowbox/d3d11/d3d11_render_device.cc</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Feb 26 2015 16:54:51 for blowbox by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Feb 27 2015 21:53:28 for blowbox by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

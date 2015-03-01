@@ -89,7 +89,7 @@ namespace blowbox
 		/**
 		* @return D3D11Viewport* The viewport of the device
 		*/
-		D3D11Viewport* GetViewport() const;
+		D3D11Viewport* GetViewport();
 
 		/**
 		* @return const BUFFER_TYPES& The last set buffer type
@@ -105,7 +105,7 @@ namespace blowbox
 		/**
 		* @return Gets the back buffer
 		*/
-		D3D11RenderTarget* GetBackBuffer() const;
+		D3D11RenderTarget* GetBackBuffer();
 
 		/**
 		* @return The per object constant buffer

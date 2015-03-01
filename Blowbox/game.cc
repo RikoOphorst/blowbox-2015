@@ -13,7 +13,7 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	Game::Game()
 	{
-		window_ = SharedPtr<Window>(new Window());
+		window_ = new Window();
 		mouse_ = Mouse::Instance();
 		keyboard_ = Keyboard::Instance();
 		renderDevice_ = D3D11RenderDevice::Instance();

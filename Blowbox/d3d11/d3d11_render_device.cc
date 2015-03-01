@@ -25,7 +25,7 @@ namespace blowbox
 		device_(nullptr),
 		buffer_type_(BUFFER_TYPE::BUFFER_TYPE_UNKNOWN)
 	{
-		camera_ = nullptr;
+		
 	}
 
 	//------------------------------------------------------------------------------------------------------
@@ -220,7 +220,7 @@ namespace blowbox
 	}
 
 	//------------------------------------------------------------------------------------------------------
-	D3D11Viewport* D3D11RenderDevice::GetViewport() const
+	D3D11Viewport* D3D11RenderDevice::GetViewport()
 	{
 		return viewport_.get();
 	}
@@ -238,7 +238,7 @@ namespace blowbox
 	}
 
 	//------------------------------------------------------------------------------------------------------
-	D3D11RenderTarget* D3D11RenderDevice::GetBackBuffer() const
+	D3D11RenderTarget* D3D11RenderDevice::GetBackBuffer()
 	{
 		return back_buffer_.get();
 	}

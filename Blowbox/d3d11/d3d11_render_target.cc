@@ -109,7 +109,7 @@ namespace blowbox
 	}
 
 	//------------------------------------------------------------------------------------------------------
-	D3D11RenderQueue* D3D11RenderTarget::GetQueue() const
+	D3D11RenderQueue* D3D11RenderTarget::GetQueue()
 	{
 		return queue_.get();
 	}

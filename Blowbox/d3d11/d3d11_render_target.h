@@ -82,7 +82,7 @@ namespace blowbox
 		/**
 		* @return D3D11RenderQueue* The render queue of this render target
 		*/
-		D3D11RenderQueue* GetQueue() const;
+		D3D11RenderQueue* GetQueue();
 	private:
 		RENDER_TARGET_TYPE						type_;
 		ID3D11Texture2D*						target_;

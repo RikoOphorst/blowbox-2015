@@ -142,9 +142,12 @@
     <ClCompile Include="input\keyboard.cc" />
     <ClCompile Include="input\mouse.cc" />
     <ClCompile Include="main.cc" />
+    <ClCompile Include="memory\allocated_memory.cc" />
+    <ClCompile Include="memory\refcount.cc" />
     <ClCompile Include="win32\window.cc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="d3d11\d3d11.h" />
     <ClInclude Include="d3d11\d3d11_blend_state.h" />
     <ClInclude Include="d3d11\d3d11_camera.h" />
     <ClInclude Include="d3d11\d3d11_constant_buffer.h" />
@@ -167,6 +170,8 @@
     <ClInclude Include="input\keyboard.h" />
     <ClInclude Include="input\mouse.h" />
     <ClInclude Include="logging.h" />
+    <ClInclude Include="memory\allocated_memory.h" />
+    <ClInclude Include="memory\refcount.h" />
     <ClInclude Include="memory\shared_ptr.h" />
     <ClInclude Include="win32\window.h" />
   </ItemGroup>

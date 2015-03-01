@@ -71,17 +71,17 @@ namespace blowbox
 		/**
 		* @return D3D11Texture* The texture of the element
 		*/
-		D3D11Texture* GetTexture() const;
+		D3D11Texture* GetTexture();
 
 		/**
 		* @return D3D11Shader* The texture of the element
 		*/
-		D3D11Shader* GetShader() const;
+		D3D11Shader* GetShader();
 
 		/**
 		* @return D3D11VertexBuffer* The vertex buffer of the element
 		*/
-		D3D11VertexBuffer* GetVertexBuffer() const;
+		D3D11VertexBuffer* GetVertexBuffer();
 
 		/**
 		* @brief Sets the position of the element

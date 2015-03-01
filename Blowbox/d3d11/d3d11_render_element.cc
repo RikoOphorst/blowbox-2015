@@ -75,19 +75,19 @@ namespace blowbox
 	}
 
 	//------------------------------------------------------------------------------------------------------
-	D3D11Texture* D3D11RenderElement::GetTexture() const
+	D3D11Texture* D3D11RenderElement::GetTexture()
 	{
 		return texture_.get();
 	}
 
 	//------------------------------------------------------------------------------------------------------
-	D3D11Shader* D3D11RenderElement::GetShader() const
+	D3D11Shader* D3D11RenderElement::GetShader()
 	{
 		return shader_.get();
 	}
 
 	//------------------------------------------------------------------------------------------------------
-	D3D11VertexBuffer* D3D11RenderElement::GetVertexBuffer() const
+	D3D11VertexBuffer* D3D11RenderElement::GetVertexBuffer()
 	{
 		return vertex_buffer_.get();
 	}
