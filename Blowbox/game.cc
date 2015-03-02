@@ -47,6 +47,7 @@ namespace blowbox
 
 		quad_->SetPosition(1.0f, 0.0f, 0.0f);
 		quad_->SetScale(50, 50, 1);
+		quad_->SetShader("shaders/base.fx");
 
 		while (window->GetStarted())
 		{

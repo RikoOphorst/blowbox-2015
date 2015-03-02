@@ -143,7 +143,6 @@
     <ClCompile Include="input\mouse.cc" />
     <ClCompile Include="main.cc" />
     <ClCompile Include="memory\allocated_memory.cc" />
-    <ClCompile Include="memory\refcount.cc" />
     <ClCompile Include="win32\window.cc" />
   </ItemGroup>
   <ItemGroup>
@@ -178,6 +177,9 @@
   <ItemGroup>
     <FxCompile Include="shaders\base.fx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </FxCompile>
+    <FxCompile Include="shaders\post_processing.fx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </FxCompile>
   </ItemGroup>

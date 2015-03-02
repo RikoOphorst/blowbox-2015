@@ -78,4 +78,11 @@ namespace blowbox
 	{
 		return pixel_shader_buffer_;
 	}
+
+	//------------------------------------------------------------------------------------------------------
+	void D3D11Shader::Set(ID3D11DeviceContext* context)
+	{
+		context->VSSetShader(vertex_shader_, 0, 0);
+		context->PSSetShader(pixel_shader_, 0, 0);
+	}
 }

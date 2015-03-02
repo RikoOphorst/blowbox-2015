@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['set',['Set',['../classblowbox_1_1_d3_d11_constant_buffer.html#ad47d797e9ff2ce3f435a2b620945a6d8',1,'blowbox::D3D11ConstantBuffer::Set()'],['../classblowbox_1_1_d3_d11_input_layout.html#a4fb18fef60af36e601db3e11809c9abc',1,'blowbox::D3D11InputLayout::Set()'],['../classblowbox_1_1_d3_d11_render_target.html#a6cab5be2492865ac3798310085c151d0',1,'blowbox::D3D11RenderTarget::Set()'],['../classblowbox_1_1_d3_d11_vertex_buffer.html#aed2929948419a2527115af5f121c080d',1,'blowbox::D3D11VertexBuffer::Set()'],['../classblowbox_1_1_d3_d11_viewport.html#a9cab73f40cb9088023a4a1204ae5e7c9',1,'blowbox::D3D11Viewport::Set()']]],
+  ['set',['Set',['../classblowbox_1_1_d3_d11_constant_buffer.html#ad47d797e9ff2ce3f435a2b620945a6d8',1,'blowbox::D3D11ConstantBuffer::Set()'],['../classblowbox_1_1_d3_d11_input_layout.html#a4fb18fef60af36e601db3e11809c9abc',1,'blowbox::D3D11InputLayout::Set()'],['../classblowbox_1_1_d3_d11_render_target.html#a6cab5be2492865ac3798310085c151d0',1,'blowbox::D3D11RenderTarget::Set()'],['../classblowbox_1_1_d3_d11_sampler_state.html#ab05a7968c051a3c0bd9773bba00abbf9',1,'blowbox::D3D11SamplerState::Set()'],['../classblowbox_1_1_d3_d11_vertex_buffer.html#aed2929948419a2527115af5f121c080d',1,'blowbox::D3D11VertexBuffer::Set()'],['../classblowbox_1_1_d3_d11_viewport.html#a9cab73f40cb9088023a4a1204ae5e7c9',1,'blowbox::D3D11Viewport::Set()']]],
   ['setalpha',['SetAlpha',['../classblowbox_1_1_d3_d11_render_element.html#a7c563ab30f6eae7e4a8559f72688dfc6',1,'blowbox::D3D11RenderElement::SetAlpha(double alpha)'],['../classblowbox_1_1_d3_d11_render_element.html#a926b698a6e9742594efe9e8af051dba5',1,'blowbox::D3D11RenderElement::SetAlpha(float alpha)']]],
   ['setbuffertype',['SetBufferType',['../classblowbox_1_1_d3_d11_render_device.html#ab77ea4abdaf432151db4aa58119f52f0',1,'blowbox::D3D11RenderDevice']]],
   ['setfarz',['SetFarZ',['../classblowbox_1_1_d3_d11_camera.html#ace72f0c4a83b0b4e5b9ca50f8067c395',1,'blowbox::D3D11Camera']]],
@@ -19,6 +19,7 @@ var searchData=
   ['setx',['SetX',['../classblowbox_1_1_d3_d11_camera.html#a4011b248d4e30e25b9768848b6bd8a84',1,'blowbox::D3D11Camera::SetX()'],['../classblowbox_1_1_d3_d11_render_element.html#a1255d5e3bd4840546cef847173634a7c',1,'blowbox::D3D11RenderElement::SetX()']]],
   ['sety',['SetY',['../classblowbox_1_1_d3_d11_camera.html#a87d8a4160ce1c599a8daca86453021d4',1,'blowbox::D3D11Camera::SetY()'],['../classblowbox_1_1_d3_d11_render_element.html#a159c5c7442f3091d4c2a4d02836bc6c2',1,'blowbox::D3D11RenderElement::SetY()']]],
   ['setz',['SetZ',['../classblowbox_1_1_d3_d11_camera.html#a4395f0be6ab7a73a3d6fa9ca1513afc0',1,'blowbox::D3D11Camera::SetZ()'],['../classblowbox_1_1_d3_d11_render_element.html#ab072dd3fe2bbdaa766e382ea9ce7c707',1,'blowbox::D3D11RenderElement::SetZ()']]],
+  ['sharedptr',['SharedPtr',['../classblowbox_1_1_shared_ptr.html#a139a223ba825cf1e32123d4802fa53d1',1,'blowbox::SharedPtr::SharedPtr()'],['../classblowbox_1_1_shared_ptr.html#a793ae38446109c83d848ca32d3bcb77c',1,'blowbox::SharedPtr::SharedPtr(T *ptr)'],['../classblowbox_1_1_shared_ptr.html#a6a507412476ed4201cdcf69efd5049fa',1,'blowbox::SharedPtr::SharedPtr(const SharedPtr&lt; T &gt; &amp;other)'],['../classblowbox_1_1_shared_ptr.html#adcb914f088056b0c91609faabd0b7289',1,'blowbox::SharedPtr::SharedPtr(SharedPtr&lt; T &gt; &amp;&amp;other)']]],
   ['sharedptr',['SharedPtr',['../classblowbox_1_1_shared_ptr.html',1,'blowbox']]],
   ['sharedptr_3c_20blowbox_3a_3ad3d11camera_20_3e',['SharedPtr&lt; blowbox::D3D11Camera &gt;',['../classblowbox_1_1_shared_ptr.html',1,'blowbox']]],
   ['sharedptr_3c_20blowbox_3a_3ad3d11constantbuffer_20_3e',['SharedPtr&lt; blowbox::D3D11ConstantBuffer &gt;',['../classblowbox_1_1_shared_ptr.html',1,'blowbox']]],
@@ -32,5 +33,6 @@ var searchData=
   ['sharedptr_3c_20blowbox_3a_3ad3d11viewport_20_3e',['SharedPtr&lt; blowbox::D3D11Viewport &gt;',['../classblowbox_1_1_shared_ptr.html',1,'blowbox']]],
   ['sharedptr_3c_20blowbox_3a_3aquad_20_3e',['SharedPtr&lt; blowbox::Quad &gt;',['../classblowbox_1_1_shared_ptr.html',1,'blowbox']]],
   ['sharedptr_3c_20blowbox_3a_3awindow_20_3e',['SharedPtr&lt; blowbox::Window &gt;',['../classblowbox_1_1_shared_ptr.html',1,'blowbox']]],
-  ['stringtobutton',['StringToButton',['../classblowbox_1_1_mouse.html#acee4b55081ade38f26d6e78114746e15',1,'blowbox::Mouse']]]
+  ['stringtobutton',['StringToButton',['../classblowbox_1_1_mouse.html#acee4b55081ade38f26d6e78114746e15',1,'blowbox::Mouse']]],
+  ['swap',['Swap',['../classblowbox_1_1_shared_ptr.html#a94d79b26a5a1ef6155b663a02346aadd',1,'blowbox::SharedPtr']]]
 ];

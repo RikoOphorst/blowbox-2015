@@ -55,6 +55,12 @@ namespace blowbox
 		* @return ID3D10Blob* The pixel shader buffer
 		*/
 		ID3D10Blob* GetPixelShaderBuffer() const;
+
+		/**
+		* @brief Sets the shader
+		* @param[in] context (ID3D11DeviceContext*) the context
+		*/
+		void Set(ID3D11DeviceContext* context);
 	private:
 		ID3D11PixelShader*			pixel_shader_;
 		ID3D10Blob*					pixel_shader_buffer_;

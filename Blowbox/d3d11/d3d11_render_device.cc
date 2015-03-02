@@ -158,8 +158,7 @@ namespace blowbox
 		});
 		global_buffer_->Set(context_, 0);
 
-		context_->VSSetShader(default_shader_->GetVertexShader(), 0, 0);
-		context_->PSSetShader(default_shader_->GetPixelShader(), 0, 0);
+		default_shader_->Set(context_);
 
 		for (auto it = render_targets_.begin(); it != render_targets_.end(); it++)
 		{
@@ -183,6 +182,7 @@ namespace blowbox
 		ID3D11ShaderResourceView* resource = render_target->GetResource();
 		context_->PSSetShaderResources(0, 1, &resource);
 
+		render_target->ApplyShader(context_);
 		screen_quad_->Draw(context_);
 
 		ID3D11ShaderResourceView* buffer[] = { NULL };

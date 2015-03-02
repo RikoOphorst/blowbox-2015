@@ -2,6 +2,8 @@
 
 #include "../../blowbox/d3d11/d3d11_texture.h"
 #include "../../blowbox/d3d11/d3d11_vertex_buffer.h"
+#include "../../blowbox/d3d11/d3d11_sampler_state.h"
+#include "../../blowbox/d3d11/d3d11_shader.h"
 
 namespace blowbox
 {
@@ -15,7 +17,8 @@ namespace blowbox
 		v_scaling_(XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f)),
 		offset_(0.0f, 0.0f, 0.0f),
 		v_offset_(XMVectorSet(0.0f, 0.0f, 0.0f, 1.0f)),
-		alpha_(1)
+		alpha_(1),
+		texture_filtering_(TEXTURE_FILTERING_TYPE::TEXTURE_ANISOTROPIC)
 	{
 
 	}
@@ -164,6 +167,7 @@ namespace blowbox
 		/**
 		* @todo Implement the content manager
 		*/
+		shader_ = new D3D11Shader(path);
 	}
 
 	//------------------------------------------------------------------------------------------------------
@@ -200,5 +204,11 @@ namespace blowbox
 			XMMatrixTranslationFromVector(v_position_);
 
 		return world_matrix_;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	const TEXTURE_FILTERING_TYPE& D3D11RenderElement::GetFilteringType() const
+	{
+		return texture_filtering_;
 	}
 }

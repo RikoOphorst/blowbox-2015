@@ -9,6 +9,7 @@ namespace blowbox
 {
 	class D3D11RenderElement;
 	class D3D11RenderQueue;
+	class D3D11Shader;
 
 	/**
 	* @enum blowbox::RENDER_TARGET_TYPE
@@ -83,12 +84,29 @@ namespace blowbox
 		* @return D3D11RenderQueue* The render queue of this render target
 		*/
 		D3D11RenderQueue* GetQueue();
+
+		/**
+		* @brief Applies the post processing shader
+		*/
+		void ApplyShader(ID3D11DeviceContext* context);
+
+		/**
+		* @brief Sets the post processing shader for this render target
+		* @param[in] path (const std::string&) the path to the shader
+		*/
+		void SetShader(const std::string& path);
+
+		/**
+		* @brief Retrieves the post processing shader for this render target
+		*/
+		D3D11Shader* GetShader();
 	private:
 		RENDER_TARGET_TYPE						type_;
 		ID3D11Texture2D*						target_;
 		ID3D11RenderTargetView*					view_;
 		ID3D11ShaderResourceView*				resource_;
 		SharedPtr<D3D11RenderQueue>				queue_;
+		SharedPtr<D3D11Shader>					shader_;
 		std::vector<D3D11RenderElement*>		render_elements_;
 		std::vector<D3D11RenderElement*>		ui_elements_;
 	};

@@ -4,6 +4,8 @@
 #include "../../blowbox/d3d11/d3d11_vertex_buffer.h"
 #include "../../blowbox/d3d11/d3d11_constant_buffer.h"
 #include "../../blowbox/d3d11/d3d11_render_device.h"
+#include "../../blowbox/d3d11/d3d11_sampler_state.h"
+#include "../../blowbox/d3d11/d3d11_shader.h"
 
 namespace blowbox
 {
@@ -50,6 +52,10 @@ namespace blowbox
 		});
 		D3D11RenderDevice::Instance()->GetObjectBuffer()->Set(context, 1);
 		
+		D3D11SamplerState::GetSamplerState(element->GetFilteringType())->Set(context);
+
+		//element->GetShader()->Set(context);
+
 		element->GetVertexBuffer()->Set(context);
 		element->GetVertexBuffer()->Draw(context);
 	}

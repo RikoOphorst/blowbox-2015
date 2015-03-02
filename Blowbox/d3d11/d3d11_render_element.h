@@ -9,6 +9,8 @@ namespace blowbox
 	class D3D11Texture;
 	class D3D11Shader;
 	class D3D11VertexBuffer;
+	class D3D11SamplerState;
+	enum TEXTURE_FILTERING_TYPE;
 	
 	/**
 	* @class blowbox::D3D11RenderElement
@@ -181,6 +183,11 @@ namespace blowbox
 		* @brief Retrieves the world matrix
 		*/
 		XMMATRIX& GetWorld();
+
+		/**
+		* @brief Retrieves the sampler type
+		*/
+		const TEXTURE_FILTERING_TYPE& GetFilteringType() const;
 	protected:
 		XMFLOAT3 position_;
 		XMVECTOR v_position_;
@@ -202,5 +209,7 @@ namespace blowbox
 		SharedPtr<D3D11Shader> shader_;
 
 		SharedPtr<D3D11VertexBuffer> vertex_buffer_;
+
+		TEXTURE_FILTERING_TYPE texture_filtering_;
 	};
 }

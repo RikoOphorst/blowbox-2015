@@ -5,17 +5,32 @@
 
 namespace blowbox
 {
+	/**
+	* @enum blowbox::CAMERA_PROJECTION_TYPE
+	* @brief All available projection types
+	*/
 	enum CAMERA_PROJECTION_TYPE
 	{
 		CAMERA_PROJECTION_ORTHOGRAPHIC,
 		CAMERA_PROJECTION_PERSPECTIVE
 	};
 
+	/**
+	* @class blowbox::D3D11Camera
+	* @brief Handles a D3D11 camera and its matrix
+	* @author Riko Ophorst
+	*/
 	class D3D11Camera
 	{
 	public:
+		/**
+		* @brief Default D3D11Camera constructor
+		*/
 		D3D11Camera();
 
+		/**
+		* @brief Default D3D11Camera destructor
+		*/
 		~D3D11Camera();
 
 		/**

@@ -26,8 +26,12 @@ VOut VS(float4 position : POSITION, float3 normal : NORMAL, float2 texcoord : TE
 	output.position = mul(output.position, view);
 	output.position = mul(output.position, projection);
 	output.colour = colour;
+	output.texcoord = texcoord;
 	return output;
 }
+
+Texture2D tex;
+SamplerState Sampler;
 
 float4 PS(VOut input) : SV_TARGET
 {

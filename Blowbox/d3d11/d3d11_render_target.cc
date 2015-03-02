@@ -2,13 +2,17 @@
 
 #include "../../blowbox/d3d11/d3d11_render_device.h"
 #include "../../blowbox/d3d11/d3d11_render_queue.h"
+#include "../../blowbox/d3d11/d3d11_shader.h"
 
 namespace blowbox
 {
 	//------------------------------------------------------------------------------------------------------
 	D3D11RenderTarget::D3D11RenderTarget()
 	{
-		
+		/**
+		* @todo Implement content manager
+		*/
+		shader_ = new D3D11Shader("shaders/post_processing.fx");
 	}
 
 	//------------------------------------------------------------------------------------------------------
@@ -112,5 +116,25 @@ namespace blowbox
 	D3D11RenderQueue* D3D11RenderTarget::GetQueue()
 	{
 		return queue_.get();
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	void D3D11RenderTarget::ApplyShader(ID3D11DeviceContext* context)
+	{
+		shader_->Set(context);
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	void D3D11RenderTarget::SetShader(const std::string& path)
+	{
+		/**
+		* @todo implement content manager
+		*/
+		shader_ = new D3D11Shader(path);
+	}
+
+	D3D11Shader* D3D11RenderTarget::GetShader()
+	{
+		return shader_.get();
 	}
 }

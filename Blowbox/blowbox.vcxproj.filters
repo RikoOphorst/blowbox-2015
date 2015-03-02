@@ -66,9 +66,6 @@
     <ClCompile Include="memory\allocated_memory.cc">
       <Filter>memory</Filter>
     </ClCompile>
-    <ClCompile Include="memory\refcount.cc">
-      <Filter>memory</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game.h" />
@@ -169,6 +166,9 @@
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="shaders\base.fx">
+      <Filter>shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shaders\post_processing.fx">
       <Filter>shaders</Filter>
     </FxCompile>
   </ItemGroup>

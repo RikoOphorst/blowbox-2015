@@ -68,5 +68,37 @@ namespace blowbox
 			context->VSSetSamplers(0, 1, &state_);
 			context->PSSetSamplers(0, 1, &state_);
 		}
+
+		BLOW_RELEASE(last_state_);
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	D3D11SamplerState* D3D11SamplerState::GetSamplerState(const TEXTURE_FILTERING_TYPE& type)
+	{
+		static SharedPtr<D3D11SamplerState> point_sampler = new D3D11SamplerState(TEXTURE_FILTERING_TYPE::TEXTURE_POINT);
+		static SharedPtr<D3D11SamplerState> bilinear_sampler = new D3D11SamplerState(TEXTURE_FILTERING_TYPE::TEXTURE_BILINEAR);
+		static SharedPtr<D3D11SamplerState> trilinear_sampler = new D3D11SamplerState(TEXTURE_FILTERING_TYPE::TEXTURE_TRILINEAR);
+		static SharedPtr<D3D11SamplerState> anisotropic_sampler = new D3D11SamplerState(TEXTURE_FILTERING_TYPE::TEXTURE_ANISOTROPIC);
+
+		if (TEXTURE_FILTERING_TYPE::TEXTURE_POINT == type)
+		{
+			return point_sampler.get();
+		}
+		else if (TEXTURE_FILTERING_TYPE::TEXTURE_BILINEAR == type)
+		{
+			return bilinear_sampler.get();
+		}
+		else if (TEXTURE_FILTERING_TYPE::TEXTURE_TRILINEAR == type)
+		{
+			return trilinear_sampler.get();
+		}
+		else if (TEXTURE_FILTERING_TYPE::TEXTURE_ANISOTROPIC == type)
+		{
+			return anisotropic_sampler.get();
+		}
+		else
+		{
+			return point_sampler.get();
+		}
 	}
 }

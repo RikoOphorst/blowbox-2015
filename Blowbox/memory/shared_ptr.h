@@ -5,7 +5,12 @@
 #include "../../blowbox/memory/refcount.h"
 
 namespace blowbox
-{	
+{
+	/**
+	* @class blowbox::SharedPtr
+	* @brief Keeps a shared pointer
+	* @author Riko Ophorst
+	*/
 	template<typename T>
 	class SharedPtr
 	{
@@ -55,18 +60,64 @@ namespace blowbox
 		*/
 		T& operator*(void);
 
+		/**
+		* @brief Equals comparison overload
+		*/
 		bool operator==(const SharedPtr<T>& other) const;
+
+		/**
+		* @brief Equals comparison overload
+		*/
 		bool operator==(const T* other) const;
+
+		/**
+		* @brief Equals comparison overload
+		*/
 		bool operator==(std::nullptr_t) const;
+
+		/**
+		* @brief Does not equal comparison overload
+		*/
 		bool operator!=(const SharedPtr<T>& other) const;
+
+		/**
+		* @brief Does not equal comparison overload
+		*/
 		bool operator!=(const T* other) const;
+
+		/**
+		* @brief Does not equal comparison overload
+		*/
 		bool operator!=(std::nullptr_t) const;
 
+		/**
+		* @brief Swaps two shared pointers
+		* @param[in] other (SharedPtr<T>&) the other shared pointer
+		*/
 		void Swap(SharedPtr<T>& other);
+
+		/**
+		* @brief Resets this shared pointer
+		*/
 		void Reset();
+
+		/**
+		* @brief Resets this shared pointer to another ptr
+		* @param[in] ptr (T*) the other pointer
+		* @param[in] ref (RefCount<T>*) the other ref count
+		*/
 		void Reset(T* ptr, RefCount<T>* ref);
+
+		/**
+		* @brief Resets this shared pointer to another ptr in a raw manner
+		* @param[in] ptr (T*) the other pointer
+		* @param[in] ref (RefCount<T>*) the other ref count
+		*/
 		void ResetRaw(T* ptr, RefCount<T>* ref);
 
+		/**
+		* @brief Retrieves the pointer of this shared pointer
+		*/
 		T* get();
 	private:
 		T* ptr_;
@@ -102,6 +153,8 @@ namespace blowbox
 		
 		ptr_ = ptr;
 		ref_ = new RefCount<T>(ptr);
+
+		AllocatedMemory::Instance().Increase(sizeof(ptr));
 	}
 
 	//------------------------------------------------------------------------------------------------------
@@ -155,7 +208,6 @@ namespace blowbox
 	template<typename T>
 	bool SharedPtr<T>::operator==(const T* other) const
 	{
-		
 		return other == get();
 	}
 
@@ -177,7 +229,6 @@ namespace blowbox
 	template<typename T>
 	bool SharedPtr<T>::operator!=(const T* other) const
 	{
-		
 		return other != get();
 	}
 
