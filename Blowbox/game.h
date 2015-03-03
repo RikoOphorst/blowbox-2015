@@ -57,5 +57,6 @@ namespace blowbox
 		Keyboard* keyboard_;
 		D3D11RenderDevice* renderDevice_;
 		SharedPtr<Quad> quad_;
+		SharedPtr<Quad> quad2_;
 	};
 }

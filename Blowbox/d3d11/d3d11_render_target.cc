@@ -3,6 +3,8 @@
 #include "../../blowbox/d3d11/d3d11_render_device.h"
 #include "../../blowbox/d3d11/d3d11_render_queue.h"
 #include "../../blowbox/d3d11/d3d11_shader.h"
+#include "../../blowbox/d3d11/d3d11_blend_state.h"
+#include "../../blowbox/d3d11/d3d11_depth_stencil.h"
 
 namespace blowbox
 {
@@ -13,6 +15,8 @@ namespace blowbox
 		* @todo Implement content manager
 		*/
 		shader_ = new D3D11Shader("shaders/post_processing.fx");
+		blend_state_ = new D3D11BlendState();
+		depth_stencil_ = new D3D11DepthStencil();
 	}
 
 	//------------------------------------------------------------------------------------------------------
@@ -90,7 +94,9 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	void D3D11RenderTarget::Set(ID3D11DeviceContext* context)
 	{
-		context->OMSetRenderTargets(1, &view_, NULL);
+		context->OMSetRenderTargets(1, &view_, depth_stencil_->GetView());
+		
+		depth_stencil_->Set(context);
 	}
 
 	//------------------------------------------------------------------------------------------------------
@@ -104,11 +110,13 @@ namespace blowbox
 	{	
 		if (RENDER_TARGET_TYPE::RENDER_TARGET_TYPE_BACKBUFFER == type_)
 		{
-			context->ClearRenderTargetView(view_, D3DXCOLOR(0.0f, 0.0f, 0.0f, 1.0f));
+			context->ClearRenderTargetView(view_, D3DXCOLOR(0.1f, 0.1f, 0.1f, 1.0f));
+			context->ClearDepthStencilView(depth_stencil_->GetView(), D3D11_CLEAR_FLAG::D3D11_CLEAR_DEPTH | D3D11_CLEAR_FLAG::D3D11_CLEAR_STENCIL, 1.0f, 0.0f);
 		}
 		else if (RENDER_TARGET_TYPE::RENDER_TARGET_TYPE_RENDER_TARGET == type_)
 		{
 			context->ClearRenderTargetView(view_, D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.0f));
+			context->ClearDepthStencilView(depth_stencil_->GetView(), D3D11_CLEAR_FLAG::D3D11_CLEAR_DEPTH | D3D11_CLEAR_FLAG::D3D11_CLEAR_STENCIL, 1.0f, 0.0f);
 		}
 	}
 
@@ -122,6 +130,12 @@ namespace blowbox
 	void D3D11RenderTarget::ApplyShader(ID3D11DeviceContext* context)
 	{
 		shader_->Set(context);
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	void D3D11RenderTarget::ApplyBlendState(ID3D11DeviceContext* context)
+	{
+		blend_state_->Set(context);
 	}
 
 	//------------------------------------------------------------------------------------------------------

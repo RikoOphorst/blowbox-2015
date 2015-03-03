@@ -45,9 +45,16 @@ namespace blowbox
 		quad_ = new Quad();
 		renderDevice_->GetRenderTarget("hurdur")->GetQueue()->Add(quad_.get());
 
-		quad_->SetPosition(1.0f, 0.0f, 0.0f);
+		quad_->SetPosition(0.0f, 0.0f, 0.0f);
 		quad_->SetScale(50, 50, 1);
 		quad_->SetShader("shaders/base.fx");
+
+		quad2_ = new Quad();
+		renderDevice_->GetRenderTarget("hurdur")->GetQueue()->Add(quad2_.get());
+
+		quad2_->SetPosition(25.0f, 0.0f, 0.0f);
+		quad2_->SetScale(50, 50, 1);
+		quad2_->SetShader("shaders/base.fx");
 
 		while (window->GetStarted())
 		{

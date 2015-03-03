@@ -10,6 +10,8 @@ namespace blowbox
 	class D3D11RenderElement;
 	class D3D11RenderQueue;
 	class D3D11Shader;
+	class D3D11BlendState;
+	class D3D11DepthStencil;
 
 	/**
 	* @enum blowbox::RENDER_TARGET_TYPE
@@ -91,6 +93,11 @@ namespace blowbox
 		void ApplyShader(ID3D11DeviceContext* context);
 
 		/**
+		* @brief Applies the blend state
+		*/
+		void ApplyBlendState(ID3D11DeviceContext* context);
+
+		/**
 		* @brief Sets the post processing shader for this render target
 		* @param[in] path (const std::string&) the path to the shader
 		*/
@@ -107,6 +114,8 @@ namespace blowbox
 		ID3D11ShaderResourceView*				resource_;
 		SharedPtr<D3D11RenderQueue>				queue_;
 		SharedPtr<D3D11Shader>					shader_;
+		SharedPtr<D3D11BlendState>				blend_state_;
+		SharedPtr<D3D11DepthStencil>			depth_stencil_;
 		std::vector<D3D11RenderElement*>		render_elements_;
 		std::vector<D3D11RenderElement*>		ui_elements_;
 	};

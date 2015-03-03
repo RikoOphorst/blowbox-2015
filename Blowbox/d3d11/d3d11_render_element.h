@@ -10,6 +10,8 @@ namespace blowbox
 	class D3D11Shader;
 	class D3D11VertexBuffer;
 	class D3D11SamplerState;
+	class D3D11RasterizerState;
+	class D3D11BlendState;
 	enum TEXTURE_FILTERING_TYPE;
 	
 	/**
@@ -188,6 +190,16 @@ namespace blowbox
 		* @brief Retrieves the sampler type
 		*/
 		const TEXTURE_FILTERING_TYPE& GetFilteringType() const;
+
+		/**
+		* @brief Retrieves the D3D11RasterizerState of this object
+		*/
+		D3D11RasterizerState* GetRasterizerState();
+
+		/**
+		* @brief Retrieves the D3D11BlendState of this object
+		*/
+		D3D11BlendState* GetBlendState();
 	protected:
 		XMFLOAT3 position_;
 		XMVECTOR v_position_;
@@ -209,6 +221,9 @@ namespace blowbox
 		SharedPtr<D3D11Shader> shader_;
 
 		SharedPtr<D3D11VertexBuffer> vertex_buffer_;
+
+		SharedPtr<D3D11RasterizerState> rasterizer_state_;
+		SharedPtr<D3D11BlendState> blend_state_;
 
 		TEXTURE_FILTERING_TYPE texture_filtering_;
 	};

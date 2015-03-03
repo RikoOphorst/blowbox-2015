@@ -103,7 +103,7 @@ namespace blowbox
 			},
 			{ 0, 1, 2, 3 },
 			D3D11_PRIMITIVE_TOPOLOGY::D3D10_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP,
-			BUFFER_TYPE::BUFFER_TYPE_QUAD
+			BUFFER_TYPE::BUFFER_TYPE_UNKNOWN
 		);
 	}
 
@@ -158,7 +158,7 @@ namespace blowbox
 		});
 		global_buffer_->Set(context_, 0);
 
-		default_shader_->Set(context_);
+		//default_shader_->Set(context_);
 
 		for (auto it = render_targets_.begin(); it != render_targets_.end(); it++)
 		{
@@ -183,6 +183,7 @@ namespace blowbox
 		context_->PSSetShaderResources(0, 1, &resource);
 
 		render_target->ApplyShader(context_);
+		render_target->ApplyBlendState(context_);
 		screen_quad_->Draw(context_);
 
 		ID3D11ShaderResourceView* buffer[] = { NULL };

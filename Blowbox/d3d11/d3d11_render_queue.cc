@@ -6,6 +6,8 @@
 #include "../../blowbox/d3d11/d3d11_render_device.h"
 #include "../../blowbox/d3d11/d3d11_sampler_state.h"
 #include "../../blowbox/d3d11/d3d11_shader.h"
+#include "../../blowbox/d3d11/d3d11_rasterizer_state.h"
+#include "../../blowbox/d3d11/d3d11_blend_state.h"
 
 namespace blowbox
 {
@@ -54,7 +56,9 @@ namespace blowbox
 		
 		D3D11SamplerState::GetSamplerState(element->GetFilteringType())->Set(context);
 
-		//element->GetShader()->Set(context);
+		element->GetShader()->Set(context);
+		element->GetBlendState()->Set(context);
+		element->GetRasterizerState()->Set(context);
 
 		element->GetVertexBuffer()->Set(context);
 		element->GetVertexBuffer()->Draw(context);

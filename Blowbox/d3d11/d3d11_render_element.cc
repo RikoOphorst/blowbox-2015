@@ -4,6 +4,8 @@
 #include "../../blowbox/d3d11/d3d11_vertex_buffer.h"
 #include "../../blowbox/d3d11/d3d11_sampler_state.h"
 #include "../../blowbox/d3d11/d3d11_shader.h"
+#include "../../blowbox/d3d11/d3d11_rasterizer_state.h"
+#include "../../blowbox/d3d11/d3d11_blend_state.h"
 
 namespace blowbox
 {
@@ -20,7 +22,8 @@ namespace blowbox
 		alpha_(1),
 		texture_filtering_(TEXTURE_FILTERING_TYPE::TEXTURE_ANISOTROPIC)
 	{
-
+		rasterizer_state_ = new D3D11RasterizerState();
+		blend_state_ = new D3D11BlendState();
 	}
 
 	//------------------------------------------------------------------------------------------------------
@@ -210,5 +213,17 @@ namespace blowbox
 	const TEXTURE_FILTERING_TYPE& D3D11RenderElement::GetFilteringType() const
 	{
 		return texture_filtering_;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	D3D11RasterizerState* D3D11RenderElement::GetRasterizerState()
+	{
+		return rasterizer_state_.get();
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	D3D11BlendState* D3D11RenderElement::GetBlendState()
+	{
+		return blend_state_.get();
 	}
 }
