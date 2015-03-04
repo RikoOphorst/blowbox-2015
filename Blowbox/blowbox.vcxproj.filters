@@ -66,6 +66,15 @@
     <ClCompile Include="memory\allocated_memory.cc">
       <Filter>memory</Filter>
     </ClCompile>
+    <ClCompile Include="lua\lua_state.cc">
+      <Filter>lua</Filter>
+    </ClCompile>
+    <ClCompile Include="lua\lua_wrapper.cc">
+      <Filter>lua</Filter>
+    </ClCompile>
+    <ClCompile Include="lua\lua_register.cc">
+      <Filter>lua</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game.h" />
@@ -136,12 +145,26 @@
     <ClInclude Include="elements\quad.h">
       <Filter>elements</Filter>
     </ClInclude>
-    <ClInclude Include="d3d11\d3d11.h" />
     <ClInclude Include="memory\allocated_memory.h">
       <Filter>memory</Filter>
     </ClInclude>
     <ClInclude Include="memory\refcount.h">
       <Filter>memory</Filter>
+    </ClInclude>
+    <ClInclude Include="d3d11\d3d11.h">
+      <Filter>d3d11</Filter>
+    </ClInclude>
+    <ClInclude Include="lua\lua_state.h">
+      <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="lua\lua.h">
+      <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="lua\lua_wrapper.h">
+      <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="lua\lua_register.h">
+      <Filter>lua</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -162,6 +185,9 @@
     </Filter>
     <Filter Include="shaders">
       <UniqueIdentifier>{3e47977d-7aee-4706-bb8c-35f79c1b04e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lua">
+      <UniqueIdentifier>{64690f3f-c635-4a01-a678-cccf902bf082}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -7,12 +7,16 @@
 #include "../blowbox/d3d11/d3d11_render_target.h"
 #include "../blowbox/d3d11/d3d11_render_queue.h"
 #include "../blowbox/elements/quad.h"
+#include "../blowbox/lua/lua_state.h"
+#include "../blowbox/lua/lua_register.h"
 
 namespace blowbox
 {
 	//------------------------------------------------------------------------------------------------------
 	Game::Game()
 	{
+		LuaState::Instance();
+
 		window_ = new Window();
 		mouse_ = Mouse::Instance();
 		keyboard_ = Keyboard::Instance();
