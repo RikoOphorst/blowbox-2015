@@ -55,4 +55,29 @@ namespace blowbox
 			printf("\n");
 		}
 	}
+
+	//------------------------------------------------------------------------------------------------------
+	void LuaWrapper::CompileFromFile(lua_State* L, const std::string& path)
+	{
+		if (luaL_loadfile(L, path.c_str()))
+		{
+			BLOW_BREAK(lua_tostring(L, lua_gettop(L)));
+		}
+		else
+		{
+			if (lua_pcall(L, 0, LUA_MULTRET, 0))
+			{
+				BLOW_BREAK(lua_tostring(L, lua_gettop(L)));
+			}
+		}
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	void LuaWrapper::CompileFromString(lua_State* L, const std::string& code, const std::string& source)
+	{
+		if ((luaL_loadbuffer(L, code.c_str(), strlen(code.c_str()), source.c_str()) || lua_pcall(L, 0, 0, 0)))
+		{
+			BLOW_BREAK(lua_tostring(L, lua_gettop(L)));
+		}
+	}
 }

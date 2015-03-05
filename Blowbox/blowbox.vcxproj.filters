@@ -75,6 +75,9 @@
     <ClCompile Include="lua\lua_register.cc">
       <Filter>lua</Filter>
     </ClCompile>
+    <ClCompile Include="lua\lua_class.cc">
+      <Filter>lua</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game.h" />
@@ -164,6 +167,9 @@
       <Filter>lua</Filter>
     </ClInclude>
     <ClInclude Include="lua\lua_register.h">
+      <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="lua\lua_class.h">
       <Filter>lua</Filter>
     </ClInclude>
   </ItemGroup>

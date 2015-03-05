@@ -21,6 +21,8 @@ namespace blowbox
 		mouse_ = Mouse::Instance();
 		keyboard_ = Keyboard::Instance();
 		renderDevice_ = D3D11RenderDevice::Instance();
+
+		LuaRegister::Instance()->RegisterClass<Quad>(LuaState::Instance()->Get());
 	}
 
 	//------------------------------------------------------------------------------------------------------
@@ -46,19 +48,7 @@ namespace blowbox
 
 		renderDevice_->Initialize(window);
 
-		quad_ = new Quad();
-		renderDevice_->GetRenderTarget("hurdur")->GetQueue()->Add(quad_.get());
-
-		quad_->SetPosition(0.0f, 0.0f, 0.0f);
-		quad_->SetScale(50, 50, 1);
-		quad_->SetShader("shaders/base.fx");
-
-		quad2_ = new Quad();
-		renderDevice_->GetRenderTarget("hurdur")->GetQueue()->Add(quad2_.get());
-
-		quad2_->SetPosition(25.0f, 0.0f, 0.0f);
-		quad2_->SetScale(50, 50, 1);
-		quad2_->SetShader("shaders/base.fx");
+		LuaWrapper::Instance()->CompileFromFile(LuaState::Instance()->Get(), "main.lua");
 
 		while (window->GetStarted())
 		{

@@ -10,8 +10,6 @@ int main(int argc, char** argv)
 	
 	LuaState::Instance();
 
-	LuaRegister::Instance()->RegisterClass<Game>(LuaState::Instance()->Get());
-
 	Game::Instance()->Run();
 
 	return EXIT_SUCCESS;

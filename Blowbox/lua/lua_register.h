@@ -78,55 +78,52 @@ namespace blowbox
 	{
 		// Create the class table
 		lua_createtable(L, 0, 0);
-		LuaWrapper::Instance()->Dump(L, "\nCreated the class table..");
 
 		// Keeps the index to the class table
 		int methods = lua_gettop(L);
-		printf("methods: %i\n", methods);
 
 		// Create the meta table the class table is going to use
 		luaL_newmetatable(L, "hurdur");
-		LuaWrapper::Instance()->Dump(L, "\nJust made the meta table..");
 
 		// Keeps the index to the meta table index
 		int mt = lua_gettop(L);
-		printf("mt: %i\n", mt);
 
 		// Copy the class table
 		lua_pushvalue(L, methods);
-		LuaWrapper::Instance()->Dump(L, "\nPushed (copied) value on methods index, so the class table");
 
 		// Set the class on the global table by its class name - note: pops the class table copy off the table
 		lua_setfield(L, LUA_GLOBALSINDEX, "hurdur");
-		LuaWrapper::Instance()->Dump(L, "\nSet field on the global table");
 
-		// Make two copies of the class table
+		// Make a copy of the class table
 		lua_pushvalue(L, methods);
 		lua_pushvalue(L, methods);
-		LuaWrapper::Instance()->Dump(L, "\nCopied the class table twice");
 
 		// On the metatable we just set the field __index to last class table copy we just made
-		lua_setfield(state, mt, "__index");
-		LuaWrapper::Instance()->Dump(L, "\nOn the metatable we just set the field __index to last class table copy we just made");
+		lua_setfield(L, mt, "__index");
 
 		// Set the garbage collection function
-		LuaRegister::Instance()->RegisterFunction(L, LuaRegister<T>::LuaGC, "__gc", mt);
+		LuaRegister::Instance()->RegisterFunction(L, T::LuaDestructor<T>, "__gc", mt);
 
 		// Not really sure what this table is for
-		lua_newtable(L);
+		//lua_newtable(L);
 
 		// Register the "new" function on the class table
-		LuaRegister::Instance()->RegisterFunction(L, LuaRegister<T>::LuaNew, "new", methods);
+		LuaRegister::Instance()->RegisterFunction(L, T::LuaConstructor<T>, "new", methods);
 
-		// Register the "__call" function on the 
-		/*LuaRegister::Instance()->RegisterFunction(L, LuaRegister<T>::LuaNew, "__call", -3);
-		/*lua_setmetatable(state, methods);
+		// Register the "__call" function on the mt
+		LuaRegister::Instance()->RegisterFunction(L, T::LuaConstructor<T>, "__call", mt);
 
-		lua_pushvalue(state, methods);
+		// Set the metatable on the base class
+		lua_setmetatable(L, methods);
 
-		T::RegisterFunctions(state);
+		// Copy the base class to prepare for function registration
+		lua_pushvalue(L, methods);
 
-		lua_pop(state, 3);*/
+		// Register the actual functions this object has
+		T::LuaRegisterFunctions(L);
+
+		// Clear the stack
+		lua_pop(L, 3);
 	}
 
 	//------------------------------------------------------------------------------------------------------
@@ -140,7 +137,7 @@ namespace blowbox
 		T::RegisterFunctions();
 
 		// Register the table as a global
-		lua_setfield(L, GLOBALSINDEX, T::class_name());
+		lua_setfield(L, LUA_GLOBALSINDEX, T::class_name());
 	}
 
 	//------------------------------------------------------------------------------------------------------

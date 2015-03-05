@@ -141,6 +141,7 @@
     <ClCompile Include="game.cc" />
     <ClCompile Include="input\keyboard.cc" />
     <ClCompile Include="input\mouse.cc" />
+    <ClCompile Include="lua\lua_class.cc" />
     <ClCompile Include="lua\lua_register.cc" />
     <ClCompile Include="lua\lua_state.cc" />
     <ClCompile Include="lua\lua_wrapper.cc" />
@@ -173,6 +174,7 @@
     <ClInclude Include="input\mouse.h" />
     <ClInclude Include="logging.h" />
     <ClInclude Include="lua\lua.h" />
+    <ClInclude Include="lua\lua_class.h" />
     <ClInclude Include="lua\lua_register.h" />
     <ClInclude Include="lua\lua_state.h" />
     <ClInclude Include="lua\lua_wrapper.h" />
