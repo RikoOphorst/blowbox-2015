@@ -1,7 +1,7 @@
-local a = hurdur.new()
+local a = Quad.new()
 
-a:setPosition(50, 50, 50)
+a:setPosition(-50, -100, 0)
 
-local b = hurdur.new()
+x, y, z = a:getPosition()
 
-b:setPosition(-50, -50, -50)
+print(y)

@@ -19,5 +19,8 @@ namespace blowbox
 		static void LuaRegisterFunctions(lua_State* state);
 
 		static int LuaSetPosition(lua_State* L);
+		static int LuaGetPosition(lua_State* L);
+
+		CLASSNAME("Quad");
 	};
 }

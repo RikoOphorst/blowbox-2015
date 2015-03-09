@@ -83,7 +83,7 @@ namespace blowbox
 		int methods = lua_gettop(L);
 
 		// Create the meta table the class table is going to use
-		luaL_newmetatable(L, "hurdur");
+		luaL_newmetatable(L, T::GetName());
 
 		// Keeps the index to the meta table index
 		int mt = lua_gettop(L);
@@ -92,7 +92,7 @@ namespace blowbox
 		lua_pushvalue(L, methods);
 
 		// Set the class on the global table by its class name - note: pops the class table copy off the table
-		lua_setfield(L, LUA_GLOBALSINDEX, "hurdur");
+		lua_setfield(L, LUA_GLOBALSINDEX, T::GetName());
 
 		// Make a copy of the class table
 		lua_pushvalue(L, methods);
@@ -137,7 +137,7 @@ namespace blowbox
 		T::RegisterFunctions();
 
 		// Register the table as a global
-		lua_setfield(L, LUA_GLOBALSINDEX, T::class_name());
+		lua_setfield(L, LUA_GLOBALSINDEX, T::GetName());
 	}
 
 	//------------------------------------------------------------------------------------------------------

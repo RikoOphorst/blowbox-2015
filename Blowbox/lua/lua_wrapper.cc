@@ -57,6 +57,31 @@ namespace blowbox
 	}
 
 	//------------------------------------------------------------------------------------------------------
+	void LuaWrapper::CreateWeakTable(lua_State* L)
+	{
+		// Make sure the stack is big enough for this operation to be possible
+		lua_checkstack(L, 3);
+
+		// Create the actual weak table
+		lua_newtable(L);
+
+		// Copy the weak table which will be used as the metatable
+		lua_pushvalue(L, -1);
+
+		// Set the meta table to the actual weak table
+		lua_setmetatable(L, -2);
+
+		// Push the literal __mode
+		lua_pushliteral(L, "__mode");
+
+		// Push the actual mode value
+		lua_pushstring(L, "v");
+
+		// Set the value: -3[__mode] = "v"
+		lua_settable(L, -3);
+	}
+
+	//------------------------------------------------------------------------------------------------------
 	void LuaWrapper::CompileFromFile(lua_State* L, const std::string& path)
 	{
 		if (luaL_loadfile(L, path.c_str()))

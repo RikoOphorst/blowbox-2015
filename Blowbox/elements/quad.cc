@@ -7,6 +7,7 @@
 
 namespace blowbox
 {
+	//------------------------------------------------------------------------------------------------------
 	Quad::Quad()
 	{
 		vertex_buffer_ = new D3D11VertexBuffer();
@@ -23,6 +24,7 @@ namespace blowbox
 		);
 	}
 
+	//------------------------------------------------------------------------------------------------------
 	Quad::Quad(lua_State* L)
 	{
 		vertex_buffer_ = new D3D11VertexBuffer();
@@ -45,32 +47,45 @@ namespace blowbox
 		SetShader("shaders/base.fx");
 	}
 
+	//------------------------------------------------------------------------------------------------------
 	Quad::~Quad()
 	{
 		
 	}
 
+	//------------------------------------------------------------------------------------------------------
 	void Quad::LuaRegisterFunctions(lua_State* L)
 	{
 		luaL_Reg regist[] =
 		{
 			{ "setPosition", LuaSetPosition },
+			{ "getPosition", LuaGetPosition },
 			{ NULL, NULL }
 		};
 
 		luaL_register(L, NULL, regist);
 	}
 
+	//------------------------------------------------------------------------------------------------------
 	int Quad::LuaSetPosition(lua_State* L)
 	{
 		Quad* self = LuaWrapper::Instance()->ParseUserdata<Quad>(L, 1);
 		
-		double x = LuaWrapper::Instance()->Get<double>(L, -1, true);
+		double x = LuaWrapper::Instance()->Get<double>(L, -3, true);
 		double y = LuaWrapper::Instance()->Get<double>(L, -2, true);
-		double z = LuaWrapper::Instance()->Get<double>(L, -3, true);
+		double z = LuaWrapper::Instance()->Get<double>(L, -1, true);
 
-		self->SetPosition(x, y, z);
+		self->SetPosition(static_cast<float>(x), static_cast<float>(y), static_cast<float>(z));
 
 		return 0;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int Quad::LuaGetPosition(lua_State* L)
+	{
+		Quad* self = LuaWrapper::Instance()->ParseUserdata<Quad>(L, 1);
+
+		XMVECTOR pos = self->GetPosition();
+		return LuaWrapper::Instance()->Push(L, XMVectorGetX(pos), XMVectorGetY(pos), XMVectorGetZ(pos));
 	}
 }

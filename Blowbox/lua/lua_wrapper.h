@@ -40,9 +40,21 @@ namespace blowbox
 		* @brief Dumps the stack in the subsystem's console window
 		* @param[in] L (lua_State*) the lua state
 		* @param[in] brief (lua_State*) brief description of what the dump should be headed by
-		* @todo make it dump in the actual subsystem
+		* @todo make it dump in the actual console when it's there
 		*/
 		void Dump(lua_State* L, const std::string& brief);
+
+		/**
+		* @brief Creates a weak table and pushes it onto the stack
+		* @param[in] L (lua_State*) the lua state
+		*/
+		void CreateWeakTable(lua_State* L);
+
+		/**
+		* @brief Create a lightuserdata container on the stack
+		*/
+		template<typename T>
+		void CreateUserdataContainer(lua_State* L, T* ptr);
 
 		/**
 		* @brief Compiles and runs a file
@@ -119,6 +131,32 @@ namespace blowbox
 	}
 
 	//------------------------------------------------------------------------------------------------------
+	template<typename T>
+	inline void LuaWrapper::CreateUserdataContainer(lua_State* L, T* ptr)
+	{
+		// The userdata container which contains the lightuserdata (a T*)
+		typedef struct { T* ptr; } UserdataContainer;
+
+		// Make sure the stack is big enough
+		lua_checkstack(L, 3);
+
+		// Make a new userdata with the size of UserdataContainer
+		UserdataContainer* udata = (UserdataContainer*)lua_newuserdata(L, sizeof(UserdataContainer*));
+
+		// Push the light userdata
+		lua_pushlightuserdata(L, ptr);
+
+		// Copy the value at -2
+		lua_pushvalue(L, -2);
+
+		// Set the lightuserdata (the pointer) to the newly created user data
+		lua_settable(L, -4);
+
+		// Set the userdata's pointer to the pointer class's instance
+		udata->ptr = ptr;
+	}
+
+	//------------------------------------------------------------------------------------------------------
 	template<>
 	inline double LuaWrapper::Get<double>(lua_State* L, const int& index, const bool& check)
 	{
@@ -173,14 +211,14 @@ namespace blowbox
 	template<typename T, typename...Args>
 	inline int LuaWrapper::Push(lua_State* L, T first, Args ... others)
 	{
-		return PushValue(first) + Push(others...);
+		return PushValue(L, first) + Push(L, others...);
 	}
 	
 	//------------------------------------------------------------------------------------------------------
 	template<typename T>
 	inline int LuaWrapper::Push(lua_State* L, T value)
 	{
-		return PushValue(value);
+		return PushValue(L, value);
 	}
 
 	//------------------------------------------------------------------------------------------------------
@@ -196,6 +234,14 @@ namespace blowbox
 	inline int LuaWrapper::PushValue<double>(lua_State* L, double first)
 	{
 		lua_pushnumber(L, first);
+		return 1;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	template<>
+	inline int LuaWrapper::PushValue<float>(lua_State* L, float first)
+	{
+		lua_pushnumber(L, static_cast<double>(first));
 		return 1;
 	}
 
