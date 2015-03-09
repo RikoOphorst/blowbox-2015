@@ -6,6 +6,44 @@
 namespace blowbox
 {
 	/**
+	* @enum blowbox::LUA_TYPE
+	* @brief Defines the type of a lua value
+	*/
+	enum LUA_TYPE
+	{
+		LUA_TYPE_TABLE,
+		LUA_TYPE_FUNCTION,
+		LUA_TYPE_NUMBER,
+		LUA_TYPE_NIL,
+		LUA_TYPE_NONE,
+		LUA_TYPE_STRING
+	};
+
+	/**
+	* @enum blowbox::LUA_LOCATION
+	* @brief The location of where the lua value is stored
+	*/
+	enum LUA_LOCATION
+	{
+		LUA_LOCATION_GLOBAL,
+		LUA_LOCATION_FIELD,
+		LUA_LOCATION_LOCAL
+	};
+
+	/**
+	* @struct blowbox::LuaValue
+	* @brief Defines a lua value
+	*/
+	struct LuaValue
+	{
+		LuaValue(LUA_TYPE type_, LUA_LOCATION location_, std::string identifier_) : type(type_), location(location_), identifier(identifier_) {};
+		
+		LUA_TYPE type;
+		LUA_LOCATION location;
+		std::string identifier;
+	};
+	
+	/**
 	* @class blowbox::LuaWrapper
 	* @brief Wraps the Lua interface because it's ugly as shit
 	* @author Riko Ophorst
@@ -104,10 +142,10 @@ namespace blowbox
 
 		/**
 		* @brief Pushes a value on the stack
+		* @param[in] value (T) the value to be pushed
 		*/
 		template<typename T>
 		int PushValue(lua_State* L, T value);
-	private:
 	};
 
 	//------------------------------------------------------------------------------------------------------
@@ -219,6 +257,12 @@ namespace blowbox
 	inline int LuaWrapper::Push(lua_State* L, T value)
 	{
 		return PushValue(L, value);
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	inline int LuaWrapper::Push(lua_State* L)
+	{
+		return 0;
 	}
 
 	//------------------------------------------------------------------------------------------------------

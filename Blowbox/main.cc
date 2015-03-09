@@ -1,4 +1,5 @@
-#include "game.h"
+#include "../blowbox/game.h"
+#include "../blowbox/elements/quad.h"
 
 #include "../blowbox/lua/lua_register.h"
 
@@ -8,7 +9,8 @@ int main(int argc, char** argv)
 {
 	AllocatedMemory& memory = AllocatedMemory::Instance();
 	
-	LuaState::Instance();
+	LuaRegister::Instance()->RegisterSingleton<Game>(LuaState::Instance()->Get());
+	LuaRegister::Instance()->RegisterClass<Quad>(LuaState::Instance()->Get());
 
 	Game::Instance()->Run();
 

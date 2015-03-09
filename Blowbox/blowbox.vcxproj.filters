@@ -78,6 +78,12 @@
     <ClCompile Include="lua\lua_class.cc">
       <Filter>lua</Filter>
     </ClCompile>
+    <ClCompile Include="lua\lua_callback.cc">
+      <Filter>lua</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\lua_enum.cc">
+      <Filter>utility</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game.h" />
@@ -172,6 +178,12 @@
     <ClInclude Include="lua\lua_class.h">
       <Filter>lua</Filter>
     </ClInclude>
+    <ClInclude Include="lua\lua_callback.h">
+      <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\lua_enum.h">
+      <Filter>utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="memory">
@@ -194,6 +206,9 @@
     </Filter>
     <Filter Include="lua">
       <UniqueIdentifier>{64690f3f-c635-4a01-a678-cccf902bf082}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utility">
+      <UniqueIdentifier>{2a44a5b4-6135-42e2-804e-4922036d3e78}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

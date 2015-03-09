@@ -141,12 +141,14 @@
     <ClCompile Include="game.cc" />
     <ClCompile Include="input\keyboard.cc" />
     <ClCompile Include="input\mouse.cc" />
+    <ClCompile Include="lua\lua_callback.cc" />
     <ClCompile Include="lua\lua_class.cc" />
     <ClCompile Include="lua\lua_register.cc" />
     <ClCompile Include="lua\lua_state.cc" />
     <ClCompile Include="lua\lua_wrapper.cc" />
     <ClCompile Include="main.cc" />
     <ClCompile Include="memory\allocated_memory.cc" />
+    <ClCompile Include="utility\lua_enum.cc" />
     <ClCompile Include="win32\window.cc" />
   </ItemGroup>
   <ItemGroup>
@@ -174,6 +176,7 @@
     <ClInclude Include="input\mouse.h" />
     <ClInclude Include="logging.h" />
     <ClInclude Include="lua\lua.h" />
+    <ClInclude Include="lua\lua_callback.h" />
     <ClInclude Include="lua\lua_class.h" />
     <ClInclude Include="lua\lua_register.h" />
     <ClInclude Include="lua\lua_state.h" />
@@ -181,6 +184,7 @@
     <ClInclude Include="memory\allocated_memory.h" />
     <ClInclude Include="memory\refcount.h" />
     <ClInclude Include="memory\shared_ptr.h" />
+    <ClInclude Include="utility\lua_enum.h" />
     <ClInclude Include="win32\window.h" />
   </ItemGroup>
   <ItemGroup>

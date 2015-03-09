@@ -1,7 +1,7 @@
-local a = Quad.new()
+Game.Update = function (dt)
+	print(dt)
+end
 
-a:setPosition(-50, -100, 0)
+quad = Quad.new()
 
-x, y, z = a:getPosition()
-
-print(y)
+quad:setPosition(20, 20, 20)

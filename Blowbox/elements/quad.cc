@@ -25,7 +25,8 @@ namespace blowbox
 	}
 
 	//------------------------------------------------------------------------------------------------------
-	Quad::Quad(lua_State* L)
+	Quad::Quad(lua_State* L) :
+		LuaClass()
 	{
 		vertex_buffer_ = new D3D11VertexBuffer();
 		vertex_buffer_->Create(

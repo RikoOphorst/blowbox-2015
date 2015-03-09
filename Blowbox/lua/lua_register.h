@@ -104,9 +104,6 @@ namespace blowbox
 		// Set the garbage collection function
 		LuaRegister::Instance()->RegisterFunction(L, T::LuaDestructor<T>, "__gc", mt);
 
-		// Not really sure what this table is for
-		//lua_newtable(L);
-
 		// Register the "new" function on the class table
 		LuaRegister::Instance()->RegisterFunction(L, T::LuaConstructor<T>, "new", methods);
 
@@ -134,7 +131,7 @@ namespace blowbox
 		lua_createtable(L, 0, 0);
 
 		// Register the class' functions
-		T::RegisterFunctions();
+		T::RegisterFunctions(L);
 
 		// Register the table as a global
 		lua_setfield(L, LUA_GLOBALSINDEX, T::GetName());

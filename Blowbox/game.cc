@@ -9,6 +9,7 @@
 #include "../blowbox/elements/quad.h"
 #include "../blowbox/lua/lua_state.h"
 #include "../blowbox/lua/lua_register.h"
+#include <vector>
 
 namespace blowbox
 {
@@ -23,6 +24,11 @@ namespace blowbox
 		renderDevice_ = D3D11RenderDevice::Instance();
 
 		LuaRegister::Instance()->RegisterClass<Quad>(LuaState::Instance()->Get());
+
+		cb_update_ = new LuaCallback(std::vector<LuaValue>({
+			LuaValue(LUA_TYPE::LUA_TYPE_TABLE, LUA_LOCATION::LUA_LOCATION_GLOBAL, "Game"),
+			LuaValue(LUA_TYPE::LUA_TYPE_FUNCTION, LUA_LOCATION::LUA_LOCATION_FIELD, "Update")
+		}));
 	}
 
 	//------------------------------------------------------------------------------------------------------
@@ -63,11 +69,23 @@ namespace blowbox
 		window_.get()->ProcessMessages();
 		mouse_->Update();
 		keyboard_->Update();
+
+		cb_update_->Call<double>(LuaState::Instance()->Get(), 0.0);
 	}
 	
 	//------------------------------------------------------------------------------------------------------
 	void Game::Draw()
 	{
 		renderDevice_->Draw();
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	void Game::RegisterFunctions(lua_State* L)
+	{
+		luaL_Reg regist[] = {
+			{ NULL, NULL }
+		};
+
+		luaL_register(L, NULL, regist);
 	}
 }

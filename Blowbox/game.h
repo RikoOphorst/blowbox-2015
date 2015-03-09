@@ -5,6 +5,8 @@
 #include <math.h>
 
 #include "../blowbox/memory/shared_ptr.h"
+#include "../blowbox/lua/lua_callback.h"
+#include "../blowbox/lua/lua_class.h"
 
 namespace blowbox
 {
@@ -19,7 +21,7 @@ namespace blowbox
 	* @brief Manages the Game
 	* @author Riko Ophorst
 	*/
-	class Game
+	class Game : public LuaClass
 	{
 	public:
 		/**
@@ -51,6 +53,14 @@ namespace blowbox
 		* @brief Draws the game
 		*/
 		void Draw();
+
+		/**
+		* @brief Registers this objects functions
+		* @param[in] L (lua_State*) the lua state
+		*/
+		static void RegisterFunctions(lua_State* L);
+
+		CLASSNAME("Game");
 	private:
 		SharedPtr<Window> window_;
 		Mouse* mouse_;
@@ -58,5 +68,6 @@ namespace blowbox
 		D3D11RenderDevice* renderDevice_;
 		SharedPtr<Quad> quad_;
 		SharedPtr<Quad> quad2_;
+		LuaCallback* cb_update_;
 	};
 }
