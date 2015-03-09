@@ -15,7 +15,7 @@ namespace blowbox
 
 		static int LuaReset(lua_State* L);
 
-		static void RegisterFunctions(lua_State* L);
+		static void LuaRegisterFunctions(lua_State* L);
 
 		CLASSNAME("enum");
 	};
