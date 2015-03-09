@@ -89,10 +89,45 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">d3d11_depth_stencil.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"></div><!-- fragment --></div><!-- contents -->
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;../../blowbox/memory/shared_ptr.h&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;../../blowbox/d3d11/d3d11.h&quot;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceblowbox.html">blowbox</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="classblowbox_1_1_d3_d11_depth_stencil.html">   13</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classblowbox_1_1_d3_d11_depth_stencil.html">D3D11DepthStencil</a></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    {</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        <a class="code" href="classblowbox_1_1_d3_d11_depth_stencil.html#af1e1b568fbcfb8bbc5cfe68111250157">D3D11DepthStencil</a>();</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <a class="code" href="classblowbox_1_1_d3_d11_depth_stencil.html#a91504066bdfdb45434909006a1667b80">~D3D11DepthStencil</a>();</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        ID3D11DepthStencilView* <a class="code" href="classblowbox_1_1_d3_d11_depth_stencil.html#a8d1d048f27985ef9551062554bd765e8">GetView</a>();</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        ID3D11DepthStencilState* <a class="code" href="classblowbox_1_1_d3_d11_depth_stencil.html#a671dab8ef2cd8216ee0fa4cfdb5f8892">GetState</a>();</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        ID3D11Texture2D* <a class="code" href="classblowbox_1_1_d3_d11_depth_stencil.html#a5be163ef4c67709f16c20a181d2cb11e">GetBuffer</a>();</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classblowbox_1_1_d3_d11_depth_stencil.html#a3831b4b9b28310d60b042b3c918f55d1">Set</a>(ID3D11DeviceContext* context);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        ID3D11DepthStencilState* state_;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        ID3D11DepthStencilView* view_;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        ID3D11Texture2D* buffer_;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    };</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;}</div>
+<div class="ttc" id="classblowbox_1_1_d3_d11_depth_stencil_html_a8d1d048f27985ef9551062554bd765e8"><div class="ttname"><a href="classblowbox_1_1_d3_d11_depth_stencil.html#a8d1d048f27985ef9551062554bd765e8">blowbox::D3D11DepthStencil::GetView</a></div><div class="ttdeci">ID3D11DepthStencilView * GetView()</div><div class="ttdoc">Retrieves the depth stencil view. </div><div class="ttdef"><b>Definition:</b> d3d11_depth_stencil.cc:81</div></div>
+<div class="ttc" id="classblowbox_1_1_d3_d11_depth_stencil_html_a3831b4b9b28310d60b042b3c918f55d1"><div class="ttname"><a href="classblowbox_1_1_d3_d11_depth_stencil.html#a3831b4b9b28310d60b042b3c918f55d1">blowbox::D3D11DepthStencil::Set</a></div><div class="ttdeci">void Set(ID3D11DeviceContext *context)</div><div class="ttdoc">Sets the depth stencil state to the context. </div><div class="ttdef"><b>Definition:</b> d3d11_depth_stencil.cc:93</div></div>
+<div class="ttc" id="classblowbox_1_1_d3_d11_depth_stencil_html_a91504066bdfdb45434909006a1667b80"><div class="ttname"><a href="classblowbox_1_1_d3_d11_depth_stencil.html#a91504066bdfdb45434909006a1667b80">blowbox::D3D11DepthStencil::~D3D11DepthStencil</a></div><div class="ttdeci">~D3D11DepthStencil()</div><div class="ttdoc">Default D3D11DepthStencil destructor. </div><div class="ttdef"><b>Definition:</b> d3d11_depth_stencil.cc:67</div></div>
+<div class="ttc" id="classblowbox_1_1_d3_d11_depth_stencil_html_a5be163ef4c67709f16c20a181d2cb11e"><div class="ttname"><a href="classblowbox_1_1_d3_d11_depth_stencil.html#a5be163ef4c67709f16c20a181d2cb11e">blowbox::D3D11DepthStencil::GetBuffer</a></div><div class="ttdeci">ID3D11Texture2D * GetBuffer()</div><div class="ttdoc">Retrieves the depth stencil buffer. </div><div class="ttdef"><b>Definition:</b> d3d11_depth_stencil.cc:87</div></div>
+<div class="ttc" id="classblowbox_1_1_d3_d11_depth_stencil_html"><div class="ttname"><a href="classblowbox_1_1_d3_d11_depth_stencil.html">blowbox::D3D11DepthStencil</a></div><div class="ttdoc">Handles depth stenciling. </div><div class="ttdef"><b>Definition:</b> d3d11_depth_stencil.h:13</div></div>
+<div class="ttc" id="classblowbox_1_1_d3_d11_depth_stencil_html_af1e1b568fbcfb8bbc5cfe68111250157"><div class="ttname"><a href="classblowbox_1_1_d3_d11_depth_stencil.html#af1e1b568fbcfb8bbc5cfe68111250157">blowbox::D3D11DepthStencil::D3D11DepthStencil</a></div><div class="ttdeci">D3D11DepthStencil()</div><div class="ttdoc">Default D3D11DepthStencil constructor. </div><div class="ttdef"><b>Definition:</b> d3d11_depth_stencil.cc:9</div></div>
+<div class="ttc" id="classblowbox_1_1_d3_d11_depth_stencil_html_a671dab8ef2cd8216ee0fa4cfdb5f8892"><div class="ttname"><a href="classblowbox_1_1_d3_d11_depth_stencil.html#a671dab8ef2cd8216ee0fa4cfdb5f8892">blowbox::D3D11DepthStencil::GetState</a></div><div class="ttdeci">ID3D11DepthStencilState * GetState()</div><div class="ttdoc">Retrieves the depth stencil state. </div><div class="ttdef"><b>Definition:</b> d3d11_depth_stencil.cc:75</div></div>
+<div class="ttc" id="namespaceblowbox_html"><div class="ttname"><a href="namespaceblowbox.html">blowbox</a></div><div class="ttdef"><b>Definition:</b> d3d11_blend_state.cc:5</div></div>
+</div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Mar 2 2015 15:07:50 for blowbox by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Mar 9 2015 13:26:51 for blowbox by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>
