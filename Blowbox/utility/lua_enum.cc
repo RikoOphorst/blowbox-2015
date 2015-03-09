@@ -4,16 +4,54 @@
 
 namespace blowbox
 {
+	//------------------------------------------------------------------------------------------------------
+	LuaEnum::LuaEnum()
+	{
+		
+	}
+	
+	//------------------------------------------------------------------------------------------------------
 	LuaEnum::LuaEnum(lua_State* L)
 	{
 		LuaReset(L);
 	}
 
+	//------------------------------------------------------------------------------------------------------
 	LuaEnum::~LuaEnum()
 	{
 
 	}
 
+	//------------------------------------------------------------------------------------------------------
+	void LuaEnum::Reset(lua_State* L, const std::string& identifier, const std::vector<std::string>& types)
+	{
+		// Save the stack size before doing any crazy things with it
+		int stacksize = lua_gettop(L);
+
+		// Create the enumerator table and save its stack index
+		lua_newtable(L);
+		int enumerator = lua_gettop(L);
+
+		for (unsigned int i = 0; i < types.size(); ++i)
+		{
+			// Push type string on the stack
+			lua_pushstring(L, types.at(i).c_str());
+
+			// Push the number on the stack
+			lua_pushnumber(L, i);
+
+			// Set the key value pair onto the enumerator
+			lua_settable(L, enumerator);
+		}
+
+		// Set the enumerator on the global table
+		lua_setglobal(L, identifier.c_str());
+
+		// Clear the stack
+		lua_settop(L, stacksize);
+	}
+
+	//------------------------------------------------------------------------------------------------------
 	void LuaEnum::LuaRegisterFunctions(lua_State* L)
 	{
 		luaL_Reg regist[] = {
@@ -24,6 +62,7 @@ namespace blowbox
 		luaL_register(L, NULL, regist);
 	}
 
+	//------------------------------------------------------------------------------------------------------
 	int LuaEnum::LuaReset(lua_State* L)
 	{
 		const char* identifier = LuaWrapper::Instance()->Get<const char*>(L, -2);
