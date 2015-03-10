@@ -9,6 +9,7 @@
 #include "../blowbox/elements/quad.h"
 #include "../blowbox/lua/lua_state.h"
 #include "../blowbox/lua/lua_register.h"
+#include "../blowbox/console/console.h"
 #include <vector>
 
 namespace blowbox
@@ -71,6 +72,8 @@ namespace blowbox
 		keyboard_->Update();
 
 		cb_update_->Call<double>(LuaState::Instance()->Get(), 0.0);
+
+		qApp->processEvents();
 	}
 	
 	//------------------------------------------------------------------------------------------------------

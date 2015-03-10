@@ -55,7 +55,7 @@ namespace blowbox
 		* @brief Default LuaWrapper constructor
 		*/
 		LuaWrapper();
-		
+
 		/**
 		* @brief Default LuaWrapper destructor
 		*/
@@ -146,6 +146,12 @@ namespace blowbox
 		*/
 		template<typename T>
 		int PushValue(lua_State* L, T value);
+
+		/**
+		* @brief Tries to invoke a stacktrace
+		* @param[in] L (lua_State*) the lua state
+		*/
+		static int LuaStackTrace(lua_State* L);
 	};
 
 	//------------------------------------------------------------------------------------------------------

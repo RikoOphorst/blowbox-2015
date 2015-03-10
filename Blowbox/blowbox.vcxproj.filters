@@ -84,6 +84,9 @@
     <ClCompile Include="utility\lua_enum.cc">
       <Filter>utility</Filter>
     </ClCompile>
+    <ClCompile Include="console\console.cc">
+      <Filter>console</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game.h" />
@@ -184,6 +187,12 @@
     <ClInclude Include="utility\lua_enum.h">
       <Filter>utility</Filter>
     </ClInclude>
+    <ClInclude Include="console\console.h">
+      <Filter>console</Filter>
+    </ClInclude>
+    <ClInclude Include="console\console_ui.h">
+      <Filter>console</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="memory">
@@ -209,6 +218,9 @@
     </Filter>
     <Filter Include="utility">
       <UniqueIdentifier>{2a44a5b4-6135-42e2-804e-4922036d3e78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="console">
+      <UniqueIdentifier>{1e16303c-5429-4190-a1e6-3635af0b0943}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

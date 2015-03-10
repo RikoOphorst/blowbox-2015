@@ -90,10 +90,16 @@ namespace blowbox
 		}
 		else
 		{
-			if (lua_pcall(L, 0, LUA_MULTRET, 0))
+			//lua_pushcfunction(L, LuaWrapper::LuaStackTrace);
+			
+			if (lua_pcall(L, 0, 0, 0))
 			{
-				BLOW_BREAK(lua_tostring(L, lua_gettop(L)));
+				LuaStackTrace(L);
 			}
+
+			
+
+			//Dump(L, "hurdur");
 		}
 	}
 
@@ -104,5 +110,21 @@ namespace blowbox
 		{
 			BLOW_BREAK(lua_tostring(L, lua_gettop(L)));
 		}
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int LuaWrapper::LuaStackTrace(lua_State* L)
+	{	
+		lua_getfield(L, LUA_GLOBALSINDEX, "debug");
+		lua_getfield(L, -1, "traceback");
+		lua_pushvalue(L, 1);
+		lua_pushinteger(L, 2);
+		lua_call(L, 2, 1);
+
+		fprintf(stderr, "An error occurred, this is what Lua managed to get: \n\n%s\n\n", lua_tostring(L, -1));
+
+		lua_pop(L, 2);
+
+		return 0;
 	}
 }

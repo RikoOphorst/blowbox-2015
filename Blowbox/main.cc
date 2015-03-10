@@ -4,6 +4,8 @@
 
 #include "../blowbox/lua/lua_register.h"
 
+#include "../blowbox/console/console.h"
+
 using namespace blowbox;
 
 int main(int argc, char** argv)
@@ -13,6 +15,9 @@ int main(int argc, char** argv)
 	LuaRegister::Instance()->RegisterSingleton<Game>(LuaState::Instance()->Get());
 	LuaRegister::Instance()->RegisterClass<Quad>(LuaState::Instance()->Get());
 	LuaRegister::Instance()->RegisterClass<LuaEnum>(LuaState::Instance()->Get());
+
+	QApplication QApp(argc, argv);
+	Console::Instance();
 
 	Game::Instance()->Run();
 

@@ -121,6 +121,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="console\console.cc" />
     <ClCompile Include="d3d11\d3d11_blend_state.cc" />
     <ClCompile Include="d3d11\d3d11_camera.cc" />
     <ClCompile Include="d3d11\d3d11_constant_buffer.cc" />
@@ -152,6 +153,8 @@
     <ClCompile Include="win32\window.cc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="console\console.h" />
+    <ClInclude Include="console\console_ui.h" />
     <ClInclude Include="d3d11\d3d11.h" />
     <ClInclude Include="d3d11\d3d11_blend_state.h" />
     <ClInclude Include="d3d11\d3d11_camera.h" />

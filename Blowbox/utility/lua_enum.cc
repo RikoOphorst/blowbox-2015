@@ -23,7 +23,7 @@ namespace blowbox
 	}
 
 	//------------------------------------------------------------------------------------------------------
-	void LuaEnum::Reset(lua_State* L, const std::string& identifier, const std::vector<std::string>& types)
+	void LuaEnum::Set(lua_State* L, const std::string& identifier, const std::vector<std::string>& types)
 	{
 		// Save the stack size before doing any crazy things with it
 		int stacksize = lua_gettop(L);
