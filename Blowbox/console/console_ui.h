@@ -15,8 +15,8 @@
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
+#include <QtWidgets/QPlainTextEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTextEdit>
@@ -30,8 +30,8 @@ public:
     QWidget *centralwidget;
     QTextEdit *terminal;
     QLabel *header;
-    QLineEdit *input;
     QPushButton *enter;
+    QPlainTextEdit *input;
     QStatusBar *statusbar;
 
     void setupUi(QMainWindow *MainWindow)
@@ -39,6 +39,7 @@ public:
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
         MainWindow->resize(800, 600);
+        MainWindow->setMaximumSize(QSize(800, 600));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         terminal = new QTextEdit(centralwidget);
@@ -63,17 +64,12 @@ public:
         header->setAlignment(Qt::AlignCenter);
         header->setWordWrap(false);
         header->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse);
-        input = new QLineEdit(centralwidget);
-        input->setObjectName(QStringLiteral("input"));
-        input->setGeometry(QRect(10, 490, 661, 81));
-        input->setInputMask(QStringLiteral(""));
-        input->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
-        input->setDragEnabled(false);
-        input->setPlaceholderText(QStringLiteral(""));
-        input->setClearButtonEnabled(false);
         enter = new QPushButton(centralwidget);
         enter->setObjectName(QStringLiteral("enter"));
         enter->setGeometry(QRect(680, 490, 111, 81));
+        input = new QPlainTextEdit(centralwidget);
+        input->setObjectName(QStringLiteral("input"));
+        input->setGeometry(QRect(10, 490, 661, 81));
         MainWindow->setCentralWidget(centralwidget);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName(QStringLiteral("statusbar"));
@@ -88,7 +84,6 @@ public:
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
         header->setText(QApplication::translate("MainWindow", "blowbox - console window", 0));
-        input->setText(QString());
         enter->setText(QApplication::translate("MainWindow", "Enter", 0));
     } // retranslateUi
 

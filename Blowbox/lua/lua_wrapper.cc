@@ -1,5 +1,7 @@
 #include "../../blowbox/lua/lua_wrapper.h"
 
+#include "../../blowbox/console/console.h"
+
 namespace blowbox
 {
 	//------------------------------------------------------------------------------------------------------
@@ -90,25 +92,19 @@ namespace blowbox
 		}
 		else
 		{
-			//lua_pushcfunction(L, LuaWrapper::LuaStackTrace);
-			
 			if (lua_pcall(L, 0, 0, 0))
 			{
 				LuaStackTrace(L);
 			}
-
-			
-
-			//Dump(L, "hurdur");
 		}
 	}
 
 	//------------------------------------------------------------------------------------------------------
 	void LuaWrapper::CompileFromString(lua_State* L, const std::string& code, const std::string& source)
 	{
-		if ((luaL_loadbuffer(L, code.c_str(), strlen(code.c_str()), source.c_str()) || lua_pcall(L, 0, 0, 0)))
+		if ((luaL_loadbuffer(L, code.c_str(), strlen(code.c_str()), NULL) || lua_pcall(L, 0, 0, 0)))
 		{
-			BLOW_BREAK(lua_tostring(L, lua_gettop(L)));
+			Console::Instance()->Log(lua_tostring(L, -1));
 		}
 	}
 
