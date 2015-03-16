@@ -18,6 +18,10 @@ namespace blowbox
 		D3D11RenderElement(L)
 	{
 		Create();
+
+		D3D11RenderQueue* render_queue = LuaWrapper::Instance()->ParseUserdata<D3D11RenderQueue>(L, -1);
+
+		render_queue->Add(this);
 	}
 
 	//------------------------------------------------------------------------------------------------------

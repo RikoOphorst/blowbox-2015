@@ -20,6 +20,22 @@ namespace blowbox
 	}
 
 	//------------------------------------------------------------------------------------------------------
+	D3D11RenderTarget::D3D11RenderTarget(lua_State* L) :
+		LuaClass(L)
+	{
+		/**
+		* @todo Implement content manager
+		*/
+		shader_ = new D3D11Shader("shaders/post_processing.fx");
+		blend_state_ = new D3D11BlendState();
+		depth_stencil_ = new D3D11DepthStencil();
+
+		Create(RENDER_TARGET_TYPE::RENDER_TARGET_TYPE_RENDER_TARGET, D3D11RenderDevice::Instance()->GetSwapChain(), D3D11RenderDevice::Instance()->GetDevice());
+
+		D3D11RenderDevice::Instance()->AddRenderTarget(LuaWrapper::Instance()->Get<std::string>(L, -1), this);
+	}
+
+	//------------------------------------------------------------------------------------------------------
 	D3D11RenderTarget::~D3D11RenderTarget()
 	{
 		BLOW_SAFE_RELEASE(target_);
@@ -121,9 +137,15 @@ namespace blowbox
 	}
 
 	//------------------------------------------------------------------------------------------------------
+	void D3D11RenderTarget::SetQueue(D3D11RenderQueue* queue)
+	{
+		queue_ = queue;
+	}
+
+	//------------------------------------------------------------------------------------------------------
 	D3D11RenderQueue* D3D11RenderTarget::GetQueue()
 	{
-		return queue_.get();
+		return queue_;
 	}
 
 	//------------------------------------------------------------------------------------------------------
@@ -147,8 +169,52 @@ namespace blowbox
 		shader_ = new D3D11Shader(path);
 	}
 
+	//------------------------------------------------------------------------------------------------------
 	D3D11Shader* D3D11RenderTarget::GetShader()
 	{
 		return shader_.get();
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	void D3D11RenderTarget::LuaRegisterFunctions(lua_State* L)
+	{
+		luaL_Reg regist[] = {
+			{ "getShader", LuaGetShader },
+			{ "setShader", LuaSetShader },
+			{ "setQueue", LuaSetQueue },
+			{ NULL, NULL }
+		};
+
+		luaL_register(L, NULL, regist);
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11RenderTarget::LuaGetShader(lua_State* L)
+	{
+		D3D11RenderTarget* self = LuaWrapper::Instance()->ParseUserdata<D3D11RenderTarget>(L, -1);
+
+		return LuaWrapper::Instance()->Push(L, "");
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11RenderTarget::LuaSetShader(lua_State* L)
+	{
+		D3D11RenderTarget* self = LuaWrapper::Instance()->ParseUserdata<D3D11RenderTarget>(L, -2);
+
+		self->SetShader(LuaWrapper::Instance()->Get<std::string>(L, -1));
+
+		return LuaWrapper::Instance()->Push(L, "");
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11RenderTarget::LuaSetQueue(lua_State* L)
+	{
+		LuaWrapper::Instance()->Dump(L, "duuuude");
+		
+		D3D11RenderTarget* self = LuaWrapper::Instance()->ParseUserdata<D3D11RenderTarget>(L, -2);
+
+		self->SetQueue(LuaWrapper::Instance()->ParseUserdata<D3D11RenderQueue>(L, -1));
+
+		return 0;
 	}
 }

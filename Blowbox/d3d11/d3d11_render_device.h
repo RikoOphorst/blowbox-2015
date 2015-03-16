@@ -158,8 +158,6 @@ namespace blowbox
 
 		SharedPtr<D3D11VertexBuffer> screen_quad_;
 
-		SharedPtr<D3D11RenderTarget> target_;
-
 		SharedPtr<D3D11Shader> default_shader_;
 
 		SharedPtr<D3D11InputLayout> input_layout_;

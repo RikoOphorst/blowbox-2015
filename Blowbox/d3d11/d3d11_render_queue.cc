@@ -8,6 +8,7 @@
 #include "../../blowbox/d3d11/d3d11_shader.h"
 #include "../../blowbox/d3d11/d3d11_rasterizer_state.h"
 #include "../../blowbox/d3d11/d3d11_blend_state.h"
+#include "../../blowbox/d3d11/d3d11_render_target.h"
 
 namespace blowbox
 {
@@ -15,6 +16,17 @@ namespace blowbox
 	D3D11RenderQueue::D3D11RenderQueue()
 	{
 
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	D3D11RenderQueue::D3D11RenderQueue(lua_State* L)
+	{
+		D3D11RenderTarget* render_target = LuaWrapper::Instance()->ParseUserdata<D3D11RenderTarget>(L, -1);
+
+		if (render_target->GetQueue() != this)
+		{
+			render_target->SetQueue(this);
+		}
 	}
 
 	//------------------------------------------------------------------------------------------------------
@@ -62,5 +74,24 @@ namespace blowbox
 
 		element->GetVertexBuffer()->Set(context);
 		element->GetVertexBuffer()->Draw(context);
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	void D3D11RenderQueue::LuaRegisterFunctions(lua_State* L)
+	{
+		luaL_Reg regist[] = {
+			{ "add", LuaAdd },
+			{ NULL, NULL }
+		};
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11RenderQueue::LuaAdd(lua_State* L)
+	{
+		D3D11RenderQueue* self = LuaWrapper::Instance()->ParseUserdata<D3D11RenderQueue>(L, -2);
+
+		self->Add(LuaWrapper::Instance()->ParseUserdata<D3D11RenderElement>(L, -1));
+
+		return 0;
 	}
 }

@@ -58,11 +58,6 @@ namespace blowbox
 
 		CreateObjectBuffer();
 
-		target_ = new D3D11RenderTarget();
-		target_->Create(RENDER_TARGET_TYPE::RENDER_TARGET_TYPE_RENDER_TARGET, swap_chain_, device_);
-
-		AddRenderTarget(std::string("hurdur"), target_.get());
-
 		camera_ = new D3D11Camera();
 	}
 

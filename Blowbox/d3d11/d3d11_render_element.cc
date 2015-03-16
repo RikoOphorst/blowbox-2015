@@ -178,6 +178,18 @@ namespace blowbox
 	}
 
 	//------------------------------------------------------------------------------------------------------
+	void D3D11RenderElement::SetAlpha(double alpha)
+	{
+		alpha_ = alpha;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	void D3D11RenderElement::SetAlpha(float alpha)
+	{
+		alpha_ = static_cast<double>(alpha);
+	}
+
+	//------------------------------------------------------------------------------------------------------
 	void D3D11RenderElement::SetTexture(std::string path)
 	{
 		/**
@@ -432,7 +444,7 @@ namespace blowbox
 		self->SetScale(
 			LuaWrapper::Instance()->Get<double>(L, -2),
 			LuaWrapper::Instance()->Get<double>(L, -1),
-			0.0f
+			1.0f
 			);
 
 		return 0;
@@ -514,5 +526,77 @@ namespace blowbox
 	{
 		D3D11RenderElement* self = LuaWrapper::Instance()->ParseUserdata<D3D11RenderElement>(L, -1);
 		return LuaWrapper::Instance()->Push(L, self->GetAlpha());
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11RenderElement::LuaSetTexture(lua_State* L)
+	{
+		D3D11RenderElement* self = LuaWrapper::Instance()->ParseUserdata<D3D11RenderElement>(L, -2);
+
+		self->SetTexture(LuaWrapper::Instance()->Get<std::string>(L, -1));
+
+		return 0;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11RenderElement::LuaGetTexture(lua_State* L)
+	{
+		D3D11RenderElement* self = LuaWrapper::Instance()->ParseUserdata<D3D11RenderElement>(L, -1);
+		return LuaWrapper::Instance()->Push(L, "");
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11RenderElement::LuaSetShader(lua_State* L)
+	{
+		D3D11RenderElement* self = LuaWrapper::Instance()->ParseUserdata<D3D11RenderElement>(L, -2);
+
+		self->SetShader(LuaWrapper::Instance()->Get<std::string>(L, -1));
+
+		return 0;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11RenderElement::LuaGetShader(lua_State* L)
+	{
+		D3D11RenderElement* self = LuaWrapper::Instance()->ParseUserdata<D3D11RenderElement>(L, -1);
+		return LuaWrapper::Instance()->Push(L, "");
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11RenderElement::LuaSetFiltering(lua_State* L)
+	{
+		D3D11RenderElement* self = LuaWrapper::Instance()->ParseUserdata<D3D11RenderElement>(L, -2);
+
+		// @todo Implement filter setting on D3D11RenderElement::LuaSetFiltering
+
+		//self->S(LuaWrapper::Instance()->Get<std::string>(L, -1));
+
+		return 0;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11RenderElement::LuaGetFiltering(lua_State* L)
+	{
+		D3D11RenderElement* self = LuaWrapper::Instance()->ParseUserdata<D3D11RenderElement>(L, -1);
+		return LuaWrapper::Instance()->Push(L, "");
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11RenderElement::LuaSetBlend(lua_State* L)
+	{
+		D3D11RenderElement* self = LuaWrapper::Instance()->ParseUserdata<D3D11RenderElement>(L, -2);
+
+		// @todo Implement blend setting on D3D11RenderElement::LuaSetBlend
+
+		//self->S(LuaWrapper::Instance()->Get<std::string>(L, -1));
+
+		return 0;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11RenderElement::LuaGetBlend(lua_State* L)
+	{
+		D3D11RenderElement* self = LuaWrapper::Instance()->ParseUserdata<D3D11RenderElement>(L, -1);
+		return LuaWrapper::Instance()->Push(L, "");
 	}
 }

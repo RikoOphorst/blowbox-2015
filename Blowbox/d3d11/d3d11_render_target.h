@@ -2,6 +2,7 @@
 
 #include "../../blowbox/d3d11/d3d11.h"
 #include "../../blowbox/memory/shared_ptr.h"
+#include "../../blowbox/lua/lua_class.h"
 #include <map>
 #include <queue>
 
@@ -28,13 +29,19 @@ namespace blowbox
 	* @brief A RenderTarget handler
 	* @author Riko Ophorst
 	*/
-	class D3D11RenderTarget
+	class D3D11RenderTarget : public LuaClass
 	{
 	public:
 		/**
 		* @brief Default D3D11RenderTarget constructor
 		*/
 		D3D11RenderTarget();
+
+		/**
+		* @brief Lua D3D11RenderTarget constructor
+		* @param[in] L (lua_State*) the lua state
+		*/
+		D3D11RenderTarget(lua_State* L);
 
 		/**
 		* @brief Default D3D11RenderTarget constructor
@@ -83,6 +90,12 @@ namespace blowbox
 		ID3D11ShaderResourceView* GetResource() const;
 
 		/**
+		* @brief Sets this target's render queue
+		* @param[in] queue (D3D11RenderQueue*) the render queue
+		*/
+		void SetQueue(D3D11RenderQueue* queue);
+
+		/**
 		* @return D3D11RenderQueue* The render queue of this render target
 		*/
 		D3D11RenderQueue* GetQueue();
@@ -107,12 +120,38 @@ namespace blowbox
 		* @brief Retrieves the post processing shader for this render target
 		*/
 		D3D11Shader* GetShader();
+
+		/**
+		* @brief Registers this object's functions in Lua
+		* @param[in] L (lua_State*) the lua state
+		*/
+		static void LuaRegisterFunctions(lua_State* L);
+
+		/**
+		* @brief Sets the post processing shader for this render target
+		* @param[in] L (lua_State*) the lua state
+		*/
+		static int LuaSetShader(lua_State* L);
+
+		/**
+		* @brief Gets the post processing shader for this render target
+		* @param[in] L (lua_State*) the lua state
+		*/
+		static int LuaGetShader(lua_State* L);
+
+		/**
+		* @brief Adds an element to this render target
+		* @param[in] L (lua_State*) the lua state
+		*/
+		static int LuaSetQueue(lua_State* L);
+
+		CLASSNAME("RenderTarget");
 	private:
 		RENDER_TARGET_TYPE						type_;
 		ID3D11Texture2D*						target_;
 		ID3D11RenderTargetView*					view_;
 		ID3D11ShaderResourceView*				resource_;
-		SharedPtr<D3D11RenderQueue>				queue_;
+		D3D11RenderQueue*						queue_;
 		SharedPtr<D3D11Shader>					shader_;
 		SharedPtr<D3D11BlendState>				blend_state_;
 		SharedPtr<D3D11DepthStencil>			depth_stencil_;
