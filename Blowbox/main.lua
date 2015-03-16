@@ -4,4 +4,4 @@ end
 
 quad = Quad.new()
 
-quad:setPosition(20, 20)
+quad:setPosition(20, 20, 20)

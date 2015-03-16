@@ -24,6 +24,27 @@ namespace blowbox
 	{
 		rasterizer_state_ = new D3D11RasterizerState();
 		blend_state_ = new D3D11BlendState();
+
+		SetShader("shaders/base.fx");
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	D3D11RenderElement::D3D11RenderElement(lua_State* L) :
+		position_(0.0f, 0.0f, 0.0f),
+		v_position_(XMVectorSet(0.0f, 0.0f, 0.0f, 1.0f)),
+		rotation_(0.0f, 0.0f, 0.0f),
+		v_rotation_(XMVectorSet(0.0f, 0.0f, 0.0f, 1.0f)),
+		scaling_(1.0f, 1.0f, 1.0f),
+		v_scaling_(XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f)),
+		offset_(0.0f, 0.0f, 0.0f),
+		v_offset_(XMVectorSet(0.0f, 0.0f, 0.0f, 1.0f)),
+		alpha_(1),
+		texture_filtering_(TEXTURE_FILTERING_TYPE::TEXTURE_ANISOTROPIC)
+	{
+		rasterizer_state_ = new D3D11RasterizerState();
+		blend_state_ = new D3D11BlendState();
+
+		SetShader("shaders/base.fx");
 	}
 
 	//------------------------------------------------------------------------------------------------------
@@ -225,5 +246,156 @@ namespace blowbox
 	D3D11BlendState* D3D11RenderElement::GetBlendState()
 	{
 		return blend_state_.get();
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11RenderElement::LuaSetPosition(lua_State* L)
+	{
+		D3D11RenderElement* self = LuaWrapper::Instance()->ParseUserdata<D3D11RenderElement>(L, -4);
+
+		self->SetPosition(
+			LuaWrapper::Instance()->Get<double>(L, -3),
+			LuaWrapper::Instance()->Get<double>(L, -2),
+			LuaWrapper::Instance()->Get<double>(L, -1)
+			);
+
+		return 0;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11RenderElement::LuaGetPosition(lua_State* L)
+	{
+		D3D11RenderElement* self = LuaWrapper::Instance()->ParseUserdata<D3D11RenderElement>(L, -1);
+
+		XMFLOAT4 pos;
+		XMStoreFloat4(&pos, self->GetPosition());
+
+		return LuaWrapper::Instance()->Push(L, pos.x, pos.y, pos.z);
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11RenderElement::LuaSetPosition2D(lua_State* L)
+	{
+		D3D11RenderElement* self = LuaWrapper::Instance()->ParseUserdata<D3D11RenderElement>(L, -3);
+
+		self->SetPosition(
+			LuaWrapper::Instance()->Get<double>(L, -2),
+			LuaWrapper::Instance()->Get<double>(L, -1),
+			0.0f
+			);
+
+		return 0;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11RenderElement::LuaGetPosition2D(lua_State* L)
+	{
+		D3D11RenderElement* self = LuaWrapper::Instance()->ParseUserdata<D3D11RenderElement>(L, -1);
+
+		XMFLOAT4 pos;
+		XMStoreFloat4(&pos, self->GetPosition());
+
+		return LuaWrapper::Instance()->Push(L, pos.x, pos.y, pos.z);
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11RenderElement::LuaSetX(lua_State* L)
+	{
+		D3D11RenderElement* self = LuaWrapper::Instance()->ParseUserdata<D3D11RenderElement>(L, -2);
+
+		self->SetX(LuaWrapper::Instance()->Get<double>(L, -1));
+
+		return 0;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11RenderElement::LuaGetX(lua_State* L)
+	{
+		D3D11RenderElement* self = LuaWrapper::Instance()->ParseUserdata<D3D11RenderElement>(L, -1);
+		return LuaWrapper::Instance()->Push(L, self->GetX());
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11RenderElement::LuaSetY(lua_State* L)
+	{
+		D3D11RenderElement* self = LuaWrapper::Instance()->ParseUserdata<D3D11RenderElement>(L, -2);
+
+		self->SetY(LuaWrapper::Instance()->Get<double>(L, -1));
+
+		return 0;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11RenderElement::LuaGetY(lua_State* L)
+	{
+		D3D11RenderElement* self = LuaWrapper::Instance()->ParseUserdata<D3D11RenderElement>(L, -1);
+		return LuaWrapper::Instance()->Push(L, self->GetY());
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11RenderElement::LuaSetZ(lua_State* L)
+	{
+		D3D11RenderElement* self = LuaWrapper::Instance()->ParseUserdata<D3D11RenderElement>(L, -2);
+
+		self->SetZ(LuaWrapper::Instance()->Get<double>(L, -1));
+
+		return 0;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11RenderElement::LuaGetZ(lua_State* L)
+	{
+		D3D11RenderElement* self = LuaWrapper::Instance()->ParseUserdata<D3D11RenderElement>(L, -1);
+		return LuaWrapper::Instance()->Push(L, self->GetZ());
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11RenderElement::LuaSetRotation(lua_State* L)
+	{
+		D3D11RenderElement* self = LuaWrapper::Instance()->ParseUserdata<D3D11RenderElement>(L, -4);
+
+		self->SetRotation(
+			LuaWrapper::Instance()->Get<double>(L, -3),
+			LuaWrapper::Instance()->Get<double>(L, -2),
+			LuaWrapper::Instance()->Get<double>(L, -1)
+			);
+
+		return 0;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11RenderElement::LuaGetRotation(lua_State* L)
+	{
+		D3D11RenderElement* self = LuaWrapper::Instance()->ParseUserdata<D3D11RenderElement>(L, -1);
+
+		XMFLOAT4 rot;
+		XMStoreFloat4(&rot, self->GetRotation());
+
+		return LuaWrapper::Instance()->Push(L, rot.x, rot.y, rot.z);
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11RenderElement::LuaSetRotation2D(lua_State* L)
+	{
+		D3D11RenderElement* self = LuaWrapper::Instance()->ParseUserdata<D3D11RenderElement>(L, -2);
+
+		self->SetRotation(
+			0.0f,
+			0.0f,
+			LuaWrapper::Instance()->Get<double>(L, -1)
+			);
+
+		return 0;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11RenderElement::LuaGetRotation2D(lua_State* L)
+	{
+		D3D11RenderElement* self = LuaWrapper::Instance()->ParseUserdata<D3D11RenderElement>(L, -1);
+
+		XMFLOAT4 rot;
+		XMStoreFloat4(&rot, self->GetRotation());
+
+		return LuaWrapper::Instance()->Push(L, rot.z);
 	}
 }

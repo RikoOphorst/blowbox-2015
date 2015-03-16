@@ -7,19 +7,40 @@
 
 namespace blowbox
 {
-	class Quad : public D3D11RenderElement, public LuaClass
+	/**
+	* @class blowbox::Quad
+	* @brief A Quad element with 4 vertices
+	* @author Riko Ophorst
+	*/
+	class Quad : public D3D11RenderElement
 	{
 	public:
+		/**
+		* @brief Default Quad constructor
+		*/
 		Quad();
-
+		
+		/**
+		* @brief Lua Quad constructor
+		* @param[in] L (lua_State*) the lua state
+		*/
 		Quad(lua_State* L);
 
+		/**
+		* @brief Default Quad destructor
+		*/
 		~Quad();
 
-		static void LuaRegisterFunctions(lua_State* state);
+		/**
+		* @brief Creates the vertex buffer
+		*/
+		void Create();
 
-		static int LuaSetPosition(lua_State* L);
-		static int LuaGetPosition(lua_State* L);
+		/**
+		* @brief Registers all the lua functions
+		* @param[in] L (lua_State*) the lua state
+		*/
+		static void LuaRegisterFunctions(lua_State* L);
 
 		CLASSNAME("Quad");
 	};

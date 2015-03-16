@@ -15,6 +15,8 @@ namespace blowbox
 
 		template<typename...Args>
 		void Call(lua_State* L, Args...args);
+
+		std::string TreeToString();
 	private:
 		std::vector<LuaValue> tree_;
 	};
@@ -40,11 +42,19 @@ namespace blowbox
 			}
 		}
 
+		if (!lua_isfunction(L, -1))
+		{
+			Console::Instance()->Log("LuaCallback tree is invalid, trying to call: " + TreeToString(), LOG_COLOR_TYPES::LOG_COLOR_NOTICE);
+
+			lua_settop(L, top);
+			return;
+		}
+
 		int arg_count = LuaWrapper::Instance()->Push(L, args...);
 
 		if (lua_pcall(L, arg_count, 0, 0))
 		{
-			BLOW_BREAK(lua_tostring(L, lua_gettop(L)));
+			Console::Instance()->Log(LuaWrapper::Instance()->ConvertElementToString(L, -1), LOG_COLOR_TYPES::LOG_COLOR_ERROR);
 		}
 
 		// Clear the stack

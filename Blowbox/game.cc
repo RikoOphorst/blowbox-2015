@@ -49,18 +49,19 @@ namespace blowbox
 	void Game::Run()
 	{
 		Window* window = window_.get();
-		
+
 		window->Create(std::string("blowbox"), 640, 480);
 		window->SetStarted(true);
-
+		
 		renderDevice_->Initialize(window);
 
-		LuaWrapper::Instance()->CompileFromFile(LuaState::Instance()->Get(), "main.lua");
-
-		while (window->GetStarted())
-		{
-			Update();
-			Draw();
+		if (LuaWrapper::Instance()->CompileFromFile(LuaState::Instance()->Get(), "main.lua"))
+		{	
+			while (window->GetStarted())
+			{
+				Update();
+				Draw();
+			}
 		}
 	}
 
@@ -83,7 +84,7 @@ namespace blowbox
 	}
 
 	//------------------------------------------------------------------------------------------------------
-	void Game::RegisterFunctions(lua_State* L)
+	void Game::LuaRegisterFunctions(lua_State* L)
 	{
 		luaL_Reg regist[] = {
 			{ NULL, NULL }

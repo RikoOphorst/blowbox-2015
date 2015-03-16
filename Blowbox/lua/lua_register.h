@@ -131,7 +131,7 @@ namespace blowbox
 		lua_createtable(L, 0, 0);
 
 		// Register the class' functions
-		T::RegisterFunctions(L);
+		T::LuaRegisterFunctions(L);
 
 		// Register the table as a global
 		lua_setfield(L, LUA_GLOBALSINDEX, T::GetName());
@@ -151,7 +151,7 @@ namespace blowbox
 			lua_createtable(L, 0, 0);
 
 			// Register the class' functions
-			T::RegisterFunctions();
+			T::LuaRegisterFunctions();
 
 			// Register the table as a member on given index
 			lua_setfield(L, index, T::class_name());

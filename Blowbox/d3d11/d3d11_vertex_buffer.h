@@ -3,6 +3,7 @@
 #include "../../blowbox/d3d11/d3d11.h"
 
 #include <vector>
+#include <Windows.h>
 #include <xnamath.h>
 
 namespace blowbox

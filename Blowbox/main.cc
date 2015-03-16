@@ -11,8 +11,9 @@ using namespace blowbox;
 int main(int argc, char** argv)
 {
 	AllocatedMemory& memory = AllocatedMemory::Instance();
-	
+
 	LuaRegister::Instance()->RegisterSingleton<Game>(LuaState::Instance()->Get());
+	LuaRegister::Instance()->RegisterSingleton<Console>(LuaState::Instance()->Get());
 	LuaRegister::Instance()->RegisterClass<Quad>(LuaState::Instance()->Get());
 	LuaRegister::Instance()->RegisterClass<LuaEnum>(LuaState::Instance()->Get());
 
@@ -21,5 +22,5 @@ int main(int argc, char** argv)
 
 	Game::Instance()->Run();
 
-	return EXIT_SUCCESS;
+	return QApp.exec();
 }

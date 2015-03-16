@@ -2,6 +2,7 @@
 
 #include "../../blowbox/logging.h"
 #include "../../blowbox/d3d11/d3d11.h"
+#include <Windows.h>
 #include <xnamath.h>
 
 namespace blowbox

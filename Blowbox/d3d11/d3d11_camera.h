@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../../blowbox/logging.h"
+#include <Windows.h>
 #include <xnamath.h>
 
 namespace blowbox

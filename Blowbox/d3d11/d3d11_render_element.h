@@ -1,8 +1,11 @@
 #pragma once
 
-#include "../../blowbox/memory/shared_ptr.h"
-#include "../../blowbox/d3d11/d3d11.h"
+#include <Windows.h>
 #include <xnamath.h>
+
+#include "../../blowbox/memory/shared_ptr.h"
+#include "../../blowbox/d3d11/d3d11.h" 
+#include "../../blowbox/lua/lua_class.h"
 
 namespace blowbox
 {	
@@ -19,13 +22,19 @@ namespace blowbox
 	* @brief Base class for every element that should be rendered
 	* @author Riko Ophorst
 	*/
-	class D3D11RenderElement
+	class D3D11RenderElement : public LuaClass
 	{
 	public:
 		/**
 		* @brief Default D3D11RenderElement constructor
 		*/
 		D3D11RenderElement();
+
+		/**
+		* @brief D3D11RenderElement lua constructor
+		* @param[in] L (lua_State* L)
+		*/
+		D3D11RenderElement(lua_State* L);
 
 		/**
 		* @brief Default D3D11RenderElement destructor
@@ -200,6 +209,198 @@ namespace blowbox
 		* @brief Retrieves the D3D11BlendState of this object
 		*/
 		D3D11BlendState* GetBlendState();
+
+		/**
+		* @brief Sets the position of this object
+		* @param[in] L (lua_State* L)
+		*/
+		static int LuaSetPosition(lua_State* L);
+
+		/**
+		* @brief Gets the position of this object
+		* @param[in] L (lua_State* L)
+		*/
+		static int LuaGetPosition(lua_State* L);
+
+		/**
+		* @brief Sets the position of this object in 2D space
+		* @param[in] L (lua_State* L)
+		*/
+		static int LuaSetPosition2D(lua_State* L);
+		
+		/**
+		* @brief Gets the position of this object in 2D space
+		* @param[in] L (lua_State* L)
+		*/
+		static int LuaGetPosition2D(lua_State* L);
+
+		/**
+		* @brief Sets the x position of this object
+		* @param[in] L (lua_State* L)
+		*/
+		static int LuaSetX(lua_State* L);
+
+		/**
+		* @brief Gets the x position of this object
+		* @param[in] L (lua_State* L)
+		*/
+		static int LuaGetX(lua_State* L);
+
+		/**
+		* @brief Sets the y position of this object
+		* @param[in] L (lua_State* L)
+		*/
+		static int LuaSetY(lua_State* L);
+		
+		/**
+		* @brief Gets the y position of this object
+		* @param[in] L (lua_State* L)
+		*/
+		static int LuaGetY(lua_State* L);
+
+		/**
+		* @brief Sets the z position of this object
+		* @param[in] L (lua_State* L)
+		*/
+		static int LuaSetZ(lua_State* L);
+
+		/**
+		* @brief Gets the z position of this object
+		* @param[in] L (lua_State* L)
+		*/
+		static int LuaGetZ(lua_State* L);
+
+		/**
+		* @brief Sets the rotation of this object
+		* @param[in] L (lua_State* L)
+		*/
+		static int LuaSetRotation(lua_State* L);
+
+		/**
+		* @brief Gets the rotation of this object
+		* @param[in] L (lua_State* L)
+		*/
+		static int LuaGetRotation(lua_State* L);
+
+		/**
+		* @brief Sets the rotation of this object in 2D space
+		* @param[in] L (lua_State* L)
+		*/
+		static int LuaSetRotation2D(lua_State* L);
+
+		/**
+		* @brief Gets the rotation of this object in 2D space
+		* @param[in] L (lua_State* L)
+		*/
+		static int LuaGetRotation2D(lua_State* L);
+
+		/**
+		* @brief Sets the scale of this object
+		* @param[in] L (lua_State* L)
+		*/
+		static int LuaSetScale(lua_State* L);
+
+		/**
+		* @brief Gets the scale of this object
+		* @param[in] L (lua_State* L)
+		*/
+		static int LuaGetScale(lua_State* L);
+
+		/**
+		* @brief Sets the scale of this object in 2D space
+		* @param[in] L (lua_State* L)
+		*/
+		static int LuaSetScale2D(lua_State* L);
+
+		/**
+		* @brief Gets the scale of this object in 2D space
+		* @param[in] L (lua_State* L)
+		*/
+		static int LuaGetScale2D(lua_State* L);
+
+		/**
+		* @brief Sets the offset of this object
+		* @param[in] L (lua_State* L)
+		*/
+		static int LuaSetOffset(lua_State* L);
+
+		/**
+		* @brief Gets the offset of this object
+		* @param[in] L (lua_State* L)
+		*/
+		static int LuaGetOffset(lua_State* L);
+
+		/**
+		* @brief Sets the offset of this object in 2D space
+		* @param[in] L (lua_State* L)
+		*/
+		static int LuaSetOffset2D(lua_State* L);
+
+		/**
+		* @brief Gets the offset of this object in 2D space
+		* @param[in] L (lua_State* L)
+		*/
+		static int LuaGetOffset2D(lua_State* L);
+
+		/**
+		* @brief Sets the alpha of this object
+		* @param[in] L (lua_State* L)
+		*/
+		static int LuaSetAlpha(lua_State* L);
+
+		/**
+		* @brief Gets the alpha of this object
+		* @param[in] L (lua_State* L)
+		*/
+		static int LuaGetAlpha(lua_State* L);
+
+		/**
+		* @brief Sets the texture of this object
+		* @param[in] L (lua_State* L)
+		*/
+		static int LuaSetTexture(lua_State* L);
+
+		/**
+		* @brief Gets the texture of this object
+		* @param[in] L (lua_State* L)
+		*/
+		static int LuaGetTexture(lua_State* L);
+
+		/**
+		* @brief Sets the texture of this object
+		* @param[in] L (lua_State* L)
+		*/
+		static int LuaSetShader(lua_State* L);
+
+		/**
+		* @brief Gets the texture of this object
+		* @param[in] L (lua_State* L)
+		*/
+		static int LuaGetShader(lua_State* L);
+
+		/**
+		* @brief Sets the filtering of this object
+		* @param[in] L (lua_State* L)
+		*/
+		static int LuaSetFiltering(lua_State* L);
+
+		/**
+		* @brief Gets the filtering of this object
+		* @param[in] L (lua_State* L)
+		*/
+		static int LuaGetFiltering(lua_State* L);
+
+		/**
+		* @brief Sets the blend of this object
+		* @param[in] L (lua_State* L)
+		*/
+		static int LuaSetBlend(lua_State* L);
+
+		/**
+		* @brief Gets the blend of this object
+		* @param[in] L (lua_State* L)
+		*/
+		static int LuaGetBlend(lua_State* L);
 	protected:
 		XMFLOAT3 position_;
 		XMVECTOR v_position_;

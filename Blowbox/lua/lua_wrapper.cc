@@ -26,35 +26,19 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	void LuaWrapper::Dump(lua_State* L, const std::string& brief)
 	{
-		printf("%s\n", brief.c_str());
-		int i;
+		Console::Instance()->Log(brief);
+
+		std::string string;
+
 		int top = lua_gettop(L);
-		for (i = 1; i <= top; i++) {
+		for (int i = 1; i <= top; ++i) {
 			int t = lua_type(L, i);
+
+			string = std::to_string(i) + ": ";
 			
-			printf("%i:", i);
-			
-			switch (t) {
+			string += ConvertElementToString(L, i);
 
-			case LUA_TSTRING:  // strings
-				printf("'%s'", lua_tostring(L, i));
-				break;
-
-			case LUA_TBOOLEAN:  // booleans
-				printf(lua_toboolean(L, i) ? "true" : "false");
-				break;
-
-			case LUA_TNUMBER:  // numbers
-				printf("%g", lua_tonumber(L, i));
-				break;
-
-			default:  // other values
-				printf("%s", lua_typename(L, t));
-				break;
-
-			}
-
-			printf("\n");
+			Console::Instance()->Log(string);
 		}
 	}
 
@@ -84,28 +68,86 @@ namespace blowbox
 	}
 
 	//------------------------------------------------------------------------------------------------------
-	void LuaWrapper::CompileFromFile(lua_State* L, const std::string& path)
+	bool LuaWrapper::CompileFromFile(lua_State* L, const std::string& path)
 	{
-		if (luaL_loadfile(L, path.c_str()))
+		if (luaL_dofile(L, path.c_str()) != 0)
 		{
-			BLOW_BREAK(lua_tostring(L, lua_gettop(L)));
+			Console::Instance()->Log(ConvertElementToString(L, -1), LOG_COLOR_TYPES::LOG_COLOR_ERROR);
+			return false;
 		}
-		else
-		{
-			if (lua_pcall(L, 0, 0, 0))
-			{
-				LuaStackTrace(L);
-			}
-		}
+
+		return true;
 	}
 
 	//------------------------------------------------------------------------------------------------------
-	void LuaWrapper::CompileFromString(lua_State* L, const std::string& code, const std::string& source)
+	bool LuaWrapper::CompileFromString(lua_State* L, const std::string& code, const std::string& source)
 	{
-		if ((luaL_loadbuffer(L, code.c_str(), strlen(code.c_str()), NULL) || lua_pcall(L, 0, 0, 0)))
+		int stacksize = lua_gettop(L);
+		if ((luaL_loadbuffer(L, code.c_str(), strlen(code.c_str()), NULL) || lua_pcall(L, 0, LUA_MULTRET, 0)))
 		{
-			Console::Instance()->Log(lua_tostring(L, -1));
+			Console::Instance()->Log(lua_tostring(L, -1), LOG_COLOR_TYPES::LOG_COLOR_ERROR);
+			return false;
 		}
+
+		if (stacksize != lua_gettop(L))
+		{
+			for (int i = 1; i <= lua_gettop(L) - stacksize; ++i)
+			{
+				Console::Instance()->Log(std::string("[OUTPUT] ") + ConvertElementToString(L, i));
+			}
+		}
+
+		lua_settop(L, stacksize);
+
+		return true;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	std::string LuaWrapper::ConvertElementToString(lua_State* L, const int& index)
+	{
+		int top = lua_gettop(L);
+		int t = lua_type(L, index);
+
+		std::string string;
+
+		switch (t)
+		{
+		case LUA_TSTRING:  // strings
+			string = lua_tostring(L, index);
+			break;
+
+		case LUA_TBOOLEAN:  // booleans
+			string = lua_toboolean(L, index) ? "true" : "false";
+			break;
+
+		case LUA_TNUMBER:  // numbers
+			string = std::to_string(lua_tonumber(L, index));
+			break;
+
+		default:  // other values
+			string = lua_typename(L, index);
+			break;
+		}
+
+		lua_settop(L, top);
+
+		return string;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int LuaWrapper::StackTrace(lua_State* L)
+	{
+		lua_getfield(L, LUA_GLOBALSINDEX, "debug");
+		lua_getfield(L, -1, "traceback");
+		lua_pushvalue(L, 1);
+		lua_pushinteger(L, 2);
+		lua_call(L, 2, 1);
+
+		Console::Instance()->Log(lua_tostring(L, -1), LOG_COLOR_TYPES::LOG_COLOR_NOTICE);
+
+		lua_pop(L, 2);
+
+		return 0;
 	}
 
 	//------------------------------------------------------------------------------------------------------
@@ -117,7 +159,7 @@ namespace blowbox
 		lua_pushinteger(L, 2);
 		lua_call(L, 2, 1);
 
-		fprintf(stderr, "An error occurred, this is what Lua managed to get: \n\n%s\n\n", lua_tostring(L, -1));
+		Console::Instance()->Log(lua_tostring(L, -1), LOG_COLOR_TYPES::LOG_COLOR_NOTICE);
 
 		lua_pop(L, 2);
 

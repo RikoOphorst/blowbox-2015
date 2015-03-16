@@ -37,7 +37,7 @@ namespace blowbox
 		textFont.setBold(false);
 
 		QFont headerFont;
-		headerFont.setFamily("Helvetica");
+		headerFont.setFamily("Impact");
 		headerFont.setStyleHint(QFont::Monospace);
 		headerFont.setFixedPitch(true);
 		headerFont.setPointSize(10);
@@ -126,8 +126,6 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	void Console::Log(std::string string)
 	{
-		string += "\n";
-
 		time_t t = time(0);
 		struct tm now;
 		localtime_s(&now, &t);
@@ -153,6 +151,10 @@ namespace blowbox
 		
 		QTextCursor cursor = window_->terminal->textCursor();
 		cursor.movePosition(QTextCursor::End);
+
+		string = ReplaceString(string, "\n", timeStamp.toStdString());
+
+		string += "\n";
 
 		QTextCharFormat format;
 		format.setForeground(QBrush(QColor(166, 207, 207)));
@@ -168,7 +170,6 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	void Console::Log(std::string string, const int& fr, const int& fg, const int& fb, const int& br, const int& bg, const int& bb)
 	{
-		string += "\n";
 		
 		time_t t = time(0);
 		struct tm now;
@@ -196,6 +197,9 @@ namespace blowbox
 		QTextCursor cursor = window_->terminal->textCursor();
 		cursor.movePosition(QTextCursor::End);
 
+		string = ReplaceString(string, "\n", "\n" + timeStamp.toStdString());
+		string += "\n";
+
 		QTextCharFormat format;
 		format.setForeground(QBrush(QColor(fr, fg, fb)));
 		format.setBackground(QBrush(QColor(br, bg, bb)));
@@ -206,6 +210,74 @@ namespace blowbox
 		cursor.movePosition(QTextCursor::End);
 
 		window_->terminal->setTextCursor(cursor);
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	void Console::Log(std::string string, const LOG_COLOR_TYPES& type)
+	{
+		const LOG_COLOR_STRUCT& colors = ConvertToStruct(type);
+
+		Log(string, colors.fr, colors.fg, colors.fb, colors.br, colors.bg, colors.bb);
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	void Console::Log(std::string string, const LOG_COLOR_STRUCT& colors)
+	{
+		Log(string, colors.fr, colors.fg, colors.fb, colors.br, colors.bg, colors.bb);
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	std::string Console::ReplaceString(std::string subject, const std::string& search, const std::string& replace) {
+		size_t pos = 0;
+		while ((pos = subject.find(search, pos)) != std::string::npos) {
+			subject.replace(pos, search.length(), replace);
+			pos += replace.length();
+		}
+		return subject;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	LOG_COLOR_STRUCT Console::ConvertToStruct(const LOG_COLOR_TYPES& type)
+	{
+		LOG_COLOR_STRUCT colors;
+		
+		switch (type)
+		{
+		case LOG_COLOR_TYPES::LOG_COLOR_ERROR:
+			colors.fr = 255;
+			colors.fg = 255;
+			colors.fb = 255;
+			colors.br = 153;
+			colors.bg = 0;
+			colors.bb = 0;
+			break;
+		case LOG_COLOR_TYPES::LOG_COLOR_WARNING:
+			colors.fr = 50;
+			colors.fg = 50;
+			colors.fb = 34;
+			colors.br = 200;
+			colors.bg = 150;
+			colors.bb = 0;
+			break;
+		case LOG_COLOR_TYPES::LOG_COLOR_NOTICE:
+			colors.fr = 7;
+			colors.fg = 56;
+			colors.fb = 61;
+			colors.br = 18;
+			colors.bg = 142;
+			colors.bb = 153;
+			break;
+		default:
+			colors.fr = 255;
+			colors.fg = 255;
+			colors.fb = 255;
+			colors.br = 0;
+			colors.bg = 0;
+			colors.bb = 0;
+			break;
+		}
+
+		return colors;
 	}
 
 	//------------------------------------------------------------------------------------------------------
@@ -254,7 +326,7 @@ namespace blowbox
 
 						if (string.length() > 0)
 						{
-							Log(string.toStdString());
+							Log("[INPUT] " + string.toStdString());
 							
 							LuaWrapper::Instance()->CompileFromString(LuaState::Instance()->Get(), string.toStdString(), "debug");
 
@@ -285,7 +357,7 @@ namespace blowbox
 
 				if (string.length() > 0)
 				{
-					Log(string.toStdString()); 
+					Log("[INPUT] " + string.toStdString());
 					
 					LuaWrapper::Instance()->CompileFromString(LuaState::Instance()->Get(), string.toStdString(), "debug");
 
@@ -298,5 +370,76 @@ namespace blowbox
 		}
 
 		return false;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	void Console::LuaRegisterFunctions(lua_State* L)
+	{
+		luaL_Reg regist[] = {
+			{ "log", LuaLog },
+			{ "error", LuaError },
+			{ "warning", LuaWarning },
+			{ "notice", LuaNotice },
+			{ "rgb", LuaRGB },
+			{ "stacktrace", LuaStackTrace },
+			{ "trace", LuaStackTrace },
+			{ "stack", LuaStackTrace },
+			{ "backtrace", LuaStackTrace },
+			{ "tracestack", LuaStackTrace },
+			{ "traceback", LuaStackTrace },
+			{ NULL, NULL }
+		};
+
+		luaL_register(L, NULL, regist);
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int Console::LuaLog(lua_State* L)
+	{
+		Console::Instance()->Log(LuaWrapper::Instance()->Get<std::string>(L, -1));
+		return 0;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int Console::LuaError(lua_State* L)
+	{
+		Console::Instance()->Log(LuaWrapper::Instance()->Get<std::string>(L, -1), LOG_COLOR_TYPES::LOG_COLOR_ERROR);
+		return 0;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int Console::LuaWarning(lua_State* L)
+	{
+		Console::Instance()->Log(LuaWrapper::Instance()->Get<std::string>(L, -1), LOG_COLOR_TYPES::LOG_COLOR_WARNING);
+		return 0;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int Console::LuaNotice(lua_State* L)
+	{
+		Console::Instance()->Log(LuaWrapper::Instance()->Get<std::string>(L, -1), LOG_COLOR_TYPES::LOG_COLOR_NOTICE);
+		return 0;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int Console::LuaRGB(lua_State* L)
+	{
+		Console::Instance()->Log(
+			LuaWrapper::Instance()->Get<std::string>(L, -7),
+			LuaWrapper::Instance()->Get<double>(L, -6),
+			LuaWrapper::Instance()->Get<double>(L, -5),
+			LuaWrapper::Instance()->Get<double>(L, -4),
+			LuaWrapper::Instance()->Get<double>(L, -3),
+			LuaWrapper::Instance()->Get<double>(L, -2),
+			LuaWrapper::Instance()->Get<double>(L, -1)
+			);
+		return 0;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int Console::LuaStackTrace(lua_State* L)
+	{
+		LuaWrapper::Instance()->StackTrace(L);
+		return 0;
 	}
 }

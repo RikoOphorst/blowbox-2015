@@ -1,7 +1,6 @@
 #pragma once
 
 #include "../memory/shared_ptr.h"
-//#include <xnamath.h>
 #include <queue>
 
 namespace blowbox

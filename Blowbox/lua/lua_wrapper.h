@@ -99,7 +99,7 @@ namespace blowbox
 		* @param[in] L (lua_State*) the lua state
 		* @param[in] path (const std::string&) the path to the file
 		*/
-		void CompileFromFile(lua_State* L, const std::string& path);
+		bool CompileFromFile(lua_State* L, const std::string& path);
 
 		/**
 		* @brief Compiles and runs a string of lua code
@@ -107,7 +107,14 @@ namespace blowbox
 		* @param[in] code (const std::string&) the code to be compiled
 		* @param[in] source (const std::string&) the source to be displayed while debugging
 		*/
-		void CompileFromString(lua_State* L, const std::string& code, const std::string& source);
+		bool CompileFromString(lua_State* L, const std::string& code, const std::string& source);
+
+		/**
+		* @brief Convert stack element to string
+		* @param[in] L (lua_State*) the lua state
+		* @param[in] index (const int&) the index
+		*/
+		std::string ConvertElementToString(lua_State* L, const int& index);
 
 		/**
 		* @brief Retrieves a value from the stack
@@ -146,6 +153,12 @@ namespace blowbox
 		*/
 		template<typename T>
 		int PushValue(lua_State* L, T value);
+
+		/**
+		* @brief Performs a stack trace
+		* @param[in] L (lua_State*) the lua state
+		*/
+		int StackTrace(lua_State*);
 
 		/**
 		* @brief Tries to invoke a stacktrace
