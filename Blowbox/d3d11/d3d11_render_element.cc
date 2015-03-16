@@ -398,4 +398,121 @@ namespace blowbox
 
 		return LuaWrapper::Instance()->Push(L, rot.z);
 	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11RenderElement::LuaSetScale(lua_State* L)
+	{
+		D3D11RenderElement* self = LuaWrapper::Instance()->ParseUserdata<D3D11RenderElement>(L, -4);
+
+		self->SetScale(
+			LuaWrapper::Instance()->Get<double>(L, -3),
+			LuaWrapper::Instance()->Get<double>(L, -2),
+			LuaWrapper::Instance()->Get<double>(L, -1)
+			);
+
+		return 0;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11RenderElement::LuaGetScale(lua_State* L)
+	{
+		D3D11RenderElement* self = LuaWrapper::Instance()->ParseUserdata<D3D11RenderElement>(L, -1);
+
+		XMFLOAT4 pos;
+		XMStoreFloat4(&pos, self->GetScale());
+
+		return LuaWrapper::Instance()->Push(L, pos.x, pos.y, pos.z);
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11RenderElement::LuaSetScale2D(lua_State* L)
+	{
+		D3D11RenderElement* self = LuaWrapper::Instance()->ParseUserdata<D3D11RenderElement>(L, -3);
+
+		self->SetScale(
+			LuaWrapper::Instance()->Get<double>(L, -2),
+			LuaWrapper::Instance()->Get<double>(L, -1),
+			0.0f
+			);
+
+		return 0;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11RenderElement::LuaGetScale2D(lua_State* L)
+	{
+		D3D11RenderElement* self = LuaWrapper::Instance()->ParseUserdata<D3D11RenderElement>(L, -1);
+
+		XMFLOAT4 pos;
+		XMStoreFloat4(&pos, self->GetScale());
+
+		return LuaWrapper::Instance()->Push(L, pos.x, pos.y, pos.z);
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11RenderElement::LuaSetOffset(lua_State* L)
+	{
+		D3D11RenderElement* self = LuaWrapper::Instance()->ParseUserdata<D3D11RenderElement>(L, -4);
+
+		self->SetOffset(
+			LuaWrapper::Instance()->Get<double>(L, -3),
+			LuaWrapper::Instance()->Get<double>(L, -2),
+			LuaWrapper::Instance()->Get<double>(L, -1)
+			);
+
+		return 0;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11RenderElement::LuaGetOffset(lua_State* L)
+	{
+		D3D11RenderElement* self = LuaWrapper::Instance()->ParseUserdata<D3D11RenderElement>(L, -1);
+
+		XMFLOAT4 pos;
+		XMStoreFloat4(&pos, self->GetOffset());
+
+		return LuaWrapper::Instance()->Push(L, pos.x, pos.y, pos.z);
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11RenderElement::LuaSetOffset2D(lua_State* L)
+	{
+		D3D11RenderElement* self = LuaWrapper::Instance()->ParseUserdata<D3D11RenderElement>(L, -3);
+
+		self->SetOffset(
+			LuaWrapper::Instance()->Get<double>(L, -2),
+			LuaWrapper::Instance()->Get<double>(L, -1),
+			0.0f
+			);
+
+		return 0;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11RenderElement::LuaGetOffset2D(lua_State* L)
+	{
+		D3D11RenderElement* self = LuaWrapper::Instance()->ParseUserdata<D3D11RenderElement>(L, -1);
+
+		XMFLOAT4 pos;
+		XMStoreFloat4(&pos, self->GetOffset());
+
+		return LuaWrapper::Instance()->Push(L, pos.x, pos.y, pos.z);
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11RenderElement::LuaSetAlpha(lua_State* L)
+	{
+		D3D11RenderElement* self = LuaWrapper::Instance()->ParseUserdata<D3D11RenderElement>(L, -2);
+
+		self->SetAlpha(LuaWrapper::Instance()->Get<double>(L, -1));
+
+		return 0;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11RenderElement::LuaGetAlpha(lua_State* L)
+	{
+		D3D11RenderElement* self = LuaWrapper::Instance()->ParseUserdata<D3D11RenderElement>(L, -1);
+		return LuaWrapper::Instance()->Push(L, self->GetAlpha());
+	}
 }
