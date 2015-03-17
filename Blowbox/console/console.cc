@@ -199,7 +199,7 @@ namespace blowbox
 
 		string = ReplaceString(string, "\n", "\n" + timeStamp.toStdString());
 		string += "\n";
-
+		
 		QTextCharFormat format;
 		format.setForeground(QBrush(QColor(fr, fg, fb)));
 		format.setBackground(QBrush(QColor(br, bg, bb)));
@@ -391,6 +391,8 @@ namespace blowbox
 		};
 
 		luaL_register(L, NULL, regist);
+
+		LuaRegister::Instance()->RegisterFunction(L, LuaLog, "print");
 	}
 
 	//------------------------------------------------------------------------------------------------------

@@ -2,6 +2,8 @@
 
 #include "../../blowbox/console/console.h"
 
+#include "../../blowbox/win32/file_watch.h"
+
 namespace blowbox
 {
 	//------------------------------------------------------------------------------------------------------
@@ -68,12 +70,17 @@ namespace blowbox
 	}
 
 	//------------------------------------------------------------------------------------------------------
-	bool LuaWrapper::CompileFromFile(lua_State* L, const std::string& path)
+	bool LuaWrapper::CompileFromFile(lua_State* L, const std::string& path, bool reloading)
 	{
 		if (luaL_dofile(L, path.c_str()) != 0)
 		{
 			Console::Instance()->Log(ConvertElementToString(L, -1), LOG_COLOR_TYPES::LOG_COLOR_ERROR);
 			return false;
+		}
+
+		if (!reloading)
+		{
+			FileWatch::Instance()->Add(path, WATCH_FILE_TYPES::WATCH_FILE_SCRIPT);
 		}
 
 		return true;

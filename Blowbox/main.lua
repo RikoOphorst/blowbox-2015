@@ -3,7 +3,9 @@ Game.Update = function (dt)
 
 	Game.t = Game.t + 1
 
-	quaderino:setPosition2D(Game.t / 100, 0)
+	--quaderino:setPosition2D(Game.t / 100, 0)
+
+	--print("dja moedah")
 
 	if (Game.t == 300) then
 		rendertarget:setQueue(renderqueue)
@@ -20,3 +22,5 @@ quad2 = Quad.new(anotherqueue)
 
 quaderino:setScale2D(50, 50)
 quad2:setScale2D(75, 75)
+
+print("dkshgjfdkhfds")

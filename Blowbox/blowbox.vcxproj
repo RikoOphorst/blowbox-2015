@@ -88,7 +88,7 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>$(DXSDK_DIR)\Lib\x64\d3d11.lib;$(DXSDK_DIR)\Lib\x64\d3dx11.lib;$(DXSDK_DIR)\Lib\x64\d3dx10.lib;C:\Qt\5.4\msvc2013_64\lib\Qt5Cored.lib;C:\Qt\5.4\msvc2013_64\lib\Qt5Guid.lib;C:\Qt\5.4\msvc2013_64\lib\Qtmaind.lib;C:\Qt\5.4\msvc2013_64\lib\Qt5Widgetsd.lib;C:\LuaJIT-2.0.3\src\lua51.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -152,6 +152,7 @@
     <ClCompile Include="main.cc" />
     <ClCompile Include="memory\allocated_memory.cc" />
     <ClCompile Include="utility\lua_enum.cc" />
+    <ClCompile Include="win32\file_watch.cc" />
     <ClCompile Include="win32\window.cc" />
   </ItemGroup>
   <ItemGroup>
@@ -190,6 +191,7 @@
     <ClInclude Include="memory\refcount.h" />
     <ClInclude Include="memory\shared_ptr.h" />
     <ClInclude Include="utility\lua_enum.h" />
+    <ClInclude Include="win32\file_watch.h" />
     <ClInclude Include="win32\window.h" />
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,7 @@
 #include "game.h"
 
 #include "../blowbox/win32/window.h"
+#include "../blowbox/win32/file_watch.h"
 #include "../blowbox/input/mouse.h"
 #include "../blowbox/input/keyboard.h"
 #include "../blowbox/d3d11/d3d11_render_device.h"
@@ -10,6 +11,7 @@
 #include "../blowbox/lua/lua_state.h"
 #include "../blowbox/lua/lua_register.h"
 #include "../blowbox/console/console.h"
+
 #include <vector>
 
 namespace blowbox
@@ -68,6 +70,8 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	void Game::Update()
 	{
+		FileWatch::Instance()->Update();
+
 		window_.get()->ProcessMessages();
 		mouse_->Update();
 		keyboard_->Update();

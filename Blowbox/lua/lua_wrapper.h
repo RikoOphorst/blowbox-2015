@@ -98,8 +98,9 @@ namespace blowbox
 		* @brief Compiles and runs a file
 		* @param[in] L (lua_State*) the lua state
 		* @param[in] path (const std::string&) the path to the file
+		* @param[in] reloading (bool) is the file reloading?
 		*/
-		bool CompileFromFile(lua_State* L, const std::string& path);
+		bool CompileFromFile(lua_State* L, const std::string& path, bool reloading = false);
 
 		/**
 		* @brief Compiles and runs a string of lua code
