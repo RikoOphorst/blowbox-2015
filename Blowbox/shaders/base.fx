@@ -35,5 +35,10 @@ SamplerState Sampler;
 
 float4 PS(VOut input) : SV_TARGET
 {
-	return input.colour;
+	float4 base = tex.Sample(Sampler, input.texcoord);
+	float4 color = float4(base.rgb, base.a);
+
+	color.a *= 0.5f;
+
+	return color;
 }

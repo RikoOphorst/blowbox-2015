@@ -1,8 +1,10 @@
 #pragma once
 
+#include <string>
+
 #include "../../blowbox/d3d11/d3d11.h"
 
-#include <string>
+#define BLOW_BASE_SHADER "shaders/base.fx"
 
 namespace blowbox
 {
@@ -24,12 +26,6 @@ namespace blowbox
 		* @brief Default D3D11Shader destructor
 		*/
 		~D3D11Shader();
-
-		/**
-		* @brief Sets the shader
-		* @param[in] path (const std::string& path) the path to the shader
-		*/
-		void SetShader(const std::string& path);
 
 		/**
 		* @brief Reloads & recompiles its shader

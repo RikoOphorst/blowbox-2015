@@ -2,6 +2,8 @@
 
 #include "../../blowbox/logging.h"
 #include "../../blowbox/d3d11/d3d11_render_device.h"
+#include "../../blowbox/console/console.h"
+#include "../../blowbox/win32/file_watch.h"
 
 namespace blowbox
 {
@@ -12,7 +14,9 @@ namespace blowbox
 		vertex_shader_(nullptr),
 		vertex_shader_buffer_(nullptr)
 	{
-		SetShader(path);
+		path_ = path;
+
+		Reload();
 	}
 
 	//------------------------------------------------------------------------------------------------------
@@ -25,7 +29,7 @@ namespace blowbox
 	}
 
 	//------------------------------------------------------------------------------------------------------
-	void D3D11Shader::SetShader(const std::string& path)
+	void D3D11Shader::Reload()
 	{
 		HRESULT hr = S_OK;
 
@@ -34,25 +38,34 @@ namespace blowbox
 		BLOW_RELEASE(pixel_shader_);
 		BLOW_RELEASE(pixel_shader_buffer_);
 
-		hr = D3DX11CompileFromFileA(path.c_str(), 0, 0, "VS", "vs_4_0", D3D10_SHADER_PACK_MATRIX_ROW_MAJOR, 0, 0, &vertex_shader_buffer_, 0, 0);
-		BLOW_ASSERT_HR(hr, "Error compiling vertex shader: " + path);
+		ID3D10Blob* errors;
+		ZeroMemory(&errors, sizeof(errors));
 
-		hr = D3DX11CompileFromFileA(path.c_str(), 0, 0, "PS", "ps_4_0", D3D10_SHADER_PACK_MATRIX_ROW_MAJOR, 0, 0, &pixel_shader_buffer_, 0, 0);
-		BLOW_ASSERT_HR(hr, "Error compiling pixel shader: " + path);
+		hr = D3DX11CompileFromFileA(path_.c_str(), 0, 0, "VS", "vs_4_0", D3D10_SHADER_PACK_MATRIX_ROW_MAJOR, 0, 0, &vertex_shader_buffer_, &errors, 0);
+		if (hr != S_OK)
+		{
+			const char* error = static_cast<const char*>(errors->GetBufferPointer());
+			Console::Instance()->Log("[SHADER] Error compiling shader (" + path_ + "), this is the error message:\n\n" + error, LOG_COLOR_TYPES::LOG_COLOR_ERROR);
+			return;
+		}
 
+		hr = D3DX11CompileFromFileA(path_.c_str(), 0, 0, "PS", "ps_4_0", D3D10_SHADER_PACK_MATRIX_ROW_MAJOR, 0, 0, &pixel_shader_buffer_, &errors, 0);
+		if (hr != S_OK)
+		{
+			const char* error = static_cast<const char*>(errors->GetBufferPointer());
+			Console::Instance()->Log("[SHADER] Error compiling shader (" + path_ + "), this is the error message:\n\n" + error, LOG_COLOR_TYPES::LOG_COLOR_ERROR);
+
+			return;
+		}
+
+		//------------------------------------ Shader creation ---------------------------------------------
 		hr = D3D11RenderDevice::Instance()->GetDevice()->CreateVertexShader(vertex_shader_buffer_->GetBufferPointer(), vertex_shader_buffer_->GetBufferSize(), NULL, &vertex_shader_);
-		BLOW_ASSERT_HR(hr, "Error creating vertex shader: " + path);
+		BLOW_ASSERT_HR(hr, "Error creating vertex shader: " + path_);
 
 		hr = D3D11RenderDevice::Instance()->GetDevice()->CreatePixelShader(pixel_shader_buffer_->GetBufferPointer(), pixel_shader_buffer_->GetBufferSize(), NULL, &pixel_shader_);
-		BLOW_ASSERT_HR(hr, "Error creating pixel shader: " + path);
+		BLOW_ASSERT_HR(hr, "Error creating pixel shader: " + path_);
 
-		path_ = path;
-	}
-
-	//------------------------------------------------------------------------------------------------------
-	void D3D11Shader::Reload()
-	{
-		SetShader(path_);
+		FileWatch::Instance()->Add(path_, WATCH_FILE_TYPES::WATCH_FILE_SHADER);
 	}
 
 	//------------------------------------------------------------------------------------------------------

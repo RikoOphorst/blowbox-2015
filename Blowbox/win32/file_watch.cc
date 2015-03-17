@@ -3,6 +3,7 @@
 #include "../../blowbox/memory/shared_ptr.h"
 #include "../../blowbox/lua/lua_wrapper.h"
 #include "../../blowbox/console/console.h"
+#include "../../blowbox/content/content_manager.h"
 
 namespace blowbox
 {
@@ -59,10 +60,12 @@ namespace blowbox
 						Console::Instance()->Log(std::string("[FILEWATCH] Reloaded a script: ") + it.path, LOG_COLOR_TYPES::LOG_COLOR_NOTICE);
 						break;
 					case WATCH_FILE_TYPES::WATCH_FILE_SHADER:
-						//ReloadShader(it);
+						ContentManager::Instance()->LoadShader(it.path);
+						Console::Instance()->Log(std::string("[FILEWATCH] Reloaded a shader: ") + it.path, LOG_COLOR_TYPES::LOG_COLOR_NOTICE);
 						break;
 					case WATCH_FILE_TYPES::WATCH_FILE_TEXTURE:
-						//ReloadTexture(it);
+						ContentManager::Instance()->LoadTexture(it.path);
+						Console::Instance()->Log(std::string("[FILEWATCH] Reloaded a texture: ") + it.path, LOG_COLOR_TYPES::LOG_COLOR_NOTICE);
 						break;
 					}
 					it.last_changed = last_changed;

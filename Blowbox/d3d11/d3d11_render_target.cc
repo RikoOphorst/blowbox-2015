@@ -127,12 +127,12 @@ namespace blowbox
 		if (RENDER_TARGET_TYPE::RENDER_TARGET_TYPE_BACKBUFFER == type_)
 		{
 			context->ClearRenderTargetView(view_, D3DXCOLOR(0.1f, 0.1f, 0.1f, 1.0f));
-			context->ClearDepthStencilView(depth_stencil_->GetView(), D3D11_CLEAR_FLAG::D3D11_CLEAR_DEPTH | D3D11_CLEAR_FLAG::D3D11_CLEAR_STENCIL, 1.0f, 0.0f);
+			context->ClearDepthStencilView(depth_stencil_->GetView(), D3D11_CLEAR_FLAG::D3D11_CLEAR_DEPTH | D3D11_CLEAR_FLAG::D3D11_CLEAR_STENCIL, 1.0f, 0);
 		}
 		else if (RENDER_TARGET_TYPE::RENDER_TARGET_TYPE_RENDER_TARGET == type_)
 		{
 			context->ClearRenderTargetView(view_, D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.0f));
-			context->ClearDepthStencilView(depth_stencil_->GetView(), D3D11_CLEAR_FLAG::D3D11_CLEAR_DEPTH | D3D11_CLEAR_FLAG::D3D11_CLEAR_STENCIL, 1.0f, 0.0f);
+			context->ClearDepthStencilView(depth_stencil_->GetView(), D3D11_CLEAR_FLAG::D3D11_CLEAR_DEPTH | D3D11_CLEAR_FLAG::D3D11_CLEAR_STENCIL, 1.0f, 0);
 		}
 	}
 

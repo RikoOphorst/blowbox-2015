@@ -22,5 +22,3 @@ quad2 = Quad.new(anotherqueue)
 
 quaderino:setScale2D(50, 50)
 quad2:setScale2D(75, 75)
-
-print("dkshgjfdkhfds")

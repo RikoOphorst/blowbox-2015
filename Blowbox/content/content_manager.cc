@@ -9,7 +9,8 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	ContentManager::ContentManager()
 	{
-
+		LoadShader(BLOW_BASE_SHADER);
+		LoadTexture(BLOW_BASE_TEXTURE);
 	}
 
 	//------------------------------------------------------------------------------------------------------
@@ -19,33 +20,43 @@ namespace blowbox
 	}
 
 	//------------------------------------------------------------------------------------------------------
+	ContentManager* ContentManager::Instance()
+	{
+		static SharedPtr<ContentManager> ptr(new ContentManager());
+		return ptr.get();
+	}
+
+	/************
+	** SHADERS **
+	*************/
+
+	//------------------------------------------------------------------------------------------------------
 	void ContentManager::LoadShader(const std::string& path)
 	{
-		if (shaders_.find(path) == shaders_.end())
+		auto it = shaders_.find(path);
+		
+		if (it == shaders_.end())
 		{
 			D3D11Shader* shader = new D3D11Shader(path);
 
 			shaders_.emplace(path, shader);
-		}
-	}
 
-	void ContentManager::LoadTexture(const std::string& path)
-	{
-		if (textures_.find(path) == textures_.end())
+			Console::Instance()->Log("[CONTENTMANAGER] Loaded a new shader: " + path, LOG_COLOR_TYPES::LOG_COLOR_NOTICE);
+		}
+		else
 		{
-			D3D11Texture* texture = new D3D11Texture();
-
-			textures_.emplace(path, texture);
+			it->second->Reload();
 		}
 	}
 
+	//------------------------------------------------------------------------------------------------------
 	D3D11Shader* ContentManager::GetShader(const std::string& path)
 	{
 		auto it = shaders_.find(path);
 
 		if (it != shaders_.end())
 		{
-			return it->second;
+			return it->second.get();
 		}
 
 		Console::Instance()->Log("[CONTENTMANAGER] Shader has not yet been loaded but you did try to load it: " + path, LOG_COLOR_TYPES::LOG_COLOR_ERROR);
@@ -53,6 +64,7 @@ namespace blowbox
 		return nullptr;
 	}
 
+	//------------------------------------------------------------------------------------------------------
 	D3D11Shader* ContentManager::GetShader(const std::string& path, bool& failed)
 	{
 		auto it = shaders_.find(path);
@@ -61,7 +73,7 @@ namespace blowbox
 
 		if (it != shaders_.end())
 		{
-			return it->second;
+			return it->second.get();
 		}
 
 		failed = true;
@@ -71,13 +83,37 @@ namespace blowbox
 		return nullptr;
 	}
 
+	/*************
+	** TEXTURES **
+	**************/
+
+	//------------------------------------------------------------------------------------------------------
+	void ContentManager::LoadTexture(const std::string& path)
+	{
+		auto it = textures_.find(path);
+		
+		if (it == textures_.end() || path == BLOW_BASE_TEXTURE)
+		{
+			D3D11Texture* texture = new D3D11Texture(path);
+
+			textures_.emplace(path, texture);
+
+			Console::Instance()->Log("[CONTENTMANAGER] Loaded a new texture: " + path, LOG_COLOR_TYPES::LOG_COLOR_NOTICE);
+		}
+		else
+		{
+			it->second->Reload();
+		}
+	}
+
+	//------------------------------------------------------------------------------------------------------
 	D3D11Texture* ContentManager::GetTexture(const std::string& path)
 	{
 		auto it = textures_.find(path);
 
 		if (it != textures_.end())
 		{
-			return it->second;
+			return it->second.get();
 		}
 
 		Console::Instance()->Log("[CONTENTMANAGER] Texture has not yet been loaded but you did try to load it: " + path, LOG_COLOR_TYPES::LOG_COLOR_ERROR);
@@ -85,6 +121,7 @@ namespace blowbox
 		return nullptr;
 	}
 
+	//------------------------------------------------------------------------------------------------------
 	D3D11Texture* ContentManager::GetTexture(const std::string& path, bool& failed)
 	{
 		auto it = textures_.find(path);
@@ -93,7 +130,7 @@ namespace blowbox
 
 		if (it != textures_.end())
 		{
-			return it->second;
+			return it->second.get();
 		}
 
 		failed = true;
@@ -101,5 +138,33 @@ namespace blowbox
 		Console::Instance()->Log("[CONTENTMANAGER] Texture has not yet been loaded but you did try to load it: " + path, LOG_COLOR_TYPES::LOG_COLOR_ERROR);
 
 		return nullptr;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	void ContentManager::LuaRegisterFunctions(lua_State* L)
+	{
+		luaL_Reg regist[] = {
+			{ "loadShader", LuaLoadShader },
+			{ "loadTexture", LuaLoadTexture },
+			{ NULL, NULL }
+		};
+
+		luaL_register(L, NULL, regist);
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int ContentManager::LuaLoadShader(lua_State* L)
+	{
+		ContentManager::Instance()->LoadShader(LuaWrapper::Instance()->Get<std::string>(L, -1));
+
+		return 0;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int ContentManager::LuaLoadTexture(lua_State* L)
+	{
+		ContentManager::Instance()->LoadTexture(LuaWrapper::Instance()->Get<std::string>(L, -1));
+
+		return 0;
 	}
 }

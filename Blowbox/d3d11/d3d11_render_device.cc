@@ -14,6 +14,7 @@
 #include "../../blowbox/d3d11/d3d11_texture.h"
 #include "../../blowbox/d3d11/d3d11_vertex_buffer.h"
 #include "../../blowbox/d3d11/d3d11_viewport.h"
+#include "../../blowbox/content/content_manager.h"
 
 #include "../../blowbox/win32/window.h"
 
@@ -105,10 +106,7 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	void D3D11RenderDevice::CreateInputLayout()
 	{
-		/**
-		* @todo Fix this shit
-		*/
-		default_shader_ = new D3D11Shader(std::string("shaders/base.fx"));
+		default_shader_ = ContentManager::Instance()->GetShader(BLOW_BASE_SHADER);
 		
 		D3D11_INPUT_ELEMENT_DESC layout[] = {
 			{ "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
@@ -117,7 +115,7 @@ namespace blowbox
 			{ "NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 40, D3D11_INPUT_PER_VERTEX_DATA, 0 }
 		};
 		UINT stride = sizeof(layout);
-		input_layout_ = new D3D11InputLayout(layout, stride, default_shader_.get());
+		input_layout_ = new D3D11InputLayout(layout, stride, default_shader_);
 
 		input_layout_->Set(context_);
 	}

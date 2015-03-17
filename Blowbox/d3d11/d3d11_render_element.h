@@ -468,8 +468,8 @@ namespace blowbox
 		
 		double alpha_;
 
-		SharedPtr<D3D11Texture> texture_;
-		SharedPtr<D3D11Shader> shader_;
+		D3D11Texture* texture_;
+		D3D11Shader* shader_;
 
 		SharedPtr<D3D11VertexBuffer> vertex_buffer_;
 

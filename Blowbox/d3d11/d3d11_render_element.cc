@@ -6,6 +6,7 @@
 #include "../../blowbox/d3d11/d3d11_shader.h"
 #include "../../blowbox/d3d11/d3d11_rasterizer_state.h"
 #include "../../blowbox/d3d11/d3d11_blend_state.h"
+#include "../../blowbox/content/content_manager.h"
 
 namespace blowbox
 {
@@ -25,7 +26,8 @@ namespace blowbox
 		rasterizer_state_ = new D3D11RasterizerState();
 		blend_state_ = new D3D11BlendState();
 
-		SetShader("shaders/base.fx");
+		SetShader(BLOW_BASE_SHADER);
+		SetTexture(BLOW_BASE_TEXTURE);
 	}
 
 	//------------------------------------------------------------------------------------------------------
@@ -44,7 +46,8 @@ namespace blowbox
 		rasterizer_state_ = new D3D11RasterizerState();
 		blend_state_ = new D3D11BlendState();
 
-		SetShader("shaders/base.fx");
+		SetShader(BLOW_BASE_SHADER);
+		SetTexture(BLOW_BASE_TEXTURE);
 	}
 
 	//------------------------------------------------------------------------------------------------------
@@ -104,13 +107,13 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	D3D11Texture* D3D11RenderElement::GetTexture()
 	{
-		return texture_.get();
+		return texture_;
 	}
 
 	//------------------------------------------------------------------------------------------------------
 	D3D11Shader* D3D11RenderElement::GetShader()
 	{
-		return shader_.get();
+		return shader_;
 	}
 
 	//------------------------------------------------------------------------------------------------------
@@ -250,18 +253,13 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	void D3D11RenderElement::SetTexture(std::string path)
 	{
-		/**
-		* @todo Implement the content manager
-		*/
+		texture_ = ContentManager::Instance()->GetTexture(path);
 	}
 
 	//------------------------------------------------------------------------------------------------------
 	void D3D11RenderElement::SetShader(std::string path)
 	{
-		/**
-		* @todo Implement the content manager
-		*/
-		shader_ = new D3D11Shader(path);
+		shader_ = ContentManager::Instance()->GetShader(path);
 	}
 
 	//------------------------------------------------------------------------------------------------------
