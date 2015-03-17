@@ -116,12 +116,36 @@ namespace blowbox
 			string = lua_tostring(L, index);
 			break;
 
+		case LUA_TUSERDATA: // userdata
+		case LUA_TLIGHTUSERDATA:
+
+			lua_pushvalue(L, index);
+			lua_getglobal(L, "tostring");
+			lua_pushvalue(L, -2);
+			lua_pcall(L, 1, 1, 0);
+
+			string = lua_tostring(L, -1);
+			break;
+
 		case LUA_TBOOLEAN:  // booleans
 			string = lua_toboolean(L, index) ? "true" : "false";
 			break;
 
 		case LUA_TNUMBER:  // numbers
 			string = std::to_string(lua_tonumber(L, index));
+			break;
+
+		case LUA_TFUNCTION:
+			string = "function";
+			break;
+
+		case LUA_TNIL:
+		case LUA_TNONE:
+			string = "nil";
+			break;
+
+		case LUA_TTABLE:
+			string = "table";
 			break;
 
 		default:  // other values

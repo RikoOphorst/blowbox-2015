@@ -45,6 +45,13 @@ namespace blowbox
 		static int LuaDestructor(lua_State* L);
 
 		/**
+		* @brief The LuaToString function that is set in the metatables of generated objects
+		* @param[in] L (lua_State*) the lua state
+		*/
+		template <typename T>
+		static int LuaToString(lua_State* L);
+
+		/**
 		* @brief Registers functions of this class
 		* @param[in] L (lua_State*) the lua state
 		*/
@@ -130,5 +137,12 @@ namespace blowbox
 		ptr = nullptr;
 
 		return 0;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	template<typename T>
+	inline int LuaClass::LuaToString(lua_State* L)
+	{
+		return LuaWrapper::Instance()->Push(L, T::GetName());
 	}
 }

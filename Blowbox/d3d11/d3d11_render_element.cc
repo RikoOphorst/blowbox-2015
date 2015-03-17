@@ -130,9 +130,26 @@ namespace blowbox
 	}
 
 	//------------------------------------------------------------------------------------------------------
+	void D3D11RenderElement::SetPosition(double x, double y, double z)
+	{
+		position_.x = static_cast<float>(x);
+		position_.y = static_cast<float>(y);
+		position_.z = static_cast<float>(z);
+
+		CalculatePosition();
+	}
+
+	//------------------------------------------------------------------------------------------------------
 	void D3D11RenderElement::SetX(float x)
 	{
 		position_.x = x;
+		CalculatePosition();
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	void D3D11RenderElement::SetX(double x)
+	{
+		position_.x = static_cast<float>(x);
 		CalculatePosition();
 	}
 
@@ -144,9 +161,23 @@ namespace blowbox
 	}
 
 	//------------------------------------------------------------------------------------------------------
+	void D3D11RenderElement::SetY(double y)
+	{
+		position_.y = static_cast<float>(y);
+		CalculatePosition();
+	}
+
+	//------------------------------------------------------------------------------------------------------
 	void D3D11RenderElement::SetZ(float z)
 	{
 		position_.z = z;
+		CalculatePosition();
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	void D3D11RenderElement::SetZ(double z)
+	{
+		position_.z = static_cast<float>(z);
 		CalculatePosition();
 	}
 
@@ -160,6 +191,15 @@ namespace blowbox
 	}
 
 	//------------------------------------------------------------------------------------------------------
+	void D3D11RenderElement::SetRotation(double x, double y, double z)
+	{
+		rotation_.x = static_cast<float>(x);
+		rotation_.y = static_cast<float>(y);
+		rotation_.z = static_cast<float>(z);
+		CalculateRotation();
+	}
+
+	//------------------------------------------------------------------------------------------------------
 	void D3D11RenderElement::SetScale(float x, float y, float z)
 	{
 		scaling_.x = x;
@@ -169,11 +209,29 @@ namespace blowbox
 	}
 
 	//------------------------------------------------------------------------------------------------------
+	void D3D11RenderElement::SetScale(double x, double y, double z)
+	{
+		scaling_.x = static_cast<float>(x);
+		scaling_.y = static_cast<float>(y);
+		scaling_.z = static_cast<float>(z);
+		CalculateScaling();
+	}
+
+	//------------------------------------------------------------------------------------------------------
 	void D3D11RenderElement::SetOffset(float x, float y, float z)
 	{
 		offset_.x = x;
 		offset_.y = y;
 		offset_.z = z;
+		CalculateOffset();
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	void D3D11RenderElement::SetOffset(double x, double y, double z)
+	{
+		offset_.x = static_cast<float>(x);
+		offset_.y = static_cast<float>(y);
+		offset_.z = static_cast<float>(z);
 		CalculateOffset();
 	}
 
@@ -293,7 +351,7 @@ namespace blowbox
 		self->SetPosition(
 			LuaWrapper::Instance()->Get<double>(L, -2),
 			LuaWrapper::Instance()->Get<double>(L, -1),
-			0.0f
+			0
 			);
 
 		return 0;
@@ -392,8 +450,8 @@ namespace blowbox
 		D3D11RenderElement* self = LuaWrapper::Instance()->ParseUserdata<D3D11RenderElement>(L, -2);
 
 		self->SetRotation(
-			0.0f,
-			0.0f,
+			0,
+			0,
 			LuaWrapper::Instance()->Get<double>(L, -1)
 			);
 
@@ -444,7 +502,7 @@ namespace blowbox
 		self->SetScale(
 			LuaWrapper::Instance()->Get<double>(L, -2),
 			LuaWrapper::Instance()->Get<double>(L, -1),
-			1.0f
+			1
 			);
 
 		return 0;
@@ -494,7 +552,7 @@ namespace blowbox
 		self->SetOffset(
 			LuaWrapper::Instance()->Get<double>(L, -2),
 			LuaWrapper::Instance()->Get<double>(L, -1),
-			0.0f
+			0
 			);
 
 		return 0;

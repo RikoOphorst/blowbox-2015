@@ -3,10 +3,10 @@ Game.Update = function (dt)
 
 	Game.t = Game.t + 1
 
-	quad:setPosition2D(Game.t / 100, 0)
+	quaderino:setPosition2D(Game.t / 100, 0)
 
-	if (Game.t >= 120) then
-		rendertarget:setQueue(anotherQueue)
+	if (Game.t == 300) then
+		rendertarget:setQueue(renderqueue)
 	end
 end
 
@@ -15,8 +15,8 @@ renderqueue = RenderQueue.new(rendertarget)
 
 anotherqueue = RenderQueue.new(rendertarget)
 
-quad = Quad.new(renderqueue)
+quaderino = Quad.new(renderqueue)
 quad2 = Quad.new(anotherqueue)
 
-quad:setScale2D(50, 50)
+quaderino:setScale2D(50, 50)
 quad2:setScale2D(75, 75)

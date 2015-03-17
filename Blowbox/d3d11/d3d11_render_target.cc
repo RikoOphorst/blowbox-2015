@@ -208,9 +208,7 @@ namespace blowbox
 
 	//------------------------------------------------------------------------------------------------------
 	int D3D11RenderTarget::LuaSetQueue(lua_State* L)
-	{
-		LuaWrapper::Instance()->Dump(L, "duuuude");
-		
+	{	
 		D3D11RenderTarget* self = LuaWrapper::Instance()->ParseUserdata<D3D11RenderTarget>(L, -2);
 
 		self->SetQueue(LuaWrapper::Instance()->ParseUserdata<D3D11RenderQueue>(L, -1));

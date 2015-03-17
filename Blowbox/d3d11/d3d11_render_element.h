@@ -105,10 +105,24 @@ namespace blowbox
 		void SetPosition(float x, float y, float z);
 
 		/**
+		* @brief Sets the position of the element
+		* @param[in] x (double) The x position
+		* @param[in] y (double) The y position
+		* @param[in] z (double) The z position
+		*/
+		void SetPosition(double x, double y, double z);
+
+		/**
 		* @brief Sets the x position of the element
 		* @param[in] x (float) The x position
 		*/
 		void SetX(float x);
+
+		/**
+		* @brief Sets the x position of the element
+		* @param[in] x (double) The x position
+		*/
+		void SetX(double x);
 
 		/**
 		* @brief Sets the x position of the element
@@ -118,9 +132,21 @@ namespace blowbox
 
 		/**
 		* @brief Sets the x position of the element
+		* @param[in] y (double) The y position
+		*/
+		void SetY(double y);
+
+		/**
+		* @brief Sets the x position of the element
 		* @param[in] z (float) The z position
 		*/
 		void SetZ(float z);
+
+		/**
+		* @brief Sets the x position of the element
+		* @param[in] z (double) The z position
+		*/
+		void SetZ(double z);
 
 		/**
 		* @brief Sets the rotation of the element
@@ -131,6 +157,14 @@ namespace blowbox
 		void SetRotation(float x, float y, float z);
 
 		/**
+		* @brief Sets the rotation of the element
+		* @param[in] x (double) The x rotation of the element
+		* @param[in] y (double) The y rotation of the element
+		* @param[in] z (double) The z rotation of the element
+		*/
+		void SetRotation(double x, double y, double z);
+
+		/**
 		* @brief Sets the scaling of the element
 		* @param[in] x (float) The x scaling of the element
 		* @param[in] y (float) The y scaling of the element
@@ -139,12 +173,28 @@ namespace blowbox
 		void SetScale(float x, float y, float z);
 
 		/**
+		* @brief Sets the scaling of the element
+		* @param[in] x (double) The x scaling of the element
+		* @param[in] y (double) The y scaling of the element
+		* @param[in] z (double) The z scaling of the element
+		*/
+		void SetScale(double x, double y, double z);
+
+		/**
 		* @brief Sets the offset of the element
 		* @param[in] x (float) The x offset of the element
 		* @param[in] y (float) The y offset of the element
 		* @param[in] z (float) The z offset of the element
 		*/
 		void SetOffset(float x, float y, float z);
+
+		/**
+		* @brief Sets the offset of the element
+		* @param[in] x (double) The x offset of the element
+		* @param[in] y (double) The y offset of the element
+		* @param[in] z (double) The z offset of the element
+		*/
+		void SetOffset(double x, double y, double z);
 		
 		/**
 		* @brief Set the alpha of the element

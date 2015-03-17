@@ -7,7 +7,6 @@ var searchData=
   ['sharedptr_3c_20blowbox_3a_3ad3d11depthstencil_20_3e',['SharedPtr&lt; blowbox::D3D11DepthStencil &gt;',['../classblowbox_1_1_shared_ptr.html',1,'blowbox']]],
   ['sharedptr_3c_20blowbox_3a_3ad3d11inputlayout_20_3e',['SharedPtr&lt; blowbox::D3D11InputLayout &gt;',['../classblowbox_1_1_shared_ptr.html',1,'blowbox']]],
   ['sharedptr_3c_20blowbox_3a_3ad3d11rasterizerstate_20_3e',['SharedPtr&lt; blowbox::D3D11RasterizerState &gt;',['../classblowbox_1_1_shared_ptr.html',1,'blowbox']]],
-  ['sharedptr_3c_20blowbox_3a_3ad3d11renderqueue_20_3e',['SharedPtr&lt; blowbox::D3D11RenderQueue &gt;',['../classblowbox_1_1_shared_ptr.html',1,'blowbox']]],
   ['sharedptr_3c_20blowbox_3a_3ad3d11rendertarget_20_3e',['SharedPtr&lt; blowbox::D3D11RenderTarget &gt;',['../classblowbox_1_1_shared_ptr.html',1,'blowbox']]],
   ['sharedptr_3c_20blowbox_3a_3ad3d11shader_20_3e',['SharedPtr&lt; blowbox::D3D11Shader &gt;',['../classblowbox_1_1_shared_ptr.html',1,'blowbox']]],
   ['sharedptr_3c_20blowbox_3a_3ad3d11swapchain_20_3e',['SharedPtr&lt; blowbox::D3D11SwapChain &gt;',['../classblowbox_1_1_shared_ptr.html',1,'blowbox']]],

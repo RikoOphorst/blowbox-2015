@@ -110,6 +110,9 @@ namespace blowbox
 		// Register the "__call" function on the mt
 		LuaRegister::Instance()->RegisterFunction(L, T::LuaConstructor<T>, "__call", mt);
 
+		// Register the "__tostring" function on the mt
+		LuaRegister::Instance()->RegisterFunction(L, T::LuaToString<T>, "__tostring", mt);
+
 		// Set the metatable on the base class
 		lua_setmetatable(L, methods);
 
