@@ -19,18 +19,24 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	Game::Game()
 	{
-		LuaState::Instance();
-
 		window_ = new Window();
 		mouse_ = Mouse::Instance();
 		keyboard_ = Keyboard::Instance();
 		renderDevice_ = D3D11RenderDevice::Instance();
 
-		LuaRegister::Instance()->RegisterClass<Quad>(LuaState::Instance()->Get());
+		cb_init_ = new LuaCallback(std::vector<LuaValue>({
+			LuaValue(LUA_TYPE::LUA_TYPE_TABLE, LUA_LOCATION::LUA_LOCATION_GLOBAL, "Game"),
+			LuaValue(LUA_TYPE::LUA_TYPE_FUNCTION, LUA_LOCATION::LUA_LOCATION_FIELD, "Initialise")
+		}));
 
 		cb_update_ = new LuaCallback(std::vector<LuaValue>({
 			LuaValue(LUA_TYPE::LUA_TYPE_TABLE, LUA_LOCATION::LUA_LOCATION_GLOBAL, "Game"),
 			LuaValue(LUA_TYPE::LUA_TYPE_FUNCTION, LUA_LOCATION::LUA_LOCATION_FIELD, "Update")
+		}));
+		
+		cb_draw_ = new LuaCallback(std::vector<LuaValue>({
+			LuaValue(LUA_TYPE::LUA_TYPE_TABLE, LUA_LOCATION::LUA_LOCATION_GLOBAL, "Game"),
+			LuaValue(LUA_TYPE::LUA_TYPE_FUNCTION, LUA_LOCATION::LUA_LOCATION_FIELD, "Draw")
 		}));
 	}
 
@@ -59,6 +65,8 @@ namespace blowbox
 
 		if (LuaWrapper::Instance()->CompileFromFile(LuaState::Instance()->Get(), "main.lua"))
 		{	
+			cb_init_->Call<>(LuaState::Instance()->Get());
+			
 			while (window->GetStarted())
 			{
 				Update();
@@ -72,7 +80,7 @@ namespace blowbox
 	{
 		FileWatch::Instance()->Update();
 
-		window_.get()->ProcessMessages();
+		window_->ProcessMessages();
 		mouse_->Update();
 		keyboard_->Update();
 
@@ -84,16 +92,38 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	void Game::Draw()
 	{
-		renderDevice_->Draw();
+		cb_draw_->Call<>(LuaState::Instance()->Get());
 	}
 
 	//------------------------------------------------------------------------------------------------------
 	void Game::LuaRegisterFunctions(lua_State* L)
 	{
 		luaL_Reg regist[] = {
+			{ "Update", LuaUpdate },
+			{ "Draw", LuaDraw },
+			{ "Render", LuaRender },
 			{ NULL, NULL }
 		};
 
 		luaL_register(L, NULL, regist);
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int Game::LuaUpdate(lua_State* L)
+	{
+		return 0;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int Game::LuaDraw(lua_State* L)
+	{
+		return 0;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int Game::LuaRender(lua_State* L)
+	{
+		D3D11RenderDevice::Instance()->Draw(LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, -1));
+		return 0;
 	}
 }

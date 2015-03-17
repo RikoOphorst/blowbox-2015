@@ -52,7 +52,7 @@ namespace blowbox
 		/**
 		* @brief Starts drawing all the render targets
 		*/
-		void Draw();
+		void Draw(D3D11Camera* camera);
 
 		/**
 		* @brief Draws a specific render target
@@ -164,8 +164,6 @@ namespace blowbox
 
 		SharedPtr<D3D11ConstantBuffer> global_buffer_;
 		SharedPtr<D3D11ConstantBuffer> per_object_buffer_;
-
-		SharedPtr<D3D11Camera> camera_;
 
 		std::map<std::string, D3D11RenderTarget*> render_targets_;
 

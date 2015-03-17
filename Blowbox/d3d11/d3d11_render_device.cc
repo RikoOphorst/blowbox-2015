@@ -58,8 +58,6 @@ namespace blowbox
 		CreateGlobalBuffer();
 
 		CreateObjectBuffer();
-
-		camera_ = new D3D11Camera();
 	}
 
 	//------------------------------------------------------------------------------------------------------
@@ -135,9 +133,9 @@ namespace blowbox
 	}
 
 	//------------------------------------------------------------------------------------------------------
-	void D3D11RenderDevice::Draw()
+	void D3D11RenderDevice::Draw(D3D11Camera* camera)
 	{
-		if (camera_.get() == nullptr)
+		if (camera == nullptr)
 		{
 			return;
 		}
@@ -146,14 +144,14 @@ namespace blowbox
 
 		global_buffer_->Map(context_, {
 			0.0f,
-			camera_->GetView(),
-			camera_->GetProjection()
+			camera->GetView(),
+			camera->GetProjection()
 		});
 		global_buffer_->Set(context_, 0);
 
-		//default_shader_->Set(context_);
+		default_shader_->Set(context_);
 
-		for (auto it = render_targets_.begin(); it != render_targets_.end(); it++)
+		for (auto it = render_targets_.begin(); it != render_targets_.end(); ++it)
 		{
 			DrawRenderTarget(it->second);
 		}

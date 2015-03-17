@@ -1,6 +1,7 @@
 #include "../../blowbox/d3d11/d3d11_camera.h"
 
 #include "../../blowbox/d3d11/d3d11.h"
+#include "../../blowbox/utility/lua_enum.h"
 
 namespace blowbox
 {
@@ -15,6 +16,20 @@ namespace blowbox
 		mode_(CAMERA_PROJECTION_TYPE::CAMERA_PROJECTION_ORTHOGRAPHIC)
 	{
 		
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	D3D11Camera::D3D11Camera(lua_State* L) :
+		position_(XMVectorSet(0.0f, 0.0f, -100.0f, 1.0f)),
+		target_(XMVectorSet(0.0f, 0.0f, 1.0f, 1.0f)),
+		up_(XMVectorSet(0.0f, 1.0f, 0.0f, 1.0f)),
+		nearz_(0.001f),
+		farz_(1000.0f),
+		fov_(0.2f * 3.14f),
+		mode_(CAMERA_PROJECTION_TYPE::CAMERA_PROJECTION_ORTHOGRAPHIC),
+		LuaClass(L)
+	{
+
 	}
 
 	//------------------------------------------------------------------------------------------------------
@@ -148,6 +163,12 @@ namespace blowbox
 	}
 
 	//------------------------------------------------------------------------------------------------------
+	void D3D11Camera::SetFOV(const float& fov)
+	{
+		fov_ = fov;
+	}
+
+	//------------------------------------------------------------------------------------------------------
 	void D3D11Camera::SetMode(const CAMERA_PROJECTION_TYPE& mode)
 	{
 		mode_ = mode;
@@ -163,5 +184,254 @@ namespace blowbox
 	void D3D11Camera::SetUp(const float& x, const float& y, const float& z)
 	{
 		up_ = XMVectorSet(x, y, z, 1.0f);
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	void D3D11Camera::LuaRegisterFunctions(lua_State* L)
+	{
+		luaL_Reg regist[] = {
+			{ "setPosition", LuaSetPosition },
+			{ "getPosition", LuaGetPosition },
+			{ "setTarget", LuaSetTarget },
+			{ "getTarget", LuaGetTarget },
+			{ "setUp", LuaSetUp },
+			{ "getUp", LuaGetUp },
+			{ "setPosition2D", LuaSetPosition2D },
+			{ "getPosition2D", LuaGetPosition2D },
+			{ "setTarget2D", LuaSetTarget2D },
+			{ "getTarget2D", LuaGetTarget2D },
+			{ "setUp2D", LuaSetUp2D },
+			{ "getUp2D", LuaGetUp2D },
+			{ "setMode", LuaSetMode },
+			{ "getMode", LuaGetMode },
+			{ "setNearZ", LuaSetNearZ },
+			{ "getNearZ", LuaGetNearZ },
+			{ "setFarZ", LuaSetFarZ },
+			{ "getFarZ", LuaGetFarZ },
+			{ "setFOV", LuaSetFOV },
+			{ "getFOV", LuaGetFOV },
+			{ NULL, NULL }
+		};
+
+		LuaEnum::Set(L, "CameraModes", {
+			"Orthographic",
+			"Perspective"
+		});
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11Camera::LuaSetPosition(lua_State* L)
+	{
+		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, -4);
+
+		self->SetPosition(
+			static_cast<float>(LuaWrapper::Instance()->Get<double>(L, -3)),
+			static_cast<float>(LuaWrapper::Instance()->Get<double>(L, -2)),
+			static_cast<float>(LuaWrapper::Instance()->Get<double>(L, -1)));
+
+		return 0;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11Camera::LuaGetPosition(lua_State* L)
+	{
+		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, -1);
+
+		XMFLOAT4 pos;
+		XMStoreFloat4(&pos, self->GetPosition());
+
+		return LuaWrapper::Instance()->Push(L, pos.x, pos.y, pos.z);
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11Camera::LuaSetTarget(lua_State* L)
+	{
+		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, -4);
+
+		self->SetTarget(
+			static_cast<float>(LuaWrapper::Instance()->Get<double>(L, -3)),
+			static_cast<float>(LuaWrapper::Instance()->Get<double>(L, -2)),
+			static_cast<float>(LuaWrapper::Instance()->Get<double>(L, -1)));
+
+		return 0;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11Camera::LuaGetTarget(lua_State* L)
+	{
+		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, -1);
+
+		XMFLOAT4 pos;
+		XMStoreFloat4(&pos, self->GetTarget());
+
+		return LuaWrapper::Instance()->Push(L, pos.x, pos.y, pos.z);
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11Camera::LuaSetUp(lua_State* L)
+	{
+		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, -4);
+
+		self->SetUp(
+			static_cast<float>(LuaWrapper::Instance()->Get<double>(L, -3)),
+			static_cast<float>(LuaWrapper::Instance()->Get<double>(L, -2)),
+			static_cast<float>(LuaWrapper::Instance()->Get<double>(L, -1)));
+
+		return 0;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11Camera::LuaGetUp(lua_State* L)
+	{
+		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, -1);
+
+		XMFLOAT4 pos;
+		XMStoreFloat4(&pos, self->GetUp());
+
+		return LuaWrapper::Instance()->Push(L, pos.x, pos.y, pos.z);
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11Camera::LuaSetPosition2D(lua_State* L)
+	{
+		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, -3);
+
+		self->SetPosition(
+			static_cast<float>(LuaWrapper::Instance()->Get<double>(L, -2)),
+			static_cast<float>(LuaWrapper::Instance()->Get<double>(L, -1)),
+			-10.0f);
+
+		return 0;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11Camera::LuaGetPosition2D(lua_State* L)
+	{
+		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, -1);
+
+		XMFLOAT4 pos;
+		XMStoreFloat4(&pos, self->GetPosition());
+
+		return LuaWrapper::Instance()->Push(L, pos.x, pos.y, pos.z);
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11Camera::LuaSetTarget2D(lua_State* L)
+	{
+		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, -3);
+
+		self->SetTarget(
+			static_cast<float>(LuaWrapper::Instance()->Get<double>(L, -2)),
+			static_cast<float>(LuaWrapper::Instance()->Get<double>(L, -1)),
+			0.0f);
+
+		return 0;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11Camera::LuaGetTarget2D(lua_State* L)
+	{
+		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, -1);
+
+		XMFLOAT4 pos;
+		XMStoreFloat4(&pos, self->GetTarget());
+
+		return LuaWrapper::Instance()->Push(L, pos.x, pos.y, pos.z);
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11Camera::LuaSetUp2D(lua_State* L)
+	{
+		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, -3);
+
+		self->SetUp(
+			static_cast<float>(LuaWrapper::Instance()->Get<double>(L, -2)),
+			static_cast<float>(LuaWrapper::Instance()->Get<double>(L, -1)),
+			0.0f);
+
+		return 0;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11Camera::LuaGetUp2D(lua_State* L)
+	{
+		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, -1);
+
+		XMFLOAT4 pos;
+		XMStoreFloat4(&pos, self->GetUp());
+
+		return LuaWrapper::Instance()->Push(L, pos.x, pos.y, pos.z);
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11Camera::LuaSetMode(lua_State* L)
+	{
+		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, -2);
+
+		self->SetMode(static_cast<CAMERA_PROJECTION_TYPE>(static_cast<int>(LuaWrapper::Instance()->Get<double>(L, -1))));
+
+		return 0;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11Camera::LuaGetMode(lua_State* L)
+	{
+		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, -1);
+
+		return LuaWrapper::Instance()->Push(L, static_cast<int>(self->GetMode()));
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11Camera::LuaSetNearZ(lua_State* L)
+	{
+		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, -2);
+
+		self->SetNearZ(static_cast<float>(LuaWrapper::Instance()->Get<double>(L, -1)));
+
+		return 0;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11Camera::LuaGetNearZ(lua_State* L)
+	{
+		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, -1);
+
+		return LuaWrapper::Instance()->Push(L, self->GetNearZ());
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11Camera::LuaSetFarZ(lua_State* L)
+	{
+		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, -2);
+
+		self->SetFarZ(static_cast<float>(LuaWrapper::Instance()->Get<double>(L, -1)));
+
+		return 0;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11Camera::LuaGetFarZ(lua_State* L)
+	{
+		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, -1);
+
+		return LuaWrapper::Instance()->Push(L, self->GetFarZ());
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11Camera::LuaSetFOV(lua_State* L)
+	{
+		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, -2);
+
+		self->SetFOV(static_cast<float>(LuaWrapper::Instance()->Get<double>(L, -1)));
+
+		return 0;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int D3D11Camera::LuaGetFOV(lua_State* L)
+	{
+		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, -1);
+
+		return LuaWrapper::Instance()->Push(L, self->GetFOV());
 	}
 }

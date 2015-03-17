@@ -1,18 +1,22 @@
+Game.Initialise = function ()
+	Game.camera = Camera.new()
+end
+
 Game.Update = function (dt)
 	Game.t = Game.t or 0
 
 	Game.t = Game.t + 1
-
-	--quaderino:setPosition2D(Game.t / 100, 0)
-
-	--print("dja moedah")
 
 	if (Game.t == 300) then
 		rendertarget:setQueue(renderqueue)
 	end
 end
 
-rendertarget = RenderTarget.new("loool")
+Game.Draw = function ()
+	Game.Render(Game.camera)
+end
+
+rendertarget = RenderTarget.new("default")
 renderqueue = RenderQueue.new(rendertarget)
 
 anotherqueue = RenderQueue.new(rendertarget)

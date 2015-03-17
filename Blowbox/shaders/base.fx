@@ -38,7 +38,7 @@ float4 PS(VOut input) : SV_TARGET
 	float4 base = tex.Sample(Sampler, input.texcoord);
 	float4 color = float4(base.rgb, base.a);
 
-	color.a *= 0.5f;
+	color.a *= alpha;
 
 	return color;
 }

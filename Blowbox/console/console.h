@@ -62,6 +62,11 @@ namespace blowbox
 		static Console* Instance();
 
 		/**
+		* @brief Is the console visible
+		*/
+		bool IsVisible();
+
+		/**
 		* @brief Logs a string in the console
 		* @param[in] string (std::string) the string to be logged
 		*/

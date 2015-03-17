@@ -60,14 +60,32 @@ namespace blowbox
 		*/
 		static void LuaRegisterFunctions(lua_State* L);
 
+		/**
+		* @brief A placeholder update function
+		* @param[in] L (lua_State*) the lua state
+		*/
+		static int LuaUpdate(lua_State* L);
+
+		/**
+		* @brief A placeholder draw function
+		* @param[in] L (lua_State*) the lua state
+		*/
+		static int LuaDraw(lua_State* L);
+
+		/**
+		* @brief Renders all rendertargets with given camera
+		* @param[in] L (lua_State*) the lua state
+		*/
+		static int LuaRender(lua_State* L);
+
 		CLASSNAME("Game");
 	private:
 		SharedPtr<Window> window_;
 		Mouse* mouse_;
 		Keyboard* keyboard_;
 		D3D11RenderDevice* renderDevice_;
-		SharedPtr<Quad> quad_;
-		SharedPtr<Quad> quad2_;
-		LuaCallback* cb_update_;
+		SharedPtr<LuaCallback> cb_init_;
+		SharedPtr<LuaCallback> cb_update_;
+		SharedPtr<LuaCallback> cb_draw_;
 	};
 }
