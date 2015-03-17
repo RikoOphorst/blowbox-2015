@@ -90,6 +90,9 @@
     <ClCompile Include="win32\file_watch.cc">
       <Filter>win32</Filter>
     </ClCompile>
+    <ClCompile Include="content\content_manager.cc">
+      <Filter>content</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game.h" />
@@ -199,6 +202,9 @@
     <ClInclude Include="win32\file_watch.h">
       <Filter>win32</Filter>
     </ClInclude>
+    <ClInclude Include="content\content_manager.h">
+      <Filter>content</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="memory">
@@ -227,6 +233,9 @@
     </Filter>
     <Filter Include="console">
       <UniqueIdentifier>{1e16303c-5429-4190-a1e6-3635af0b0943}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="content">
+      <UniqueIdentifier>{b0857c93-a052-41f1-9e70-23dcb80d1625}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
