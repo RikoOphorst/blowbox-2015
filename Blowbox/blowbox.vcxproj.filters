@@ -96,6 +96,9 @@
     <ClCompile Include="elements\cube.cc">
       <Filter>elements</Filter>
     </ClCompile>
+    <ClCompile Include="d3d11\d3d11_settings.cc">
+      <Filter>d3d11</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game.h" />
@@ -210,6 +213,9 @@
     </ClInclude>
     <ClInclude Include="elements\cube.h">
       <Filter>elements</Filter>
+    </ClInclude>
+    <ClInclude Include="d3d11\d3d11_settings.h">
+      <Filter>d3d11</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
