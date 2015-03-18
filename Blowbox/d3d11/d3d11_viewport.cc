@@ -12,8 +12,8 @@ namespace blowbox
 
 		viewport_.TopLeftX = 0.0f;
 		viewport_.TopLeftY = 0.0f;
-		viewport_.Width = (FLOAT)swap_chain_desc.BufferDesc.Width;
-		viewport_.Height = (FLOAT)swap_chain_desc.BufferDesc.Height;
+		viewport_.Width = static_cast<float>(swap_chain_desc.BufferDesc.Width);
+		viewport_.Height = static_cast<float>(swap_chain_desc.BufferDesc.Height);
 		viewport_.MinDepth = 0.0f;
 		viewport_.MaxDepth = 1.0f;
 	}
@@ -26,8 +26,8 @@ namespace blowbox
 
 		viewport_.TopLeftX = 0.0f;
 		viewport_.TopLeftY = 0.0f;
-		viewport_.Width = (FLOAT)swap_chain_desc.BufferDesc.Width;
-		viewport_.Height = (FLOAT)swap_chain_desc.BufferDesc.Height;
+		viewport_.Width = static_cast<float>(swap_chain_desc.BufferDesc.Width);
+		viewport_.Height = static_cast<float>(swap_chain_desc.BufferDesc.Height);
 		viewport_.MinDepth = minDepth;
 		viewport_.MaxDepth = maxDepth;
 	}

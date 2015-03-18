@@ -57,7 +57,7 @@ namespace blowbox
 	RECT Window::GetDimensions()
 	{
 		RECT rect;
-		GetWindowRect(handle_, &rect);
+		GetClientRect(handle_, &rect);
 
 		return rect;
 	}

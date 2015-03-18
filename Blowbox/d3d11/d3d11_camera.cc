@@ -112,15 +112,15 @@ namespace blowbox
 		if (CAMERA_PROJECTION_TYPE::CAMERA_PROJECTION_ORTHOGRAPHIC == mode_)
 		{
 			projection_ = XMMatrixOrthographicLH(
-				640, 
-				480, 
+				640.0f, 
+				480.0f, 
 				nearz_, 
 				farz_	
 			);
 		}
 		else if (CAMERA_PROJECTION_TYPE::CAMERA_PROJECTION_PERSPECTIVE == mode_)
 		{
-			projection_ = XMMatrixPerspectiveFovLH(fov_, (float)640 / 480, nearz_, farz_);
+			projection_ = XMMatrixPerspectiveFovLH(fov_, 640.0f / 480.0f, nearz_, farz_);
 		}
 
 		return projection_;
@@ -217,6 +217,8 @@ namespace blowbox
 			"Orthographic",
 			"Perspective"
 		});
+
+		luaL_register(L, NULL, regist);
 	}
 
 	//------------------------------------------------------------------------------------------------------

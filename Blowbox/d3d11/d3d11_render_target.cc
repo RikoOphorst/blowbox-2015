@@ -5,16 +5,15 @@
 #include "../../blowbox/d3d11/d3d11_shader.h"
 #include "../../blowbox/d3d11/d3d11_blend_state.h"
 #include "../../blowbox/d3d11/d3d11_depth_stencil.h"
+#include "../../blowbox/content/content_manager.h"
 
 namespace blowbox
 {
 	//------------------------------------------------------------------------------------------------------
 	D3D11RenderTarget::D3D11RenderTarget()
 	{
-		/**
-		* @todo Implement content manager
-		*/
-		shader_ = new D3D11Shader("shaders/post_processing.fx");
+		ContentManager::Instance()->LoadShader("shaders/post_processing.fx");
+		shader_ = ContentManager::Instance()->GetShader("shaders/post_processing.fx");
 		blend_state_ = new D3D11BlendState();
 		depth_stencil_ = new D3D11DepthStencil();
 	}
@@ -23,10 +22,8 @@ namespace blowbox
 	D3D11RenderTarget::D3D11RenderTarget(lua_State* L) :
 		LuaClass(L)
 	{
-		/**
-		* @todo Implement content manager
-		*/
-		shader_ = new D3D11Shader("shaders/post_processing.fx");
+		ContentManager::Instance()->LoadShader("shaders/post_processing.fx");
+		shader_ = ContentManager::Instance()->GetShader("shaders/post_processing.fx");
 		blend_state_ = new D3D11BlendState();
 		depth_stencil_ = new D3D11DepthStencil();
 

@@ -14,6 +14,20 @@ namespace blowbox
 	*/
 	struct Vertex
 	{
+		Vertex(const XMFLOAT4& p, const XMFLOAT4& c, const XMFLOAT2& t) :
+			position(p),
+			color(c),
+			tex_coords(t),
+			normal(XMFLOAT3(0.0f, 0.0f, 0.0f))
+		{}
+
+		Vertex(const XMFLOAT4& p, const XMFLOAT4& c, const XMFLOAT2& t, const XMFLOAT3& n) :
+			position(p),
+			color(c),
+			tex_coords(t),
+			normal(n)
+		{}
+
 		XMFLOAT4 position; 
 		XMFLOAT4 color;
 		XMFLOAT2 tex_coords;
@@ -27,6 +41,7 @@ namespace blowbox
 	enum BUFFER_TYPE
 	{
 		BUFFER_TYPE_QUAD,
+		BUFFER_TYPE_CUBE,
 		BUFFER_TYPE_UNKNOWN
 	};
 

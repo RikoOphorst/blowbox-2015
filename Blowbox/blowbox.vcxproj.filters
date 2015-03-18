@@ -93,6 +93,9 @@
     <ClCompile Include="content\content_manager.cc">
       <Filter>content</Filter>
     </ClCompile>
+    <ClCompile Include="elements\cube.cc">
+      <Filter>elements</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game.h" />
@@ -204,6 +207,9 @@
     </ClInclude>
     <ClInclude Include="content\content_manager.h">
       <Filter>content</Filter>
+    </ClInclude>
+    <ClInclude Include="elements\cube.h">
+      <Filter>elements</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

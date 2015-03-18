@@ -25,7 +25,7 @@ namespace blowbox
 		sampler_desc.BorderColor[2] = 0.0f;
 		sampler_desc.BorderColor[3] = 0.0f;
 
-		sampler_desc.MaxAnisotropy = 16;
+		sampler_desc.MaxAnisotropy = 4;
 		
 		if (TEXTURE_FILTERING_TYPE::TEXTURE_ANISOTROPIC == type)
 		{
