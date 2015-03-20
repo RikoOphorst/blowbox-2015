@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../../blowbox/d3d11/d3d11.h"
+#include "../../blowbox/d3d11/d3d11_settings.h"
 
 namespace blowbox
 {
@@ -44,7 +45,20 @@ namespace blowbox
 		* @brief Sets the viewport to the device context
 		*/
 		void Set();
+
+		/**
+		* @brief Sets the width & height
+		* @param[in] width (const float&) the width
+		* @param[in] height (const float&) the height
+		*/
+		void SetResolution(const float& width, const float& height);
+
+		/**
+		* @brief Gets the width & height
+		*/
+		const Resolution& GetResolution();
 	private:
 		D3D11_VIEWPORT viewport_;
+		Resolution resolution_;
 	};
 }

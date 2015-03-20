@@ -2,6 +2,7 @@
 
 #include "../../blowbox/memory/shared_ptr.h"
 #include "../../blowbox/d3d11/d3d11.h"
+#include "../../blowbox/d3d11/d3d11_settings.h"
 
 namespace blowbox
 {
@@ -33,6 +34,12 @@ namespace blowbox
 		void Initialize(Window* window);
 
 		/**
+		* @brief Creates the swap chain
+		* @param[in] window (Window*) The window to which the swap chain should bind
+		*/
+		void Create(Window* window);
+
+		/**
 		* @return IXGISwapChain* The swap chain
 		*/
 		IDXGISwapChain* GetSwapChain();
@@ -46,9 +53,22 @@ namespace blowbox
 		* @return ID3D11DeviceContext* The context
 		*/
 		ID3D11DeviceContext* GetContext();
+
+		/**
+		* @brief Sets the width & height
+		* @param[in] width (const float&) the width
+		* @param[in] height (const float&) the height
+		*/
+		void SetResolution(const float& width, const float& height);
+
+		/**
+		* @brief Gets the width & height
+		*/
+		const Resolution& GetResolution();
 	private:
 		IDXGISwapChain*						swap_chain_;
 		ID3D11Device*						device_;
 		ID3D11DeviceContext*				context_;
+		Resolution							resolution_;
 	};
 }

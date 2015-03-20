@@ -55,6 +55,11 @@ namespace blowbox
 		void Draw();
 
 		/**
+		* @brief Gets the window
+		*/
+		Window* GetWindow();
+
+		/**
 		* @brief Registers this objects functions
 		* @param[in] L (lua_State*) the lua state
 		*/

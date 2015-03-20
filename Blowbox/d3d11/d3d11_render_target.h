@@ -122,6 +122,16 @@ namespace blowbox
 		D3D11Shader* GetShader();
 
 		/**
+		* @brief Releases all COM objects
+		*/
+		void Release();
+
+		/**
+		* @brief Recreates the depth stencil
+		*/
+		void RecreateDepthStencil();
+
+		/**
 		* @brief Registers this object's functions in Lua
 		* @param[in] L (lua_State*) the lua state
 		*/
@@ -152,7 +162,7 @@ namespace blowbox
 		ID3D11RenderTargetView*					view_;
 		ID3D11ShaderResourceView*				resource_;
 		D3D11RenderQueue*						queue_;
-		SharedPtr<D3D11Shader>					shader_;
+		D3D11Shader*							shader_;
 		SharedPtr<D3D11BlendState>				blend_state_;
 		SharedPtr<D3D11DepthStencil>			depth_stencil_;
 		std::vector<D3D11RenderElement*>		render_elements_;

@@ -2,6 +2,7 @@
 
 #include "../../blowbox/d3d11/d3d11.h"
 #include "../../blowbox/utility/lua_enum.h"
+#include "../../blowbox/d3d11/d3d11_settings.h"
 
 namespace blowbox
 {
@@ -112,15 +113,15 @@ namespace blowbox
 		if (CAMERA_PROJECTION_TYPE::CAMERA_PROJECTION_ORTHOGRAPHIC == mode_)
 		{
 			projection_ = XMMatrixOrthographicLH(
-				640.0f, 
-				480.0f, 
+				D3D11Settings::Instance()->GetResolution().width, 
+				D3D11Settings::Instance()->GetResolution().height,
 				nearz_, 
 				farz_	
 			);
 		}
 		else if (CAMERA_PROJECTION_TYPE::CAMERA_PROJECTION_PERSPECTIVE == mode_)
 		{
-			projection_ = XMMatrixPerspectiveFovLH(fov_, 640.0f / 480.0f, nearz_, farz_);
+			projection_ = XMMatrixPerspectiveFovLH(fov_, D3D11Settings::Instance()->GetResolution().width / D3D11Settings::Instance()->GetResolution().height, nearz_, farz_);
 		}
 
 		return projection_;

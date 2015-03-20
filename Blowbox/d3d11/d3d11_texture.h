@@ -4,7 +4,7 @@
 
 #include "../../blowbox/d3d11/d3d11.h"
 
-#define BLOW_BASE_TEXTURE "_____base_____"
+#define BLOW_BASE_TEXTURE "base_texture.png"
 
 namespace blowbox
 {

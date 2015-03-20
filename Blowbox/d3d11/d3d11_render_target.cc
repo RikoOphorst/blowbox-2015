@@ -16,6 +16,7 @@ namespace blowbox
 		shader_ = ContentManager::Instance()->GetShader("shaders/post_processing.fx");
 		blend_state_ = new D3D11BlendState();
 		depth_stencil_ = new D3D11DepthStencil();
+		queue_ = new D3D11RenderQueue();
 	}
 
 	//------------------------------------------------------------------------------------------------------
@@ -26,6 +27,7 @@ namespace blowbox
 		shader_ = ContentManager::Instance()->GetShader("shaders/post_processing.fx");
 		blend_state_ = new D3D11BlendState();
 		depth_stencil_ = new D3D11DepthStencil();
+		queue_ = new D3D11RenderQueue();
 
 		Create(RENDER_TARGET_TYPE::RENDER_TARGET_TYPE_RENDER_TARGET, D3D11RenderDevice::Instance()->GetSwapChain(), D3D11RenderDevice::Instance()->GetDevice());
 
@@ -95,8 +97,6 @@ namespace blowbox
 
 			hr = device->CreateRenderTargetView(target_, NULL, &view_);
 			BLOW_ASSERT_HR(hr, "Error while creating render target view");
-
-			queue_ = new D3D11RenderQueue();
 		}
 		else
 		{
@@ -107,7 +107,9 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	void D3D11RenderTarget::Set(ID3D11DeviceContext* context)
 	{
-		context->OMSetRenderTargets(1, &view_, depth_stencil_->GetView());
+		ID3D11DepthStencilView* ds_view = depth_stencil_->GetView();
+		
+		context->OMSetRenderTargets(1, &view_, ds_view);
 		
 		depth_stencil_->Set(context);
 	}
@@ -160,16 +162,29 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	void D3D11RenderTarget::SetShader(const std::string& path)
 	{
-		/**
-		* @todo implement content manager
-		*/
-		shader_ = new D3D11Shader(path);
+		shader_ = ContentManager::Instance()->GetShader(path);
 	}
 
 	//------------------------------------------------------------------------------------------------------
 	D3D11Shader* D3D11RenderTarget::GetShader()
 	{
-		return shader_.get();
+		return shader_;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	void D3D11RenderTarget::Release()
+	{
+		BLOW_RELEASE(resource_);
+		BLOW_RELEASE(view_);
+		BLOW_RELEASE(target_);
+
+		depth_stencil_->Release();
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	void D3D11RenderTarget::RecreateDepthStencil()
+	{
+		depth_stencil_->Create();
 	}
 
 	//------------------------------------------------------------------------------------------------------

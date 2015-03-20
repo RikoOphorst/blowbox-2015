@@ -35,6 +35,11 @@ namespace blowbox
 		void Create(std::string name, int width, int height);
 
 		/**
+		* @brief Sets the resolution
+		*/
+		void SetResolution(const float& width, const float& height);
+
+		/**
 		* @brief Processes the Window's messages
 		*/
 		void ProcessMessages();

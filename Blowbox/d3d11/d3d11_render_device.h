@@ -147,6 +147,13 @@ namespace blowbox
 		* @brief Creates the per object constant buffer
 		*/
 		void CreateObjectBuffer();
+
+		/**
+		* @brief Sets the resolution of the d3d11 render device and all of its components
+		* @param[in] width (const float&) the width
+		* @param[in] height (const float&) the height
+		*/
+		void SetResolution(const float& width, const float& height);
 	private:
 		SharedPtr<D3D11SwapChain> swap_chain_manager_;
 		IDXGISwapChain* swap_chain_;

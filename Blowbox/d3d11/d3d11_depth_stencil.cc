@@ -2,11 +2,57 @@
 
 #include "../../blowbox/d3d11/d3d11.h"
 #include "../../blowbox/d3d11/d3d11_render_device.h"
+#include "../../blowbox/d3d11/d3d11_settings.h"
 
 namespace blowbox
 {
 	//------------------------------------------------------------------------------------------------------
 	D3D11DepthStencil::D3D11DepthStencil()
+	{
+		Create();
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	D3D11DepthStencil::~D3D11DepthStencil()
+	{
+		BLOW_SAFE_RELEASE(state_);
+		BLOW_SAFE_RELEASE(view_);
+		BLOW_SAFE_RELEASE(buffer_);
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	ID3D11DepthStencilState* D3D11DepthStencil::GetState()
+	{
+		return state_;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	ID3D11DepthStencilView* D3D11DepthStencil::GetView()
+	{
+		return view_;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	ID3D11Texture2D* D3D11DepthStencil::GetBuffer()
+	{
+		return buffer_;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	void D3D11DepthStencil::Set(ID3D11DeviceContext* context)
+	{
+		ID3D11DepthStencilState* last_state;
+		context->OMGetDepthStencilState(&last_state, NULL);
+
+		if (last_state != state_)
+		{
+			context->OMSetDepthStencilState(state_, NULL);
+		}
+
+		BLOW_RELEASE(last_state);
+	}
+
+	void D3D11DepthStencil::Create()
 	{
 		HRESULT hr = S_OK;
 
@@ -16,8 +62,8 @@ namespace blowbox
 		D3D11_TEXTURE2D_DESC texture_desc;
 		ZeroMemory(&texture_desc, sizeof(D3D11_TEXTURE2D_DESC));
 
-		texture_desc.Width = (UINT)swap_chain_desc.BufferDesc.Width;
-		texture_desc.Height = (UINT)swap_chain_desc.BufferDesc.Height;
+		texture_desc.Width = (UINT)D3D11Settings::Instance()->GetResolution().width;
+		texture_desc.Height = (UINT)D3D11Settings::Instance()->GetResolution().height;
 		texture_desc.MipLevels = 1;
 		texture_desc.ArraySize = 1;
 		texture_desc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
@@ -64,42 +110,10 @@ namespace blowbox
 	}
 
 	//------------------------------------------------------------------------------------------------------
-	D3D11DepthStencil::~D3D11DepthStencil()
+	void D3D11DepthStencil::Release()
 	{
-		BLOW_SAFE_RELEASE(state_);
-		BLOW_SAFE_RELEASE(view_);
-		BLOW_SAFE_RELEASE(buffer_);
-	}
-
-	//------------------------------------------------------------------------------------------------------
-	ID3D11DepthStencilState* D3D11DepthStencil::GetState()
-	{
-		return state_;
-	}
-
-	//------------------------------------------------------------------------------------------------------
-	ID3D11DepthStencilView* D3D11DepthStencil::GetView()
-	{
-		return view_;
-	}
-
-	//------------------------------------------------------------------------------------------------------
-	ID3D11Texture2D* D3D11DepthStencil::GetBuffer()
-	{
-		return buffer_;
-	}
-
-	//------------------------------------------------------------------------------------------------------
-	void D3D11DepthStencil::Set(ID3D11DeviceContext* context)
-	{
-		ID3D11DepthStencilState* last_state;
-		context->OMGetDepthStencilState(&last_state, NULL);
-
-		if (last_state != state_)
-		{
-			context->OMSetDepthStencilState(state_, NULL);
-		}
-
-		BLOW_RELEASE(last_state);
+		BLOW_RELEASE(state_);
+		BLOW_RELEASE(view_);
+		BLOW_RELEASE(buffer_);
 	}
 }

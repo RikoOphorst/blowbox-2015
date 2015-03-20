@@ -43,6 +43,16 @@ namespace blowbox
 		* @param[in] context (ID3D11DeviceContext*) the context
 		*/
 		void Set(ID3D11DeviceContext* context);
+
+		/**
+		* @brief Creates the depth stencil
+		*/
+		void Create();
+
+		/**
+		* @brief Releases COM objects
+		*/
+		void Release();
 	private:
 		ID3D11DepthStencilState* state_;
 		ID3D11DepthStencilView* view_;

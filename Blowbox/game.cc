@@ -58,13 +58,13 @@ namespace blowbox
 	{
 		Window* window = window_.get();
 
-		window->Create(std::string("blowbox"), 640, 480);
-		window->SetStarted(true);
-		
-		renderDevice_->Initialize(window);
-
 		if (LuaWrapper::Instance()->CompileFromFile(LuaState::Instance()->Get(), "main.lua"))
 		{	
+			window->Create(std::string("blowbox"), 640, 480);
+			window->SetStarted(true);
+
+			renderDevice_->Initialize(window);
+			
 			cb_init_->Call<>(LuaState::Instance()->Get());
 			
 			while (window->GetStarted())
@@ -93,6 +93,12 @@ namespace blowbox
 	void Game::Draw()
 	{
 		cb_draw_->Call<>(LuaState::Instance()->Get());
+	}
+	
+	//------------------------------------------------------------------------------------------------------
+	Window* Game::GetWindow()
+	{
+		return window_.get();
 	}
 
 	//------------------------------------------------------------------------------------------------------

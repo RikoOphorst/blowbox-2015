@@ -1,5 +1,9 @@
 #include "../../blowbox/d3d11/d3d11_settings.h"
 
+#include "../../blowbox/d3d11/d3d11_render_device.h"
+#include "../../blowbox/win32/window.h"
+#include "../../blowbox/game.h"
+
 namespace blowbox
 {
 	//------------------------------------------------------------------------------------------------------
@@ -32,8 +36,11 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	void D3D11Settings::SetResolution(const float& width, const float& height)
 	{
-		resolution_.height = width;
-		resolution_.width = height;
+		resolution_.width = width;
+		resolution_.height = height;
+
+		D3D11RenderDevice::Instance()->SetResolution(width, height);
+		Game::Instance()->GetWindow()->SetResolution(width, height);
 	}
 
 	//------------------------------------------------------------------------------------------------------

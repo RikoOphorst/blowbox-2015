@@ -240,4 +240,29 @@ namespace blowbox
 	{
 		return per_object_buffer_.get();
 	}
+
+	//------------------------------------------------------------------------------------------------------
+	void D3D11RenderDevice::SetResolution(const float& width, const float& height)
+	{
+		back_buffer_->Release();
+
+		for (auto it = render_targets_.begin(); it != render_targets_.end(); it++)
+		{
+			it->second->Release();
+		}
+
+		swap_chain_manager_->SetResolution(width, height);
+
+		back_buffer_->Create(RENDER_TARGET_TYPE::RENDER_TARGET_TYPE_BACKBUFFER, swap_chain_, device_);
+		back_buffer_->RecreateDepthStencil();
+
+		for (auto it = render_targets_.begin(); it != render_targets_.end(); it++)
+		{
+			it->second->Create(RENDER_TARGET_TYPE::RENDER_TARGET_TYPE_RENDER_TARGET, swap_chain_, device_);
+			it->second->RecreateDepthStencil();
+		}
+
+		viewport_->SetResolution(width, height);
+		viewport_->Set();
+	}
 }

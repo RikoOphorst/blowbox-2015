@@ -54,6 +54,25 @@ namespace blowbox
 	}
 
 	//------------------------------------------------------------------------------------------------------
+	void Window::SetResolution(const float& width, const float& height)
+	{
+		RECT client_rect;
+		client_rect.left = client_rect.top = 0;
+		client_rect.right = (LONG)width;
+		client_rect.bottom = (LONG)height;
+
+		int style = WS_OVERLAPPED | WS_MAXIMIZEBOX | WS_SYSMENU | WS_CAPTION | WS_MINIMIZEBOX | WS_SIZEBOX;
+
+		AdjustWindowRect(&client_rect, style, FALSE);
+		int actualWidth = client_rect.right - client_rect.left;
+		int actualHeight = client_rect.bottom - client_rect.top;
+		int x = GetSystemMetrics(SM_CXSCREEN) / 2 - actualWidth / 2;
+		int y = GetSystemMetrics(SM_CYSCREEN) / 2 - actualHeight / 2;
+		
+		SetWindowPos(handle_, 0, x, y, actualWidth, actualHeight, SWP_NOOWNERZORDER | SWP_NOZORDER);
+	}
+
+	//------------------------------------------------------------------------------------------------------
 	RECT Window::GetDimensions()
 	{
 		RECT rect;
