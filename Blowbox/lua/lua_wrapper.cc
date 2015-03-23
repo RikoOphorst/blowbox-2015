@@ -110,21 +110,38 @@ namespace blowbox
 	}
 
 	//------------------------------------------------------------------------------------------------------
+	int LuaWrapper::ToRelative(lua_State* L, const int& absolute)
+	{
+		if (absolute <= 0)
+			return absolute;
+
+		return -(lua_gettop(L) - absolute + 1);
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int LuaWrapper::ToAbsolute(lua_State* L, const int& relative)
+	{
+		if (relative >= 0)
+			return relative;
+
+		return lua_gettop(L) + 1 + relative;
+	}
+
+	//------------------------------------------------------------------------------------------------------
 	std::string LuaWrapper::ToString(lua_State* L, const int& index)
 	{
 		int top = lua_gettop(L);
-		int t = lua_type(L, index);
 
 		std::string string;
 
-		switch (t)
+		switch (Typename(L, index))
 		{
-		case LUA_TSTRING:  // strings
+		case LUA_TYPE::LUA_TYPE_STRING:  // strings
 			string = lua_tostring(L, index);
 			break;
 
-		case LUA_TUSERDATA: // userdata
-		case LUA_TLIGHTUSERDATA:
+		case LUA_TYPE::LUA_TYPE_USERDATA: // userdata
+		case LUA_TYPE::LUA_TYPE_LIGHTUSERDATA:
 
 			lua_pushvalue(L, index);
 			lua_getglobal(L, "tostring");
@@ -134,28 +151,28 @@ namespace blowbox
 			string = lua_tostring(L, -1);
 			break;
 
-		case LUA_TBOOLEAN:  // booleans
+		case LUA_TYPE::LUA_TYPE_BOOLEAN:  // booleans
 			string = lua_toboolean(L, index) ? "true" : "false";
 			break;
 
-		case LUA_TNUMBER:  // numbers
+		case LUA_TYPE::LUA_TYPE_NUMBER:  // numbers
 			string = std::to_string(lua_tonumber(L, index));
 			break;
 
-		case LUA_TFUNCTION:
+		case LUA_TYPE::LUA_TYPE_FUNCTION:
 			string = "function";
 			break;
 
-		case LUA_TNIL:
-		case LUA_TNONE:
+		case LUA_TYPE::LUA_TYPE_NIL:
+		case LUA_TYPE::LUA_TYPE_NONE:
 			string = "nil";
 			break;
 
-		case LUA_TTABLE:
+		case LUA_TYPE::LUA_TYPE_TABLE:
 			string = "table";
 			break;
 
-		default:  // other values
+		default:
 			string = lua_typename(L, index);
 			break;
 		}
@@ -166,27 +183,78 @@ namespace blowbox
 	}
 
 	//------------------------------------------------------------------------------------------------------
-	std::map<std::string, std::string> LuaWrapper::ToTable(lua_State* L, const int& index)
+	std::map<std::string, LuaValue> LuaWrapper::ToTable(lua_State* L, const int& index)
 	{
-		std::map<std::string, std::string> table;
+		int idx = ToAbsolute(L, index);
 
-		if (lua_istable(L, index))
+		std::map<std::string, LuaValue> table;
+
+		if (lua_istable(L, idx))
 		{
 			lua_pushnil(L);
 
-			while (lua_next(L, index))
+			while (lua_next(L, idx))
 			{
+				std::map<std::string, LuaValue> element;
+				LuaValue value;
+				std::string identifier;
+				
 				switch (lua_type(L, -1))
 				{
 				case LUA_TTABLE:
-					table.emplace(ToString(L, -2), "table");
+					element = ToTable(L, -1);
+
+					value.type = LUA_TYPE::LUA_TYPE_TABLE;
+					value.location = LUA_LOCATION::LUA_LOCATION_FIELD;
+					
+					if (Typename(L, -2) == LUA_TYPE::LUA_TYPE_NUMBER)
+					{
+						value.identifier = ToString(L, -2);
+						value.identifier = value.identifier.substr(0, value.identifier.find('.'));
+					}
+					else
+					{
+						value.identifier = ToString(L, -2);
+					}
+
+					value.value = ToString(L, -1);
+
+					table.emplace(value.identifier, value);
+
+					identifier = value.identifier;
+
+					for (auto it = element.begin(); it != element.end(); ++it)
+					{
+						value.type = it->second.type;
+						value.location = it->second.location;
+						value.identifier = it->second.identifier;
+						value.value = it->second.value;
+
+						table.find(identifier)->second.fields.emplace(value.identifier, value);
+					}
+
+					lua_pop(L, 1);
 					break;
 				default:
-					table.emplace(ToString(L, -2), ToString(-1));
+					value.type = Typename(L, -1);
+					value.location = LUA_LOCATION::LUA_LOCATION_FIELD;
+
+					if (Typename(L, -2) == LUA_TYPE::LUA_TYPE_NUMBER)
+					{
+						value.identifier = ToString(L, -2);
+						value.identifier = value.identifier.substr(0, value.identifier.find('.'));
+					}
+					else
+					{
+						value.identifier = ToString(L, -2);
+					}
+					value.value = ToString(L, -1);
+
+					table.emplace(value.identifier, value);
+
+					lua_pop(L, 1);
 					break;
 				}
-
-				lua_pop(L, 1);
 			}
 		}
 		else
@@ -195,6 +263,57 @@ namespace blowbox
 		}
 
 		return table;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	LUA_TYPE LuaWrapper::Typename(lua_State* L, const int& index)
+	{
+		LUA_TYPE type;
+		
+		switch (lua_type(L, index))
+		{
+		case LUA_TSTRING:
+			type = LUA_TYPE::LUA_TYPE_STRING;
+			break;
+
+		case LUA_TUSERDATA:
+			type = LUA_TYPE::LUA_TYPE_USERDATA;
+
+			break; 
+		case LUA_TLIGHTUSERDATA:
+			type = LUA_TYPE::LUA_TYPE_LIGHTUSERDATA;
+			break;
+
+		case LUA_TBOOLEAN:
+			type = LUA_TYPE::LUA_TYPE_BOOLEAN;
+			break;
+
+		case LUA_TNUMBER:
+			type = LUA_TYPE::LUA_TYPE_NUMBER;
+			break;
+
+		case LUA_TFUNCTION:
+			type = LUA_TYPE::LUA_TYPE_FUNCTION;
+			break;
+
+		case LUA_TNIL:
+			type = LUA_TYPE::LUA_TYPE_NIL;
+			break;
+
+		case LUA_TNONE:
+			type = LUA_TYPE::LUA_TYPE_NONE;
+			break;
+
+		case LUA_TTABLE:
+			type = LUA_TYPE::LUA_TYPE_TABLE;
+			break;
+
+		default:
+			type = LUA_TYPE::LUA_TYPE_UNKNOWN;
+			break;
+		}
+
+		return type;
 	}
 
 	//------------------------------------------------------------------------------------------------------

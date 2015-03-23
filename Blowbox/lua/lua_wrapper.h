@@ -18,7 +18,11 @@ namespace blowbox
 		LUA_TYPE_NUMBER,
 		LUA_TYPE_NIL,
 		LUA_TYPE_NONE,
-		LUA_TYPE_STRING
+		LUA_TYPE_STRING,
+		LUA_TYPE_USERDATA,
+		LUA_TYPE_LIGHTUSERDATA,
+		LUA_TYPE_BOOLEAN,
+		LUA_TYPE_UNKNOWN
 	};
 
 	/**
@@ -29,7 +33,8 @@ namespace blowbox
 	{
 		LUA_LOCATION_GLOBAL,
 		LUA_LOCATION_FIELD,
-		LUA_LOCATION_LOCAL
+		LUA_LOCATION_LOCAL,
+		LUA_LOCATION_UNKNOWN,
 	};
 
 	/**
@@ -38,11 +43,34 @@ namespace blowbox
 	*/
 	struct LuaValue
 	{
-		LuaValue(LUA_TYPE type_, LUA_LOCATION location_, std::string identifier_) : type(type_), location(location_), identifier(identifier_) {};
+		LuaValue() :
+			type(LUA_TYPE::LUA_TYPE_NONE),
+			location(LUA_LOCATION::LUA_LOCATION_UNKNOWN),
+			identifier(""),
+			value("")
+		{
+
+		}
+		
+		LuaValue(LUA_TYPE type_, LUA_LOCATION location_, std::string identifier_, std::string value_) :
+			type(type_),
+			location(location_),
+			identifier(identifier_),
+			value(value_)
+		{};
+		
+		LuaValue(LUA_TYPE type_, LUA_LOCATION location_, std::string identifier_) : 
+			type(type_), 
+			location(location_),
+			identifier(identifier_),
+			value("") 
+		{};
 		
 		LUA_TYPE type;
 		LUA_LOCATION location;
 		std::string identifier;
+		std::string value;
+		std::map<std::string, LuaValue> fields;
 	};
 	
 	/**
@@ -113,6 +141,20 @@ namespace blowbox
 		bool CompileFromString(lua_State* L, const std::string& code, const std::string& source);
 
 		/**
+		* @brief To relative index
+		* @param[in] L (lua_State*) the lua state
+		* @param[in] absolute (const int&) the absolute index
+		*/
+		int ToRelative(lua_State* L, const int& absolute);
+
+		/**
+		* @brief To absolute index
+		* @param[in] L (lua_State*) the lua state
+		* @param[in] relative (const int&) the relative index
+		*/
+		int ToAbsolute(lua_State* L, const int& relative);
+
+		/**
 		* @brief Convert stack element to string
 		* @param[in] L (lua_State*) the lua state
 		* @param[in] index (const int&) the index
@@ -124,7 +166,14 @@ namespace blowbox
 		* @param[in] L (lua_State*) the lua state
 		* @param[in] index (const int&) the index
 		*/
-		std::map<std::string, std::string> ToTable(lua_State* L, const int& index);
+		std::map<std::string, LuaValue> ToTable(lua_State* L, const int& index);
+
+		/**
+		* @brief Convert stack element to a typename-string
+		* @param[in] L (lua_State*) the lua state
+		* @param[in] index (const int&) the index
+		*/
+		LUA_TYPE Typename(lua_State* L, const int& index);
 
 		/**
 		* @brief Retrieves a value from the stack

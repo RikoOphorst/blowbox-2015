@@ -23,6 +23,9 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	void D3D11VertexBuffer::Create(const std::vector<Vertex>& vertices, const std::vector<int>& indices, const D3D11_PRIMITIVE_TOPOLOGY& topology, const BUFFER_TYPE& type)
 	{
+		BLOW_RELEASE(vertex_buffer_);
+		BLOW_RELEASE(index_buffer_);
+		
 		HRESULT hr = S_OK;
 
 		// Vertex buffer
