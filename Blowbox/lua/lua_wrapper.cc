@@ -38,7 +38,7 @@ namespace blowbox
 
 			string = std::to_string(i) + ": ";
 			
-			string += ConvertElementToString(L, i);
+			string += ToString(L, i);
 
 			Console::Instance()->Log(string);
 		}
@@ -74,7 +74,7 @@ namespace blowbox
 	{
 		if (luaL_dofile(L, path.c_str()) != 0)
 		{
-			Console::Instance()->Log(ConvertElementToString(L, -1), LOG_COLOR_TYPES::LOG_COLOR_ERROR);
+			Console::Instance()->Log(ToString(L, -1), LOG_COLOR_TYPES::LOG_COLOR_ERROR);
 			return false;
 		}
 
@@ -100,7 +100,7 @@ namespace blowbox
 		{
 			for (int i = 1; i <= lua_gettop(L) - stacksize; ++i)
 			{
-				Console::Instance()->Log(std::string("[OUTPUT] ") + ConvertElementToString(L, i));
+				Console::Instance()->Log(std::string("[OUTPUT] ") + ToString(L, i));
 			}
 		}
 
@@ -110,7 +110,7 @@ namespace blowbox
 	}
 
 	//------------------------------------------------------------------------------------------------------
-	std::string LuaWrapper::ConvertElementToString(lua_State* L, const int& index)
+	std::string LuaWrapper::ToString(lua_State* L, const int& index)
 	{
 		int top = lua_gettop(L);
 		int t = lua_type(L, index);
@@ -163,6 +163,38 @@ namespace blowbox
 		lua_settop(L, top);
 
 		return string;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	std::map<std::string, std::string> LuaWrapper::ToTable(lua_State* L, const int& index)
+	{
+		std::map<std::string, std::string> table;
+
+		if (lua_istable(L, index))
+		{
+			lua_pushnil(L);
+
+			while (lua_next(L, index))
+			{
+				switch (lua_type(L, -1))
+				{
+				case LUA_TTABLE:
+					table.emplace(ToString(L, -2), "table");
+					break;
+				default:
+					table.emplace(ToString(L, -2), ToString(-1));
+					break;
+				}
+
+				lua_pop(L, 1);
+			}
+		}
+		else
+		{
+			luaL_typerror(L, index, "string table");
+		}
+
+		return table;
 	}
 
 	//------------------------------------------------------------------------------------------------------

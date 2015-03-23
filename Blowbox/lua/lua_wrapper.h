@@ -1,5 +1,7 @@
 #pragma once
 
+#include <map>
+
 #include "../../blowbox/memory/shared_ptr.h"
 #include "../../blowbox/lua/lua_state.h"
 
@@ -115,7 +117,14 @@ namespace blowbox
 		* @param[in] L (lua_State*) the lua state
 		* @param[in] index (const int&) the index
 		*/
-		std::string ConvertElementToString(lua_State* L, const int& index);
+		std::string ToString(lua_State* L, const int& index);
+
+		/**
+		* @brief Convert stack element to a std::map<std::string key, std::string value>
+		* @param[in] L (lua_State*) the lua state
+		* @param[in] index (const int&) the index
+		*/
+		std::map<std::string, std::string> ToTable(lua_State* L, const int& index);
 
 		/**
 		* @brief Retrieves a value from the stack
@@ -231,7 +240,7 @@ namespace blowbox
 	{
 		if (check == true)
 		{
-			return luaL_checkstring(L, index);
+			return LuaWrapper::Instance()->ToString(L, index).c_str();
 		}
 		return lua_tostring(L, index + 1);
 	}
@@ -242,7 +251,7 @@ namespace blowbox
 	{
 		if (check == true)
 		{
-			return luaL_checkstring(L, index);
+			return LuaWrapper::Instance()->ToString(L, index);
 		}
 		return lua_tostring(L, index);
 	}

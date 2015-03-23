@@ -54,7 +54,7 @@ namespace blowbox
 
 		if (lua_pcall(L, arg_count, 0, 0))
 		{
-			Console::Instance()->Log(LuaWrapper::Instance()->ConvertElementToString(L, -1), LOG_COLOR_TYPES::LOG_COLOR_ERROR);
+			Console::Instance()->Log(LuaWrapper::Instance()->ToString(L, -1), LOG_COLOR_TYPES::LOG_COLOR_ERROR);
 		}
 
 		// Clear the stack

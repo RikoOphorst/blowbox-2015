@@ -99,6 +99,9 @@
     <ClCompile Include="d3d11\d3d11_settings.cc">
       <Filter>d3d11</Filter>
     </ClCompile>
+    <ClCompile Include="elements\polygon.cc">
+      <Filter>elements</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game.h" />
@@ -216,6 +219,9 @@
     </ClInclude>
     <ClInclude Include="d3d11\d3d11_settings.h">
       <Filter>d3d11</Filter>
+    </ClInclude>
+    <ClInclude Include="elements\polygon.h">
+      <Filter>elements</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

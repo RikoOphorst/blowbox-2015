@@ -14,6 +14,20 @@ namespace blowbox
 	*/
 	struct Vertex
 	{
+		Vertex(const XMFLOAT4& p) :
+			position(p),
+			color(XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f)),
+			tex_coords(XMFLOAT2(0.0f, 0.0f)),
+			normal(XMFLOAT3(0.0f, 0.0f, 0.0f))
+		{}
+
+		Vertex(const XMFLOAT4& p, const XMFLOAT2& t) :
+			position(p),
+			color(XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f)),
+			tex_coords(t),
+			normal(XMFLOAT3(0.0f, 0.0f, 0.0f))
+		{}
+		
 		Vertex(const XMFLOAT4& p, const XMFLOAT4& c, const XMFLOAT2& t) :
 			position(p),
 			color(c),

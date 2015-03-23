@@ -143,6 +143,7 @@
     <ClCompile Include="d3d11\d3d11_vertex_buffer.cc" />
     <ClCompile Include="d3d11\d3d11_viewport.cc" />
     <ClCompile Include="elements\cube.cc" />
+    <ClCompile Include="elements\polygon.cc" />
     <ClCompile Include="elements\quad.cc" />
     <ClCompile Include="game.cc" />
     <ClCompile Include="input\keyboard.cc" />
@@ -181,6 +182,7 @@
     <ClInclude Include="d3d11\d3d11_vertex_buffer.h" />
     <ClInclude Include="d3d11\d3d11_viewport.h" />
     <ClInclude Include="elements\cube.h" />
+    <ClInclude Include="elements\polygon.h" />
     <ClInclude Include="elements\quad.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="input\key.h" />
