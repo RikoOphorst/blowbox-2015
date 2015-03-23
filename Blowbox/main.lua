@@ -5,32 +5,25 @@ Game.Initialise = function ()
 	Game.camera:setMode(CameraModes.Orthographic)
 
 	Game.rendertarget = RenderTarget.new("default")
+	Game.rendertarget2 = RenderTarget.new("rt")
 	Game.renderqueue = RenderQueue.new(Game.rendertarget)
+	Game.renderqueue2 = RenderQueue.new(Game.rendertarget2)
+
+	Game.quad = Quad.new(Game.renderqueue)
+	Game.quad2 = Quad.new(Game.renderqueue2)
+	Game.quad:setPosition2D(-280, -200)
+	Game.quad2:setPosition2D(0, 0)
+
+	Game.quad:setScale2D(50, 50)
+	Game.quad2:setScale2D(50, 50)
 
 	RenderSettings.setResolution(640, 480)
-
-	Game.polly = Polygon.new(
-		Game.renderqueue,
-		{
-			{ -1, 10, 1 },
-			{ 0, -1, 1 },
-			{ 1, 1, 1 }
-		},
-		{
-			2, 1, 0
-		},
-		Topology.TriangleList
-	);
-
-	Game.polly:setScale(100, 100, 100)
 end
 
 Game.Update = function (dt)
 	Game.t = Game.t or 0
 
 	Game.t = Game.t + 1
-
-	Game.polly:setRotation2D(Game.t / 500)
 end
 
 Game.Draw = function ()

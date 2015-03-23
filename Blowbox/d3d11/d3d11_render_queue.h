@@ -44,6 +44,11 @@ namespace blowbox
 		void Add(D3D11RenderElement* element);
 
 		/**
+		* @brief Gets the underlying elements
+		*/
+		const std::vector<D3D11RenderElement*>& GetElements();
+
+		/**
 		* @brief Draws a specific element
 		* @param[in] context (ID3D11DeviceContext*) the device context
 		* @param[in] element (D3D11RenderElement*) the element to be rendered

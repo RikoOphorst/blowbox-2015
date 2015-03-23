@@ -46,6 +46,12 @@ namespace blowbox
 	}
 
 	//------------------------------------------------------------------------------------------------------
+	const std::vector<D3D11RenderElement*>& D3D11RenderQueue::GetElements()
+	{
+		return queue_;
+	}
+
+	//------------------------------------------------------------------------------------------------------
 	void D3D11RenderQueue::Draw(ID3D11DeviceContext* context)
 	{
 		D3D11RenderElement* element;

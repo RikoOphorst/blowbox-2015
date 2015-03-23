@@ -128,6 +128,23 @@ namespace blowbox
 	}
 
 	//------------------------------------------------------------------------------------------------------
+	int LuaWrapper::ToArgument(lua_State* L, const int& index)
+	{
+		if (index < 0)
+		{
+			// relative index
+			return ToAbsolute(L, index);
+		}
+		else if (index > 0)
+		{
+			// absolute index
+			return index;
+		}
+		
+		return 0;
+	}
+
+	//------------------------------------------------------------------------------------------------------
 	std::string LuaWrapper::ToString(lua_State* L, const int& index)
 	{
 		int top = lua_gettop(L);
@@ -183,7 +200,7 @@ namespace blowbox
 	}
 
 	//------------------------------------------------------------------------------------------------------
-	std::map<std::string, LuaValue> LuaWrapper::ToTable(lua_State* L, const int& index)
+	std::map<std::string, LuaValue> LuaWrapper::ToTable(lua_State* L, const int& index, const int& arg)
 	{
 		int idx = ToAbsolute(L, index);
 
@@ -259,7 +276,7 @@ namespace blowbox
 		}
 		else
 		{
-			luaL_typerror(L, index, "string table");
+			luaL_typerror(L, arg, "string table");
 		}
 
 		return table;

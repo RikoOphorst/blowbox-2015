@@ -79,12 +79,23 @@ namespace blowbox
 		* @brief Sets the indices
 		* @param[in] indices (const std::vector<int>&) the indices
 		*/
-		void SetIndices(const Vertex& vert, const int& index);
+		void SetIndices(const std::vector<int>& indices);
 
 		/**
 		* @brief Gets the indices
 		*/
 		const std::vector<int>& GetIndices();
+
+		/**
+		* @brief Sets the topology
+		* @param[in] topology (const D3D11_PRIMITIVE_TOPOLOGY&) the topology
+		*/
+		void SetTopology(const D3D11_PRIMITIVE_TOPOLOGY& topology);
+
+		/**
+		* @brief Gets the topology
+		*/
+		const D3D11_PRIMITIVE_TOPOLOGY& GetTopology();
 
 		/**
 		* @brief Registers this object's functions

@@ -8,6 +8,7 @@
 #include "../../blowbox/d3d11/d3d11_input_layout.h"
 #include "../../blowbox/d3d11/d3d11_render_element.h"
 #include "../../blowbox/d3d11/d3d11_render_target.h"
+#include "../../blowbox/d3d11/d3d11_render_queue.h"
 #include "../../blowbox/d3d11/d3d11_sampler_state.h"
 #include "../../blowbox/d3d11/d3d11_shader.h"
 #include "../../blowbox/d3d11/d3d11_swap_chain.h"
@@ -153,7 +154,10 @@ namespace blowbox
 
 		for (auto it = render_targets_.begin(); it != render_targets_.end(); ++it)
 		{
-			DrawRenderTarget(it->second);
+			if (it->second->GetQueue()->GetElements().size() > 0)
+			{
+				DrawRenderTarget(it->second);
+			}
 		}
 
 		swap_chain_->Present(0, 0);

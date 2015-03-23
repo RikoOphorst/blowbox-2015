@@ -31,7 +31,7 @@ namespace blowbox
 
 		Create(RENDER_TARGET_TYPE::RENDER_TARGET_TYPE_RENDER_TARGET, D3D11RenderDevice::Instance()->GetSwapChain(), D3D11RenderDevice::Instance()->GetDevice());
 
-		D3D11RenderDevice::Instance()->AddRenderTarget(LuaWrapper::Instance()->Get<std::string>(L, -1), this);
+		D3D11RenderDevice::Instance()->AddRenderTarget(LuaWrapper::Instance()->Get<std::string>(L, -1, 1), this);
 	}
 
 	//------------------------------------------------------------------------------------------------------
