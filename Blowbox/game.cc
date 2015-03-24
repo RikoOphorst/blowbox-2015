@@ -129,7 +129,7 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	int Game::LuaRender(lua_State* L)
 	{
-		D3D11RenderDevice::Instance()->Draw(LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, -1));
+		D3D11RenderDevice::Instance()->Draw(LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, -2, 1), LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, -1, 2));
 		return 0;
 	}
 }

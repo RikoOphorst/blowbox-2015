@@ -138,6 +138,12 @@ namespace blowbox
 	}
 
 	//------------------------------------------------------------------------------------------------------
+	void D3D11RenderTarget::DrawUI(ID3D11DeviceContext* context)
+	{
+		queue_->DrawUI(context);
+	}
+
+	//------------------------------------------------------------------------------------------------------
 	void D3D11RenderTarget::Clear(ID3D11DeviceContext* context)
 	{	
 		if (RENDER_TARGET_TYPE::RENDER_TARGET_TYPE_BACKBUFFER == type_)

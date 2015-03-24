@@ -134,7 +134,7 @@ namespace blowbox
 	}
 
 	//------------------------------------------------------------------------------------------------------
-	void D3D11RenderDevice::Draw(D3D11Camera* camera)
+	void D3D11RenderDevice::Draw(D3D11Camera* camera, D3D11Camera* ui_camera)
 	{
 		if (camera == nullptr)
 		{
@@ -143,20 +143,13 @@ namespace blowbox
 		
 		back_buffer_->Clear(context_);
 
-		global_buffer_->Map(context_, {
-			0.0f,
-			camera->GetView(),
-			camera->GetProjection()
-		});
-		global_buffer_->Set(context_, 0);
-
 		default_shader_->Set(context_);
 
 		for (auto it = render_targets_.begin(); it != render_targets_.end(); ++it)
 		{
-			if (it->second->GetQueue()->GetElements().size() > 0)
+			if (it->second->GetQueue()->GetElements().size() > 0 || it->second->GetQueue()->GetUIElements().size() > 0)
 			{
-				DrawRenderTarget(it->second);
+				DrawRenderTarget(it->second, camera, ui_camera);
 			}
 		}
 
@@ -164,11 +157,34 @@ namespace blowbox
 	}
 
 	//------------------------------------------------------------------------------------------------------
-	void D3D11RenderDevice::DrawRenderTarget(D3D11RenderTarget* render_target)
-	{
+	void D3D11RenderDevice::DrawRenderTarget(D3D11RenderTarget* render_target, D3D11Camera* camera, D3D11Camera* ui_camera)
+	{	
 		render_target->Clear(context_);
 		render_target->Set(context_);
-		render_target->Draw(context_);
+
+		if (render_target->GetQueue()->GetElements().size() > 0)
+		{
+			global_buffer_->Map(context_, {
+				0.0f,
+				camera->GetView(),
+				camera->GetProjection()
+			});
+			global_buffer_->Set(context_, 0);
+
+			render_target->Draw(context_);
+		}
+
+		if (render_target->GetQueue()->GetUIElements().size() > 0)
+		{
+			global_buffer_->Map(context_, {
+				0.0f,
+				ui_camera->GetView(),
+				ui_camera->GetProjection()
+			});
+			global_buffer_->Set(context_, 0);
+
+			render_target->DrawUI(context_);
+		}
 
 		back_buffer_->Set(context_);
 

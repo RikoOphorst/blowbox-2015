@@ -2,6 +2,7 @@
 #include "../blowbox/elements/quad.h"
 #include "../blowbox/elements/cube.h"
 #include "../blowbox/elements/polygon.h"
+#include "../blowbox/elements/widget.h"
 #include "../blowbox/input/keyboard.h"
 #include "../blowbox/input/mouse.h"
 #include "../blowbox/utility/lua_enum.h"
@@ -29,6 +30,7 @@ int main(int argc, char** argv)
 	LuaRegister::Instance()->RegisterSingleton<Mouse>(LuaState::Instance()->Get());
 	LuaRegister::Instance()->RegisterClass<Quad>(LuaState::Instance()->Get());
 	LuaRegister::Instance()->RegisterClass<Cube>(LuaState::Instance()->Get());
+	LuaRegister::Instance()->RegisterClass<Widget>(LuaState::Instance()->Get());
 	LuaRegister::Instance()->RegisterClass<blowbox::Polygon>(LuaState::Instance()->Get());
 	LuaRegister::Instance()->RegisterClass<LuaEnum>(LuaState::Instance()->Get());
 	LuaRegister::Instance()->RegisterClass<D3D11RenderTarget>(LuaState::Instance()->Get());

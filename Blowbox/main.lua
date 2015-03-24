@@ -1,8 +1,13 @@
 Game.Initialise = function ()
 	ContentManager.loadTexture("Lenna.png")
 
-	Game.camera = Camera.new()
-	Game.camera:setMode(CameraModes.Orthographic)
+	Game.cameras = {
+		main = Camera.new(),
+		ui = Camera.new()
+	}
+
+	Game.cameras.main:setMode(CameraModes.Orthographic)
+	Game.cameras.ui:setMode(CameraModes.Orthographic)
 
 	RenderSettings.setResolution(640, 480)
 	RenderSettings.setVSync(true)
@@ -19,6 +24,10 @@ Game.Initialise = function ()
 
 	Game.quad:setScale2D(50, 50)
 	Game.quad2:setScale2D(50, 50)
+
+	Game.widget = Widget.new(Game.renderqueue)
+	Game.widget:setScale2D(75, 75)
+	Game.widget:setPosition2D(280, 200)
 end
 
 Game.Update = function (dt)
@@ -43,9 +52,10 @@ Game.Update = function (dt)
 		Game.quad:setPosition2D(x + 1, y)
 	end
 
-	local x, y = Mouse.getPosition()
+	Game.cameras.main:setPosition(math.sin(Game.t / 5) * 50, math.cos(Game.t/ 5) * 50, -10)
+	Game.cameras.main:setTarget(math.sin(Game.t / 5) * 50, math.cos(Game.t/ 5) * 50, -9)
 end
 
 Game.Draw = function ()
-	Game.Render(Game.camera)
+	Game.Render(Game.cameras.main, Game.cameras.ui)
 end

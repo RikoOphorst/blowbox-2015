@@ -63,10 +63,16 @@ namespace blowbox
 		void Set(ID3D11DeviceContext* context);
 
 		/**
-		* @brief Draws this render target
+		* @brief Draws this render target's misc elements
 		* @param[in] context (ID3D11DeviceContext*) the device context
 		*/
 		void Draw(ID3D11DeviceContext* context);
+
+		/**
+		* @brief Draws this render target's UI
+		* @param[in] context (ID3D11DeviceContext*) the device context
+		*/
+		void DrawUI(ID3D11DeviceContext* context);
 
 		/**
 		* @brief Clear this render target

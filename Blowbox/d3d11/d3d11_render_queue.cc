@@ -20,7 +20,8 @@ namespace blowbox
 	}
 
 	//------------------------------------------------------------------------------------------------------
-	D3D11RenderQueue::D3D11RenderQueue(lua_State* L)
+	D3D11RenderQueue::D3D11RenderQueue(lua_State* L) :
+		LuaClass(L)
 	{
 		D3D11RenderTarget* render_target = LuaWrapper::Instance()->ParseUserdata<D3D11RenderTarget>(L, -1);
 
@@ -42,13 +43,26 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	void D3D11RenderQueue::Add(D3D11RenderElement* element)
 	{
-		queue_.push_back(element);
+		if (element->GetType() == RENDER_ELEMENT_TYPE::RENDER_ELEMENT_MISC)
+		{
+			queue_.push_back(element);
+		}
+		else
+		{
+			ui_queue_.push_back(element);
+		}
 	}
 
 	//------------------------------------------------------------------------------------------------------
 	const std::vector<D3D11RenderElement*>& D3D11RenderQueue::GetElements()
 	{
 		return queue_;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	const std::vector<D3D11RenderElement*>& D3D11RenderQueue::GetUIElements()
+	{
+		return ui_queue_;
 	}
 
 	//------------------------------------------------------------------------------------------------------
@@ -65,6 +79,19 @@ namespace blowbox
 	}
 
 	//------------------------------------------------------------------------------------------------------
+	void D3D11RenderQueue::DrawUI(ID3D11DeviceContext* context)
+	{
+		D3D11RenderElement* element;
+
+		for (int i = static_cast<int>(ui_queue_.size()) - 1; i >= 0; --i)
+		{
+			element = ui_queue_.at(i);
+
+			DrawElement(context, element);
+		}
+	}
+
+	//------------------------------------------------------------------------------------------------------
 	void D3D11RenderQueue::DrawElement(ID3D11DeviceContext* context, D3D11RenderElement* element)
 	{
 		D3D11RenderDevice::Instance()->GetObjectBuffer()->Map(context, {
@@ -72,7 +99,7 @@ namespace blowbox
 			static_cast<float>(element->GetAlpha())
 		});
 		D3D11RenderDevice::Instance()->GetObjectBuffer()->Set(context, 1);
-		
+
 		D3D11SamplerState::GetSamplerState(element->GetFilteringType())->Set(context);
 
 		element->GetTexture()->Set(context);

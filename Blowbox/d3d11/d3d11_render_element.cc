@@ -21,7 +21,8 @@ namespace blowbox
 		offset_(0.0f, 0.0f, 0.0f),
 		v_offset_(XMVectorSet(0.0f, 0.0f, 0.0f, 1.0f)),
 		alpha_(1),
-		texture_filtering_(TEXTURE_FILTERING_TYPE::TEXTURE_ANISOTROPIC)
+		texture_filtering_(TEXTURE_FILTERING_TYPE::TEXTURE_ANISOTROPIC),
+		type_(RENDER_ELEMENT_TYPE::RENDER_ELEMENT_MISC)
 	{
 		rasterizer_state_ = new D3D11RasterizerState();
 		blend_state_ = new D3D11BlendState();
@@ -41,7 +42,8 @@ namespace blowbox
 		offset_(0.0f, 0.0f, 0.0f),
 		v_offset_(XMVectorSet(0.0f, 0.0f, 0.0f, 1.0f)),
 		alpha_(1),
-		texture_filtering_(TEXTURE_FILTERING_TYPE::TEXTURE_ANISOTROPIC)
+		texture_filtering_(TEXTURE_FILTERING_TYPE::TEXTURE_ANISOTROPIC),
+		type_(RENDER_ELEMENT_TYPE::RENDER_ELEMENT_MISC)
 	{
 		rasterizer_state_ = new D3D11RasterizerState();
 		blend_state_ = new D3D11BlendState();
@@ -120,6 +122,12 @@ namespace blowbox
 	D3D11VertexBuffer* D3D11RenderElement::GetVertexBuffer()
 	{
 		return vertex_buffer_.get();
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	const RENDER_ELEMENT_TYPE& D3D11RenderElement::GetType()
+	{
+		return type_;
 	}
 
 	//------------------------------------------------------------------------------------------------------

@@ -16,6 +16,16 @@ namespace blowbox
 	class D3D11RasterizerState;
 	class D3D11BlendState;
 	enum TEXTURE_FILTERING_TYPE;
+
+	/**
+	* @enum blowbox::RENDER_ELEMENT_TYPE
+	* @brief The type of render element
+	*/
+	enum RENDER_ELEMENT_TYPE
+	{
+		RENDER_ELEMENT_MISC,
+		RENDER_ELEMENT_UI
+	};
 	
 	/**
 	* @class blowbox::D3D11RenderElement
@@ -95,6 +105,11 @@ namespace blowbox
 		* @return D3D11VertexBuffer* The vertex buffer of the element
 		*/
 		D3D11VertexBuffer* GetVertexBuffer();
+
+		/**
+		* @brief Gets this element's type
+		*/
+		const RENDER_ELEMENT_TYPE& GetType();
 
 		/**
 		* @brief Sets the position of the element
@@ -477,5 +492,7 @@ namespace blowbox
 		SharedPtr<D3D11BlendState> blend_state_;
 
 		TEXTURE_FILTERING_TYPE texture_filtering_;
+
+		RENDER_ELEMENT_TYPE type_;
 	};
 }

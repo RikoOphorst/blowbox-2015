@@ -51,14 +51,18 @@ namespace blowbox
 
 		/**
 		* @brief Starts drawing all the render targets
+		* @param[in] camera (D3D11Camera*) the main camera
+		* @param[in] ui_camera (D3D11Camera*) the ui camera
 		*/
-		void Draw(D3D11Camera* camera);
+		void Draw(D3D11Camera* camera, D3D11Camera* ui_camera);
 
 		/**
 		* @brief Draws a specific render target
 		* @param[in] render_target (D3D11RenderTarget*) the render target to be rendered
+		* @param[in] camera (D3D11Camera*) the main camera
+		* @param[in] ui_camera (D3D11Camera*) the ui camera
 		*/
-		void DrawRenderTarget(D3D11RenderTarget* render_target);
+		void DrawRenderTarget(D3D11RenderTarget* render_target, D3D11Camera* camera, D3D11Camera* ui_camera);
 
 		/**
 		* @brief Add a render target

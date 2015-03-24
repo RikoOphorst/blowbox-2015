@@ -39,6 +39,12 @@ namespace blowbox
 		void Draw(ID3D11DeviceContext* context);
 
 		/**
+		* @brief Draws all the ui elements
+		* @param[in] context (ID3D11DeviceContext*) the device context
+		*/
+		void DrawUI(ID3D11DeviceContext* context);
+
+		/**
 		* @brief Adds an element to the queue
 		*/
 		void Add(D3D11RenderElement* element);
@@ -47,6 +53,11 @@ namespace blowbox
 		* @brief Gets the underlying elements
 		*/
 		const std::vector<D3D11RenderElement*>& GetElements();
+
+		/**
+		* @brief Gets the underlying ui elements
+		*/
+		const std::vector<D3D11RenderElement*>& GetUIElements();
 
 		/**
 		* @brief Draws a specific element
@@ -70,5 +81,6 @@ namespace blowbox
 		CLASSNAME("RenderQueue");
 	private:
 		std::vector<D3D11RenderElement*> queue_;
+		std::vector<D3D11RenderElement*> ui_queue_;
 	};
 }

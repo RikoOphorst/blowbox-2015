@@ -145,6 +145,7 @@
     <ClCompile Include="elements\cube.cc" />
     <ClCompile Include="elements\polygon.cc" />
     <ClCompile Include="elements\quad.cc" />
+    <ClCompile Include="elements\widget.cc" />
     <ClCompile Include="game.cc" />
     <ClCompile Include="input\keyboard.cc" />
     <ClCompile Include="input\mouse.cc" />
@@ -184,6 +185,7 @@
     <ClInclude Include="elements\cube.h" />
     <ClInclude Include="elements\polygon.h" />
     <ClInclude Include="elements\quad.h" />
+    <ClInclude Include="elements\widget.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="input\key.h" />
     <ClInclude Include="input\keyboard.h" />
