@@ -3,6 +3,7 @@
 #include <queue>
 #include "../../blowbox/input/key.h"
 #include "../../blowbox/memory/shared_ptr.h"
+#include "../../blowbox/lua/lua_class.h"
 
 namespace blowbox
 {
@@ -43,13 +44,19 @@ namespace blowbox
 	* @brief Manages the keyboard
 	* @author Riko Ophorst
 	*/
-	class Keyboard
+	class Keyboard: public LuaClass
 	{
 	public:
 		/**
 		* @brief Default constructor
 		*/
 		Keyboard();
+
+		/**
+		* @brief Lua Keyboard constructor
+		* @param[in] L (lua_State*) the lua state
+		*/
+		Keyboard(lua_State* L);
 
 		/**
 		* @brief Default destructor
@@ -101,6 +108,38 @@ namespace blowbox
 		* @brief Update the keyboard
 		*/
 		void					Update();
+
+		/**
+		* @brief Registers this object's functions in lua
+		* @param[in] L (lua_State*) the lua state
+		*/
+		static void LuaRegisterFunctions(lua_State* L);
+
+		/**
+		* @brief Is the key pressed?
+		* @param[in] L (lua_State*) the lua state
+		*/
+		static int LuaIsPressed(lua_State* L);
+
+		/**
+		* @brief Is the key released?
+		* @param[in] L (lua_State*) the lua state
+		*/
+		static int LuaIsReleased(lua_State* L);
+
+		/**
+		* @brief Is the key down?
+		* @param[in] L (lua_State*) the lua state
+		*/
+		static int LuaIsDown(lua_State* L);
+
+		/**
+		* @brief Gets the last key
+		* @param[in] L (lua_State*) the lua state
+		*/
+		static int LuaLastKey(lua_State* L);
+
+		CLASSNAME("Keyboard");
 	private:
 		KeyState				keyStates_[255];
 		Key						lastKey_;

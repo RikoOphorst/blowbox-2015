@@ -379,7 +379,7 @@ namespace blowbox
 			}
 		}
 
-		return lua_toboolean(L, index) != 1;
+		return lua_toboolean(L, index) != 0;
 	}
 
 	//------------------------------------------------------------------------------------------------------

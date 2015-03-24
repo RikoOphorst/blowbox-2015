@@ -65,6 +65,15 @@ namespace blowbox
 	}
 
 	//------------------------------------------------------------------------------------------------------
+	bool ContentManager::IsShaderLoaded(const std::string& path)
+	{
+		if (shaders_.find(path) != shaders_.end())
+			return true;
+
+		return false;
+	}
+
+	//------------------------------------------------------------------------------------------------------
 	D3D11Shader* ContentManager::GetShader(const std::string& path, bool& failed)
 	{
 		auto it = shaders_.find(path);
@@ -138,6 +147,15 @@ namespace blowbox
 		Console::Instance()->Log("[CONTENTMANAGER] Texture has not yet been loaded but you did try to load it: " + path, LOG_COLOR_TYPES::LOG_COLOR_ERROR);
 
 		return nullptr;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	bool ContentManager::IsTextureLoaded(const std::string& path)
+	{
+		if (textures_.find(path) != textures_.end())
+			return true;
+
+		return false;
 	}
 
 	//------------------------------------------------------------------------------------------------------

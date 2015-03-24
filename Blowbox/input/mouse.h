@@ -1,7 +1,11 @@
 #pragma once
 
-#include "../memory/shared_ptr.h"
 #include <queue>
+#include <Windows.h>
+#include <xnamath.h>
+
+#include "../../blowbox/memory/shared_ptr.h"
+#include "../../blowbox/lua/lua_class.h"
 
 namespace blowbox
 {
@@ -63,16 +67,22 @@ namespace blowbox
 	* @brief Manages the mouse
 	* @author Riko Ophorst
 	*/
-	class Mouse
+	class Mouse: public LuaClass
 	{
 	public:
 		/**
-		* Default Mouse constructor
+		* @brief Default Mouse constructor
 		*/
 		Mouse();
 
 		/**
-		* Default Mouse destructors
+		* @brief Lua Mouse constructor
+		* @param[in] L (lua_State*) the lua state
+		*/
+		Mouse(lua_State* L);
+
+		/**
+		* @brief Default Mouse destructors
 		*/
 		~Mouse();
 
@@ -86,7 +96,7 @@ namespace blowbox
 		* @brief Retrieves the position of the mouse
 		* @return XMFLOAT2 the position of the mouse
 		*/
-		//XMFLOAT2&						GetPosition();
+		XMFLOAT2&						GetPosition();
 
 		/**
 		* @brief Retrieves if a given button is down
@@ -144,8 +154,40 @@ namespace blowbox
 		* @return std::string The corresponding string
 		*/
 		static std::string				ButtonToString(MouseButton button);
+
+		/**
+		* @brief Registers this object's functions
+		* @param[in] L (lua_State*) the lua state
+		*/
+		static void LuaRegisterFunctions(lua_State* L);
+
+		/**
+		* @brief Gets the mouse position via lua
+		* @param[in] L (lua_State*) the lua state
+		*/
+		static int LuaGetPosition(lua_State* L);
+
+		/**
+		* @brief Gets the mouse down via lua
+		* @param[in] L (lua_State*) the lua state
+		*/
+		static int LuaIsDown(lua_State* L);
+
+		/**
+		* @brief Gets the mouse pressed via lua
+		* @param[in] L (lua_State*) the lua state
+		*/
+		static int LuaIsPressed(lua_State* L);
+
+		/**
+		* @brief Gets the mouse dbl via lua
+		* @param[in] L (lua_State*) the lua state
+		*/
+		static int LuaIsDbl(lua_State* L);
+
+		CLASSNAME("Mouse");
 	private:
-		//XMFLOAT2						pos_;
+		XMFLOAT2						pos_;
 		std::queue<MouseMoveEvent>		moveQueue_;
 		std::queue<MouseButtonData>		clickQueue_;
 		MouseState						mouseStates_[3];

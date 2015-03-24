@@ -3,8 +3,21 @@
 namespace blowbox
 {
 	//------------------------------------------------------------------------------------------------------
-	Mouse::Mouse()
-		//: pos_(0.0f, 0.0f)
+	Mouse::Mouse() : 
+		pos_(0.0f, 0.0f)
+	{
+		for (unsigned int i = 0; i < 3; ++i)
+		{
+			mouseStates_[i].down = false;
+			mouseStates_[i].pressed = false;
+			mouseStates_[i].dbl = false;
+		}
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	Mouse::Mouse(lua_State* L) :
+		LuaClass(L),
+		pos_(0.0f, 0.0f)
 	{
 		for (unsigned int i = 0; i < 3; ++i)
 		{
@@ -27,10 +40,10 @@ namespace blowbox
 		return ptr.get();
 	}
 
-	/*XMFLOAT2& Mouse::GetPosition()
+	XMFLOAT2& Mouse::GetPosition()
 	{
 		return pos_;
-	}*/
+	}
 
 	//------------------------------------------------------------------------------------------------------
 	bool& Mouse::IsDown(MouseButton btn)
@@ -81,8 +94,8 @@ namespace blowbox
 		{
 			const MouseMoveEvent& evt = moveQueue_.front();
 
-			//pos_.x = evt.x;
-			//pos_.y = evt.y;
+			pos_.x = evt.x;
+			pos_.y = evt.y;
 
 			moveQueue_.pop();
 		}
@@ -131,5 +144,43 @@ namespace blowbox
 		case MouseButton::MouseRight:	return "Right";
 		default: return "Left";
 		}
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	void Mouse::LuaRegisterFunctions(lua_State* L)
+	{
+		luaL_Reg regist[] = {
+			{ "getPosition", LuaGetPosition },
+			{ "isDown", LuaIsDown },
+			{ "isPressed", LuaIsPressed },
+			{ "isDbl", LuaIsDbl },
+			{ NULL, NULL }
+		};
+
+		luaL_register(L, NULL, regist);
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int Mouse::LuaGetPosition(lua_State* L)
+	{
+		return LuaWrapper::Instance()->Push(L, Mouse::Instance()->GetPosition().x, Mouse::Instance()->GetPosition().y);
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int Mouse::LuaIsDown(lua_State* L)
+	{
+		return LuaWrapper::Instance()->Push(L, Mouse::Instance()->IsDown(Mouse::Instance()->StringToButton(LuaWrapper::Instance()->Get<std::string>(L, -1, 1).c_str())));
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int Mouse::LuaIsPressed(lua_State* L)
+	{
+		return LuaWrapper::Instance()->Push(L, Mouse::Instance()->IsPressed(Mouse::Instance()->StringToButton(LuaWrapper::Instance()->Get<std::string>(L, -1, 1).c_str())));
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int Mouse::LuaIsDbl(lua_State* L)
+	{
+		return LuaWrapper::Instance()->Push(L, Mouse::Instance()->IsDbl(Mouse::Instance()->StringToButton(LuaWrapper::Instance()->Get<std::string>(L, -1, 1).c_str())));
 	}
 }

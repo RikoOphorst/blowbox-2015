@@ -12,7 +12,11 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	D3D11RenderTarget::D3D11RenderTarget()
 	{
-		ContentManager::Instance()->LoadShader("shaders/post_processing.fx");
+		if (!ContentManager::Instance()->IsShaderLoaded("shaders/post_processing.fx"))
+		{
+			ContentManager::Instance()->LoadShader("shaders/post_processing.fx");
+		}
+
 		shader_ = ContentManager::Instance()->GetShader("shaders/post_processing.fx");
 		blend_state_ = new D3D11BlendState();
 		depth_stencil_ = new D3D11DepthStencil();
@@ -23,7 +27,11 @@ namespace blowbox
 	D3D11RenderTarget::D3D11RenderTarget(lua_State* L) :
 		LuaClass(L)
 	{
-		ContentManager::Instance()->LoadShader("shaders/post_processing.fx");
+		if (!ContentManager::Instance()->IsShaderLoaded("shaders/post_processing.fx"))
+		{
+			ContentManager::Instance()->LoadShader("shaders/post_processing.fx");
+		}
+
 		shader_ = ContentManager::Instance()->GetShader("shaders/post_processing.fx");
 		blend_state_ = new D3D11BlendState();
 		depth_stencil_ = new D3D11DepthStencil();
@@ -83,12 +91,14 @@ namespace blowbox
 			D3D11RenderDevice::Instance()->GetBackBuffer()->GetTarget()->GetDesc(&target_desc);
 			target_desc.BindFlags |= D3D11_BIND_FLAG::D3D11_BIND_SHADER_RESOURCE;
 			
+			target_desc.Format = DXGI_FORMAT::DXGI_FORMAT_R32G32B32A32_FLOAT;
+
 			hr = device->CreateTexture2D(&target_desc, NULL, &target_);
 			BLOW_ASSERT_HR(hr, "Error while creating render target texture");
 
 			D3D11_SHADER_RESOURCE_VIEW_DESC view_desc;
 			view_desc.ViewDimension = D3D_SRV_DIMENSION::D3D11_SRV_DIMENSION_TEXTURE2D;
-			view_desc.Format = DXGI_FORMAT::DXGI_FORMAT_R8G8B8A8_UNORM;
+			view_desc.Format = DXGI_FORMAT::DXGI_FORMAT_R32G32B32A32_FLOAT;
 			view_desc.Texture2D.MipLevels = 1;
 			view_desc.Texture2D.MostDetailedMip = 0;
 
@@ -109,7 +119,14 @@ namespace blowbox
 	{
 		ID3D11DepthStencilView* ds_view = depth_stencil_->GetView();
 		
-		context->OMSetRenderTargets(1, &view_, ds_view);
+		if (RENDER_TARGET_TYPE::RENDER_TARGET_TYPE_BACKBUFFER == type_)
+		{
+			context->OMSetRenderTargets(1, &view_, nullptr);
+		}
+		else
+		{
+			context->OMSetRenderTargets(1, &view_, ds_view);
+		}
 		
 		depth_stencil_->Set(context);
 	}
@@ -126,7 +143,6 @@ namespace blowbox
 		if (RENDER_TARGET_TYPE::RENDER_TARGET_TYPE_BACKBUFFER == type_)
 		{
 			context->ClearRenderTargetView(view_, D3DXCOLOR(0.1f, 0.1f, 0.1f, 1.0f));
-			context->ClearDepthStencilView(depth_stencil_->GetView(), D3D11_CLEAR_FLAG::D3D11_CLEAR_DEPTH | D3D11_CLEAR_FLAG::D3D11_CLEAR_STENCIL, 1.0f, 0);
 		}
 		else if (RENDER_TARGET_TYPE::RENDER_TARGET_TYPE_RENDER_TARGET == type_)
 		{

@@ -55,6 +55,12 @@ namespace blowbox
 		*/
 		D3D11Shader* GetShader(const std::string& path, bool& failed);
 		
+		/**
+		* @brief Is the given shader loaded?
+		* @param[in] path (const std::string&) the path to the shader file
+		*/
+		bool IsShaderLoaded(const std::string& path);
+
 		/*************
 		** TEXTURES **
 		**************/
@@ -77,6 +83,16 @@ namespace blowbox
 		* @param[out] failed (bool&) did the texture retrieval call fail?
 		*/
 		D3D11Texture* GetTexture(const std::string& path, bool& failed);
+
+		/**
+		* @brief Is the given texture loaded?
+		* @param[in] path (const std::string&) the path to the texture file
+		*/
+		bool IsTextureLoaded(const std::string& path);
+
+		/*************
+		**    LUA   **
+		**************/
 
 		/**
 		* @brief Register this object's functions

@@ -20,9 +20,9 @@ namespace blowbox
 		render_target_blend_desc.DestBlend = D3D11_BLEND::D3D11_BLEND_INV_SRC_ALPHA;
 		render_target_blend_desc.BlendOp = D3D11_BLEND_OP::D3D11_BLEND_OP_ADD;
 		render_target_blend_desc.SrcBlendAlpha = D3D11_BLEND::D3D11_BLEND_ONE;
-		render_target_blend_desc.DestBlendAlpha = D3D11_BLEND::D3D11_BLEND_ZERO;
+		render_target_blend_desc.DestBlendAlpha = D3D11_BLEND::D3D11_BLEND_INV_SRC_ALPHA;
 		render_target_blend_desc.BlendOpAlpha = D3D11_BLEND_OP::D3D11_BLEND_OP_ADD;
-		render_target_blend_desc.RenderTargetWriteMask = D3D10_COLOR_WRITE_ENABLE::D3D10_COLOR_WRITE_ENABLE_ALL;
+		render_target_blend_desc.RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE::D3D11_COLOR_WRITE_ENABLE_ALL;
 
 		blend_desc.AlphaToCoverageEnable = false;
 		blend_desc.IndependentBlendEnable = false;
@@ -46,7 +46,7 @@ namespace blowbox
 
 		if (last_state != state_)
 		{
-			context->OMSetBlendState(state_, NULL, 0xffffffff);
+			context->OMSetBlendState(state_, NULL, 0x000000ff);
 		}
 
 		BLOW_RELEASE(last_state);

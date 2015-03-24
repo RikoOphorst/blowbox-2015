@@ -160,7 +160,7 @@ namespace blowbox
 			}
 		}
 
-		swap_chain_->Present(0, 0);
+		swap_chain_->Present(D3D11Settings::Instance()->GetVSync(), 0);
 	}
 
 	//------------------------------------------------------------------------------------------------------
