@@ -65,7 +65,7 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	int LuaEnum::LuaReset(lua_State* L)
 	{
-		const char* identifier = LuaWrapper::Instance()->Get<const char*>(L, -2);
+		const char* identifier = LuaWrapper::Instance()->Get<const char*>(L, 1);
 
 		// Create the enumerator table
 		lua_newtable(L);

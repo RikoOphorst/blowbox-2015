@@ -404,28 +404,28 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	int Console::LuaLog(lua_State* L)
 	{
-		Console::Instance()->Log(LuaWrapper::Instance()->Get<std::string>(L, -1));
+		Console::Instance()->Log(LuaWrapper::Instance()->Get<std::string>(L, 1));
 		return 0;
 	}
 
 	//------------------------------------------------------------------------------------------------------
 	int Console::LuaError(lua_State* L)
 	{
-		Console::Instance()->Log(LuaWrapper::Instance()->Get<std::string>(L, -1), LOG_COLOR_TYPES::LOG_COLOR_ERROR);
+		Console::Instance()->Log(LuaWrapper::Instance()->Get<std::string>(L, 1), LOG_COLOR_TYPES::LOG_COLOR_ERROR);
 		return 0;
 	}
 
 	//------------------------------------------------------------------------------------------------------
 	int Console::LuaWarning(lua_State* L)
 	{
-		Console::Instance()->Log(LuaWrapper::Instance()->Get<std::string>(L, -1), LOG_COLOR_TYPES::LOG_COLOR_WARNING);
+		Console::Instance()->Log(LuaWrapper::Instance()->Get<std::string>(L, 1), LOG_COLOR_TYPES::LOG_COLOR_WARNING);
 		return 0;
 	}
 
 	//------------------------------------------------------------------------------------------------------
 	int Console::LuaNotice(lua_State* L)
 	{
-		Console::Instance()->Log(LuaWrapper::Instance()->Get<std::string>(L, -1), LOG_COLOR_TYPES::LOG_COLOR_NOTICE);
+		Console::Instance()->Log(LuaWrapper::Instance()->Get<std::string>(L, 1), LOG_COLOR_TYPES::LOG_COLOR_NOTICE);
 		return 0;
 	}
 
@@ -433,13 +433,13 @@ namespace blowbox
 	int Console::LuaRGB(lua_State* L)
 	{
 		Console::Instance()->Log(
-			LuaWrapper::Instance()->Get<std::string>(L, -7),
-			LuaWrapper::Instance()->Get<double>(L, -6),
-			LuaWrapper::Instance()->Get<double>(L, -5),
-			LuaWrapper::Instance()->Get<double>(L, -4),
-			LuaWrapper::Instance()->Get<double>(L, -3),
-			LuaWrapper::Instance()->Get<double>(L, -2),
-			LuaWrapper::Instance()->Get<double>(L, -1)
+			LuaWrapper::Instance()->Get<std::string>(L, 1),
+			LuaWrapper::Instance()->Get<double>(L, 2),
+			LuaWrapper::Instance()->Get<double>(L, 3),
+			LuaWrapper::Instance()->Get<double>(L, 4),
+			LuaWrapper::Instance()->Get<double>(L, 5),
+			LuaWrapper::Instance()->Get<double>(L, 6),
+			LuaWrapper::Instance()->Get<double>(L, 7)
 			);
 		return 0;
 	}

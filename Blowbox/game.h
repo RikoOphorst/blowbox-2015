@@ -8,6 +8,8 @@
 #include "../blowbox/lua/lua_callback.h"
 #include "../blowbox/lua/lua_class.h"
 
+using namespace std::chrono;
+
 namespace blowbox
 {
 	class Window;
@@ -50,9 +52,19 @@ namespace blowbox
 		void Update();
 
 		/**
+		* @brief Updates the game in a fixed manner
+		*/
+		void FixedUpdate();
+
+		/**
 		* @brief Draws the game
 		*/
 		void Draw();
+
+		/**
+		* @brief Get the delta time
+		*/
+		const double& GetDeltaTime();
 
 		/**
 		* @brief Gets the window
@@ -91,6 +103,12 @@ namespace blowbox
 		D3D11RenderDevice* renderDevice_;
 		SharedPtr<LuaCallback> cb_init_;
 		SharedPtr<LuaCallback> cb_update_;
+		SharedPtr<LuaCallback> cb_fixed_update_;
 		SharedPtr<LuaCallback> cb_draw_;
+
+		high_resolution_clock::time_point last_time_;
+		high_resolution_clock::time_point current_time_;
+		double delta_time_;
+		double time_elapsed_;
 	};
 }

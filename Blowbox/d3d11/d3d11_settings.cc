@@ -84,7 +84,7 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	int D3D11Settings::LuaSetResolution(lua_State* L)
 	{
-		D3D11Settings::Instance()->SetResolution(static_cast<float>(LuaWrapper::Instance()->Get<double>(L, -2, 1)), static_cast<float>(LuaWrapper::Instance()->Get<double>(L, -1, 2)));
+		D3D11Settings::Instance()->SetResolution(static_cast<float>(LuaWrapper::Instance()->Get<double>(L, 1)), static_cast<float>(LuaWrapper::Instance()->Get<double>(L, 2)));
 
 		return 0;
 	}
@@ -98,7 +98,7 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	int D3D11Settings::LuaSetVSync(lua_State* L)
 	{
-		D3D11Settings::Instance()->SetVSync(LuaWrapper::Instance()->Get<bool>(L, -1, 1));
+		D3D11Settings::Instance()->SetVSync(LuaWrapper::Instance()->Get<bool>(L, 1));
 
 		return 0;
 	}

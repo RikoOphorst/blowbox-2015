@@ -25,7 +25,7 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	int LuaRequire::Require(lua_State* L)
 	{
-		LuaWrapper::Instance()->CompileFromFile(L, LuaWrapper::Instance()->Get<std::string>(L, -1, 1));
+		LuaWrapper::Instance()->CompileFromFile(L, LuaWrapper::Instance()->Get<std::string>(L, 1));
 
 		return 0;
 	}

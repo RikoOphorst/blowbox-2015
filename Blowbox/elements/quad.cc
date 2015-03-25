@@ -23,13 +23,6 @@ namespace blowbox
 
 		LuaWrapper::Instance()->Dump(L, "HURDUR WHATRS ON THE STAKCKK");
 
-		auto table = LuaWrapper::Instance()->ToTable(L, 1, 1);
-
-		for (auto it = table.begin(); it != table.end(); ++it)
-		{
-			Console::Instance()->Log(it->second.identifier + ": " + it->second.value);
-		}
-
 		render_queue_ = LuaWrapper::Instance()->ParseUserdata<D3D11RenderQueue>(L, 1);
 
 		render_queue_->Add(this);

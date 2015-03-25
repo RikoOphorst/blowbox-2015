@@ -23,7 +23,7 @@ namespace blowbox
 	D3D11RenderQueue::D3D11RenderQueue(lua_State* L) :
 		LuaClass(L)
 	{
-		D3D11RenderTarget* render_target = LuaWrapper::Instance()->ParseUserdata<D3D11RenderTarget>(L, -1);
+		D3D11RenderTarget* render_target = LuaWrapper::Instance()->ParseUserdata<D3D11RenderTarget>(L, 1);
 
 		if (render_target->GetQueue() != this)
 		{
@@ -127,9 +127,9 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	int D3D11RenderQueue::LuaAdd(lua_State* L)
 	{
-		D3D11RenderQueue* self = LuaWrapper::Instance()->ParseUserdata<D3D11RenderQueue>(L, -2);
+		D3D11RenderQueue* self = LuaWrapper::Instance()->ParseUserdata<D3D11RenderQueue>(L, 1);
 
-		self->Add(LuaWrapper::Instance()->ParseUserdata<D3D11RenderElement>(L, -1));
+		self->Add(LuaWrapper::Instance()->ParseUserdata<D3D11RenderElement>(L, 2));
 
 		return 0;
 	}

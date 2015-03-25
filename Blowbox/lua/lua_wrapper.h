@@ -100,10 +100,9 @@ namespace blowbox
 		* @brief Parses userdata to given object type
 		* @param[in] L (lua_State*) the lua state
 		* @param[in] index (const int&) the index on the lua stack that should be parsed
-		* @param[in] arg (const int&) the arg at which this was expected
 		*/
 		template<typename T>
-		T* ParseUserdata(lua_State* L, const int& index, const int& arg = (-1));
+		T* ParseUserdata(lua_State* L, const int& index);
 
 		/**
 		* @brief Dumps the stack in the subsystem's console window
@@ -172,9 +171,8 @@ namespace blowbox
 		* @brief Convert stack element to a std::map<std::string key, std::string value>
 		* @param[in] L (lua_State*) the lua state
 		* @param[in] index (const int&) the index
-		* @param[in] arg (const int&) the arg at which this was expected
 		*/
-		std::map<std::string, LuaValue> ToTable(lua_State* L, const int& index, const int& arg = (-1));
+		std::map<std::string, LuaValue> ToTable(lua_State* L, const int& index);
 
 		/**
 		* @brief Convert stack element to a typename-string
@@ -187,11 +185,10 @@ namespace blowbox
 		* @brief Retrieves a value from the stack
 		* @param[in] L (lua_State*) the lua state
 		* @param[in] index (const int&) the index on the stack to be retrieved
-		* @param[in] arg (const int&) the argument at which it was expected
 		* @param[in] check (const bool&) should the value be checked?
 		*/
 		template<typename T>
-		T Get(lua_State* L, const int& index, const int& arg = (-1), const bool& check = true);
+		T Get(lua_State* L, const int& index, const bool& check = true);
 
 		/**
 		* @brief Pushes values onto the stack
@@ -237,11 +234,11 @@ namespace blowbox
 
 	//------------------------------------------------------------------------------------------------------
 	template<typename T>
-	inline T* LuaWrapper::ParseUserdata(lua_State* L, const int& index, const int& arg)
+	inline T* LuaWrapper::ParseUserdata(lua_State* L, const int& index)
 	{
 		if (!lua_isuserdata(L, index))
 		{
-			luaL_typerror(L, arg, "userdata");
+			luaL_typerror(L, index, "userdata");
 		}
 		else
 		{
@@ -283,13 +280,13 @@ namespace blowbox
 
 	//------------------------------------------------------------------------------------------------------
 	template<>
-	inline double LuaWrapper::Get<double>(lua_State* L, const int& index, const int& arg, const bool& check)
+	inline double LuaWrapper::Get<double>(lua_State* L, const int& index, const bool& check)
 	{
 		if (check == true)
 		{
 			if (Typename(L, index) != LUA_TYPE::LUA_TYPE_NUMBER)
 			{
-				luaL_typerror(L, arg, "number");
+				luaL_typerror(L, index, "number");
 				return 0;
 			}
 
@@ -300,13 +297,13 @@ namespace blowbox
 
 	//------------------------------------------------------------------------------------------------------
 	template<>
-	inline float LuaWrapper::Get<float>(lua_State* L, const int& index, const int& arg, const bool& check)
+	inline float LuaWrapper::Get<float>(lua_State* L, const int& index, const bool& check)
 	{
 		if (check == true)
 		{
 			if (Typename(L, index) != LUA_TYPE::LUA_TYPE_NUMBER)
 			{
-				luaL_typerror(L, arg, "number");
+				luaL_typerror(L, index, "number");
 				return 0;
 			}
 
@@ -317,13 +314,13 @@ namespace blowbox
 
 	//------------------------------------------------------------------------------------------------------
 	template<>
-	inline int LuaWrapper::Get<int>(lua_State* L, const int& index, const int& arg, const bool& check)
+	inline int LuaWrapper::Get<int>(lua_State* L, const int& index, const bool& check)
 	{
 		if (check == true)
 		{
 			if (Typename(L, index) != LUA_TYPE::LUA_TYPE_NUMBER)
 			{
-				luaL_typerror(L, arg, "number");
+				luaL_typerror(L, index, "number");
 				return 0;
 			}
 
@@ -334,13 +331,13 @@ namespace blowbox
 
 	//------------------------------------------------------------------------------------------------------
 	template<>
-	inline const char* LuaWrapper::Get<const char*>(lua_State* L, const int& index, const int& arg, const bool& check)
+	inline const char* LuaWrapper::Get<const char*>(lua_State* L, const int& index, const bool& check)
 	{
 		if (check == true)
 		{
 			if (Typename(L, index) != LUA_TYPE::LUA_TYPE_STRING)
 			{
-				luaL_typerror(L, arg, "string");
+				luaL_typerror(L, index, "string");
 				return "";
 			}
 			
@@ -351,13 +348,13 @@ namespace blowbox
 
 	//------------------------------------------------------------------------------------------------------
 	template<>
-	inline std::string LuaWrapper::Get<std::string>(lua_State* L, const int& index, const int& arg, const bool& check)
+	inline std::string LuaWrapper::Get<std::string>(lua_State* L, const int& index, const bool& check)
 	{
 		if (check == true)
 		{
 			if (Typename(L, index) != LUA_TYPE::LUA_TYPE_STRING)
 			{
-				luaL_typerror(L, arg, "string");
+				luaL_typerror(L, index, "string");
 				return "";
 			}
 
@@ -368,13 +365,13 @@ namespace blowbox
 
 	//------------------------------------------------------------------------------------------------------
 	template<>
-	inline bool LuaWrapper::Get<bool>(lua_State* L, const int& index, const int& arg, const bool& check)
+	inline bool LuaWrapper::Get<bool>(lua_State* L, const int& index, const bool& check)
 	{
 		if (check == true)
 		{
 			if (!lua_isboolean(L, index))
 			{
-				luaL_typerror(L, arg, "bool");
+				luaL_typerror(L, index, "bool");
 				return false;
 			}
 		}
@@ -384,13 +381,13 @@ namespace blowbox
 
 	//------------------------------------------------------------------------------------------------------
 	template<>
-	inline void* LuaWrapper::Get<void*>(lua_State* L, const int& index, const int& arg, const bool& check)
+	inline void* LuaWrapper::Get<void*>(lua_State* L, const int& index, const bool& check)
 	{
 		if (check == true)
 		{
 			if (!lua_isuserdata(L, index))
 			{
-				luaL_typerror(L, arg, "userdata");
+				luaL_typerror(L, index, "userdata");
 				return nullptr;
 			}
 			

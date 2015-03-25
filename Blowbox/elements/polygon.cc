@@ -17,10 +17,10 @@ namespace blowbox
 	Polygon::Polygon(lua_State* L) :
 		D3D11RenderElement(L)
 	{
-		render_queue_ = LuaWrapper::Instance()->ParseUserdata<D3D11RenderQueue>(L, -4);
+		render_queue_ = LuaWrapper::Instance()->ParseUserdata<D3D11RenderQueue>(L, 1);
 		render_queue_->Add(this);
 		
-		std::map<std::string, LuaValue> verts = LuaWrapper::Instance()->ToTable(L, -3);
+		std::map<std::string, LuaValue> verts = LuaWrapper::Instance()->ToTable(L, 2);
 
 		for (auto it = verts.begin(); it != verts.end(); ++it)
 		{
@@ -33,7 +33,7 @@ namespace blowbox
 			vertices_.push_back(vert);
 		}
 
-		std::map<std::string, LuaValue> indices = LuaWrapper::Instance()->ToTable(L, -2);
+		std::map<std::string, LuaValue> indices = LuaWrapper::Instance()->ToTable(L, 3);
 
 		for (auto it = indices.begin(); it != indices.end(); ++it)
 		{
@@ -42,7 +42,7 @@ namespace blowbox
 			indices_.push_back(index);
 		}
 
-		switch (static_cast<POLYGON_TOPOLOGY>(static_cast<int>(LuaWrapper::Instance()->Get<double>(L, -1))))
+		switch (static_cast<POLYGON_TOPOLOGY>(static_cast<int>(LuaWrapper::Instance()->Get<double>(L, 4))))
 		{
 		case POLYGON_TOPOLOGY::POLYGON_TOPOLOGY_TRIANGLELIST:
 			topology_ = D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
@@ -188,9 +188,9 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	int Polygon::LuaSetPoints(lua_State* L)
 	{
-		Polygon* self = LuaWrapper::Instance()->ParseUserdata<Polygon>(L, -2, 1);
+		Polygon* self = LuaWrapper::Instance()->ParseUserdata<Polygon>(L, 1);
 
-		std::map<std::string, LuaValue> verts = LuaWrapper::Instance()->ToTable(L, -1, 2);
+		std::map<std::string, LuaValue> verts = LuaWrapper::Instance()->ToTable(L, 2);
 
 		for (auto it = verts.begin(); it != verts.end(); ++it)
 		{
@@ -211,7 +211,7 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	int Polygon::LuaGetPoints(lua_State* L)
 	{
-		Polygon* self = LuaWrapper::Instance()->ParseUserdata<Polygon>(L, -1, 1);
+		Polygon* self = LuaWrapper::Instance()->ParseUserdata<Polygon>(L, 1);
 		
 		std::vector<Vertex> verts = self->GetPoints();
 
@@ -301,27 +301,27 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	int Polygon::LuaSetPoint(lua_State* L)
 	{
-		Polygon* self = LuaWrapper::Instance()->ParseUserdata<Polygon>(L, -14, 1);
+		Polygon* self = LuaWrapper::Instance()->ParseUserdata<Polygon>(L, 1);
 
 		Vertex point;
 
-		point.position.x = LuaWrapper::Instance()->Get<float>(L, -13, 2);
-		point.position.y = LuaWrapper::Instance()->Get<float>(L, -12, 3);
-		point.position.z = LuaWrapper::Instance()->Get<float>(L, -11, 4);
+		point.position.x = LuaWrapper::Instance()->Get<float>(L, 2);
+		point.position.y = LuaWrapper::Instance()->Get<float>(L, 3);
+		point.position.z = LuaWrapper::Instance()->Get<float>(L, 4);
 
-		point.color.x = LuaWrapper::Instance()->Get<float>(L, -10, 5);
-		point.color.y = LuaWrapper::Instance()->Get<float>(L, -9, 6);
-		point.color.z = LuaWrapper::Instance()->Get<float>(L, -8, 7);
-		point.color.w = LuaWrapper::Instance()->Get<float>(L, -7, 8);
+		point.color.x = LuaWrapper::Instance()->Get<float>(L, 5);
+		point.color.y = LuaWrapper::Instance()->Get<float>(L, 6);
+		point.color.z = LuaWrapper::Instance()->Get<float>(L, 7);
+		point.color.w = LuaWrapper::Instance()->Get<float>(L, 8);
 
-		point.normal.x = LuaWrapper::Instance()->Get<float>(L, -6, 9);
-		point.normal.y = LuaWrapper::Instance()->Get<float>(L, -5, 10);
-		point.normal.z = LuaWrapper::Instance()->Get<float>(L, -4, 11);
+		point.normal.x = LuaWrapper::Instance()->Get<float>(L, 9);
+		point.normal.y = LuaWrapper::Instance()->Get<float>(L, 10);
+		point.normal.z = LuaWrapper::Instance()->Get<float>(L, 11);
 
-		point.tex_coords.x = LuaWrapper::Instance()->Get<float>(L, -3, 12);
-		point.tex_coords.y = LuaWrapper::Instance()->Get<float>(L, -2, 13);
+		point.tex_coords.x = LuaWrapper::Instance()->Get<float>(L, 12);
+		point.tex_coords.y = LuaWrapper::Instance()->Get<float>(L, 13);
 
-		self->SetPoint(point, LuaWrapper::Instance()->Get<int>(L, -1, 14));
+		self->SetPoint(point, LuaWrapper::Instance()->Get<int>(L, 14));
 		self->Create();
 
 		return 0;
@@ -330,9 +330,9 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	int Polygon::LuaGetPoint(lua_State* L)
 	{
-		Polygon* self = LuaWrapper::Instance()->ParseUserdata<Polygon>(L, -2, 1);
+		Polygon* self = LuaWrapper::Instance()->ParseUserdata<Polygon>(L, 1);
 
-		Vertex it = self->GetPoint(LuaWrapper::Instance()->Get<int>(L, -1, 2));
+		Vertex it = self->GetPoint(LuaWrapper::Instance()->Get<int>(L, 2));
 
 		lua_newtable(L);
 
@@ -410,25 +410,25 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	int Polygon::LuaAddPoint(lua_State* L)
 	{
-		Polygon* self = LuaWrapper::Instance()->ParseUserdata<Polygon>(L, -13, 1);
+		Polygon* self = LuaWrapper::Instance()->ParseUserdata<Polygon>(L, 1);
 
 		Vertex point;
 
-		point.position.x = LuaWrapper::Instance()->Get<float>(L, -12, 2);
-		point.position.y = LuaWrapper::Instance()->Get<float>(L, -11, 3);
-		point.position.z = LuaWrapper::Instance()->Get<float>(L, -10, 4);
+		point.position.x = LuaWrapper::Instance()->Get<float>(L, 2);
+		point.position.y = LuaWrapper::Instance()->Get<float>(L, 3);
+		point.position.z = LuaWrapper::Instance()->Get<float>(L, 4);
 
-		point.color.x = LuaWrapper::Instance()->Get<float>(L, -9, 5);
-		point.color.y = LuaWrapper::Instance()->Get<float>(L, -8, 6);
-		point.color.z = LuaWrapper::Instance()->Get<float>(L, -7, 7);
-		point.color.w = LuaWrapper::Instance()->Get<float>(L, -6, 8);
+		point.color.x = LuaWrapper::Instance()->Get<float>(L, 5);
+		point.color.y = LuaWrapper::Instance()->Get<float>(L, 6);
+		point.color.z = LuaWrapper::Instance()->Get<float>(L, 7);
+		point.color.w = LuaWrapper::Instance()->Get<float>(L, 8);
 
-		point.normal.x = LuaWrapper::Instance()->Get<float>(L, -5, 9);
-		point.normal.y = LuaWrapper::Instance()->Get<float>(L, -4, 10);
-		point.normal.z = LuaWrapper::Instance()->Get<float>(L, -3, 11);
+		point.normal.x = LuaWrapper::Instance()->Get<float>(L, 9);
+		point.normal.y = LuaWrapper::Instance()->Get<float>(L, 10);
+		point.normal.z = LuaWrapper::Instance()->Get<float>(L, 11);
 
-		point.tex_coords.x = LuaWrapper::Instance()->Get<float>(L, -2, 12);
-		point.tex_coords.y = LuaWrapper::Instance()->Get<float>(L, -1, 13);
+		point.tex_coords.x = LuaWrapper::Instance()->Get<float>(L, 12);
+		point.tex_coords.y = LuaWrapper::Instance()->Get<float>(L, 13);
 
 		self->AddPoint(point);
 		self->Create();
@@ -439,9 +439,9 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	int Polygon::LuaSetTopology(lua_State* L)
 	{
-		Polygon* self = LuaWrapper::Instance()->ParseUserdata<Polygon>(L, -2, 1);
+		Polygon* self = LuaWrapper::Instance()->ParseUserdata<Polygon>(L, 1);
 
-		switch (static_cast<POLYGON_TOPOLOGY>(LuaWrapper::Instance()->Get<int>(L, -1, 2)))
+		switch (static_cast<POLYGON_TOPOLOGY>(LuaWrapper::Instance()->Get<int>(L, 2)))
 		{
 		case POLYGON_TOPOLOGY::POLYGON_TOPOLOGY_TRIANGLELIST:
 			self->SetTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
@@ -457,7 +457,7 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	int Polygon::LuaGetTopology(lua_State* L)
 	{
-		Polygon* self = LuaWrapper::Instance()->ParseUserdata<Polygon>(L, -1, 1);
+		Polygon* self = LuaWrapper::Instance()->ParseUserdata<Polygon>(L, 1);
 
 		switch (self->GetTopology())
 		{
@@ -475,11 +475,11 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	int Polygon::LuaSetIndices(lua_State* L)
 	{
-		Polygon* self = LuaWrapper::Instance()->ParseUserdata<Polygon>(L, -2, 1);
+		Polygon* self = LuaWrapper::Instance()->ParseUserdata<Polygon>(L, 1);
 
 		std::vector<int> indices;
 
-		std::map<std::string, LuaValue> table = LuaWrapper::Instance()->ToTable(L, -1, 2);
+		std::map<std::string, LuaValue> table = LuaWrapper::Instance()->ToTable(L, 2);
 
 		for (auto it = table.begin(); it != table.end(); ++it)
 		{
@@ -495,7 +495,7 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	int Polygon::LuaGetIndices(lua_State* L)
 	{
-		Polygon* self = LuaWrapper::Instance()->ParseUserdata<Polygon>(L, -1, 1);
+		Polygon* self = LuaWrapper::Instance()->ParseUserdata<Polygon>(L, 1);
 
 		std::vector<int> indices = self->GetIndices();
 

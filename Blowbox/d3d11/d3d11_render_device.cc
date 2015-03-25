@@ -19,6 +19,8 @@
 
 #include "../../blowbox/win32/window.h"
 
+#include "../../blowbox/game.h"
+
 namespace blowbox
 {
 	//------------------------------------------------------------------------------------------------------
@@ -165,7 +167,7 @@ namespace blowbox
 		if (render_target->GetQueue()->GetElements().size() > 0)
 		{
 			global_buffer_->Map(context_, {
-				0.0f,
+				static_cast<float>(Game::Instance()->GetDeltaTime()),
 				camera->GetView(),
 				camera->GetProjection()
 			});
@@ -177,7 +179,7 @@ namespace blowbox
 		if (render_target->GetQueue()->GetUIElements().size() > 0)
 		{
 			global_buffer_->Map(context_, {
-				0.0f,
+				static_cast<float>(Game::Instance()->GetDeltaTime()),
 				ui_camera->GetView(),
 				ui_camera->GetProjection()
 			});

@@ -6,16 +6,36 @@
 
 namespace blowbox
 {
+	/**
+	* @class blowbox::LuaCallback
+	* @brief Creates an object that can call a lua function
+	* @author Riko Ophorst
+	*/
 	class LuaCallback
 	{
 	public:
+		/**
+		* @brief Default LuaCallback constructor
+		* @param[in] tree (std::vector<LuaValue) the tree
+		*/
 		LuaCallback(std::vector<LuaValue> tree);
 
+		/**
+		* @brief Default LuaCallback destructor
+		*/
 		~LuaCallback();
 
+		/**
+		* @brief Calls the actual function
+		* @param[in] L (lua_State*) the lua state
+		* @param[in] anything (anything) ...
+		*/
 		template<typename...Args>
 		void Call(lua_State* L, Args...args);
 
+		/**
+		* @brief Converts the internal tree vector to a string
+		*/
 		std::string TreeToString();
 	private:
 		std::vector<LuaValue> tree_;

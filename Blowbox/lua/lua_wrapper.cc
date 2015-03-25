@@ -170,11 +170,11 @@ namespace blowbox
 			string = lua_tostring(L, -1);
 			break;
 
-		case LUA_TYPE::LUA_TYPE_BOOLEAN:  // booleans
+		case LUA_TYPE::LUA_TYPE_BOOLEAN:
 			string = lua_toboolean(L, index) ? "true" : "false";
 			break;
 
-		case LUA_TYPE::LUA_TYPE_NUMBER:  // numbers
+		case LUA_TYPE::LUA_TYPE_NUMBER:
 			string = std::to_string(lua_tonumber(L, index));
 			break;
 
@@ -202,7 +202,7 @@ namespace blowbox
 	}
 
 	//------------------------------------------------------------------------------------------------------
-	std::map<std::string, LuaValue> LuaWrapper::ToTable(lua_State* L, const int& index, const int& arg)
+	std::map<std::string, LuaValue> LuaWrapper::ToTable(lua_State* L, const int& index)
 	{
 		int idx = ToAbsolute(L, index);
 
@@ -278,7 +278,7 @@ namespace blowbox
 		}
 		else
 		{
-			luaL_typerror(L, arg, "string table");
+			luaL_typerror(L, index, "table");
 		}
 
 		return table;

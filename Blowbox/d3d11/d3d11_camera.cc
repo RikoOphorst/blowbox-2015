@@ -225,12 +225,12 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	int D3D11Camera::LuaSetPosition(lua_State* L)
 	{
-		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, -4);
+		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, 1);
 
 		self->SetPosition(
-			static_cast<float>(LuaWrapper::Instance()->Get<double>(L, -3)),
-			static_cast<float>(LuaWrapper::Instance()->Get<double>(L, -2)),
-			static_cast<float>(LuaWrapper::Instance()->Get<double>(L, -1)));
+			static_cast<float>(LuaWrapper::Instance()->Get<double>(L, 2)),
+			static_cast<float>(LuaWrapper::Instance()->Get<double>(L, 3)),
+			static_cast<float>(LuaWrapper::Instance()->Get<double>(L, 4)));
 
 		return 0;
 	}
@@ -238,7 +238,7 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	int D3D11Camera::LuaGetPosition(lua_State* L)
 	{
-		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, -1);
+		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, 1);
 
 		XMFLOAT4 pos;
 		XMStoreFloat4(&pos, self->GetPosition());
@@ -249,12 +249,12 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	int D3D11Camera::LuaSetTarget(lua_State* L)
 	{
-		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, -4);
+		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, 1);
 
 		self->SetTarget(
-			static_cast<float>(LuaWrapper::Instance()->Get<double>(L, -3)),
-			static_cast<float>(LuaWrapper::Instance()->Get<double>(L, -2)),
-			static_cast<float>(LuaWrapper::Instance()->Get<double>(L, -1)));
+			static_cast<float>(LuaWrapper::Instance()->Get<double>(L, 2)),
+			static_cast<float>(LuaWrapper::Instance()->Get<double>(L, 3)),
+			static_cast<float>(LuaWrapper::Instance()->Get<double>(L, 4)));
 
 		return 0;
 	}
@@ -262,7 +262,7 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	int D3D11Camera::LuaGetTarget(lua_State* L)
 	{
-		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, -1);
+		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, 1);
 
 		XMFLOAT4 pos;
 		XMStoreFloat4(&pos, self->GetTarget());
@@ -273,12 +273,12 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	int D3D11Camera::LuaSetUp(lua_State* L)
 	{
-		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, -4);
+		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, 1);
 
 		self->SetUp(
-			static_cast<float>(LuaWrapper::Instance()->Get<double>(L, -3)),
-			static_cast<float>(LuaWrapper::Instance()->Get<double>(L, -2)),
-			static_cast<float>(LuaWrapper::Instance()->Get<double>(L, -1)));
+			static_cast<float>(LuaWrapper::Instance()->Get<double>(L, 2)),
+			static_cast<float>(LuaWrapper::Instance()->Get<double>(L, 3)),
+			static_cast<float>(LuaWrapper::Instance()->Get<double>(L, 4)));
 
 		return 0;
 	}
@@ -286,7 +286,7 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	int D3D11Camera::LuaGetUp(lua_State* L)
 	{
-		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, -1);
+		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, 1);
 
 		XMFLOAT4 pos;
 		XMStoreFloat4(&pos, self->GetUp());
@@ -297,11 +297,11 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	int D3D11Camera::LuaSetPosition2D(lua_State* L)
 	{
-		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, -3);
+		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, 1);
 
 		self->SetPosition(
-			static_cast<float>(LuaWrapper::Instance()->Get<double>(L, -2)),
-			static_cast<float>(LuaWrapper::Instance()->Get<double>(L, -1)),
+			static_cast<float>(LuaWrapper::Instance()->Get<double>(L, 2)),
+			static_cast<float>(LuaWrapper::Instance()->Get<double>(L, 3)),
 			-10.0f);
 
 		return 0;
@@ -310,7 +310,7 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	int D3D11Camera::LuaGetPosition2D(lua_State* L)
 	{
-		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, -1);
+		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, 1);
 
 		XMFLOAT4 pos;
 		XMStoreFloat4(&pos, self->GetPosition());
@@ -321,11 +321,11 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	int D3D11Camera::LuaSetTarget2D(lua_State* L)
 	{
-		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, -3);
+		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, 1);
 
 		self->SetTarget(
-			static_cast<float>(LuaWrapper::Instance()->Get<double>(L, -2)),
-			static_cast<float>(LuaWrapper::Instance()->Get<double>(L, -1)),
+			static_cast<float>(LuaWrapper::Instance()->Get<double>(L, 2)),
+			static_cast<float>(LuaWrapper::Instance()->Get<double>(L, 3)),
 			0.0f);
 
 		return 0;
@@ -334,7 +334,7 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	int D3D11Camera::LuaGetTarget2D(lua_State* L)
 	{
-		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, -1);
+		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, 1);
 
 		XMFLOAT4 pos;
 		XMStoreFloat4(&pos, self->GetTarget());
@@ -345,11 +345,11 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	int D3D11Camera::LuaSetUp2D(lua_State* L)
 	{
-		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, -3);
+		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, 1);
 
 		self->SetUp(
-			static_cast<float>(LuaWrapper::Instance()->Get<double>(L, -2)),
-			static_cast<float>(LuaWrapper::Instance()->Get<double>(L, -1)),
+			static_cast<float>(LuaWrapper::Instance()->Get<double>(L, 2)),
+			static_cast<float>(LuaWrapper::Instance()->Get<double>(L, 3)),
 			0.0f);
 
 		return 0;
@@ -358,7 +358,7 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	int D3D11Camera::LuaGetUp2D(lua_State* L)
 	{
-		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, -1);
+		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, 1);
 
 		XMFLOAT4 pos;
 		XMStoreFloat4(&pos, self->GetUp());
@@ -369,7 +369,7 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	int D3D11Camera::LuaSetMode(lua_State* L)
 	{
-		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, -2);
+		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, 1);
 
 		self->SetMode(static_cast<CAMERA_PROJECTION_TYPE>(static_cast<int>(LuaWrapper::Instance()->Get<double>(L, -1))));
 
@@ -379,7 +379,7 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	int D3D11Camera::LuaGetMode(lua_State* L)
 	{
-		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, -1);
+		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, 1);
 
 		return LuaWrapper::Instance()->Push(L, static_cast<int>(self->GetMode()));
 	}
@@ -387,9 +387,9 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	int D3D11Camera::LuaSetNearZ(lua_State* L)
 	{
-		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, -2);
+		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, 1);
 
-		self->SetNearZ(static_cast<float>(LuaWrapper::Instance()->Get<double>(L, -1)));
+		self->SetNearZ(static_cast<float>(LuaWrapper::Instance()->Get<double>(L, 2)));
 
 		return 0;
 	}
@@ -397,7 +397,7 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	int D3D11Camera::LuaGetNearZ(lua_State* L)
 	{
-		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, -1);
+		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, 1);
 
 		return LuaWrapper::Instance()->Push(L, self->GetNearZ());
 	}
@@ -405,9 +405,9 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	int D3D11Camera::LuaSetFarZ(lua_State* L)
 	{
-		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, -2);
+		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, 1);
 
-		self->SetFarZ(static_cast<float>(LuaWrapper::Instance()->Get<double>(L, -1)));
+		self->SetFarZ(static_cast<float>(LuaWrapper::Instance()->Get<double>(L, 2)));
 
 		return 0;
 	}
@@ -415,7 +415,7 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	int D3D11Camera::LuaGetFarZ(lua_State* L)
 	{
-		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, -1);
+		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, 1);
 
 		return LuaWrapper::Instance()->Push(L, self->GetFarZ());
 	}
@@ -423,9 +423,9 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	int D3D11Camera::LuaSetFOV(lua_State* L)
 	{
-		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, -2);
+		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, 1);
 
-		self->SetFOV(static_cast<float>(LuaWrapper::Instance()->Get<double>(L, -1)));
+		self->SetFOV(static_cast<float>(LuaWrapper::Instance()->Get<double>(L, 2)));
 
 		return 0;
 	}
@@ -433,7 +433,7 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	int D3D11Camera::LuaGetFOV(lua_State* L)
 	{
-		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, -1);
+		D3D11Camera* self = LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, 1);
 
 		return LuaWrapper::Instance()->Push(L, self->GetFOV());
 	}

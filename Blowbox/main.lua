@@ -34,13 +34,24 @@ Game.Initialise = function ()
 
 	ContentManager.loadTexture("./textures/lenna.png")
 
-	Game.player = Player(Game.RenderQueues.Default)
+	Game.player = Player(Game.RenderQueues.Default, -50, -50)
+
+	Game.player:setScale2D(50, 50)
+
+	Game.timer = 0
 end
 
 Game.Update = function (dt)
-	Game.t = (Game.t or 0) + 1
-	
-	Game.player:setScale2D(100, 100)
+	Game.dt = dt
+	Game.elapsed = (Game.elapsed or 0) + dt
+
+	print("normal update")
+end
+
+Game.FixedUpdate = function()
+	Game.timer = Game.timer + 1
+	Game.player:setPosition2D(math.sin(Game.timer) * 50, 0)
+	print("fixed update")
 end
 
 Game.Draw = function ()

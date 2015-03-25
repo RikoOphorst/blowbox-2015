@@ -173,7 +173,7 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	int ContentManager::LuaLoadShader(lua_State* L)
 	{
-		ContentManager::Instance()->LoadShader(LuaWrapper::Instance()->Get<std::string>(L, -1));
+		ContentManager::Instance()->LoadShader(LuaWrapper::Instance()->Get<std::string>(L, 1));
 
 		return 0;
 	}
@@ -181,7 +181,7 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	int ContentManager::LuaLoadTexture(lua_State* L)
 	{
-		ContentManager::Instance()->LoadTexture(LuaWrapper::Instance()->Get<std::string>(L, -1));
+		ContentManager::Instance()->LoadTexture(LuaWrapper::Instance()->Get<std::string>(L, 1));
 
 		return 0;
 	}

@@ -39,7 +39,7 @@ namespace blowbox
 
 		Create(RENDER_TARGET_TYPE::RENDER_TARGET_TYPE_RENDER_TARGET, D3D11RenderDevice::Instance()->GetSwapChain(), D3D11RenderDevice::Instance()->GetDevice());
 
-		D3D11RenderDevice::Instance()->AddRenderTarget(LuaWrapper::Instance()->Get<std::string>(L, -1, 1), this);
+		D3D11RenderDevice::Instance()->AddRenderTarget(LuaWrapper::Instance()->Get<std::string>(L, 1), this);
 	}
 
 	//------------------------------------------------------------------------------------------------------
@@ -225,7 +225,7 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	int D3D11RenderTarget::LuaGetShader(lua_State* L)
 	{
-		D3D11RenderTarget* self = LuaWrapper::Instance()->ParseUserdata<D3D11RenderTarget>(L, -1);
+		D3D11RenderTarget* self = LuaWrapper::Instance()->ParseUserdata<D3D11RenderTarget>(L, 1);
 
 		return LuaWrapper::Instance()->Push(L, "");
 	}
@@ -233,9 +233,9 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	int D3D11RenderTarget::LuaSetShader(lua_State* L)
 	{
-		D3D11RenderTarget* self = LuaWrapper::Instance()->ParseUserdata<D3D11RenderTarget>(L, -2);
+		D3D11RenderTarget* self = LuaWrapper::Instance()->ParseUserdata<D3D11RenderTarget>(L, 1);
 
-		self->SetShader(LuaWrapper::Instance()->Get<std::string>(L, -1));
+		self->SetShader(LuaWrapper::Instance()->Get<std::string>(L, 2));
 
 		return LuaWrapper::Instance()->Push(L, "");
 	}
@@ -243,9 +243,9 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	int D3D11RenderTarget::LuaSetQueue(lua_State* L)
 	{	
-		D3D11RenderTarget* self = LuaWrapper::Instance()->ParseUserdata<D3D11RenderTarget>(L, -2);
+		D3D11RenderTarget* self = LuaWrapper::Instance()->ParseUserdata<D3D11RenderTarget>(L, 1);
 
-		self->SetQueue(LuaWrapper::Instance()->ParseUserdata<D3D11RenderQueue>(L, -1));
+		self->SetQueue(LuaWrapper::Instance()->ParseUserdata<D3D11RenderQueue>(L, 2));
 
 		return 0;
 	}

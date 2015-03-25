@@ -17,7 +17,9 @@
 namespace blowbox
 {
 	//------------------------------------------------------------------------------------------------------
-	Game::Game()
+	Game::Game() :
+		delta_time_(0),
+		time_elapsed_(0)
 	{
 		window_ = new Window();
 		mouse_ = Mouse::Instance();
@@ -32,6 +34,11 @@ namespace blowbox
 		cb_update_ = new LuaCallback(std::vector<LuaValue>({
 			LuaValue(LUA_TYPE::LUA_TYPE_TABLE, LUA_LOCATION::LUA_LOCATION_GLOBAL, "Game"),
 			LuaValue(LUA_TYPE::LUA_TYPE_FUNCTION, LUA_LOCATION::LUA_LOCATION_FIELD, "Update")
+		}));
+
+		cb_fixed_update_ = new LuaCallback(std::vector<LuaValue>({
+			LuaValue(LUA_TYPE::LUA_TYPE_TABLE, LUA_LOCATION::LUA_LOCATION_GLOBAL, "Game"),
+			LuaValue(LUA_TYPE::LUA_TYPE_FUNCTION, LUA_LOCATION::LUA_LOCATION_FIELD, "FixedUpdate")
 		}));
 		
 		cb_draw_ = new LuaCallback(std::vector<LuaValue>({
@@ -66,10 +73,14 @@ namespace blowbox
 			renderDevice_->Initialize(window);
 			
 			cb_init_->Call<>(LuaState::Instance()->Get());
+
+			last_time_ = high_resolution_clock::now();
+			current_time_ = high_resolution_clock::now();
 			
 			while (window->GetStarted())
 			{
 				Update();
+				FixedUpdate();
 				Draw();
 			}
 		}
@@ -77,24 +88,51 @@ namespace blowbox
 
 	//------------------------------------------------------------------------------------------------------
 	void Game::Update()
-	{
+	{	
+		current_time_ = high_resolution_clock::now();
+		delta_time_ = duration_cast<duration<double, std::milli>>(current_time_ - last_time_).count() * 1e-3f;
+		last_time_ = current_time_;
+		
 		FileWatch::Instance()->Update();
 
 		window_->ProcessMessages();
 		mouse_->Update();
 		keyboard_->Update();
 
-		cb_update_->Call<double>(LuaState::Instance()->Get(), 0.0);
+		cb_update_->Call<double>(LuaState::Instance()->Get(), delta_time_);
 
 		lua_gc(LuaState::Instance()->Get(), LUA_GCCOLLECT, 0);
 
 		qApp->processEvents();
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	void Game::FixedUpdate()
+	{
+		time_elapsed_ += delta_time_ * 1000;
+
+		double fixed_delta = 1000.0f / 60;
+
+		time_elapsed_ = min(time_elapsed_, static_cast<double>(fixed_delta * 2));
+
+		while (time_elapsed_ > fixed_delta)
+		{
+			cb_fixed_update_->Call<>(LuaState::Instance()->Get());
+
+			time_elapsed_ -= fixed_delta;
+		}
 	}
 	
 	//------------------------------------------------------------------------------------------------------
 	void Game::Draw()
 	{
 		cb_draw_->Call<>(LuaState::Instance()->Get());
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	const double& Game::GetDeltaTime()
+	{
+		return delta_time_;
 	}
 	
 	//------------------------------------------------------------------------------------------------------
@@ -131,7 +169,7 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	int Game::LuaRender(lua_State* L)
 	{
-		D3D11RenderDevice::Instance()->Draw(LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, -2, 1), LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, -1, 2));
+		D3D11RenderDevice::Instance()->Draw(LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, 1), LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, 2));
 		return 0;
 	}
 }
