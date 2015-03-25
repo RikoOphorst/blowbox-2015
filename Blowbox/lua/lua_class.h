@@ -52,6 +52,13 @@ namespace blowbox
 		static int LuaToString(lua_State* L);
 
 		/**
+		* @brief The LuaIndex metamethod
+		* @param[in] L (lua_State*) the lua state
+		*/
+		template <typename T>
+		static int LuaIndex(lua_State* L);
+
+		/**
 		* @brief Registers functions of this class
 		* @param[in] L (lua_State*) the lua state
 		*/
@@ -144,5 +151,35 @@ namespace blowbox
 	inline int LuaClass::LuaToString(lua_State* L)
 	{
 		return LuaWrapper::Instance()->Push(L, T::GetName());
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	template<typename T>
+	inline int LuaClass::LuaIndex(lua_State* L)
+	{
+		lua_getmetatable(L, 1);
+		LuaWrapper::Instance()->Dump(L, "Got the metatable");
+
+		lua_pushstring(L, "userdata");
+		lua_rawget(L, -2);
+
+		lua_pushstring(L, "userdata");
+		lua_rawget(L, )
+
+		lua_getmetatable(L, -1);
+
+		auto table = LuaWrapper::Instance()->ToTable(L, -1);
+
+		for (auto it = table.begin(); it != table.end(); ++it)
+		{
+			Console::Instance()->Log(it->second.identifier);
+		}
+
+		lua_pushvalue(L, 2);
+		LuaWrapper::Instance()->Dump(L, "Copied the key");
+
+		lua_rawget(L, 4);
+		LuaWrapper::Instance()->Dump(L, "Rawgot the 4[3]");
+		return 1;
 	}
 }

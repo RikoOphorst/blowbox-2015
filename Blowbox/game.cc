@@ -110,14 +110,14 @@ namespace blowbox
 	void Game::FixedUpdate()
 	{
 		time_elapsed_ += delta_time_ * 1000;
-
+		int timesteps = 0;
 		double fixed_delta = 1000.0f / 60;
 
 		time_elapsed_ = min(time_elapsed_, static_cast<double>(fixed_delta * 2));
 
 		while (time_elapsed_ > fixed_delta)
 		{
-			cb_fixed_update_->Call<>(LuaState::Instance()->Get());
+			cb_fixed_update_->Call<int, double>(LuaState::Instance()->Get(), ++timesteps, fixed_delta);
 
 			time_elapsed_ -= fixed_delta;
 		}
