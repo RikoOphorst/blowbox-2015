@@ -86,6 +86,8 @@ namespace blowbox
 
 		cb_update_->Call<double>(LuaState::Instance()->Get(), 0.0);
 
+		lua_gc(LuaState::Instance()->Get(), LUA_GCCOLLECT, 0);
+
 		qApp->processEvents();
 	}
 	

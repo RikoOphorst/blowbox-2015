@@ -11,6 +11,7 @@
 #include "../blowbox/d3d11/d3d11_camera.h"
 #include "../blowbox/d3d11/d3d11_settings.h"
 #include "../blowbox/content/content_manager.h"
+#include "../blowbox/utility/lua_require.h"
 
 #include "../blowbox/lua/lua_register.h"
 
@@ -36,6 +37,7 @@ int main(int argc, char** argv)
 	LuaRegister::Instance()->RegisterClass<D3D11RenderTarget>(LuaState::Instance()->Get());
 	LuaRegister::Instance()->RegisterClass<D3D11RenderQueue>(LuaState::Instance()->Get());
 	LuaRegister::Instance()->RegisterClass<D3D11Camera>(LuaState::Instance()->Get());
+	LuaRegister::Instance()->RegisterFunction(LuaState::Instance()->Get(), LuaRequire::Require, "require");
 
 	QApplication QApp(argc, argv);
 	Console::Instance();

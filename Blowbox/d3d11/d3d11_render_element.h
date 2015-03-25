@@ -15,6 +15,7 @@ namespace blowbox
 	class D3D11SamplerState;
 	class D3D11RasterizerState;
 	class D3D11BlendState;
+	class D3D11RenderQueue;
 	enum TEXTURE_FILTERING_TYPE;
 
 	/**
@@ -494,5 +495,7 @@ namespace blowbox
 		TEXTURE_FILTERING_TYPE texture_filtering_;
 
 		RENDER_ELEMENT_TYPE type_;
+
+		D3D11RenderQueue* render_queue_;
 	};
 }

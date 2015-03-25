@@ -157,6 +157,7 @@
     <ClCompile Include="main.cc" />
     <ClCompile Include="memory\allocated_memory.cc" />
     <ClCompile Include="utility\lua_enum.cc" />
+    <ClCompile Include="utility\lua_require.cc" />
     <ClCompile Include="win32\file_watch.cc" />
     <ClCompile Include="win32\window.cc" />
   </ItemGroup>
@@ -201,6 +202,7 @@
     <ClInclude Include="memory\refcount.h" />
     <ClInclude Include="memory\shared_ptr.h" />
     <ClInclude Include="utility\lua_enum.h" />
+    <ClInclude Include="utility\lua_require.h" />
     <ClInclude Include="win32\file_watch.h" />
     <ClInclude Include="win32\window.h" />
   </ItemGroup>

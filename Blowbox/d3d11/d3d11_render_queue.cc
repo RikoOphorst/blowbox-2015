@@ -54,6 +54,18 @@ namespace blowbox
 	}
 
 	//------------------------------------------------------------------------------------------------------
+	void D3D11RenderQueue::Remove(D3D11RenderElement* element)
+	{
+		for (unsigned int i = 0; i < queue_.size(); ++i)
+		{
+			if (queue_.at(i) == element)
+			{
+				queue_.erase(queue_.begin() + i);
+			}
+		}
+	}
+
+	//------------------------------------------------------------------------------------------------------
 	const std::vector<D3D11RenderElement*>& D3D11RenderQueue::GetElements()
 	{
 		return queue_;
@@ -68,26 +80,18 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	void D3D11RenderQueue::Draw(ID3D11DeviceContext* context)
 	{
-		D3D11RenderElement* element;
-
 		for (int i = static_cast<int>(queue_.size()) - 1; i >= 0; --i)
 		{
-			element = queue_.at(i);
-
-			DrawElement(context, element);
+			DrawElement(context, queue_.at(i));
 		}
 	}
 
 	//------------------------------------------------------------------------------------------------------
 	void D3D11RenderQueue::DrawUI(ID3D11DeviceContext* context)
 	{
-		D3D11RenderElement* element;
-
 		for (int i = static_cast<int>(ui_queue_.size()) - 1; i >= 0; --i)
 		{
-			element = ui_queue_.at(i);
-
-			DrawElement(context, element);
+			DrawElement(context, ui_queue_.at(i));
 		}
 	}
 

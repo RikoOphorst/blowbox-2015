@@ -17,8 +17,8 @@ namespace blowbox
 	Polygon::Polygon(lua_State* L) :
 		D3D11RenderElement(L)
 	{
-		D3D11RenderQueue* render_queue = LuaWrapper::Instance()->ParseUserdata<D3D11RenderQueue>(L, -4);
-		render_queue->Add(this);
+		render_queue_ = LuaWrapper::Instance()->ParseUserdata<D3D11RenderQueue>(L, -4);
+		render_queue_->Add(this);
 		
 		std::map<std::string, LuaValue> verts = LuaWrapper::Instance()->ToTable(L, -3);
 

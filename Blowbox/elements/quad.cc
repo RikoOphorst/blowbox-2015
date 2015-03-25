@@ -4,6 +4,7 @@
 #include "../../blowbox/d3d11/d3d11_render_device.h"
 #include "../../blowbox/d3d11/d3d11_render_target.h"
 #include "../../blowbox/d3d11/d3d11_render_queue.h"
+#include "../../blowbox/console/console.h"
 
 namespace blowbox
 {
@@ -20,9 +21,18 @@ namespace blowbox
 	{
 		Create();
 
-		D3D11RenderQueue* render_queue = LuaWrapper::Instance()->ParseUserdata<D3D11RenderQueue>(L, -1);
+		LuaWrapper::Instance()->Dump(L, "HURDUR WHATRS ON THE STAKCKK");
 
-		render_queue->Add(this);
+		auto table = LuaWrapper::Instance()->ToTable(L, 1, 1);
+
+		for (auto it = table.begin(); it != table.end(); ++it)
+		{
+			Console::Instance()->Log(it->second.identifier + ": " + it->second.value);
+		}
+
+		render_queue_ = LuaWrapper::Instance()->ParseUserdata<D3D11RenderQueue>(L, 1);
+
+		render_queue_->Add(this);
 	}
 
 	//------------------------------------------------------------------------------------------------------

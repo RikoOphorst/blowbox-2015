@@ -83,6 +83,8 @@ namespace blowbox
 			FileWatch::Instance()->Add(path, WATCH_FILE_TYPES::WATCH_FILE_SCRIPT);
 		}
 
+		Console::Instance()->Log("[LUA] Compiled file: " + path, LOG_COLOR_TYPES::LOG_COLOR_NOTICE);
+
 		return true;
 	}
 
@@ -90,7 +92,7 @@ namespace blowbox
 	bool LuaWrapper::CompileFromString(lua_State* L, const std::string& code, const std::string& source)
 	{
 		int stacksize = lua_gettop(L);
-		if ((luaL_loadbuffer(L, code.c_str(), strlen(code.c_str()), NULL) || lua_pcall(L, 0, LUA_MULTRET, 0)))
+		if (luaL_dostring(L, code.c_str()))
 		{
 			Console::Instance()->Log(lua_tostring(L, -1), LOG_COLOR_TYPES::LOG_COLOR_ERROR);
 			return false;

@@ -107,5 +107,7 @@ namespace blowbox
 		{
 			context->PSSetShaderResources(slot, 1, &resource_);
 		}
+
+		BLOW_RELEASE(last_resource);
 	}
 }

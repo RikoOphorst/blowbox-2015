@@ -46,8 +46,15 @@ namespace blowbox
 
 		/**
 		* @brief Adds an element to the queue
+		* @param[in] element (D3D11RenderElement*) the render element
 		*/
 		void Add(D3D11RenderElement* element);
+
+		/**
+		* @brief Removes an element from the queue
+		* @param[in] element (D3D11RenderElement*) the render element
+		*/
+		void Remove(D3D11RenderElement* element);
 
 		/**
 		* @brief Gets the underlying elements

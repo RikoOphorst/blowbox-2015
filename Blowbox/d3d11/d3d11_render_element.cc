@@ -6,6 +6,7 @@
 #include "../../blowbox/d3d11/d3d11_shader.h"
 #include "../../blowbox/d3d11/d3d11_rasterizer_state.h"
 #include "../../blowbox/d3d11/d3d11_blend_state.h"
+#include "../../blowbox/d3d11/d3d11_render_queue.h"
 #include "../../blowbox/content/content_manager.h"
 
 namespace blowbox
@@ -22,7 +23,8 @@ namespace blowbox
 		v_offset_(XMVectorSet(0.0f, 0.0f, 0.0f, 1.0f)),
 		alpha_(1),
 		texture_filtering_(TEXTURE_FILTERING_TYPE::TEXTURE_ANISOTROPIC),
-		type_(RENDER_ELEMENT_TYPE::RENDER_ELEMENT_MISC)
+		type_(RENDER_ELEMENT_TYPE::RENDER_ELEMENT_MISC),
+		render_queue_(nullptr)
 	{
 		rasterizer_state_ = new D3D11RasterizerState();
 		blend_state_ = new D3D11BlendState();
@@ -43,7 +45,8 @@ namespace blowbox
 		v_offset_(XMVectorSet(0.0f, 0.0f, 0.0f, 1.0f)),
 		alpha_(1),
 		texture_filtering_(TEXTURE_FILTERING_TYPE::TEXTURE_ANISOTROPIC),
-		type_(RENDER_ELEMENT_TYPE::RENDER_ELEMENT_MISC)
+		type_(RENDER_ELEMENT_TYPE::RENDER_ELEMENT_MISC),
+		render_queue_(nullptr)
 	{
 		rasterizer_state_ = new D3D11RasterizerState();
 		blend_state_ = new D3D11BlendState();
@@ -55,7 +58,7 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	D3D11RenderElement::~D3D11RenderElement()
 	{
-
+		render_queue_->Remove(this);
 	}
 
 	//------------------------------------------------------------------------------------------------------
