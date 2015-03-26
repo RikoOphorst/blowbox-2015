@@ -1,56 +1,33 @@
-VerletPoint = {}
-VerletPoint.__index = VerletPoint
+require("./scripts/verletpoint.lua")
+require("./scripts/linkconstraint.lua")
+require("./scripts/utility/array.lua")
 
-VerletPoint.new = function (x, y)
+Verlet = {}
+Verlet.__index = Verlet
+
+Verlet.new = function ()
 	local self = {}
 
-	self.pos = Vector2D.new(x, y)
-	self.lastpos = Vector2D.new(x, y)
+	self.points = {}
 
-	self.vel = Vector2D.new(0, 0.2)
-	self.acc = Vector2D.new(0, 0.2)
+	self.gravity = Vector2D.new(0, 0.1)
 
-	setmetatable(self, VerletPoint)
-
+	setmetatable(self, Verlet)
 	return self
 end
 
-function VerletPoint:update()
-	self.vel = self.pos:sub(self.lastpos)
+function Verlet:update()
+	for i, v in ipairs (self.points) do
+		v:solveConstraints()
 
-	self.lastpos = Vector2D.new(self.pos.x, self.pos.y)
-
-	self.pos = self.pos:add(self.vel):add(self.acc)
+		v:update(self.gravity)
+	end
 end
 
-LinkConstraint = {}
-LinkConstraint.__index = LinkConstraint
+function Verlet:addPoint(x, y, acc)
+	local point = VerletPoint.new(x, y, acc)
 
-LinkConstraint.new = function(point1, point2, restingDistance)
-	local self = {}
+	table.insert(self.points, point)
 
-	self.p1 = point1
-	self.p2 = point2
-
-	self.restingDistance = restingDistance
-
-	setmetatable(self, LinkConstraint)
-
-	return self
-end
-
-function LinkConstraint:solve()
-	local diffX = self.p1.pos.x - self.p2.pos.x
-	local diffY = self.p1.pos.y - self.p2.pos.y
-	local distance = math.sqrt(diffX * diffX + diffY * diffY)
-	local difference = (self.restingDistance - distance) / distance
-
-	local translateX = diffX * 0.005 * difference
-	local translateY = diffY * 0.005 * difference
-
-	self.p1.pos.x = self.p1.pos.x + translateX
-	self.p1.pos.y = self.p1.pos.y + translateY
-
-	self.p2.pos.x = self.p2.pos.x - translateX
-	self.p2.pos.y = self.p2.pos.y - translateY
+	return point
 end

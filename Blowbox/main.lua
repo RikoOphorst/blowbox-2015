@@ -35,18 +35,32 @@ Game.Initialise = function ()
 
 	ContentManager.loadTexture("./textures/lenna.png")
 
+	Game.verlet = Verlet.new()
+
 	Game.player = Player.new(-50, -50)
+
+	Game.simulate = false
 end
 
 Game.Update = function (dt)
 	Game.dt = dt
 	Game.elapsed = (Game.elapsed or 0) + dt
 
-	--print("normal update")
+	Game.player:update(dt)
+
+	if (Keyboard.isPressed("E")) then
+		Game.simulate = not Game.simulate
+	end
 end
 
 Game.FixedUpdate = function(timesteps, step)
-	Game.player:update(timesteps, step)
+	if (Game.simulate == true) then 
+		for i,v in ipairs(Game.player.points) do
+			--v:applyForce(Vector2D.new(0, -0.0099))
+		end
+
+		Game.verlet:update(timesteps, step)
+	end
 end
 
 Game.Draw = function ()

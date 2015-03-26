@@ -4,21 +4,28 @@ Player.__index = Player
 Player.new = function (x, y)
 	local self = {}
 
-	self.quad1 = Quad.new(Game.RenderQueues.Default)
-	self.quad2 = Quad.new(Game.RenderQueues.Default)
-
 	self.points = {
-		VerletPoint.new(320, 50),
-		VerletPoint.new(-320, -50)
+		Game.verlet:addPoint(320, 0, 0.1),
+		Game.verlet:addPoint(-320, 0, 0.1),
+		Game.verlet:addPoint(-160, -160, 0.1)
 	}
 
-	self.points[2].vel.y = -self.points[2].vel.y
-	self.points[2].acc.y = -self.points[2].acc.y
+	self.points[1]:attachTo(self.points[2], 75, 0.02, 1)
+	self.points[1]:attachTo(self.points[3], 75, 0.02, 1)
+	self.points[2]:attachTo(self.points[3], 75, 0.02, 1)
 
-	self.constraint = LinkConstraint.new(self.points[1], self.points[2], 200)
-
-	self.quad1:setScale2D(10, 10)
-	self.quad2:setScale2D(10, 10)
+	self.polygon = Polygon.new(
+		Game.RenderQueues.Default,
+		{
+			{ self.points[1].pos.x, self.points[1].pos.y, 0 },
+			{ self.points[2].pos.x, self.points[2].pos.y, 0 },
+			{ self.points[3].pos.x, self.points[3].pos.y, 0 }
+		},
+		{
+			2, 1, 0, 0, 1, 2
+		},
+		Topology.TriangleList
+	)
 
 	setmetatable(self, Player)
 
@@ -26,13 +33,7 @@ Player.new = function (x, y)
 end
 
 function Player:update()
-
-	self.constraint:solve()
-
-	for k, v in ipairs(self.points) do
-		v:update()
-	end
-
-	self.quad1:setPosition2D(self.points[1].pos.x, self.points[1].pos.y)
-	self.quad2:setPosition2D(self.points[2].pos.x, self.points[2].pos.y)
+	self.polygon:setPoint(self.points[1].pos.x, self.points[1].pos.y, 1, 0, 0, 0, 1, 0, 0, 1, 1, 1, 0)
+	self.polygon:setPoint(self.points[2].pos.x, self.points[2].pos.y, 1, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1)
+	self.polygon:setPoint(self.points[3].pos.x, self.points[3].pos.y, 1, 0, 0, 0, 1, 0, 0, 1, 1, 1, 2)
 end
