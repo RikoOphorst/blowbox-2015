@@ -110,6 +110,12 @@ namespace blowbox
 		void					Update();
 
 		/**
+		* @brief Registers this objects functions
+		* @param[in] L (lua_State*) the lua state
+		*/
+		static void LuaRegisterFunctions(lua_State* L);
+
+		/**
 		* @brief Is the key pressed?
 		* @param[in] L (lua_State*) the lua state
 		*/

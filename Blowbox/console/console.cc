@@ -405,6 +405,27 @@ namespace blowbox
 	}
 
 	//------------------------------------------------------------------------------------------------------
+	void Console::LuaRegisterFunctions(lua_State* L)
+	{
+		luaL_Reg regist[] = {
+			{ "log", LuaLog },
+			{ "error", LuaError },
+			{ "warning", LuaWarning },
+			{ "notice", LuaNotice },
+			{ "rgb", LuaRGB },
+			{ "stacktrace", LuaStackTrace },
+			{ "trace", LuaStackTrace },
+			{ "stack", LuaStackTrace },
+			{ "backtrace", LuaStackTrace },
+			{ "tracestack", LuaStackTrace },
+			{ "traceback", LuaStackTrace },
+			{ NULL, NULL }
+		};
+
+		luaL_register(L, NULL, regist);
+	}
+
+	//------------------------------------------------------------------------------------------------------
 	int Console::LuaLog(lua_State* L)
 	{
 		Console::Instance()->Log(LuaWrapper::Instance()->Get<std::string>(L, 1));

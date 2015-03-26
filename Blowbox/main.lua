@@ -21,8 +21,8 @@ Game.Initialise = function ()
 	Game.Cameras.Main:setMode(CameraModes.Orthographic)
 	Game.Cameras.UI:setMode(CameraModes.Orthographic)
 
-	RenderSettings:setResolution(640, 480)
-	RenderSettings:setVSync(true)
+	RenderSettings.setResolution(640, 480)
+	RenderSettings.setVSync(true)
 
 	Game.RenderTargets = {
 		Default = RenderTarget.new("default")
@@ -32,7 +32,11 @@ Game.Initialise = function ()
 		Default = RenderQueue.new(Game.RenderTargets.Default)
 	}
 
-	ContentManager:loadTexture("./textures/lenna.png")
+	ContentManager.loadTexture("./textures/lenna.png")
+
+	Game.quad = Quad.new(Game.RenderQueues.Default)
+
+	Game.quad:setScale2D(100, 100)
 
 	Game.player = Player(Game.RenderQueues.Default, -50, -50)
 end
@@ -45,7 +49,7 @@ Game.Update = function (dt)
 end
 
 Game.FixedUpdate = function(timesteps, step)
-	--Game.player:update(timesteps, step)
+	Game.player:update(timesteps, step)
 end
 
 Game.Draw = function ()

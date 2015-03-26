@@ -81,6 +81,20 @@ namespace blowbox
 	}
 
 	//------------------------------------------------------------------------------------------------------
+	void D3D11Settings::LuaRegisterFunctions(lua_State* L)
+	{
+		luaL_Reg regist[] = {
+			{ "setResolution", LuaSetResolution },
+			{ "getResolution", LuaGetResolution },
+			{ "setVSync", LuaSetVSync },
+			{ "getVSync", LuaGetVSync },
+			{ NULL, NULL }
+		};
+
+		luaL_register(L, NULL, regist);
+	}
+
+	//------------------------------------------------------------------------------------------------------
 	int D3D11Settings::LuaSetResolution(lua_State* L)
 	{
 		D3D11Settings::Instance()->SetResolution(static_cast<float>(LuaWrapper::Instance()->Get<double>(L, 1)), static_cast<float>(LuaWrapper::Instance()->Get<double>(L, 2)));

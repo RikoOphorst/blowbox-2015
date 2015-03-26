@@ -148,6 +148,19 @@ namespace blowbox
 	}
 
 	//------------------------------------------------------------------------------------------------------
+	void Game::LuaRegisterFunctions(lua_State* L)
+	{
+		luaL_Reg regist[] = {
+			{ "Update", LuaUpdate },
+			{ "Draw", LuaDraw },
+			{ "Render", LuaRender },
+			{ NULL, NULL }
+		};
+
+		luaL_register(L, NULL, regist);
+	}
+
+	//------------------------------------------------------------------------------------------------------
 	int Game::LuaUpdate(lua_State* L)
 	{
 		return 0;

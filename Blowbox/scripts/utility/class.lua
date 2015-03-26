@@ -10,7 +10,7 @@ function class(parent, constructor)
 			if (rawget(table, field) ~= nil) then
 				return rawget(table, field)
 			else
-				return rawget(getmetatable(parent), field)
+				return getmetatable(parent)[field]
 			end
 		end
 

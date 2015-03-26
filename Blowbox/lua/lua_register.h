@@ -137,13 +137,7 @@ namespace blowbox
 		lua_createtable(L, 0, 0);
 
 		// Register the class' functions
-		T::LuaRegisterFunctions<T>(L);
-
-		lua_newtable(L);
-		int mt = lua_gettop(L);
-		LuaRegister::RegisterFunction(L, T::LuaIndex<T>, "__index", mt);
-
-		lua_setmetatable(L, -2);
+		T::LuaRegisterFunctions(L);
 
 		// Register the table as a global
 		lua_setfield(L, LUA_GLOBALSINDEX, T::GetName());

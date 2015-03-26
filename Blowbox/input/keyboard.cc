@@ -449,6 +449,20 @@ namespace blowbox
 	}
 
 	//------------------------------------------------------------------------------------------------------
+	void Keyboard::LuaRegisterFunctions(lua_State* L)
+	{
+		luaL_Reg regist[] = {
+			{ "isPressed", LuaIsPressed },
+			{ "isReleased", LuaIsReleased },
+			{ "isDown", LuaIsDown },
+			{ "lastKey", LuaLastKey },
+			{ NULL, NULL }
+		};
+
+		luaL_register(L, NULL, regist);
+	}
+
+	//------------------------------------------------------------------------------------------------------
 	int Keyboard::LuaIsPressed(lua_State* L)
 	{
 		return LuaWrapper::Instance()->Push(L, Keyboard::Instance()->IsPressed(StringToKey(LuaWrapper::Instance()->Get<std::string>(L, -1, 1).c_str())));

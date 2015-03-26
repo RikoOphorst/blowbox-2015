@@ -156,6 +156,12 @@ namespace blowbox
 		static std::string				ButtonToString(MouseButton button);
 
 		/**
+		* @brief Registers this objects functions
+		* @param[in] L (lua_State*) the lua state
+		*/
+		static void LuaRegisterFunctions(lua_State* L);
+
+		/**
 		* @brief Gets the mouse position via lua
 		* @param[in] L (lua_State*) the lua state
 		*/

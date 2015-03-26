@@ -154,6 +154,20 @@ namespace blowbox
 	}
 
 	//------------------------------------------------------------------------------------------------------
+	void Mouse::LuaRegisterFunctions(lua_State* L)
+	{
+		luaL_Reg regist[] = {
+			{ "getPosition", LuaGetPosition },
+			{ "isDown", LuaIsDown },
+			{ "isPressed", LuaIsPressed },
+			{ "isDbl", LuaIsDbl },
+			{ NULL, NULL }
+		};
+
+		luaL_register(L, NULL, regist);
+	}
+
+	//------------------------------------------------------------------------------------------------------
 	int Mouse::LuaGetPosition(lua_State* L)
 	{
 		return LuaWrapper::Instance()->Push(L, Mouse::Instance()->GetPosition().x, Mouse::Instance()->GetPosition().y);
