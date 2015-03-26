@@ -1,6 +1,7 @@
 require("./scripts/utility/class.lua")
 require("./scripts/math/vector.lua")
 require("./scripts/player.lua")
+require("./scripts/verlet.lua")
 
 -- Hacky sack solution
 if (printCache == nil) then
@@ -34,7 +35,7 @@ Game.Initialise = function ()
 
 	ContentManager.loadTexture("./textures/lenna.png")
 
-	Game.player = Player(Game.RenderQueues.Default, -50, -50)
+	Game.player = Player.new(-50, -50)
 end
 
 Game.Update = function (dt)
@@ -45,7 +46,7 @@ Game.Update = function (dt)
 end
 
 Game.FixedUpdate = function(timesteps, step)
-	--Game.player:update(timesteps, step)
+	Game.player:update(timesteps, step)
 end
 
 Game.Draw = function ()

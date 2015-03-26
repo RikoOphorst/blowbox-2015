@@ -21,8 +21,6 @@ namespace blowbox
 	{
 		Create();
 
-		LuaWrapper::Instance()->Dump(L, "HURDUR WHATRS ON THE STAKCKK");
-
 		render_queue_ = LuaWrapper::Instance()->ParseUserdata<D3D11RenderQueue>(L, 1);
 
 		render_queue_->Add(this);
