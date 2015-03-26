@@ -109,9 +109,6 @@ namespace blowbox
 
 		// Register the "__call" function on the mt
 		LuaRegister::Instance()->RegisterFunction(L, T::LuaConstructor<T>, "__call", mt);
-		
-		// Register the "__index" function on the mt
-		LuaRegister::Instance()->RegisterFunction(L, T::LuaIndex<T>, "__index", mt);
 
 		// Register the "__tostring" function on the mt
 		LuaRegister::Instance()->RegisterFunction(L, T::LuaToString<T>, "__tostring", mt);
