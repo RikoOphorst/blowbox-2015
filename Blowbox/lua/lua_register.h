@@ -123,7 +123,7 @@ namespace blowbox
 		lua_pushvalue(L, methods);
 
 		// Register the actual functions this object has
-		T::LuaRegisterFunctions(L);
+		T::LuaRegisterFunctions<T>(L);
 
 		// Clear the stack
 		lua_pop(L, 3);
@@ -137,7 +137,13 @@ namespace blowbox
 		lua_createtable(L, 0, 0);
 
 		// Register the class' functions
-		T::LuaRegisterFunctions(L);
+		T::LuaRegisterFunctions<T>(L);
+
+		lua_newtable(L);
+		int mt = lua_gettop(L);
+		LuaRegister::RegisterFunction(L, T::LuaIndex<T>, "__index", mt);
+
+		lua_setmetatable(L, -2);
 
 		// Register the table as a global
 		lua_setfield(L, LUA_GLOBALSINDEX, T::GetName());

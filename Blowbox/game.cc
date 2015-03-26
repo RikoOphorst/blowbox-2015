@@ -45,6 +45,12 @@ namespace blowbox
 			LuaValue(LUA_TYPE::LUA_TYPE_TABLE, LUA_LOCATION::LUA_LOCATION_GLOBAL, "Game"),
 			LuaValue(LUA_TYPE::LUA_TYPE_FUNCTION, LUA_LOCATION::LUA_LOCATION_FIELD, "Draw")
 		}));
+
+		lua_functions = std::map<std::string, lua_CFunction>({
+			{ "Update", LuaUpdate },
+			{ "Draw", LuaDraw },
+			{ "Render", LuaRender }
+		});
 	}
 
 	//------------------------------------------------------------------------------------------------------
@@ -139,19 +145,6 @@ namespace blowbox
 	Window* Game::GetWindow()
 	{
 		return window_.get();
-	}
-
-	//------------------------------------------------------------------------------------------------------
-	void Game::LuaRegisterFunctions(lua_State* L)
-	{
-		luaL_Reg regist[] = {
-			{ "Update", LuaUpdate },
-			{ "Draw", LuaDraw },
-			{ "Render", LuaRender },
-			{ NULL, NULL }
-		};
-
-		luaL_register(L, NULL, regist);
 	}
 
 	//------------------------------------------------------------------------------------------------------

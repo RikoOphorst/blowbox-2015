@@ -25,6 +25,13 @@ namespace blowbox
 			mouseStates_[i].pressed = false;
 			mouseStates_[i].dbl = false;
 		}
+
+		lua_functions = std::map<std::string, lua_CFunction>({
+			{ "getPosition", LuaGetPosition },
+			{ "isDown", LuaIsDown },
+			{ "isPressed", LuaIsPressed },
+			{ "isDbl", LuaIsDbl }
+		});
 	}
 
 	//------------------------------------------------------------------------------------------------------
@@ -144,20 +151,6 @@ namespace blowbox
 		case MouseButton::MouseRight:	return "Right";
 		default: return "Left";
 		}
-	}
-
-	//------------------------------------------------------------------------------------------------------
-	void Mouse::LuaRegisterFunctions(lua_State* L)
-	{
-		luaL_Reg regist[] = {
-			{ "getPosition", LuaGetPosition },
-			{ "isDown", LuaIsDown },
-			{ "isPressed", LuaIsPressed },
-			{ "isDbl", LuaIsDbl },
-			{ NULL, NULL }
-		};
-
-		luaL_register(L, NULL, regist);
 	}
 
 	//------------------------------------------------------------------------------------------------------

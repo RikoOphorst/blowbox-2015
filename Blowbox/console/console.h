@@ -120,12 +120,6 @@ namespace blowbox
 		bool eventFilter(QObject* obj, QEvent* evt);
 
 		/**
-		* @brief Registers this object's functions
-		* @param[in] L (lua_State*) the lua state
-		*/
-		static void LuaRegisterFunctions(lua_State* L);
-
-		/**
 		* @brief Logs a string
 		* @param[in] L (lua_State*) the lua state
 		*/

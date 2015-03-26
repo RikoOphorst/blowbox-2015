@@ -102,12 +102,38 @@ namespace blowbox
 
 		window_->input->installEventFilter(this);
 		window_->enter->installEventFilter(this);
+
+		lua_functions = std::map<std::string, lua_CFunction>({
+			{ "log", LuaLog },
+			{ "error", LuaError },
+			{ "warning", LuaWarning },
+			{ "notice", LuaNotice },
+			{ "rgb", LuaRGB },
+			{ "stacktrace", LuaStackTrace },
+			{ "trace", LuaStackTrace },
+			{ "stack", LuaStackTrace },
+			{ "backtrace", LuaStackTrace },
+			{ "tracestack", LuaStackTrace },
+			{ "traceback", LuaStackTrace }
+		});
 	}
 
 	//------------------------------------------------------------------------------------------------------
 	Console::Console(lua_State* L)
 	{
-
+		lua_functions = std::map<std::string, lua_CFunction>({
+			{ "log", LuaLog },
+			{ "error", LuaError },
+			{ "warning", LuaWarning },
+			{ "notice", LuaNotice },
+			{ "rgb", LuaRGB },
+			{ "stacktrace", LuaStackTrace },
+			{ "trace", LuaStackTrace },
+			{ "stack", LuaStackTrace },
+			{ "backtrace", LuaStackTrace },
+			{ "tracestack", LuaStackTrace },
+			{ "traceback", LuaStackTrace }
+		});
 	}
 
 	//------------------------------------------------------------------------------------------------------
@@ -376,29 +402,6 @@ namespace blowbox
 		}
 
 		return false;
-	}
-
-	//------------------------------------------------------------------------------------------------------
-	void Console::LuaRegisterFunctions(lua_State* L)
-	{
-		luaL_Reg regist[] = {
-			{ "log", LuaLog },
-			{ "error", LuaError },
-			{ "warning", LuaWarning },
-			{ "notice", LuaNotice },
-			{ "rgb", LuaRGB },
-			{ "stacktrace", LuaStackTrace },
-			{ "trace", LuaStackTrace },
-			{ "stack", LuaStackTrace },
-			{ "backtrace", LuaStackTrace },
-			{ "tracestack", LuaStackTrace },
-			{ "traceback", LuaStackTrace },
-			{ NULL, NULL }
-		};
-
-		luaL_register(L, NULL, regist);
-
-		LuaRegister::Instance()->RegisterFunction(L, LuaLog, "print");
 	}
 
 	//------------------------------------------------------------------------------------------------------

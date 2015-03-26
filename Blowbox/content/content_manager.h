@@ -95,12 +95,6 @@ namespace blowbox
 		**************/
 
 		/**
-		* @brief Register this object's functions
-		* @param[in] L (lua_State*) the lua state
-		*/
-		static void LuaRegisterFunctions(lua_State* L);
-
-		/**
 		* @brief Loads a shader from lua
 		* @param[in] L (lua_State*) the lua state
 		*/

@@ -7,13 +7,19 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	LuaEnum::LuaEnum()
 	{
-		
+		lua_functions = std::map<std::string, lua_CFunction>({
+			{ "reset", LuaReset }
+		});
 	}
 	
 	//------------------------------------------------------------------------------------------------------
 	LuaEnum::LuaEnum(lua_State* L)
 	{
 		LuaReset(L);
+
+		lua_functions = std::map<std::string, lua_CFunction>({
+			{ "reset", LuaReset }
+		});
 	}
 
 	//------------------------------------------------------------------------------------------------------
@@ -49,17 +55,6 @@ namespace blowbox
 
 		// Clear the stack
 		lua_settop(L, stacksize);
-	}
-
-	//------------------------------------------------------------------------------------------------------
-	void LuaEnum::LuaRegisterFunctions(lua_State* L)
-	{
-		luaL_Reg regist[] = {
-			{ "reset", LuaReset },
-			{ NULL, NULL }
-		};
-
-		luaL_register(L, NULL, regist);
 	}
 
 	//------------------------------------------------------------------------------------------------------

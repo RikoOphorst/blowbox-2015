@@ -29,6 +29,10 @@ namespace blowbox
 		{
 			render_target->SetQueue(this);
 		}
+
+		lua_functions = std::map<std::string, lua_CFunction>({
+			{ "add", LuaAdd }
+		});
 	}
 
 	//------------------------------------------------------------------------------------------------------
@@ -113,15 +117,6 @@ namespace blowbox
 
 		element->GetVertexBuffer()->Set(context);
 		element->GetVertexBuffer()->Draw(context);
-	}
-
-	//------------------------------------------------------------------------------------------------------
-	void D3D11RenderQueue::LuaRegisterFunctions(lua_State* L)
-	{
-		luaL_Reg regist[] = {
-			{ "add", LuaAdd },
-			{ NULL, NULL }
-		};
 	}
 
 	//------------------------------------------------------------------------------------------------------

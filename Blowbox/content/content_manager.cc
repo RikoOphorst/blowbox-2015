@@ -11,6 +11,11 @@ namespace blowbox
 	{
 		LoadShader(BLOW_BASE_SHADER);
 		LoadTexture(BLOW_BASE_TEXTURE);
+
+		lua_functions = std::map<std::string, lua_CFunction>({
+			{ "loadShader", LuaLoadShader },
+			{ "loadTexture", LuaLoadTexture }
+		});
 	}
 
 	//------------------------------------------------------------------------------------------------------
@@ -156,18 +161,6 @@ namespace blowbox
 			return true;
 
 		return false;
-	}
-
-	//------------------------------------------------------------------------------------------------------
-	void ContentManager::LuaRegisterFunctions(lua_State* L)
-	{
-		luaL_Reg regist[] = {
-			{ "loadShader", LuaLoadShader },
-			{ "loadTexture", LuaLoadTexture },
-			{ NULL, NULL }
-		};
-
-		luaL_register(L, NULL, regist);
 	}
 
 	//------------------------------------------------------------------------------------------------------

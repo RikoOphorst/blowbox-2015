@@ -349,6 +349,13 @@ namespace blowbox
 			keyStates_[i].released = false;
 			keyStates_[i].pressed = false;
 		}
+
+		lua_functions = std::map<std::string, lua_CFunction>({
+			{ "isPressed", LuaIsPressed },
+			{ "isReleased", LuaIsReleased },
+			{ "isDown", LuaIsDown },
+			{ "lastKey", LuaLastKey }
+		});
 	}
 
 	//------------------------------------------------------------------------------------------------------
@@ -439,20 +446,6 @@ namespace blowbox
 
 			queue_.pop();
 		}
-	}
-
-	//------------------------------------------------------------------------------------------------------
-	void Keyboard::LuaRegisterFunctions(lua_State* L)
-	{
-		luaL_Reg regist[] = {
-			{ "isPressed", LuaIsPressed },
-			{ "isReleased", LuaIsReleased },
-			{ "isDown", LuaIsDown },
-			{ "lastKey", LuaLastKey },
-			{ NULL, NULL }
-		};
-
-		luaL_register(L, NULL, regist);
 	}
 
 	//------------------------------------------------------------------------------------------------------

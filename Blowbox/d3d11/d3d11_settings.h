@@ -67,12 +67,6 @@ namespace blowbox
 		const bool& GetVSync();
 
 		/**
-		* @brief Registers this object's functions
-		* @param[in] L (lua_State*) the lua state
-		*/
-		static void LuaRegisterFunctions(lua_State* L);
-
-		/**
 		* @brief Sets the resolution via lua
 		* @param[in] L (lua_State*) the lua state
 		*/

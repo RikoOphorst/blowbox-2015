@@ -54,6 +54,55 @@ namespace blowbox
 
 		vertex_buffer_ = new D3D11VertexBuffer();
 		Create();
+
+		lua_functions = std::map<std::string, lua_CFunction>({
+			{ "setPosition", LuaSetPosition },
+			{ "getPosition", LuaGetPosition },
+			{ "setPosition2D", LuaSetPosition2D },
+			{ "getPosition2D", LuaGetPosition2D },
+			{ "setX", LuaSetX },
+			{ "getX", LuaGetX },
+			{ "setY", LuaSetY },
+			{ "getY", LuaGetY },
+			{ "setZ", LuaSetZ },
+			{ "getZ", LuaGetZ },
+			{ "setRotation", LuaSetRotation },
+			{ "getRotation", LuaGetRotation },
+			{ "setRotation2D", LuaSetRotation2D },
+			{ "getRotation2D", LuaGetRotation2D },
+			{ "setScale", LuaSetScale },
+			{ "getScale", LuaGetScale },
+			{ "setScale2D", LuaSetScale2D },
+			{ "getScale2D", LuaGetScale2D },
+			{ "setOffset", LuaSetOffset },
+			{ "getOffset", LuaGetOffset },
+			{ "setOffset2D", LuaSetOffset2D },
+			{ "getOffset2D", LuaGetOffset2D },
+			{ "setAlpha", LuaSetAlpha },
+			{ "getAlpha", LuaGetAlpha },
+			{ "setTexture", LuaSetTexture },
+			{ "getTexture", LuaGetTexture },
+			{ "setShader", LuaSetShader },
+			{ "getShader", LuaGetShader },
+			{ "setFiltering", LuaSetFiltering },
+			{ "getFiltering", LuaGetFiltering },
+			{ "setBlend", LuaSetBlend },
+			{ "getBlend", LuaGetBlend },
+			{ "setPoints", LuaSetPoints },
+			{ "getPoints", LuaGetPoints },
+			{ "setPoint", LuaSetPoint },
+			{ "getPoint", LuaGetPoint },
+			{ "addPoint", LuaAddPoint },
+			{ "setTopology", LuaSetTopology },
+			{ "getTopology", LuaGetTopology },
+			{ "setIndices", LuaSetIndices },
+			{ "getIndices", LuaGetIndices }
+		});
+
+		LuaEnum::Set(L, "Topology", {
+			"TriangleList",
+			"TriangleStrip"
+		});
 	}
 
 	//------------------------------------------------------------------------------------------------------
@@ -126,63 +175,6 @@ namespace blowbox
 	const D3D11_PRIMITIVE_TOPOLOGY& Polygon::GetTopology()
 	{
 		return topology_;
-	}
-
-	//------------------------------------------------------------------------------------------------------
-	void Polygon::LuaRegisterFunctions(lua_State* L)
-	{
-		luaL_Reg regist[] =
-		{
-			{ "setPosition", LuaSetPosition },
-			{ "getPosition", LuaGetPosition },
-			{ "setPosition2D", LuaSetPosition2D },
-			{ "getPosition2D", LuaGetPosition2D },
-			{ "setX", LuaSetX },
-			{ "getX", LuaGetX },
-			{ "setY", LuaSetY },
-			{ "getY", LuaGetY },
-			{ "setZ", LuaSetZ },
-			{ "getZ", LuaGetZ },
-			{ "setRotation", LuaSetRotation },
-			{ "getRotation", LuaGetRotation },
-			{ "setRotation2D", LuaSetRotation2D },
-			{ "getRotation2D", LuaGetRotation2D },
-			{ "setScale", LuaSetScale },
-			{ "getScale", LuaGetScale },
-			{ "setScale2D", LuaSetScale2D },
-			{ "getScale2D", LuaGetScale2D },
-			{ "setOffset", LuaSetOffset },
-			{ "getOffset", LuaGetOffset },
-			{ "setOffset2D", LuaSetOffset2D },
-			{ "getOffset2D", LuaGetOffset2D },
-			{ "setAlpha", LuaSetAlpha },
-			{ "getAlpha", LuaGetAlpha },
-			{ "setTexture", LuaSetTexture },
-			{ "getTexture", LuaGetTexture },
-			{ "setShader", LuaSetShader },
-			{ "getShader", LuaGetShader },
-			{ "setFiltering", LuaSetFiltering },
-			{ "getFiltering", LuaGetFiltering },
-			{ "setBlend", LuaSetBlend },
-			{ "getBlend", LuaGetBlend },
-			{ "setPoints", LuaSetPoints },
-			{ "getPoints", LuaGetPoints },
-			{ "setPoint", LuaSetPoint },
-			{ "getPoint", LuaGetPoint },
-			{ "addPoint", LuaAddPoint },
-			{ "setTopology", LuaSetTopology },
-			{ "getTopology", LuaGetTopology },
-			{ "setIndices", LuaSetIndices },
-			{ "getIndices", LuaGetIndices },
-			{ NULL, NULL }
-		};
-
-		luaL_register(L, NULL, regist);
-
-		LuaEnum::Set(L, "Topology", {
-			"TriangleList",
-			"TriangleStrip"
-		});
 	}
 
 	//------------------------------------------------------------------------------------------------------

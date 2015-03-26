@@ -168,12 +168,6 @@ namespace blowbox
 		void SetUp(const float& x, const float& y, const float& z);
 
 		/**
-		* @brief Registers this object's functions
-		* @param[in] L (lua_State*) the lua state
-		*/
-		static void LuaRegisterFunctions(lua_State* L);
-
-		/**
 		* @brief Sets the position of the camera via lua
 		* @param[in] L (lua_State*) the lua state
 		*/

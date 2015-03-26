@@ -26,36 +26,8 @@ namespace blowbox
 		render_queue_ = LuaWrapper::Instance()->ParseUserdata<D3D11RenderQueue>(L, 1);
 
 		render_queue_->Add(this);
-	}
 
-	//------------------------------------------------------------------------------------------------------
-	Quad::~Quad()
-	{
-		
-	}
-
-	//------------------------------------------------------------------------------------------------------
-	void Quad::Create()
-	{
-		vertex_buffer_ = new D3D11VertexBuffer();
-		vertex_buffer_->Create(
-			{
-				Vertex(XMFLOAT4(-0.5f, -0.5f, 0.0f, 1.0f), XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f), XMFLOAT2(0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 1.0f)),
-				Vertex(XMFLOAT4(-0.5f, 0.5f, 0.0f, 1.0f), XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f), XMFLOAT2(0.0f, 1.0f), XMFLOAT3(0.0f, 0.0f, 1.0f)),
-				Vertex(XMFLOAT4(0.5f, -0.5f, 0.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f), XMFLOAT2(1.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 1.0f)),
-				Vertex(XMFLOAT4(0.5f, 0.5f, 0.0f, 1.0f), XMFLOAT4(0.5f, 0.5f, 0.5f, 1.0f), XMFLOAT2(1.0f, 1.0f), XMFLOAT3(0.0f, 0.0f, 1.0f))
-			},
-			{ 0, 1, 2, 3 },
-			D3D11_PRIMITIVE_TOPOLOGY::D3D10_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP,
-			BUFFER_TYPE::BUFFER_TYPE_QUAD
-		);
-	}
-
-	//------------------------------------------------------------------------------------------------------
-	void Quad::LuaRegisterFunctions(lua_State* L)
-	{
-		luaL_Reg regist[] =
-		{
+		lua_functions = std::map<std::string, lua_CFunction>({
 			{ "setPosition", LuaSetPosition },
 			{ "getPosition", LuaGetPosition },
 			{ "setPosition2D", LuaSetPosition2D },
@@ -87,10 +59,30 @@ namespace blowbox
 			{ "setFiltering", LuaSetFiltering },
 			{ "getFiltering", LuaGetFiltering },
 			{ "setBlend", LuaSetBlend },
-			{ "getBlend", LuaGetBlend },
-			{ NULL, NULL }
-		};
+			{ "getBlend", LuaGetBlend }
+		});
+	}
 
-		luaL_register(L, NULL, regist);
+	//------------------------------------------------------------------------------------------------------
+	Quad::~Quad()
+	{
+		
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	void Quad::Create()
+	{
+		vertex_buffer_ = new D3D11VertexBuffer();
+		vertex_buffer_->Create(
+			{
+				Vertex(XMFLOAT4(-0.5f, -0.5f, 0.0f, 1.0f), XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f), XMFLOAT2(0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 1.0f)),
+				Vertex(XMFLOAT4(-0.5f, 0.5f, 0.0f, 1.0f), XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f), XMFLOAT2(0.0f, 1.0f), XMFLOAT3(0.0f, 0.0f, 1.0f)),
+				Vertex(XMFLOAT4(0.5f, -0.5f, 0.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f), XMFLOAT2(1.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 1.0f)),
+				Vertex(XMFLOAT4(0.5f, 0.5f, 0.0f, 1.0f), XMFLOAT4(0.5f, 0.5f, 0.5f, 1.0f), XMFLOAT2(1.0f, 1.0f), XMFLOAT3(0.0f, 0.0f, 1.0f))
+			},
+			{ 0, 1, 2, 3 },
+			D3D11_PRIMITIVE_TOPOLOGY::D3D10_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP,
+			BUFFER_TYPE::BUFFER_TYPE_QUAD
+		);
 	}
 }

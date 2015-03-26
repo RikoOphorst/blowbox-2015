@@ -22,6 +22,41 @@ namespace blowbox
 
 		render_queue_ = LuaWrapper::Instance()->ParseUserdata<D3D11RenderQueue>(L, 1);
 		render_queue_->Add(this);
+
+		lua_functions = std::map<std::string, lua_CFunction>({
+			{ "setPosition", LuaSetPosition },
+			{ "getPosition", LuaGetPosition },
+			{ "setPosition2D", LuaSetPosition2D },
+			{ "getPosition2D", LuaGetPosition2D },
+			{ "setX", LuaSetX },
+			{ "getX", LuaGetX },
+			{ "setY", LuaSetY },
+			{ "getY", LuaGetY },
+			{ "setZ", LuaSetZ },
+			{ "getZ", LuaGetZ },
+			{ "setRotation", LuaSetRotation },
+			{ "getRotation", LuaGetRotation },
+			{ "setRotation2D", LuaSetRotation2D },
+			{ "getRotation2D", LuaGetRotation2D },
+			{ "setScale", LuaSetScale },
+			{ "getScale", LuaGetScale },
+			{ "setScale2D", LuaSetScale2D },
+			{ "getScale2D", LuaGetScale2D },
+			{ "setOffset", LuaSetOffset },
+			{ "getOffset", LuaGetOffset },
+			{ "setOffset2D", LuaSetOffset2D },
+			{ "getOffset2D", LuaGetOffset2D },
+			{ "setAlpha", LuaSetAlpha },
+			{ "getAlpha", LuaGetAlpha },
+			{ "setTexture", LuaSetTexture },
+			{ "getTexture", LuaGetTexture },
+			{ "setShader", LuaSetShader },
+			{ "getShader", LuaGetShader },
+			{ "setFiltering", LuaSetFiltering },
+			{ "getFiltering", LuaGetFiltering },
+			{ "setBlend", LuaSetBlend },
+			{ "getBlend", LuaGetBlend }
+		});
 	}
 
 	//------------------------------------------------------------------------------------------------------
@@ -72,7 +107,7 @@ namespace blowbox
 			Vertex(XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), XMFLOAT2(1.0f, 0.0f)),
 			Vertex(XMFLOAT4(1.0f, -1.0f, 1.0f, 1.0f), XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), XMFLOAT2(1.0f, 1.0f)),
 		},
-		{ 
+		{
 			// Front Face
 			0, 1, 2,
 			0, 2, 3,
@@ -96,52 +131,9 @@ namespace blowbox
 			// Right Face
 			20, 21, 22,
 			20, 22, 23
-		}, 
+		},
 		D3D11_PRIMITIVE_TOPOLOGY::D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST,
 		BUFFER_TYPE::BUFFER_TYPE_CUBE
 		);
-	}
-
-	//------------------------------------------------------------------------------------------------------
-	void Cube::LuaRegisterFunctions(lua_State* L)
-	{
-		luaL_Reg regist[] =
-		{
-			{ "setPosition", LuaSetPosition },
-			{ "getPosition", LuaGetPosition },
-			{ "setPosition2D", LuaSetPosition2D },
-			{ "getPosition2D", LuaGetPosition2D },
-			{ "setX", LuaSetX },
-			{ "getX", LuaGetX },
-			{ "setY", LuaSetY },
-			{ "getY", LuaGetY },
-			{ "setZ", LuaSetZ },
-			{ "getZ", LuaGetZ },
-			{ "setRotation", LuaSetRotation },
-			{ "getRotation", LuaGetRotation },
-			{ "setRotation2D", LuaSetRotation2D },
-			{ "getRotation2D", LuaGetRotation2D },
-			{ "setScale", LuaSetScale },
-			{ "getScale", LuaGetScale },
-			{ "setScale2D", LuaSetScale2D },
-			{ "getScale2D", LuaGetScale2D },
-			{ "setOffset", LuaSetOffset },
-			{ "getOffset", LuaGetOffset },
-			{ "setOffset2D", LuaSetOffset2D },
-			{ "getOffset2D", LuaGetOffset2D },
-			{ "setAlpha", LuaSetAlpha },
-			{ "getAlpha", LuaGetAlpha },
-			{ "setTexture", LuaSetTexture },
-			{ "getTexture", LuaGetTexture },
-			{ "setShader", LuaSetShader },
-			{ "getShader", LuaGetShader },
-			{ "setFiltering", LuaSetFiltering },
-			{ "getFiltering", LuaGetFiltering },
-			{ "setBlend", LuaSetBlend },
-			{ "getBlend", LuaGetBlend },
-			{ NULL, NULL }
-		};
-
-		luaL_register(L, NULL, regist);
 	}
 }

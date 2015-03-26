@@ -138,12 +138,6 @@ namespace blowbox
 		void RecreateDepthStencil();
 
 		/**
-		* @brief Registers this object's functions in Lua
-		* @param[in] L (lua_State*) the lua state
-		*/
-		static void LuaRegisterFunctions(lua_State* L);
-
-		/**
 		* @brief Sets the post processing shader for this render target
 		* @param[in] L (lua_State*) the lua state
 		*/

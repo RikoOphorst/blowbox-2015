@@ -74,12 +74,6 @@ namespace blowbox
 		void DrawElement(ID3D11DeviceContext* context, D3D11RenderElement* element);
 
 		/**
-		* @brief Registers this object's lua functions
-		* @param[in] L (lua_State*) the lua state
-		*/
-		static void LuaRegisterFunctions(lua_State* L);
-
-		/**
 		* @brief Adds an element to this queue
 		* @param[in] L (lua_State*) the lua state
 		*/

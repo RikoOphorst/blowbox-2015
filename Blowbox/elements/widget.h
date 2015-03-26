@@ -33,12 +33,6 @@ namespace blowbox
 		*/
 		void Create();
 
-		/**
-		* @brief Registers all the lua functions
-		* @param[in] L (lua_State*) the lua state
-		*/
-		static void LuaRegisterFunctions(lua_State* L);
-
 		CLASSNAME("Widget");
 	private:
 	};

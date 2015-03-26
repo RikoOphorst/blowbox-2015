@@ -21,8 +21,8 @@ Game.Initialise = function ()
 	Game.Cameras.Main:setMode(CameraModes.Orthographic)
 	Game.Cameras.UI:setMode(CameraModes.Orthographic)
 
-	RenderSettings.setResolution(640, 480)
-	RenderSettings.setVSync(true)
+	RenderSettings:setResolution(640, 480)
+	RenderSettings:setVSync(true)
 
 	Game.RenderTargets = {
 		Default = RenderTarget.new("default")
@@ -32,7 +32,7 @@ Game.Initialise = function ()
 		Default = RenderQueue.new(Game.RenderTargets.Default)
 	}
 
-	ContentManager.loadTexture("./textures/lenna.png")
+	ContentManager:loadTexture("./textures/lenna.png")
 
 	Game.player = Player(Game.RenderQueues.Default, -50, -50)
 end

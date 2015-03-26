@@ -72,12 +72,6 @@ namespace blowbox
 		Window* GetWindow();
 
 		/**
-		* @brief Registers this objects functions
-		* @param[in] L (lua_State*) the lua state
-		*/
-		static void LuaRegisterFunctions(lua_State* L);
-
-		/**
 		* @brief A placeholder update function
 		* @param[in] L (lua_State*) the lua state
 		*/

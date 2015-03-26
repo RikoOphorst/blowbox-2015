@@ -31,6 +31,13 @@ namespace blowbox
 		~LuaClass();
 
 		/**
+		* @brief Accesses a function from this object and pushes it onto the stack
+		* @param[in] L (lua_State*) the lua state
+		* @param[in] name (const std::string&) the function name
+		*/
+		lua_CFunction AccessKey(lua_State* L, const std::string& name);
+
+		/**
 		* @brief The LuaConstructor used by any userdata which is "new"-able
 		* @param[in] L (lua_State*) the lua state
 		*/
@@ -62,7 +69,13 @@ namespace blowbox
 		* @brief Registers functions of this class
 		* @param[in] L (lua_State*) the lua state
 		*/
+		template <typename T>
 		static void LuaRegisterFunctions(lua_State* L);
+
+		/**
+		* @brief The lua functions
+		*/
+		static std::map<std::string, lua_CFunction> lua_functions;
 	};
 
 	//------------------------------------------------------------------------------------------------------
@@ -157,29 +170,29 @@ namespace blowbox
 	template<typename T>
 	inline int LuaClass::LuaIndex(lua_State* L)
 	{
-		lua_getmetatable(L, 1);
-		LuaWrapper::Instance()->Dump(L, "Got the metatable");
+		T* self = LuaWrapper::Instance()->ParseUserdata<T>(L, 1);
 
-		lua_pushstring(L, "userdata");
-		lua_rawget(L, -2);
+		self->AccessKey(L, LuaWrapper::Instance()->Get<std::string>(L, 2));
 
-		lua_pushstring(L, "userdata");
-		lua_rawget(L, )
+		return 1;
+	}
 
-		lua_getmetatable(L, -1);
+	//------------------------------------------------------------------------------------------------------
+	template <typename T>
+	inline void LuaClass::LuaRegisterFunctions(lua_State* L)
+	{
+		std::vector<luaL_Reg> funcs;
 
-		auto table = LuaWrapper::Instance()->ToTable(L, -1);
-
-		for (auto it = table.begin(); it != table.end(); ++it)
+		for (auto it = T::lua_functions.begin(); it != T::lua_functions.end(); ++it)
 		{
-			Console::Instance()->Log(it->second.identifier);
+			funcs.push_back({
+				it->first.c_str(),
+				it->second
+			});
 		}
 
-		lua_pushvalue(L, 2);
-		LuaWrapper::Instance()->Dump(L, "Copied the key");
+		funcs.push_back({ NULL, NULL });
 
-		lua_rawget(L, 4);
-		LuaWrapper::Instance()->Dump(L, "Rawgot the 4[3]");
-		return 1;
+		luaL_register(L, NULL, &funcs[0]);
 	}
 }

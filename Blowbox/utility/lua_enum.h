@@ -43,12 +43,6 @@ namespace blowbox
 		*/
 		static int LuaReset(lua_State* L);
 
-		/**
-		* @brief Registers this class' functions via luaL_register
-		* @param[in] L (lua_State*) the lua state
-		*/
-		static void LuaRegisterFunctions(lua_State* L);
-
 		CLASSNAME("enum");
 	};
 }

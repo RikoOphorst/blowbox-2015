@@ -30,7 +30,33 @@ namespace blowbox
 		mode_(CAMERA_PROJECTION_TYPE::CAMERA_PROJECTION_ORTHOGRAPHIC),
 		LuaClass(L)
 	{
+		lua_functions = std::map<std::string, lua_CFunction>({
+			{ "setPosition", LuaSetPosition },
+			{ "getPosition", LuaGetPosition },
+			{ "setTarget", LuaSetTarget },
+			{ "getTarget", LuaGetTarget },
+			{ "setUp", LuaSetUp },
+			{ "getUp", LuaGetUp },
+			{ "setPosition2D", LuaSetPosition2D },
+			{ "getPosition2D", LuaGetPosition2D },
+			{ "setTarget2D", LuaSetTarget2D },
+			{ "getTarget2D", LuaGetTarget2D },
+			{ "setUp2D", LuaSetUp2D },
+			{ "getUp2D", LuaGetUp2D },
+			{ "setMode", LuaSetMode },
+			{ "getMode", LuaGetMode },
+			{ "setNearZ", LuaSetNearZ },
+			{ "getNearZ", LuaGetNearZ },
+			{ "setFarZ", LuaSetFarZ },
+			{ "getFarZ", LuaGetFarZ },
+			{ "setFOV", LuaSetFOV },
+			{ "getFOV", LuaGetFOV }
+		});
 
+		LuaEnum::Set(L, "CameraModes", {
+			"Orthographic",
+			"Perspective"
+		});
 	}
 
 	//------------------------------------------------------------------------------------------------------
@@ -185,41 +211,6 @@ namespace blowbox
 	void D3D11Camera::SetUp(const float& x, const float& y, const float& z)
 	{
 		up_ = XMVectorSet(x, y, z, 1.0f);
-	}
-
-	//------------------------------------------------------------------------------------------------------
-	void D3D11Camera::LuaRegisterFunctions(lua_State* L)
-	{
-		luaL_Reg regist[] = {
-			{ "setPosition", LuaSetPosition },
-			{ "getPosition", LuaGetPosition },
-			{ "setTarget", LuaSetTarget },
-			{ "getTarget", LuaGetTarget },
-			{ "setUp", LuaSetUp },
-			{ "getUp", LuaGetUp },
-			{ "setPosition2D", LuaSetPosition2D },
-			{ "getPosition2D", LuaGetPosition2D },
-			{ "setTarget2D", LuaSetTarget2D },
-			{ "getTarget2D", LuaGetTarget2D },
-			{ "setUp2D", LuaSetUp2D },
-			{ "getUp2D", LuaGetUp2D },
-			{ "setMode", LuaSetMode },
-			{ "getMode", LuaGetMode },
-			{ "setNearZ", LuaSetNearZ },
-			{ "getNearZ", LuaGetNearZ },
-			{ "setFarZ", LuaSetFarZ },
-			{ "getFarZ", LuaGetFarZ },
-			{ "setFOV", LuaSetFOV },
-			{ "getFOV", LuaGetFOV },
-			{ NULL, NULL }
-		};
-
-		LuaEnum::Set(L, "CameraModes", {
-			"Orthographic",
-			"Perspective"
-		});
-
-		luaL_register(L, NULL, regist);
 	}
 
 	//------------------------------------------------------------------------------------------------------

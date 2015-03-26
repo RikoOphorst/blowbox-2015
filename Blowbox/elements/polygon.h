@@ -98,12 +98,6 @@ namespace blowbox
 		const D3D11_PRIMITIVE_TOPOLOGY& GetTopology();
 
 		/**
-		* @brief Registers this object's functions
-		* @param[in] L (lua_State*) the lua state
-		*/
-		static void LuaRegisterFunctions(lua_State* L);
-
-		/**
 		* @brief Sets this object's points via lua
 		* @param[in] L (lua_State*) the lua state
 		*/

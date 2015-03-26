@@ -14,6 +14,12 @@ namespace blowbox
 #ifndef _DEBUG
 		vsync_ = true;
 #endif
+		lua_functions = std::map<std::string, lua_CFunction>({
+			{ "setResolution", LuaSetResolution },
+			{ "getResolution", LuaGetResolution },
+			{ "setVSync", LuaSetVSync },
+			{ "getVSync", LuaGetVSync }
+		});
 	}
 
 	//------------------------------------------------------------------------------------------------------
@@ -24,6 +30,13 @@ namespace blowbox
 #ifndef _DEBUG
 		vsync_ = true;
 #endif
+
+		lua_functions = std::map<std::string, lua_CFunction>({
+			{ "setResolution", LuaSetResolution },
+			{ "getResolution", LuaGetResolution },
+			{ "setVSync", LuaSetVSync },
+			{ "getVSync", LuaGetVSync }
+		});
 	}
 
 	//------------------------------------------------------------------------------------------------------
@@ -65,20 +78,6 @@ namespace blowbox
 	const bool& D3D11Settings::GetVSync()
 	{
 		return vsync_;
-	}
-
-	//------------------------------------------------------------------------------------------------------
-	void D3D11Settings::LuaRegisterFunctions(lua_State* L)
-	{
-		luaL_Reg regist[] = {
-			{ "setResolution", LuaSetResolution },
-			{ "getResolution", LuaGetResolution },
-			{ "setVSync", LuaSetVSync },
-			{ "getVSync", LuaGetVSync },
-			{ NULL, NULL }
-		};
-
-		luaL_register(L, NULL, regist);
 	}
 
 	//------------------------------------------------------------------------------------------------------

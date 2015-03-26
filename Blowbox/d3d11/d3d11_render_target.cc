@@ -40,6 +40,12 @@ namespace blowbox
 		Create(RENDER_TARGET_TYPE::RENDER_TARGET_TYPE_RENDER_TARGET, D3D11RenderDevice::Instance()->GetSwapChain(), D3D11RenderDevice::Instance()->GetDevice());
 
 		D3D11RenderDevice::Instance()->AddRenderTarget(LuaWrapper::Instance()->Get<std::string>(L, 1), this);
+
+		lua_functions = std::map<std::string, lua_CFunction>({
+			{ "getShader", LuaGetShader },
+			{ "setShader", LuaSetShader },
+			{ "setQueue", LuaSetQueue }
+		});
 	}
 
 	//------------------------------------------------------------------------------------------------------
@@ -207,19 +213,6 @@ namespace blowbox
 	void D3D11RenderTarget::RecreateDepthStencil()
 	{
 		depth_stencil_->Create();
-	}
-
-	//------------------------------------------------------------------------------------------------------
-	void D3D11RenderTarget::LuaRegisterFunctions(lua_State* L)
-	{
-		luaL_Reg regist[] = {
-			{ "getShader", LuaGetShader },
-			{ "setShader", LuaSetShader },
-			{ "setQueue", LuaSetQueue },
-			{ NULL, NULL }
-		};
-
-		luaL_register(L, NULL, regist);
 	}
 
 	//------------------------------------------------------------------------------------------------------
