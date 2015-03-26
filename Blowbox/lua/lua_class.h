@@ -31,6 +31,13 @@ namespace blowbox
 		~LuaClass();
 
 		/**
+		* @brief Accesses a function from this object and pushes it onto the stack
+		* @param[in] L (lua_State*) the lua state
+		* @param[in] name (const std::string&) the function name
+		*/
+		lua_CFunction AccessKey(lua_State* L, const std::string& name);
+
+		/**
 		* @brief The LuaConstructor used by any userdata which is "new"-able
 		* @param[in] L (lua_State*) the lua state
 		*/
@@ -52,10 +59,23 @@ namespace blowbox
 		static int LuaToString(lua_State* L);
 
 		/**
+		* @brief The LuaIndex metamethod
+		* @param[in] L (lua_State*) the lua state
+		*/
+		template <typename T>
+		static int LuaIndex(lua_State* L);
+
+		/**
 		* @brief Registers functions of this class
 		* @param[in] L (lua_State*) the lua state
 		*/
+		template <typename T>
 		static void LuaRegisterFunctions(lua_State* L);
+
+		/**
+		* @brief The lua functions
+		*/
+		static std::map<std::string, lua_CFunction> lua_functions;
 	};
 
 	//------------------------------------------------------------------------------------------------------
@@ -144,5 +164,35 @@ namespace blowbox
 	inline int LuaClass::LuaToString(lua_State* L)
 	{
 		return LuaWrapper::Instance()->Push(L, T::GetName());
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	template<typename T>
+	inline int LuaClass::LuaIndex(lua_State* L)
+	{
+		T* self = LuaWrapper::Instance()->ParseUserdata<T>(L, 1);
+
+		self->AccessKey(L, LuaWrapper::Instance()->Get<std::string>(L, 2));
+
+		return 1;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	template <typename T>
+	inline void LuaClass::LuaRegisterFunctions(lua_State* L)
+	{
+		std::vector<luaL_Reg> funcs;
+
+		for (auto it = T::lua_functions.begin(); it != T::lua_functions.end(); ++it)
+		{
+			funcs.push_back({
+				it->first.c_str(),
+				it->second
+			});
+		}
+
+		funcs.push_back({ NULL, NULL });
+
+		luaL_register(L, NULL, &funcs[0]);
 	}
 }
