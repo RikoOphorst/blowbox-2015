@@ -87,6 +87,14 @@ namespace blowbox
 		/**
 		* @brief Creates the buffer
 		* @param[in] vertices (const std::vector<Vertex>&) all vertices
+		* @param[in] topology (const D3D11_PRIMITIVE_TOPOLOGY&) the topology type for this object
+		* @param[in] type (const BUFFER_TYPE&) the type of the buffer
+		*/
+		void Create(const std::vector<Vertex>& vertices, const D3D11_PRIMITIVE_TOPOLOGY& topology, const BUFFER_TYPE& type);
+
+		/**
+		* @brief Creates the buffer
+		* @param[in] vertices (const std::vector<Vertex>&) all vertices
 		* @param[in] indices (const std::vector<int>&) all indices
 		* @param[in] topology (const D3D11_PRIMITIVE_TOPOLOGY&) the topology type for this object
 		* @param[in] type (const BUFFER_TYPE&) the type of the buffer
@@ -113,6 +121,7 @@ namespace blowbox
 		ID3D11Buffer* vertex_buffer_;
 		UINT vertex_stride_size_;
 		UINT vertex_offset_;
+		UINT vertex_size_;
 
 		ID3D11Buffer* index_buffer_;
 		DXGI_FORMAT index_format_;
@@ -122,5 +131,7 @@ namespace blowbox
 		BUFFER_TYPE type_;
 
 		D3D11_PRIMITIVE_TOPOLOGY topology_;
+
+		bool indexed_;
 	};
 }

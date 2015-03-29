@@ -35,11 +35,10 @@ namespace blowbox
 
 		std::map<std::string, LuaValue> indices = LuaWrapper::Instance()->ToTable(L, 3);
 
-		for (auto it = indices.begin(); it != indices.end(); ++it)
+		for (int i = 1; i < indices.size() + 1; ++i)
 		{
-			int index = stoi(it->second.value);
-
-			indices_.push_back(index);
+			auto it = indices.find(std::to_string(i))->second;
+			indices_.push_back(stoi(it.value));
 		}
 
 		switch (static_cast<POLYGON_TOPOLOGY>(static_cast<int>(LuaWrapper::Instance()->Get<double>(L, 4))))

@@ -18,7 +18,9 @@ end
 
 function Verlet:update()
 	for i, v in ipairs (self.points) do
-		v:solveConstraints()
+		for i=1, 1, 1 do
+			v:solveConstraints()
+		end
 
 		v:update(self.gravity)
 	end

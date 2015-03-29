@@ -16,6 +16,7 @@
 #include "../../blowbox/d3d11/d3d11_vertex_buffer.h"
 #include "../../blowbox/d3d11/d3d11_viewport.h"
 #include "../../blowbox/content/content_manager.h"
+#include "../../blowbox/elements/line.h"
 
 #include "../../blowbox/win32/window.h"
 
@@ -154,6 +155,8 @@ namespace blowbox
 				DrawRenderTarget(it->second, camera, ui_camera);
 			}
 		}
+
+		Line::Instance()->Draw(context_);
 
 		swap_chain_->Present(D3D11Settings::Instance()->GetVSync(), 0);
 	}

@@ -21,9 +21,6 @@ function LinkConstraint:solve()
 	local distance = math.sqrt(diffX * diffX + diffY * diffY)
 	local difference = (self.restingDistance - distance) / distance
 
-	local translateX = diffX * self.stiffness * difference
-	local translateY = diffY * self.stiffness * difference
-
 	local im1 = 1 / self.p1.mass;
     local im2 = 1 / self.p2.mass;
     local scalarP1 = (im1 / (im1 + im2)) * self.stiffness;

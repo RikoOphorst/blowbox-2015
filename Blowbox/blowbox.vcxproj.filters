@@ -108,6 +108,9 @@
     <ClCompile Include="utility\lua_require.cc">
       <Filter>utility</Filter>
     </ClCompile>
+    <ClCompile Include="elements\line.cc">
+      <Filter>elements</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game.h" />
@@ -234,6 +237,9 @@
     </ClInclude>
     <ClInclude Include="utility\lua_require.h">
       <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="elements\line.h">
+      <Filter>elements</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

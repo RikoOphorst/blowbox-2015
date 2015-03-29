@@ -27,7 +27,7 @@ function VerletPoint:update(gravity)
 
 	self.lastpos = Vector2D.new(self.pos.x, self.pos.y)
 
-	self.pos = self.pos:add(self.vel):add(self.acc)
+	self.pos = self.pos:add(self.vel):add(self.acc:imul(0.5))
 
 	self.acc.x = 0
 	self.acc.y = 0
@@ -41,20 +41,20 @@ function VerletPoint:solveConstraints()
 	local height = 640
 	local width = 480
 
-	if (self.pos.y < -240) then
-      	self.pos.y = 2 * (-240) - self.pos.y;
+	if (self.pos.y < -200) then
+      	self.pos.y = -200;
   	end
 
     if (self.pos.y > 200) then
-      	self.pos.y = 2 * (200) - self.pos.y;
+      	self.pos.y = 200;
   	end
       
-    if (self.pos.x > 320) then
-		self.pos.x = 2 * (320) - self.pos.x;
+    if (self.pos.x > 280) then
+		self.pos.x = 280;
     end
 
-    if (self.pos.x < -320) then 
-      	self.pos.x = 2 * (-320) - self.pos.x;
+    if (self.pos.x < -280) then 
+      	self.pos.x = -280;
     end
 end
 

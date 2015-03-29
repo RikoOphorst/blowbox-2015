@@ -51,14 +51,36 @@ Game.Update = function (dt)
 	if (Keyboard.isPressed("E")) then
 		Game.simulate = not Game.simulate
 	end
+
+	local speed = 0.5
+
+	if (Keyboard.isDown("W")) then
+		for i,v in ipairs(Game.player.points) do
+			v:applyForce(Vector2D.new(0, -speed))
+		end
+	end
+
+	if (Keyboard.isDown("A")) then
+		for i,v in ipairs(Game.player.points) do
+			v:applyForce(Vector2D.new(-speed, 0))
+		end
+	end
+
+	if (Keyboard.isDown("S")) then
+		for i,v in ipairs(Game.player.points) do
+			v:applyForce(Vector2D.new(0, speed))
+		end
+	end
+
+	if (Keyboard.isDown("D")) then
+		for i,v in ipairs(Game.player.points) do
+			v:applyForce(Vector2D.new(speed, 0))
+		end
+	end
 end
 
 Game.FixedUpdate = function(timesteps, step)
 	if (Game.simulate == true) then 
-		for i,v in ipairs(Game.player.points) do
-			--v:applyForce(Vector2D.new(0, -0.0099))
-		end
-
 		Game.verlet:update(timesteps, step)
 	end
 end

@@ -143,6 +143,7 @@
     <ClCompile Include="d3d11\d3d11_vertex_buffer.cc" />
     <ClCompile Include="d3d11\d3d11_viewport.cc" />
     <ClCompile Include="elements\cube.cc" />
+    <ClCompile Include="elements\line.cc" />
     <ClCompile Include="elements\polygon.cc" />
     <ClCompile Include="elements\quad.cc" />
     <ClCompile Include="elements\widget.cc" />
@@ -184,6 +185,7 @@
     <ClInclude Include="d3d11\d3d11_vertex_buffer.h" />
     <ClInclude Include="d3d11\d3d11_viewport.h" />
     <ClInclude Include="elements\cube.h" />
+    <ClInclude Include="elements\line.h" />
     <ClInclude Include="elements\polygon.h" />
     <ClInclude Include="elements\quad.h" />
     <ClInclude Include="elements\widget.h" />
