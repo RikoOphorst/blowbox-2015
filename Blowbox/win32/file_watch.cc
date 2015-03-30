@@ -4,6 +4,7 @@
 #include "../../blowbox/lua/lua_wrapper.h"
 #include "../../blowbox/console/console.h"
 #include "../../blowbox/content/content_manager.h"
+#include "../../blowbox/game.h"
 
 namespace blowbox
 {
@@ -53,6 +54,8 @@ namespace blowbox
 			{
 				if (CompareFileTime(&it.last_changed, &last_changed) != 0)
 				{
+					Game::Instance()->Reload(it.path);
+					
 					switch (it.type)
 					{
 					case WATCH_FILE_TYPES::WATCH_FILE_SCRIPT:

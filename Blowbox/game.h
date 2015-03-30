@@ -72,6 +72,12 @@ namespace blowbox
 		Window* GetWindow();
 
 		/**
+		* @brief Invokes the reload callback in lua
+		* @param[in] path (const std::string&) the path to the file that was reloaded
+		*/
+		void Reload(const std::string& path);
+
+		/**
 		* @brief Registers this objects functions
 		* @param[in] L (lua_State*) the lua state
 		*/
@@ -105,6 +111,7 @@ namespace blowbox
 		SharedPtr<LuaCallback> cb_update_;
 		SharedPtr<LuaCallback> cb_fixed_update_;
 		SharedPtr<LuaCallback> cb_draw_;
+		SharedPtr<LuaCallback> cb_reload_;
 
 		high_resolution_clock::time_point last_time_;
 		high_resolution_clock::time_point current_time_;

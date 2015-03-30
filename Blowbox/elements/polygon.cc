@@ -22,11 +22,15 @@ namespace blowbox
 		
 		std::map<std::string, LuaValue> verts = LuaWrapper::Instance()->ToTable(L, 2);
 
-		for (auto it = verts.begin(); it != verts.end(); ++it)
+		for (int i = 1; i < verts.size() + 1; ++i)
 		{
-			int x = stoi(it->second.fields.at("1").value);
-			int y = stoi(it->second.fields.at("2").value);
-			int z = stoi(it->second.fields.at("3").value);
+			auto it = verts.find(std::to_string(i))->second;
+			auto h = it.fields.at("1");
+
+
+			int x = stoi(h.value);
+			int y = stoi(it.fields.at("2").value);
+			int z = stoi(it.fields.at("3").value);
 
 			Vertex vert(XMFLOAT4(x, y, z, 1.0f));
 

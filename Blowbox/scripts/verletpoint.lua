@@ -27,7 +27,7 @@ function VerletPoint:update(gravity)
 
 	self.lastpos = Vector2D.new(self.pos.x, self.pos.y)
 
-	self.pos = self.pos:add(self.vel):add(self.acc:imul(0.5))
+	self.pos = self.pos:add(self.vel):add(self.acc)
 
 	self.acc.x = 0
 	self.acc.y = 0

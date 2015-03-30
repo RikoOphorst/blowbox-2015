@@ -40,10 +40,15 @@ namespace blowbox
 			LuaValue(LUA_TYPE::LUA_TYPE_TABLE, LUA_LOCATION::LUA_LOCATION_GLOBAL, "Game"),
 			LuaValue(LUA_TYPE::LUA_TYPE_FUNCTION, LUA_LOCATION::LUA_LOCATION_FIELD, "FixedUpdate")
 		}));
-		
+
 		cb_draw_ = new LuaCallback(std::vector<LuaValue>({
 			LuaValue(LUA_TYPE::LUA_TYPE_TABLE, LUA_LOCATION::LUA_LOCATION_GLOBAL, "Game"),
 			LuaValue(LUA_TYPE::LUA_TYPE_FUNCTION, LUA_LOCATION::LUA_LOCATION_FIELD, "Draw")
+		}));
+
+		cb_reload_ = new LuaCallback(std::vector<LuaValue>({
+			LuaValue(LUA_TYPE::LUA_TYPE_TABLE, LUA_LOCATION::LUA_LOCATION_GLOBAL, "Game"),
+			LuaValue(LUA_TYPE::LUA_TYPE_FUNCTION, LUA_LOCATION::LUA_LOCATION_FIELD, "OnReload")
 		}));
 	}
 
@@ -139,6 +144,12 @@ namespace blowbox
 	Window* Game::GetWindow()
 	{
 		return window_.get();
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	void Game::Reload(const std::string& path)
+	{
+		cb_reload_->Call<std::string>(LuaState::Instance()->Get(), path);
 	}
 
 	//------------------------------------------------------------------------------------------------------
