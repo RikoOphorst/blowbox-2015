@@ -71,17 +71,37 @@ function Verlet:update(step)
 	end
 end
 
-function Verlet:bounds(particle)
-	if (particle.pos.y > 240-1) then
-		particle.pos.y = 240-1
-	end
-	
-	if (particle.pos.x < -320) then
-		particle.pos.x = -320
+function Verlet:getNearestParticle(point)
+	local d2Nearest = 0;
+	local nearest;
+	local selectionRadius = 20
+
+	for i, v in ipairs(self.composites) do
+		local particles = self.composites[i].particles
+
+		for j, w in ipairs(particles) do
+			local d2 = particles[j].pos:distanceSq(point)
+			if (d2 <= selectionRadius^2 and (nearest == nil or d2 < d2Nearest)) then
+				nearest = particles[j]
+				d2Nearest = d2
+			end
+		end
 	end
 
-	if (particle.pos.x > 320-1) then
-		particle.pos.x = 320-1
+	return nearest
+end
+
+function Verlet:bounds(particle)
+	if (particle.pos.y > 305-1) then
+		particle.pos.y = 305-1
+	end
+	
+	if (particle.pos.x < -445) then
+		particle.pos.x = -445
+	end
+
+	if (particle.pos.x > 265) then
+		particle.pos.x = 265
 	end
 end
 

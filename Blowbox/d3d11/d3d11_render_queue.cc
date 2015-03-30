@@ -13,6 +13,11 @@
 
 namespace blowbox
 {
+	bool RenderSorterZ::operator()(D3D11RenderElement* a, D3D11RenderElement* b)
+	{
+		return a == nullptr || b == nullptr ? false : XMVectorGetZ(a->GetPosition()) > XMVectorGetZ(b->GetPosition());
+	}
+	
 	//------------------------------------------------------------------------------------------------------
 	D3D11RenderQueue::D3D11RenderQueue()
 	{
@@ -80,6 +85,8 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	void D3D11RenderQueue::Draw(ID3D11DeviceContext* context)
 	{
+		std::sort(queue_.begin(), queue_.end(), RenderSorterZ());
+		
 		for (int i = static_cast<int>(queue_.size()) - 1; i >= 0; --i)
 		{
 			DrawElement(context, queue_.at(i));
@@ -89,6 +96,8 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	void D3D11RenderQueue::DrawUI(ID3D11DeviceContext* context)
 	{
+		std::sort(ui_queue_.begin(), ui_queue_.end(), RenderSorterZ());
+
 		for (int i = static_cast<int>(ui_queue_.size()) - 1; i >= 0; --i)
 		{
 			DrawElement(context, ui_queue_.at(i));

@@ -125,10 +125,10 @@ namespace blowbox
 		}
 		else
 		{
-			context->OMSetRenderTargets(1, &view_, ds_view);
+			context->OMSetRenderTargets(1, &view_, nullptr);
 		}
 		
-		depth_stencil_->Set(context);
+		//depth_stencil_->Set(context);
 	}
 
 	//------------------------------------------------------------------------------------------------------
@@ -153,7 +153,7 @@ namespace blowbox
 		else if (RENDER_TARGET_TYPE::RENDER_TARGET_TYPE_RENDER_TARGET == type_)
 		{
 			context->ClearRenderTargetView(view_, D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.0f));
-			context->ClearDepthStencilView(depth_stencil_->GetView(), D3D11_CLEAR_FLAG::D3D11_CLEAR_DEPTH | D3D11_CLEAR_FLAG::D3D11_CLEAR_STENCIL, 1.0f, 0);
+			//context->ClearDepthStencilView(depth_stencil_->GetView(), D3D11_CLEAR_FLAG::D3D11_CLEAR_DEPTH | D3D11_CLEAR_FLAG::D3D11_CLEAR_STENCIL, 1.0f, 0);
 		}
 	}
 

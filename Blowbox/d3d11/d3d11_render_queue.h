@@ -10,6 +10,15 @@ namespace blowbox
 	class D3D11RenderElement;
 	
 	/**
+	* @struct blowbox::RenderSorterZ
+	* @brief Sorts the queue by z value
+	*/
+	struct RenderSorterZ
+	{
+		bool operator()(D3D11RenderElement* a, D3D11RenderElement* b);
+	};
+
+	/**
 	* @class blowbox::D3D11RenderQueue
 	* @brief Handles render queues of render elements
 	*/
