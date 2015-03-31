@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['window',['Window',['../classblowbox_1_1_window.html',1,'blowbox']]]
+  ['ui_5fmainwindow',['Ui_MainWindow',['../class_ui___main_window.html',1,'']]]
 ];

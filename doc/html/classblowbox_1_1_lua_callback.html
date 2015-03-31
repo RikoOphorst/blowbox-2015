@@ -95,28 +95,112 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">blowbox::LuaCallback Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Creates an object that can call a lua function.  
+ <a href="classblowbox_1_1_lua_callback.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="lua__callback_8h_source.html">lua_callback.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ac82f978c7d35118538eac0868164df20"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac82f978c7d35118538eac0868164df20"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>LuaCallback</b> (std::vector&lt; <a class="el" href="structblowbox_1_1_lua_value.html">LuaValue</a> &gt; tree)</td></tr>
+<tr class="memitem:ac82f978c7d35118538eac0868164df20"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classblowbox_1_1_lua_callback.html#ac82f978c7d35118538eac0868164df20">LuaCallback</a> (std::vector&lt; <a class="el" href="structblowbox_1_1_lua_value.html">LuaValue</a> &gt; tree)</td></tr>
+<tr class="memdesc:ac82f978c7d35118538eac0868164df20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default <a class="el" href="classblowbox_1_1_lua_callback.html" title="Creates an object that can call a lua function. ">LuaCallback</a> constructor.  <a href="#ac82f978c7d35118538eac0868164df20">More...</a><br /></td></tr>
 <tr class="separator:ac82f978c7d35118538eac0868164df20"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2120c3a44ec157b7c6c0f976fe879461"><td class="memTemplParams" colspan="2"><a class="anchor" id="a2120c3a44ec157b7c6c0f976fe879461"></a>
-template&lt;typename... Args&gt; </td></tr>
-<tr class="memitem:a2120c3a44ec157b7c6c0f976fe879461"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Call</b> (lua_State *L, Args...args)</td></tr>
+<tr class="memitem:a8c1ef2084551899b16a2abae946067e7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8c1ef2084551899b16a2abae946067e7"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classblowbox_1_1_lua_callback.html#a8c1ef2084551899b16a2abae946067e7">~LuaCallback</a> ()</td></tr>
+<tr class="memdesc:a8c1ef2084551899b16a2abae946067e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default <a class="el" href="classblowbox_1_1_lua_callback.html" title="Creates an object that can call a lua function. ">LuaCallback</a> destructor. <br /></td></tr>
+<tr class="separator:a8c1ef2084551899b16a2abae946067e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2120c3a44ec157b7c6c0f976fe879461"><td class="memTemplParams" colspan="2">template&lt;typename... Args&gt; </td></tr>
+<tr class="memitem:a2120c3a44ec157b7c6c0f976fe879461"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classblowbox_1_1_lua_callback.html#a2120c3a44ec157b7c6c0f976fe879461">Call</a> (lua_State *L, Args...args)</td></tr>
+<tr class="memdesc:a2120c3a44ec157b7c6c0f976fe879461"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls the actual function.  <a href="#a2120c3a44ec157b7c6c0f976fe879461">More...</a><br /></td></tr>
 <tr class="separator:a2120c3a44ec157b7c6c0f976fe879461"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aff8888654220ca540d5b8e5450f93d96"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aff8888654220ca540d5b8e5450f93d96"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><b>TreeToString</b> ()</td></tr>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classblowbox_1_1_lua_callback.html#aff8888654220ca540d5b8e5450f93d96">TreeToString</a> ()</td></tr>
+<tr class="memdesc:aff8888654220ca540d5b8e5450f93d96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts the internal tree vector to a string. <br /></td></tr>
 <tr class="separator:aff8888654220ca540d5b8e5450f93d96"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Creates an object that can call a lua function. </p>
+<dl class="section author"><dt>Author</dt><dd>Riko Ophorst </dd></dl>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="ac82f978c7d35118538eac0868164df20"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">blowbox::LuaCallback::LuaCallback </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="structblowbox_1_1_lua_value.html">LuaValue</a> &gt;&#160;</td>
+          <td class="paramname"><em>tree</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Default <a class="el" href="classblowbox_1_1_lua_callback.html" title="Creates an object that can call a lua function. ">LuaCallback</a> constructor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">tree</td><td>(std::vector&lt;<a class="el" href="structblowbox_1_1_lua_value.html" title="Defines a lua value. ">LuaValue</a>) the tree </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a2120c3a44ec157b7c6c0f976fe879461"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename... Args&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void blowbox::LuaCallback::Call </td>
+          <td>(</td>
+          <td class="paramtype">lua_State *&#160;</td>
+          <td class="paramname"><em>L</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Args...&#160;</td>
+          <td class="paramname"><em>args</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Calls the actual function. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">L</td><td>(lua_State*) the lua state </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">anything</td><td>(anything) ... </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/Users/Riko/Documents/Visual Studio 2013/Projects/blowbox/Blowbox/lua/<a class="el" href="lua__callback_8h_source.html">lua_callback.h</a></li>
-<li>C:/Users/Riko/Documents/Visual Studio 2013/Projects/blowbox/Blowbox/lua/lua_callback.cc</li>
+<li>C:/Users/Riko pc/Documents/Visual Studio 2013/Projects/blowbox/Blowbox/lua/<a class="el" href="lua__callback_8h_source.html">lua_callback.h</a></li>
+<li>C:/Users/Riko pc/Documents/Visual Studio 2013/Projects/blowbox/Blowbox/lua/lua_callback.cc</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Mar 17 2015 10:12:37 for blowbox by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Mar 31 2015 19:14:56 for blowbox by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

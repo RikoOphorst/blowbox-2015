@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.9.1"/>
-<title>blowbox: C:/Users/Riko/Documents/Visual Studio 2013/Projects/blowbox/Blowbox/d3d11/d3d11_depth_stencil.h Source File</title>
+<title>blowbox: C:/Users/Riko pc/Documents/Visual Studio 2013/Projects/blowbox/Blowbox/d3d11/d3d11_depth_stencil.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -110,24 +110,30 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        ID3D11Texture2D* <a class="code" href="classblowbox_1_1_d3_d11_depth_stencil.html#a5be163ef4c67709f16c20a181d2cb11e">GetBuffer</a>();</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classblowbox_1_1_d3_d11_depth_stencil.html#a3831b4b9b28310d60b042b3c918f55d1">Set</a>(ID3D11DeviceContext* context);</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        ID3D11DepthStencilState* state_;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        ID3D11DepthStencilView* view_;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        ID3D11Texture2D* buffer_;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    };</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;}</div>
-<div class="ttc" id="classblowbox_1_1_d3_d11_depth_stencil_html_a8d1d048f27985ef9551062554bd765e8"><div class="ttname"><a href="classblowbox_1_1_d3_d11_depth_stencil.html#a8d1d048f27985ef9551062554bd765e8">blowbox::D3D11DepthStencil::GetView</a></div><div class="ttdeci">ID3D11DepthStencilView * GetView()</div><div class="ttdoc">Retrieves the depth stencil view. </div><div class="ttdef"><b>Definition:</b> d3d11_depth_stencil.cc:81</div></div>
-<div class="ttc" id="classblowbox_1_1_d3_d11_depth_stencil_html_a3831b4b9b28310d60b042b3c918f55d1"><div class="ttname"><a href="classblowbox_1_1_d3_d11_depth_stencil.html#a3831b4b9b28310d60b042b3c918f55d1">blowbox::D3D11DepthStencil::Set</a></div><div class="ttdeci">void Set(ID3D11DeviceContext *context)</div><div class="ttdoc">Sets the depth stencil state to the context. </div><div class="ttdef"><b>Definition:</b> d3d11_depth_stencil.cc:93</div></div>
-<div class="ttc" id="classblowbox_1_1_d3_d11_depth_stencil_html_a91504066bdfdb45434909006a1667b80"><div class="ttname"><a href="classblowbox_1_1_d3_d11_depth_stencil.html#a91504066bdfdb45434909006a1667b80">blowbox::D3D11DepthStencil::~D3D11DepthStencil</a></div><div class="ttdeci">~D3D11DepthStencil()</div><div class="ttdoc">Default D3D11DepthStencil destructor. </div><div class="ttdef"><b>Definition:</b> d3d11_depth_stencil.cc:67</div></div>
-<div class="ttc" id="classblowbox_1_1_d3_d11_depth_stencil_html_a5be163ef4c67709f16c20a181d2cb11e"><div class="ttname"><a href="classblowbox_1_1_d3_d11_depth_stencil.html#a5be163ef4c67709f16c20a181d2cb11e">blowbox::D3D11DepthStencil::GetBuffer</a></div><div class="ttdeci">ID3D11Texture2D * GetBuffer()</div><div class="ttdoc">Retrieves the depth stencil buffer. </div><div class="ttdef"><b>Definition:</b> d3d11_depth_stencil.cc:87</div></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classblowbox_1_1_d3_d11_depth_stencil.html#a114906a6d587df1c07026255f81a8fa0">Create</a>();</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classblowbox_1_1_d3_d11_depth_stencil.html#a352df2df8f3ac14b12eb62da29933bc5">Release</a>();</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        ID3D11DepthStencilState* state_;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        ID3D11DepthStencilView* view_;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        ID3D11Texture2D* buffer_;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    };</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;}</div>
+<div class="ttc" id="classblowbox_1_1_d3_d11_depth_stencil_html_a8d1d048f27985ef9551062554bd765e8"><div class="ttname"><a href="classblowbox_1_1_d3_d11_depth_stencil.html#a8d1d048f27985ef9551062554bd765e8">blowbox::D3D11DepthStencil::GetView</a></div><div class="ttdeci">ID3D11DepthStencilView * GetView()</div><div class="ttdoc">Retrieves the depth stencil view. </div><div class="ttdef"><b>Definition:</b> d3d11_depth_stencil.cc:30</div></div>
+<div class="ttc" id="classblowbox_1_1_d3_d11_depth_stencil_html_a3831b4b9b28310d60b042b3c918f55d1"><div class="ttname"><a href="classblowbox_1_1_d3_d11_depth_stencil.html#a3831b4b9b28310d60b042b3c918f55d1">blowbox::D3D11DepthStencil::Set</a></div><div class="ttdeci">void Set(ID3D11DeviceContext *context)</div><div class="ttdoc">Sets the depth stencil state to the context. </div><div class="ttdef"><b>Definition:</b> d3d11_depth_stencil.cc:42</div></div>
+<div class="ttc" id="classblowbox_1_1_d3_d11_depth_stencil_html_a91504066bdfdb45434909006a1667b80"><div class="ttname"><a href="classblowbox_1_1_d3_d11_depth_stencil.html#a91504066bdfdb45434909006a1667b80">blowbox::D3D11DepthStencil::~D3D11DepthStencil</a></div><div class="ttdeci">~D3D11DepthStencil()</div><div class="ttdoc">Default D3D11DepthStencil destructor. </div><div class="ttdef"><b>Definition:</b> d3d11_depth_stencil.cc:16</div></div>
+<div class="ttc" id="classblowbox_1_1_d3_d11_depth_stencil_html_a5be163ef4c67709f16c20a181d2cb11e"><div class="ttname"><a href="classblowbox_1_1_d3_d11_depth_stencil.html#a5be163ef4c67709f16c20a181d2cb11e">blowbox::D3D11DepthStencil::GetBuffer</a></div><div class="ttdeci">ID3D11Texture2D * GetBuffer()</div><div class="ttdoc">Retrieves the depth stencil buffer. </div><div class="ttdef"><b>Definition:</b> d3d11_depth_stencil.cc:36</div></div>
+<div class="ttc" id="classblowbox_1_1_d3_d11_depth_stencil_html_a352df2df8f3ac14b12eb62da29933bc5"><div class="ttname"><a href="classblowbox_1_1_d3_d11_depth_stencil.html#a352df2df8f3ac14b12eb62da29933bc5">blowbox::D3D11DepthStencil::Release</a></div><div class="ttdeci">void Release()</div><div class="ttdoc">Releases COM objects. </div><div class="ttdef"><b>Definition:</b> d3d11_depth_stencil.cc:113</div></div>
 <div class="ttc" id="classblowbox_1_1_d3_d11_depth_stencil_html"><div class="ttname"><a href="classblowbox_1_1_d3_d11_depth_stencil.html">blowbox::D3D11DepthStencil</a></div><div class="ttdoc">Handles depth stenciling. </div><div class="ttdef"><b>Definition:</b> d3d11_depth_stencil.h:13</div></div>
-<div class="ttc" id="classblowbox_1_1_d3_d11_depth_stencil_html_af1e1b568fbcfb8bbc5cfe68111250157"><div class="ttname"><a href="classblowbox_1_1_d3_d11_depth_stencil.html#af1e1b568fbcfb8bbc5cfe68111250157">blowbox::D3D11DepthStencil::D3D11DepthStencil</a></div><div class="ttdeci">D3D11DepthStencil()</div><div class="ttdoc">Default D3D11DepthStencil constructor. </div><div class="ttdef"><b>Definition:</b> d3d11_depth_stencil.cc:9</div></div>
-<div class="ttc" id="classblowbox_1_1_d3_d11_depth_stencil_html_a671dab8ef2cd8216ee0fa4cfdb5f8892"><div class="ttname"><a href="classblowbox_1_1_d3_d11_depth_stencil.html#a671dab8ef2cd8216ee0fa4cfdb5f8892">blowbox::D3D11DepthStencil::GetState</a></div><div class="ttdeci">ID3D11DepthStencilState * GetState()</div><div class="ttdoc">Retrieves the depth stencil state. </div><div class="ttdef"><b>Definition:</b> d3d11_depth_stencil.cc:75</div></div>
+<div class="ttc" id="classblowbox_1_1_d3_d11_depth_stencil_html_af1e1b568fbcfb8bbc5cfe68111250157"><div class="ttname"><a href="classblowbox_1_1_d3_d11_depth_stencil.html#af1e1b568fbcfb8bbc5cfe68111250157">blowbox::D3D11DepthStencil::D3D11DepthStencil</a></div><div class="ttdeci">D3D11DepthStencil()</div><div class="ttdoc">Default D3D11DepthStencil constructor. </div><div class="ttdef"><b>Definition:</b> d3d11_depth_stencil.cc:10</div></div>
+<div class="ttc" id="classblowbox_1_1_d3_d11_depth_stencil_html_a671dab8ef2cd8216ee0fa4cfdb5f8892"><div class="ttname"><a href="classblowbox_1_1_d3_d11_depth_stencil.html#a671dab8ef2cd8216ee0fa4cfdb5f8892">blowbox::D3D11DepthStencil::GetState</a></div><div class="ttdeci">ID3D11DepthStencilState * GetState()</div><div class="ttdoc">Retrieves the depth stencil state. </div><div class="ttdef"><b>Definition:</b> d3d11_depth_stencil.cc:24</div></div>
 <div class="ttc" id="namespaceblowbox_html"><div class="ttname"><a href="namespaceblowbox.html">blowbox</a></div><div class="ttdef"><b>Definition:</b> console.cc:5</div></div>
+<div class="ttc" id="classblowbox_1_1_d3_d11_depth_stencil_html_a114906a6d587df1c07026255f81a8fa0"><div class="ttname"><a href="classblowbox_1_1_d3_d11_depth_stencil.html#a114906a6d587df1c07026255f81a8fa0">blowbox::D3D11DepthStencil::Create</a></div><div class="ttdeci">void Create()</div><div class="ttdoc">Creates the depth stencil. </div><div class="ttdef"><b>Definition:</b> d3d11_depth_stencil.cc:55</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Mar 17 2015 10:12:36 for blowbox by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Mar 31 2015 19:14:55 for blowbox by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

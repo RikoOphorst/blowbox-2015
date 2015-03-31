@@ -127,15 +127,30 @@ template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a654bb49b64cf499e771159dd9e50ef8c"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classblowbox_1_1_lua_wrapper.html#a654bb49b64cf499e771159dd9e50ef8c">CreateUserdataContainer</a> (lua_State *L, T *ptr)</td></tr>
 <tr class="memdesc:a654bb49b64cf499e771159dd9e50ef8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a lightuserdata container on the stack. <br /></td></tr>
 <tr class="separator:a654bb49b64cf499e771159dd9e50ef8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4c7463380d0e1e8dd599f191f9b3b383"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classblowbox_1_1_lua_wrapper.html#a4c7463380d0e1e8dd599f191f9b3b383">CompileFromFile</a> (lua_State *L, const std::string &amp;path)</td></tr>
-<tr class="memdesc:a4c7463380d0e1e8dd599f191f9b3b383"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compiles and runs a file.  <a href="#a4c7463380d0e1e8dd599f191f9b3b383">More...</a><br /></td></tr>
-<tr class="separator:a4c7463380d0e1e8dd599f191f9b3b383"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9fb04b4ef98f655c4c913fab78287009"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classblowbox_1_1_lua_wrapper.html#a9fb04b4ef98f655c4c913fab78287009">CompileFromFile</a> (lua_State *L, const std::string &amp;path, bool reloading=false)</td></tr>
+<tr class="memdesc:a9fb04b4ef98f655c4c913fab78287009"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compiles and runs a file.  <a href="#a9fb04b4ef98f655c4c913fab78287009">More...</a><br /></td></tr>
+<tr class="separator:a9fb04b4ef98f655c4c913fab78287009"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acad1b13c86d825e67fbfc9e3cd53cb81"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classblowbox_1_1_lua_wrapper.html#acad1b13c86d825e67fbfc9e3cd53cb81">CompileFromString</a> (lua_State *L, const std::string &amp;code, const std::string &amp;source)</td></tr>
 <tr class="memdesc:acad1b13c86d825e67fbfc9e3cd53cb81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compiles and runs a string of lua code.  <a href="#acad1b13c86d825e67fbfc9e3cd53cb81">More...</a><br /></td></tr>
 <tr class="separator:acad1b13c86d825e67fbfc9e3cd53cb81"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae7001e86b5acd606a77a9ab915244044"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classblowbox_1_1_lua_wrapper.html#ae7001e86b5acd606a77a9ab915244044">ConvertElementToString</a> (lua_State *L, const int &amp;index)</td></tr>
-<tr class="memdesc:ae7001e86b5acd606a77a9ab915244044"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert stack element to string.  <a href="#ae7001e86b5acd606a77a9ab915244044">More...</a><br /></td></tr>
-<tr class="separator:ae7001e86b5acd606a77a9ab915244044"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28712f66fbb4a29bed44da2674670537"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classblowbox_1_1_lua_wrapper.html#a28712f66fbb4a29bed44da2674670537">ToRelative</a> (lua_State *L, const int &amp;absolute)</td></tr>
+<tr class="memdesc:a28712f66fbb4a29bed44da2674670537"><td class="mdescLeft">&#160;</td><td class="mdescRight">To relative index.  <a href="#a28712f66fbb4a29bed44da2674670537">More...</a><br /></td></tr>
+<tr class="separator:a28712f66fbb4a29bed44da2674670537"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76adac25795618417a14b2d4a0614b60"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classblowbox_1_1_lua_wrapper.html#a76adac25795618417a14b2d4a0614b60">ToAbsolute</a> (lua_State *L, const int &amp;relative)</td></tr>
+<tr class="memdesc:a76adac25795618417a14b2d4a0614b60"><td class="mdescLeft">&#160;</td><td class="mdescRight">To absolute index.  <a href="#a76adac25795618417a14b2d4a0614b60">More...</a><br /></td></tr>
+<tr class="separator:a76adac25795618417a14b2d4a0614b60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a48379a4717df94da8ec44a368a5346bb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classblowbox_1_1_lua_wrapper.html#a48379a4717df94da8ec44a368a5346bb">ToArgument</a> (lua_State *L, const int &amp;index)</td></tr>
+<tr class="memdesc:a48379a4717df94da8ec44a368a5346bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">To argument index.  <a href="#a48379a4717df94da8ec44a368a5346bb">More...</a><br /></td></tr>
+<tr class="separator:a48379a4717df94da8ec44a368a5346bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2e78361391b5d79c1bf30cf3078a7d9"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classblowbox_1_1_lua_wrapper.html#ae2e78361391b5d79c1bf30cf3078a7d9">ToString</a> (lua_State *L, const int &amp;index)</td></tr>
+<tr class="memdesc:ae2e78361391b5d79c1bf30cf3078a7d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert stack element to string.  <a href="#ae2e78361391b5d79c1bf30cf3078a7d9">More...</a><br /></td></tr>
+<tr class="separator:ae2e78361391b5d79c1bf30cf3078a7d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb6ca87d5a11d88ecbdeaf5628741691"><td class="memItemLeft" align="right" valign="top">std::map&lt; std::string, <a class="el" href="structblowbox_1_1_lua_value.html">LuaValue</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classblowbox_1_1_lua_wrapper.html#adb6ca87d5a11d88ecbdeaf5628741691">ToTable</a> (lua_State *L, const int &amp;index)</td></tr>
+<tr class="memdesc:adb6ca87d5a11d88ecbdeaf5628741691"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert stack element to a std::map&lt;std::string key, std::string value&gt;  <a href="#adb6ca87d5a11d88ecbdeaf5628741691">More...</a><br /></td></tr>
+<tr class="separator:adb6ca87d5a11d88ecbdeaf5628741691"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55107ecbecf7246e5829dc9f6c754709"><td class="memItemLeft" align="right" valign="top">LUA_TYPE&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classblowbox_1_1_lua_wrapper.html#a55107ecbecf7246e5829dc9f6c754709">Typename</a> (lua_State *L, const int &amp;index)</td></tr>
+<tr class="memdesc:a55107ecbecf7246e5829dc9f6c754709"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert stack element to a typename-string.  <a href="#a55107ecbecf7246e5829dc9f6c754709">More...</a><br /></td></tr>
+<tr class="separator:a55107ecbecf7246e5829dc9f6c754709"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abd9a2e71b33073738790efc3a23ba9aa"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:abd9a2e71b33073738790efc3a23ba9aa"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classblowbox_1_1_lua_wrapper.html#abd9a2e71b33073738790efc3a23ba9aa">Get</a> (lua_State *L, const int &amp;index, const bool &amp;check=true)</td></tr>
 <tr class="memdesc:abd9a2e71b33073738790efc3a23ba9aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves a value from the stack.  <a href="#abd9a2e71b33073738790efc3a23ba9aa">More...</a><br /></td></tr>
@@ -162,6 +177,14 @@ template&lt;typename T &gt; </td></tr>
 template&lt;&gt; </td></tr>
 <tr class="memitem:a63a9dc494ec8c58a44f86324119e6ff6"><td class="memTemplItemLeft" align="right" valign="top">double&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Get</b> (lua_State *L, const int &amp;index, const bool &amp;check)</td></tr>
 <tr class="separator:a63a9dc494ec8c58a44f86324119e6ff6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27bee9b769d770df45ddff715a2dfb7a"><td class="memTemplParams" colspan="2"><a class="anchor" id="a27bee9b769d770df45ddff715a2dfb7a"></a>
+template&lt;&gt; </td></tr>
+<tr class="memitem:a27bee9b769d770df45ddff715a2dfb7a"><td class="memTemplItemLeft" align="right" valign="top">float&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Get</b> (lua_State *L, const int &amp;index, const bool &amp;check)</td></tr>
+<tr class="separator:a27bee9b769d770df45ddff715a2dfb7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05a21d56a6f74eb5b7c18eb8eaf4f94e"><td class="memTemplParams" colspan="2"><a class="anchor" id="a05a21d56a6f74eb5b7c18eb8eaf4f94e"></a>
+template&lt;&gt; </td></tr>
+<tr class="memitem:a05a21d56a6f74eb5b7c18eb8eaf4f94e"><td class="memTemplItemLeft" align="right" valign="top">int&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Get</b> (lua_State *L, const int &amp;index, const bool &amp;check)</td></tr>
+<tr class="separator:a05a21d56a6f74eb5b7c18eb8eaf4f94e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abaa1a0eaa10f65f109bfe5422d73b742"><td class="memTemplParams" colspan="2"><a class="anchor" id="abaa1a0eaa10f65f109bfe5422d73b742"></a>
 template&lt;&gt; </td></tr>
 <tr class="memitem:abaa1a0eaa10f65f109bfe5422d73b742"><td class="memTemplItemLeft" align="right" valign="top">const char *&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Get</b> (lua_State *L, const int &amp;index, const bool &amp;check)</td></tr>
@@ -209,7 +232,7 @@ static <a class="el" href="classblowbox_1_1_lua_wrapper.html">LuaWrapper</a> *&#
 <div class="textblock"><p>Wraps the Lua interface because it's ugly as shit. </p>
 <dl class="section author"><dt>Author</dt><dd>Riko Ophorst </dd></dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a4c7463380d0e1e8dd599f191f9b3b383"></a>
+<a class="anchor" id="a9fb04b4ef98f655c4c913fab78287009"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -223,7 +246,13 @@ static <a class="el" href="classblowbox_1_1_lua_wrapper.html">LuaWrapper</a> *&#
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>path</em>&#160;</td>
+          <td class="paramname"><em>path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>reloading</em> = <code>false</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -238,6 +267,7 @@ static <a class="el" href="classblowbox_1_1_lua_wrapper.html">LuaWrapper</a> *&#
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">L</td><td>(lua_State*) the lua state </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">path</td><td>(const std::string&amp;) the path to the file </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">reloading</td><td>(bool) is the file reloading? </td></tr>
   </table>
   </dd>
 </dl>
@@ -280,41 +310,6 @@ static <a class="el" href="classblowbox_1_1_lua_wrapper.html">LuaWrapper</a> *&#
     <tr><td class="paramdir">[in]</td><td class="paramname">L</td><td>(lua_State*) the lua state </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">code</td><td>(const std::string&amp;) the code to be compiled </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">source</td><td>(const std::string&amp;) the source to be displayed while debugging </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="ae7001e86b5acd606a77a9ab915244044"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string blowbox::LuaWrapper::ConvertElementToString </td>
-          <td>(</td>
-          <td class="paramtype">lua_State *&#160;</td>
-          <td class="paramname"><em>L</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const int &amp;&#160;</td>
-          <td class="paramname"><em>index</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Convert stack element to string. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">L</td><td>(lua_State*) the lua state </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">index</td><td>(const int&amp;) the index </td></tr>
   </table>
   </dd>
 </dl>
@@ -377,7 +372,6 @@ static <a class="el" href="classblowbox_1_1_lua_wrapper.html">LuaWrapper</a> *&#
   </table>
   </dd>
 </dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000009">Todo:</a></b></dt><dd>make it dump in the actual console when it's there </dd></dl>
 
 </div>
 </div>
@@ -690,14 +684,224 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
+<a class="anchor" id="a76adac25795618417a14b2d4a0614b60"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int blowbox::LuaWrapper::ToAbsolute </td>
+          <td>(</td>
+          <td class="paramtype">lua_State *&#160;</td>
+          <td class="paramname"><em>L</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int &amp;&#160;</td>
+          <td class="paramname"><em>relative</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>To absolute index. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">L</td><td>(lua_State*) the lua state </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">relative</td><td>(const int&amp;) the relative index </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a48379a4717df94da8ec44a368a5346bb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int blowbox::LuaWrapper::ToArgument </td>
+          <td>(</td>
+          <td class="paramtype">lua_State *&#160;</td>
+          <td class="paramname"><em>L</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int &amp;&#160;</td>
+          <td class="paramname"><em>index</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>To argument index. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">L</td><td>(lua_State*) the lua state </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">index</td><td>(const int&amp;) the relative/absolute index </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a28712f66fbb4a29bed44da2674670537"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int blowbox::LuaWrapper::ToRelative </td>
+          <td>(</td>
+          <td class="paramtype">lua_State *&#160;</td>
+          <td class="paramname"><em>L</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int &amp;&#160;</td>
+          <td class="paramname"><em>absolute</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>To relative index. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">L</td><td>(lua_State*) the lua state </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">absolute</td><td>(const int&amp;) the absolute index </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ae2e78361391b5d79c1bf30cf3078a7d9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string blowbox::LuaWrapper::ToString </td>
+          <td>(</td>
+          <td class="paramtype">lua_State *&#160;</td>
+          <td class="paramname"><em>L</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int &amp;&#160;</td>
+          <td class="paramname"><em>index</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Convert stack element to string. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">L</td><td>(lua_State*) the lua state </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">index</td><td>(const int&amp;) the index </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="adb6ca87d5a11d88ecbdeaf5628741691"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::map&lt; std::string, <a class="el" href="structblowbox_1_1_lua_value.html">LuaValue</a> &gt; blowbox::LuaWrapper::ToTable </td>
+          <td>(</td>
+          <td class="paramtype">lua_State *&#160;</td>
+          <td class="paramname"><em>L</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int &amp;&#160;</td>
+          <td class="paramname"><em>index</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Convert stack element to a std::map&lt;std::string key, std::string value&gt; </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">L</td><td>(lua_State*) the lua state </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">index</td><td>(const int&amp;) the index </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a55107ecbecf7246e5829dc9f6c754709"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">LUA_TYPE blowbox::LuaWrapper::Typename </td>
+          <td>(</td>
+          <td class="paramtype">lua_State *&#160;</td>
+          <td class="paramname"><em>L</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int &amp;&#160;</td>
+          <td class="paramname"><em>index</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Convert stack element to a typename-string. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">L</td><td>(lua_State*) the lua state </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">index</td><td>(const int&amp;) the index </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/Users/Riko/Documents/Visual Studio 2013/Projects/blowbox/Blowbox/lua/<a class="el" href="lua__wrapper_8h_source.html">lua_wrapper.h</a></li>
-<li>C:/Users/Riko/Documents/Visual Studio 2013/Projects/blowbox/Blowbox/lua/lua_wrapper.cc</li>
+<li>C:/Users/Riko pc/Documents/Visual Studio 2013/Projects/blowbox/Blowbox/lua/<a class="el" href="lua__wrapper_8h_source.html">lua_wrapper.h</a></li>
+<li>C:/Users/Riko pc/Documents/Visual Studio 2013/Projects/blowbox/Blowbox/lua/lua_wrapper.cc</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Mar 17 2015 10:12:37 for blowbox by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Mar 31 2015 19:14:56 for blowbox by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

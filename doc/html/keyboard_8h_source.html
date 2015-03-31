@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.9.1"/>
-<title>blowbox: C:/Users/Riko/Documents/Visual Studio 2013/Projects/blowbox/Blowbox/input/keyboard.h Source File</title>
+<title>blowbox: C:/Users/Riko pc/Documents/Visual Studio 2013/Projects/blowbox/Blowbox/input/keyboard.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -94,75 +94,96 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;queue&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;../../blowbox/input/key.h&quot;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;../../blowbox/memory/shared_ptr.h&quot;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceblowbox.html">blowbox</a></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keyword">enum</span> KeyEvent</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    {</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        Pressed,</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        Down,</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        Released</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    };</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="structblowbox_1_1_key_data.html">   24</a></span>&#160;    <span class="keyword">struct </span><a class="code" href="structblowbox_1_1_key_data.html">KeyData</a></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    {</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        Key key;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        KeyEvent type;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    };</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
-<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="structblowbox_1_1_key_state.html">   34</a></span>&#160;    <span class="keyword">struct </span><a class="code" href="structblowbox_1_1_key_state.html">KeyState</a></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    {</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keywordtype">bool</span> pressed;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keywordtype">bool</span> down;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keywordtype">bool</span> released;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    };</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
-<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="classblowbox_1_1_keyboard.html">   46</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classblowbox_1_1_keyboard.html">Keyboard</a></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    {</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <a class="code" href="classblowbox_1_1_keyboard.html#a6eaf6618f3c3ddeb8d48c39149ff97c7">Keyboard</a>();</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <a class="code" href="classblowbox_1_1_keyboard.html#ae522be4b79dbed95260e5f8cb8da86c1">~Keyboard</a>();</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="keyword">static</span> <a class="code" href="classblowbox_1_1_keyboard.html">Keyboard</a>*        <a class="code" href="classblowbox_1_1_keyboard.html#a01c60ca4f9c052f8563d473a012cef3c">Instance</a>();</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <span class="keywordtype">bool</span>&amp;                   <a class="code" href="classblowbox_1_1_keyboard.html#ac740e2f5f7db429d28f3aabb486ecb47">IsDown</a>(Key key);</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <span class="keywordtype">bool</span>&amp;                   <a class="code" href="classblowbox_1_1_keyboard.html#a864697062be93c8aa89ef928baeff1ea">IsPressed</a>(Key key);</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <span class="keywordtype">bool</span>&amp;                   <a class="code" href="classblowbox_1_1_keyboard.html#a27d167cb20bed603b42fb5e18d5ed839">IsReleased</a>(Key key);</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        Key                     <a class="code" href="classblowbox_1_1_keyboard.html#aa4dcd9aeed8220798f19bdee172d2803">LastKey</a>();</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        <span class="keywordtype">void</span>                    <a class="code" href="classblowbox_1_1_keyboard.html#a7213af75fae97d44391ceec53f939bf9">ReceiveEvent</a>(<a class="code" href="structblowbox_1_1_key_data.html">KeyData</a> evt);</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="keywordtype">void</span>                    <a class="code" href="classblowbox_1_1_keyboard.html#a4ab1b1dd378a9fcadfa61622dd9074b5">ResetStates</a>();</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <span class="keywordtype">void</span>                    <a class="code" href="classblowbox_1_1_keyboard.html#ac93f12ec858c303abbefa87df6c3cde3">Update</a>();</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        <a class="code" href="structblowbox_1_1_key_state.html">KeyState</a>                keyStates_[255];</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        Key                     lastKey_;</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        std::queue&lt;KeyData&gt;     queue_;</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    };</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;}</div>
-<div class="ttc" id="classblowbox_1_1_keyboard_html_a01c60ca4f9c052f8563d473a012cef3c"><div class="ttname"><a href="classblowbox_1_1_keyboard.html#a01c60ca4f9c052f8563d473a012cef3c">blowbox::Keyboard::Instance</a></div><div class="ttdeci">static Keyboard * Instance()</div><div class="ttdoc">Retrieves a pointer to the Keyboard instance. </div><div class="ttdef"><b>Definition:</b> keyboard.cc:24</div></div>
-<div class="ttc" id="classblowbox_1_1_keyboard_html_a4ab1b1dd378a9fcadfa61622dd9074b5"><div class="ttname"><a href="classblowbox_1_1_keyboard.html#a4ab1b1dd378a9fcadfa61622dd9074b5">blowbox::Keyboard::ResetStates</a></div><div class="ttdeci">void ResetStates()</div><div class="ttdoc">Reset all the states. </div><div class="ttdef"><b>Definition:</b> keyboard.cc:70</div></div>
-<div class="ttc" id="classblowbox_1_1_keyboard_html"><div class="ttname"><a href="classblowbox_1_1_keyboard.html">blowbox::Keyboard</a></div><div class="ttdoc">Manages the keyboard. </div><div class="ttdef"><b>Definition:</b> keyboard.h:46</div></div>
-<div class="ttc" id="classblowbox_1_1_keyboard_html_ac740e2f5f7db429d28f3aabb486ecb47"><div class="ttname"><a href="classblowbox_1_1_keyboard.html#ac740e2f5f7db429d28f3aabb486ecb47">blowbox::Keyboard::IsDown</a></div><div class="ttdeci">bool &amp; IsDown(Key key)</div><div class="ttdoc">Retrieves whether given Key is down. </div><div class="ttdef"><b>Definition:</b> keyboard.cc:31</div></div>
-<div class="ttc" id="classblowbox_1_1_keyboard_html_a6eaf6618f3c3ddeb8d48c39149ff97c7"><div class="ttname"><a href="classblowbox_1_1_keyboard.html#a6eaf6618f3c3ddeb8d48c39149ff97c7">blowbox::Keyboard::Keyboard</a></div><div class="ttdeci">Keyboard()</div><div class="ttdoc">Default constructor. </div><div class="ttdef"><b>Definition:</b> keyboard.cc:6</div></div>
-<div class="ttc" id="classblowbox_1_1_keyboard_html_a27d167cb20bed603b42fb5e18d5ed839"><div class="ttname"><a href="classblowbox_1_1_keyboard.html#a27d167cb20bed603b42fb5e18d5ed839">blowbox::Keyboard::IsReleased</a></div><div class="ttdeci">bool &amp; IsReleased(Key key)</div><div class="ttdoc">Retrieves whether given Key is released. </div><div class="ttdef"><b>Definition:</b> keyboard.cc:43</div></div>
-<div class="ttc" id="classblowbox_1_1_keyboard_html_a7213af75fae97d44391ceec53f939bf9"><div class="ttname"><a href="classblowbox_1_1_keyboard.html#a7213af75fae97d44391ceec53f939bf9">blowbox::Keyboard::ReceiveEvent</a></div><div class="ttdeci">void ReceiveEvent(KeyData evt)</div><div class="ttdoc">Receive an event. </div><div class="ttdef"><b>Definition:</b> keyboard.cc:64</div></div>
-<div class="ttc" id="structblowbox_1_1_key_data_html"><div class="ttname"><a href="structblowbox_1_1_key_data.html">blowbox::KeyData</a></div><div class="ttdoc">Holds data about a key and its event. </div><div class="ttdef"><b>Definition:</b> keyboard.h:24</div></div>
-<div class="ttc" id="classblowbox_1_1_keyboard_html_aa4dcd9aeed8220798f19bdee172d2803"><div class="ttname"><a href="classblowbox_1_1_keyboard.html#aa4dcd9aeed8220798f19bdee172d2803">blowbox::Keyboard::LastKey</a></div><div class="ttdeci">Key LastKey()</div><div class="ttdoc">Retrieves the last key that was pressed. </div><div class="ttdef"><b>Definition:</b> keyboard.cc:49</div></div>
-<div class="ttc" id="classblowbox_1_1_keyboard_html_ac93f12ec858c303abbefa87df6c3cde3"><div class="ttname"><a href="classblowbox_1_1_keyboard.html#ac93f12ec858c303abbefa87df6c3cde3">blowbox::Keyboard::Update</a></div><div class="ttdeci">void Update()</div><div class="ttdoc">Update the keyboard. </div><div class="ttdef"><b>Definition:</b> keyboard.cc:80</div></div>
-<div class="ttc" id="classblowbox_1_1_keyboard_html_ae522be4b79dbed95260e5f8cb8da86c1"><div class="ttname"><a href="classblowbox_1_1_keyboard.html#ae522be4b79dbed95260e5f8cb8da86c1">blowbox::Keyboard::~Keyboard</a></div><div class="ttdeci">~Keyboard()</div><div class="ttdoc">Default destructor. </div><div class="ttdef"><b>Definition:</b> keyboard.cc:18</div></div>
-<div class="ttc" id="structblowbox_1_1_key_state_html"><div class="ttname"><a href="structblowbox_1_1_key_state.html">blowbox::KeyState</a></div><div class="ttdoc">Keeps the state for any key. </div><div class="ttdef"><b>Definition:</b> keyboard.h:34</div></div>
-<div class="ttc" id="classblowbox_1_1_keyboard_html_a864697062be93c8aa89ef928baeff1ea"><div class="ttname"><a href="classblowbox_1_1_keyboard.html#a864697062be93c8aa89ef928baeff1ea">blowbox::Keyboard::IsPressed</a></div><div class="ttdeci">bool &amp; IsPressed(Key key)</div><div class="ttdoc">Retrieves whether given Key is pressed. </div><div class="ttdef"><b>Definition:</b> keyboard.cc:37</div></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;../../blowbox/lua/lua_class.h&quot;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceblowbox.html">blowbox</a></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keyword">enum</span> KeyEvent</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    {</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        Pressed,</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        Down,</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        Released</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    };</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="structblowbox_1_1_key_data.html">   25</a></span>&#160;    <span class="keyword">struct </span><a class="code" href="structblowbox_1_1_key_data.html">KeyData</a></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    {</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        Key key;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        KeyEvent type;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    };</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;</div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="structblowbox_1_1_key_state.html">   35</a></span>&#160;    <span class="keyword">struct </span><a class="code" href="structblowbox_1_1_key_state.html">KeyState</a></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    {</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keywordtype">bool</span> pressed;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keywordtype">bool</span> down;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keywordtype">bool</span> released;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    };</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="classblowbox_1_1_keyboard.html">   47</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classblowbox_1_1_keyboard.html">Keyboard</a>: <span class="keyword">public</span> <a class="code" href="classblowbox_1_1_lua_class.html">LuaClass</a></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    {</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <a class="code" href="classblowbox_1_1_keyboard.html#a6eaf6618f3c3ddeb8d48c39149ff97c7">Keyboard</a>();</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <a class="code" href="classblowbox_1_1_keyboard.html#a6eaf6618f3c3ddeb8d48c39149ff97c7">Keyboard</a>(lua_State* L);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <a class="code" href="classblowbox_1_1_keyboard.html#ae522be4b79dbed95260e5f8cb8da86c1">~Keyboard</a>();</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keyword">static</span> <a class="code" href="classblowbox_1_1_keyboard.html">Keyboard</a>*        <a class="code" href="classblowbox_1_1_keyboard.html#a01c60ca4f9c052f8563d473a012cef3c">Instance</a>();</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        <span class="keywordtype">bool</span>&amp;                   <a class="code" href="classblowbox_1_1_keyboard.html#ac740e2f5f7db429d28f3aabb486ecb47">IsDown</a>(Key key);</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        <span class="keywordtype">bool</span>&amp;                   <a class="code" href="classblowbox_1_1_keyboard.html#a864697062be93c8aa89ef928baeff1ea">IsPressed</a>(Key key);</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        <span class="keywordtype">bool</span>&amp;                   <a class="code" href="classblowbox_1_1_keyboard.html#a27d167cb20bed603b42fb5e18d5ed839">IsReleased</a>(Key key);</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        Key                     <a class="code" href="classblowbox_1_1_keyboard.html#aa4dcd9aeed8220798f19bdee172d2803">LastKey</a>();</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <span class="keywordtype">void</span>                    <a class="code" href="classblowbox_1_1_keyboard.html#a7213af75fae97d44391ceec53f939bf9">ReceiveEvent</a>(<a class="code" href="structblowbox_1_1_key_data.html">KeyData</a> evt);</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        <span class="keywordtype">void</span>                    <a class="code" href="classblowbox_1_1_keyboard.html#a4ab1b1dd378a9fcadfa61622dd9074b5">ResetStates</a>();</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        <span class="keywordtype">void</span>                    <a class="code" href="classblowbox_1_1_keyboard.html#ac93f12ec858c303abbefa87df6c3cde3">Update</a>();</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classblowbox_1_1_keyboard.html#a3bd06fabcd3339adbdd55647cafc2d30">LuaRegisterFunctions</a>(lua_State* L);</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">int</span> <a class="code" href="classblowbox_1_1_keyboard.html#a98bdb499ef30bd1dd3b3d67c889679ec">LuaIsPressed</a>(lua_State* L);</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">int</span> <a class="code" href="classblowbox_1_1_keyboard.html#a6b6354c6871ce9427059ed12f226abe6">LuaIsReleased</a>(lua_State* L);</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">int</span> <a class="code" href="classblowbox_1_1_keyboard.html#a1e85e2cb12250d2b5075bf25933fbf2f">LuaIsDown</a>(lua_State* L);</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">int</span> <a class="code" href="classblowbox_1_1_keyboard.html#a93ced29962647673ad4305836f1b8b37">LuaLastKey</a>(lua_State* L);</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;        CLASSNAME(<span class="stringliteral">&quot;Keyboard&quot;</span>);</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;        <a class="code" href="structblowbox_1_1_key_state.html">KeyState</a>                keyStates_[255];</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;        Key                     lastKey_;</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;        std::queue&lt;KeyData&gt;     queue_;</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    };</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;}</div>
+<div class="ttc" id="classblowbox_1_1_keyboard_html_a01c60ca4f9c052f8563d473a012cef3c"><div class="ttname"><a href="classblowbox_1_1_keyboard.html#a01c60ca4f9c052f8563d473a012cef3c">blowbox::Keyboard::Instance</a></div><div class="ttdeci">static Keyboard * Instance()</div><div class="ttdoc">Retrieves a pointer to the Keyboard instance. </div><div class="ttdef"><b>Definition:</b> keyboard.cc:361</div></div>
+<div class="ttc" id="classblowbox_1_1_keyboard_html_a4ab1b1dd378a9fcadfa61622dd9074b5"><div class="ttname"><a href="classblowbox_1_1_keyboard.html#a4ab1b1dd378a9fcadfa61622dd9074b5">blowbox::Keyboard::ResetStates</a></div><div class="ttdeci">void ResetStates()</div><div class="ttdoc">Reset all the states. </div><div class="ttdef"><b>Definition:</b> keyboard.cc:407</div></div>
+<div class="ttc" id="classblowbox_1_1_keyboard_html"><div class="ttname"><a href="classblowbox_1_1_keyboard.html">blowbox::Keyboard</a></div><div class="ttdoc">Manages the keyboard. </div><div class="ttdef"><b>Definition:</b> keyboard.h:47</div></div>
+<div class="ttc" id="classblowbox_1_1_keyboard_html_ac740e2f5f7db429d28f3aabb486ecb47"><div class="ttname"><a href="classblowbox_1_1_keyboard.html#ac740e2f5f7db429d28f3aabb486ecb47">blowbox::Keyboard::IsDown</a></div><div class="ttdeci">bool &amp; IsDown(Key key)</div><div class="ttdoc">Retrieves whether given Key is down. </div><div class="ttdef"><b>Definition:</b> keyboard.cc:368</div></div>
+<div class="ttc" id="classblowbox_1_1_keyboard_html_a6eaf6618f3c3ddeb8d48c39149ff97c7"><div class="ttname"><a href="classblowbox_1_1_keyboard.html#a6eaf6618f3c3ddeb8d48c39149ff97c7">blowbox::Keyboard::Keyboard</a></div><div class="ttdeci">Keyboard()</div><div class="ttdoc">Default constructor. </div><div class="ttdef"><b>Definition:</b> keyboard.cc:331</div></div>
+<div class="ttc" id="classblowbox_1_1_keyboard_html_a3bd06fabcd3339adbdd55647cafc2d30"><div class="ttname"><a href="classblowbox_1_1_keyboard.html#a3bd06fabcd3339adbdd55647cafc2d30">blowbox::Keyboard::LuaRegisterFunctions</a></div><div class="ttdeci">static void LuaRegisterFunctions(lua_State *L)</div><div class="ttdoc">Registers this object&#39;s functions in lua. </div><div class="ttdef"><b>Definition:</b> keyboard.cc:445</div></div>
+<div class="ttc" id="classblowbox_1_1_keyboard_html_a27d167cb20bed603b42fb5e18d5ed839"><div class="ttname"><a href="classblowbox_1_1_keyboard.html#a27d167cb20bed603b42fb5e18d5ed839">blowbox::Keyboard::IsReleased</a></div><div class="ttdeci">bool &amp; IsReleased(Key key)</div><div class="ttdoc">Retrieves whether given Key is released. </div><div class="ttdef"><b>Definition:</b> keyboard.cc:380</div></div>
+<div class="ttc" id="classblowbox_1_1_keyboard_html_a7213af75fae97d44391ceec53f939bf9"><div class="ttname"><a href="classblowbox_1_1_keyboard.html#a7213af75fae97d44391ceec53f939bf9">blowbox::Keyboard::ReceiveEvent</a></div><div class="ttdeci">void ReceiveEvent(KeyData evt)</div><div class="ttdoc">Receive an event. </div><div class="ttdef"><b>Definition:</b> keyboard.cc:401</div></div>
+<div class="ttc" id="classblowbox_1_1_keyboard_html_a98bdb499ef30bd1dd3b3d67c889679ec"><div class="ttname"><a href="classblowbox_1_1_keyboard.html#a98bdb499ef30bd1dd3b3d67c889679ec">blowbox::Keyboard::LuaIsPressed</a></div><div class="ttdeci">static int LuaIsPressed(lua_State *L)</div><div class="ttdoc">Is the key pressed? </div><div class="ttdef"><b>Definition:</b> keyboard.cc:459</div></div>
+<div class="ttc" id="structblowbox_1_1_key_data_html"><div class="ttname"><a href="structblowbox_1_1_key_data.html">blowbox::KeyData</a></div><div class="ttdoc">Holds data about a key and its event. </div><div class="ttdef"><b>Definition:</b> keyboard.h:25</div></div>
+<div class="ttc" id="classblowbox_1_1_keyboard_html_aa4dcd9aeed8220798f19bdee172d2803"><div class="ttname"><a href="classblowbox_1_1_keyboard.html#aa4dcd9aeed8220798f19bdee172d2803">blowbox::Keyboard::LastKey</a></div><div class="ttdeci">Key LastKey()</div><div class="ttdoc">Retrieves the last key that was pressed. </div><div class="ttdef"><b>Definition:</b> keyboard.cc:386</div></div>
+<div class="ttc" id="classblowbox_1_1_keyboard_html_ac93f12ec858c303abbefa87df6c3cde3"><div class="ttname"><a href="classblowbox_1_1_keyboard.html#ac93f12ec858c303abbefa87df6c3cde3">blowbox::Keyboard::Update</a></div><div class="ttdeci">void Update()</div><div class="ttdoc">Update the keyboard. </div><div class="ttdef"><b>Definition:</b> keyboard.cc:417</div></div>
+<div class="ttc" id="classblowbox_1_1_keyboard_html_ae522be4b79dbed95260e5f8cb8da86c1"><div class="ttname"><a href="classblowbox_1_1_keyboard.html#ae522be4b79dbed95260e5f8cb8da86c1">blowbox::Keyboard::~Keyboard</a></div><div class="ttdeci">~Keyboard()</div><div class="ttdoc">Default destructor. </div><div class="ttdef"><b>Definition:</b> keyboard.cc:355</div></div>
+<div class="ttc" id="structblowbox_1_1_key_state_html"><div class="ttname"><a href="structblowbox_1_1_key_state.html">blowbox::KeyState</a></div><div class="ttdoc">Keeps the state for any key. </div><div class="ttdef"><b>Definition:</b> keyboard.h:35</div></div>
+<div class="ttc" id="classblowbox_1_1_keyboard_html_a93ced29962647673ad4305836f1b8b37"><div class="ttname"><a href="classblowbox_1_1_keyboard.html#a93ced29962647673ad4305836f1b8b37">blowbox::Keyboard::LuaLastKey</a></div><div class="ttdeci">static int LuaLastKey(lua_State *L)</div><div class="ttdoc">Gets the last key. </div><div class="ttdef"><b>Definition:</b> keyboard.cc:477</div></div>
+<div class="ttc" id="classblowbox_1_1_keyboard_html_a864697062be93c8aa89ef928baeff1ea"><div class="ttname"><a href="classblowbox_1_1_keyboard.html#a864697062be93c8aa89ef928baeff1ea">blowbox::Keyboard::IsPressed</a></div><div class="ttdeci">bool &amp; IsPressed(Key key)</div><div class="ttdoc">Retrieves whether given Key is pressed. </div><div class="ttdef"><b>Definition:</b> keyboard.cc:374</div></div>
 <div class="ttc" id="namespaceblowbox_html"><div class="ttname"><a href="namespaceblowbox.html">blowbox</a></div><div class="ttdef"><b>Definition:</b> console.cc:5</div></div>
+<div class="ttc" id="classblowbox_1_1_keyboard_html_a6b6354c6871ce9427059ed12f226abe6"><div class="ttname"><a href="classblowbox_1_1_keyboard.html#a6b6354c6871ce9427059ed12f226abe6">blowbox::Keyboard::LuaIsReleased</a></div><div class="ttdeci">static int LuaIsReleased(lua_State *L)</div><div class="ttdoc">Is the key released? </div><div class="ttdef"><b>Definition:</b> keyboard.cc:465</div></div>
+<div class="ttc" id="classblowbox_1_1_lua_class_html"><div class="ttname"><a href="classblowbox_1_1_lua_class.html">blowbox::LuaClass</a></div><div class="ttdoc">Handles LuaClass functionality (mostly for polymorphism though) </div><div class="ttdef"><b>Definition:</b> lua_class.h:15</div></div>
+<div class="ttc" id="classblowbox_1_1_keyboard_html_a1e85e2cb12250d2b5075bf25933fbf2f"><div class="ttname"><a href="classblowbox_1_1_keyboard.html#a1e85e2cb12250d2b5075bf25933fbf2f">blowbox::Keyboard::LuaIsDown</a></div><div class="ttdeci">static int LuaIsDown(lua_State *L)</div><div class="ttdoc">Is the key down? </div><div class="ttdef"><b>Definition:</b> keyboard.cc:471</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Mar 17 2015 10:12:36 for blowbox by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Mar 31 2015 19:14:55 for blowbox by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

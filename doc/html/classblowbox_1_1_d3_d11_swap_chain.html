@@ -113,12 +113,22 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aca305fbe1f32c4677dda21148c6e4e2a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classblowbox_1_1_d3_d11_swap_chain.html#aca305fbe1f32c4677dda21148c6e4e2a">Initialize</a> (<a class="el" href="classblowbox_1_1_window.html">Window</a> *window)</td></tr>
 <tr class="memdesc:aca305fbe1f32c4677dda21148c6e4e2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the swap chain.  <a href="#aca305fbe1f32c4677dda21148c6e4e2a">More...</a><br /></td></tr>
 <tr class="separator:aca305fbe1f32c4677dda21148c6e4e2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad950b7676eab73d523da1478c58378dc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classblowbox_1_1_d3_d11_swap_chain.html#ad950b7676eab73d523da1478c58378dc">Create</a> (<a class="el" href="classblowbox_1_1_window.html">Window</a> *window)</td></tr>
+<tr class="memdesc:ad950b7676eab73d523da1478c58378dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the swap chain.  <a href="#ad950b7676eab73d523da1478c58378dc">More...</a><br /></td></tr>
+<tr class="separator:ad950b7676eab73d523da1478c58378dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afe0807b94325514bf2e71bb4f0aa6854"><td class="memItemLeft" align="right" valign="top">IDXGISwapChain *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classblowbox_1_1_d3_d11_swap_chain.html#afe0807b94325514bf2e71bb4f0aa6854">GetSwapChain</a> ()</td></tr>
 <tr class="separator:afe0807b94325514bf2e71bb4f0aa6854"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab058121c49235e6506f10a721c51048e"><td class="memItemLeft" align="right" valign="top">ID3D11Device *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classblowbox_1_1_d3_d11_swap_chain.html#ab058121c49235e6506f10a721c51048e">GetDevice</a> ()</td></tr>
 <tr class="separator:ab058121c49235e6506f10a721c51048e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acc5906d33eae7ada2d9300ee2175a41f"><td class="memItemLeft" align="right" valign="top">ID3D11DeviceContext *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classblowbox_1_1_d3_d11_swap_chain.html#acc5906d33eae7ada2d9300ee2175a41f">GetContext</a> ()</td></tr>
 <tr class="separator:acc5906d33eae7ada2d9300ee2175a41f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a752813a75a6d7fdc778639aad55272a0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classblowbox_1_1_d3_d11_swap_chain.html#a752813a75a6d7fdc778639aad55272a0">SetResolution</a> (const float &amp;width, const float &amp;height)</td></tr>
+<tr class="memdesc:a752813a75a6d7fdc778639aad55272a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the width &amp; height.  <a href="#a752813a75a6d7fdc778639aad55272a0">More...</a><br /></td></tr>
+<tr class="separator:a752813a75a6d7fdc778639aad55272a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a864509d8dada382d6d41b7d6b2076a17"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a864509d8dada382d6d41b7d6b2076a17"></a>
+const <a class="el" href="structblowbox_1_1_resolution.html">Resolution</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classblowbox_1_1_d3_d11_swap_chain.html#a864509d8dada382d6d41b7d6b2076a17">GetResolution</a> ()</td></tr>
+<tr class="memdesc:a864509d8dada382d6d41b7d6b2076a17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the width &amp; height. <br /></td></tr>
+<tr class="separator:a864509d8dada382d6d41b7d6b2076a17"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Handles the swapchain  </p>
@@ -148,6 +158,30 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="ad950b7676eab73d523da1478c58378dc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void blowbox::D3D11SwapChain::Create </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classblowbox_1_1_window.html">Window</a> *&#160;</td>
+          <td class="paramname"><em>window</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates the swap chain. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">window</td><td>(Window*) The window to which the swap chain should bind </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a class="anchor" id="acc5906d33eae7ada2d9300ee2175a41f"></a>
 <div class="memitem">
 <div class="memproto">
@@ -220,14 +254,49 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a752813a75a6d7fdc778639aad55272a0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void blowbox::D3D11SwapChain::SetResolution </td>
+          <td>(</td>
+          <td class="paramtype">const float &amp;&#160;</td>
+          <td class="paramname"><em>width</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float &amp;&#160;</td>
+          <td class="paramname"><em>height</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the width &amp; height. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">width</td><td>(const float&amp;) the width </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">height</td><td>(const float&amp;) the height </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/Users/Riko/Documents/Visual Studio 2013/Projects/blowbox/Blowbox/d3d11/<a class="el" href="d3d11__swap__chain_8h_source.html">d3d11_swap_chain.h</a></li>
-<li>C:/Users/Riko/Documents/Visual Studio 2013/Projects/blowbox/Blowbox/d3d11/d3d11_swap_chain.cc</li>
+<li>C:/Users/Riko pc/Documents/Visual Studio 2013/Projects/blowbox/Blowbox/d3d11/<a class="el" href="d3d11__swap__chain_8h_source.html">d3d11_swap_chain.h</a></li>
+<li>C:/Users/Riko pc/Documents/Visual Studio 2013/Projects/blowbox/Blowbox/d3d11/d3d11_swap_chain.cc</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Mar 17 2015 10:12:37 for blowbox by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Mar 31 2015 19:14:56 for blowbox by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

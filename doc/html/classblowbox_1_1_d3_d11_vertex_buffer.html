@@ -111,6 +111,9 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classblowbox_1_1_d3_d11_vertex_buffer.html#a7e7fe370dc4299fecb5fc4c7263cd9d9">~D3D11VertexBuffer</a> ()</td></tr>
 <tr class="memdesc:a7e7fe370dc4299fecb5fc4c7263cd9d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default <a class="el" href="classblowbox_1_1_d3_d11_vertex_buffer.html" title="Handles vertex & index buffers and topology settings. ">D3D11VertexBuffer</a> destructor. <br /></td></tr>
 <tr class="separator:a7e7fe370dc4299fecb5fc4c7263cd9d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae723cdd200b794a7000ff99c694f7a94"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classblowbox_1_1_d3_d11_vertex_buffer.html#ae723cdd200b794a7000ff99c694f7a94">Create</a> (const std::vector&lt; <a class="el" href="structblowbox_1_1_vertex.html">Vertex</a> &gt; &amp;vertices, const D3D11_PRIMITIVE_TOPOLOGY &amp;topology, const BUFFER_TYPE &amp;type)</td></tr>
+<tr class="memdesc:ae723cdd200b794a7000ff99c694f7a94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the buffer.  <a href="#ae723cdd200b794a7000ff99c694f7a94">More...</a><br /></td></tr>
+<tr class="separator:ae723cdd200b794a7000ff99c694f7a94"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a966cbe8e381f2609c1c91acfef2fb7b3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classblowbox_1_1_d3_d11_vertex_buffer.html#a966cbe8e381f2609c1c91acfef2fb7b3">Create</a> (const std::vector&lt; <a class="el" href="structblowbox_1_1_vertex.html">Vertex</a> &gt; &amp;vertices, const std::vector&lt; int &gt; &amp;indices, const D3D11_PRIMITIVE_TOPOLOGY &amp;topology, const BUFFER_TYPE &amp;type)</td></tr>
 <tr class="memdesc:a966cbe8e381f2609c1c91acfef2fb7b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the buffer.  <a href="#a966cbe8e381f2609c1c91acfef2fb7b3">More...</a><br /></td></tr>
 <tr class="separator:a966cbe8e381f2609c1c91acfef2fb7b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -127,6 +130,48 @@ Public Member Functions</h2></td></tr>
 <div class="textblock"><p>Handles vertex &amp; index buffers and topology settings. </p>
 <dl class="section author"><dt>Author</dt><dd>Riko Ophorst </dd></dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="ae723cdd200b794a7000ff99c694f7a94"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void blowbox::D3D11VertexBuffer::Create </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="structblowbox_1_1_vertex.html">Vertex</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>vertices</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const D3D11_PRIMITIVE_TOPOLOGY &amp;&#160;</td>
+          <td class="paramname"><em>topology</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const BUFFER_TYPE &amp;&#160;</td>
+          <td class="paramname"><em>type</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates the buffer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">vertices</td><td>(const std::vector&lt;Vertex&gt;&amp;) all vertices </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">topology</td><td>(const D3D11_PRIMITIVE_TOPOLOGY&amp;) the topology type for this object </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">type</td><td>(const BUFFER_TYPE&amp;) the type of the buffer </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a class="anchor" id="a966cbe8e381f2609c1c91acfef2fb7b3"></a>
 <div class="memitem">
 <div class="memproto">
@@ -241,13 +286,13 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/Users/Riko/Documents/Visual Studio 2013/Projects/blowbox/Blowbox/d3d11/<a class="el" href="d3d11__vertex__buffer_8h_source.html">d3d11_vertex_buffer.h</a></li>
-<li>C:/Users/Riko/Documents/Visual Studio 2013/Projects/blowbox/Blowbox/d3d11/d3d11_vertex_buffer.cc</li>
+<li>C:/Users/Riko pc/Documents/Visual Studio 2013/Projects/blowbox/Blowbox/d3d11/<a class="el" href="d3d11__vertex__buffer_8h_source.html">d3d11_vertex_buffer.h</a></li>
+<li>C:/Users/Riko pc/Documents/Visual Studio 2013/Projects/blowbox/Blowbox/d3d11/d3d11_vertex_buffer.cc</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Mar 17 2015 10:12:37 for blowbox by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Mar 31 2015 19:14:56 for blowbox by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

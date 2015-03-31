@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.9.1"/>
-<title>blowbox: C:/Users/Riko/Documents/Visual Studio 2013/Projects/blowbox/Blowbox/d3d11/d3d11_viewport.h Source File</title>
+<title>blowbox: C:/Users/Riko pc/Documents/Visual Studio 2013/Projects/blowbox/Blowbox/d3d11/d3d11_viewport.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -92,34 +92,43 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;../../blowbox/d3d11/d3d11.h&quot;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceblowbox.html">blowbox</a></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="classblowbox_1_1_d3_d11_viewport.html">   12</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classblowbox_1_1_d3_d11_viewport.html">D3D11Viewport</a></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    {</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        <a class="code" href="classblowbox_1_1_d3_d11_viewport.html#a1806c326ef192984a227b22e2dbd0a90">D3D11Viewport</a>();</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <a class="code" href="classblowbox_1_1_d3_d11_viewport.html#a1806c326ef192984a227b22e2dbd0a90">D3D11Viewport</a>(<span class="keywordtype">float</span> minDepth, <span class="keywordtype">float</span> mexDepth);</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <a class="code" href="classblowbox_1_1_d3_d11_viewport.html#a1806c326ef192984a227b22e2dbd0a90">D3D11Viewport</a>(<span class="keywordtype">float</span> x, <span class="keywordtype">float</span> y, <span class="keywordtype">float</span> width, <span class="keywordtype">float</span> height, <span class="keywordtype">float</span> minDepth, <span class="keywordtype">float</span> maxDepth);</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <a class="code" href="classblowbox_1_1_d3_d11_viewport.html#ae9a6964879724ad61dcd7aa81ea996aa">~D3D11Viewport</a>();</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classblowbox_1_1_d3_d11_viewport.html#a9cab73f40cb9088023a4a1204ae5e7c9">Set</a>();</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        D3D11_VIEWPORT viewport_;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    };</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;}</div>
-<div class="ttc" id="classblowbox_1_1_d3_d11_viewport_html_a9cab73f40cb9088023a4a1204ae5e7c9"><div class="ttname"><a href="classblowbox_1_1_d3_d11_viewport.html#a9cab73f40cb9088023a4a1204ae5e7c9">blowbox::D3D11Viewport::Set</a></div><div class="ttdeci">void Set()</div><div class="ttdoc">Sets the viewport to the device context. </div><div class="ttdef"><b>Definition:</b> d3d11_viewport.cc:56</div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;../../blowbox/d3d11/d3d11_settings.h&quot;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceblowbox.html">blowbox</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="classblowbox_1_1_d3_d11_viewport.html">   13</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classblowbox_1_1_d3_d11_viewport.html">D3D11Viewport</a></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    {</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        <a class="code" href="classblowbox_1_1_d3_d11_viewport.html#a1806c326ef192984a227b22e2dbd0a90">D3D11Viewport</a>();</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <a class="code" href="classblowbox_1_1_d3_d11_viewport.html#a1806c326ef192984a227b22e2dbd0a90">D3D11Viewport</a>(<span class="keywordtype">float</span> minDepth, <span class="keywordtype">float</span> mexDepth);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <a class="code" href="classblowbox_1_1_d3_d11_viewport.html#a1806c326ef192984a227b22e2dbd0a90">D3D11Viewport</a>(<span class="keywordtype">float</span> x, <span class="keywordtype">float</span> y, <span class="keywordtype">float</span> width, <span class="keywordtype">float</span> height, <span class="keywordtype">float</span> minDepth, <span class="keywordtype">float</span> maxDepth);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <a class="code" href="classblowbox_1_1_d3_d11_viewport.html#ae9a6964879724ad61dcd7aa81ea996aa">~D3D11Viewport</a>();</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classblowbox_1_1_d3_d11_viewport.html#a9cab73f40cb9088023a4a1204ae5e7c9">Set</a>();</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classblowbox_1_1_d3_d11_viewport.html#a3cfa540cca067ad3413483fbb5b449a9">SetResolution</a>(<span class="keyword">const</span> <span class="keywordtype">float</span>&amp; width, <span class="keyword">const</span> <span class="keywordtype">float</span>&amp; height);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keyword">const</span> <a class="code" href="structblowbox_1_1_resolution.html">Resolution</a>&amp; <a class="code" href="classblowbox_1_1_d3_d11_viewport.html#a04d4ed951dcbfc81d163ff92ef4262b3">GetResolution</a>();</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        D3D11_VIEWPORT viewport_;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <a class="code" href="structblowbox_1_1_resolution.html">Resolution</a> resolution_;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    };</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;}</div>
+<div class="ttc" id="classblowbox_1_1_d3_d11_viewport_html_a04d4ed951dcbfc81d163ff92ef4262b3"><div class="ttname"><a href="classblowbox_1_1_d3_d11_viewport.html#a04d4ed951dcbfc81d163ff92ef4262b3">blowbox::D3D11Viewport::GetResolution</a></div><div class="ttdeci">const Resolution &amp; GetResolution()</div><div class="ttdoc">Gets the width & height. </div><div class="ttdef"><b>Definition:</b> d3d11_viewport.cc:77</div></div>
+<div class="ttc" id="classblowbox_1_1_d3_d11_viewport_html_a9cab73f40cb9088023a4a1204ae5e7c9"><div class="ttname"><a href="classblowbox_1_1_d3_d11_viewport.html#a9cab73f40cb9088023a4a1204ae5e7c9">blowbox::D3D11Viewport::Set</a></div><div class="ttdeci">void Set()</div><div class="ttdoc">Sets the viewport to the device context. </div><div class="ttdef"><b>Definition:</b> d3d11_viewport.cc:59</div></div>
 <div class="ttc" id="classblowbox_1_1_d3_d11_viewport_html_a1806c326ef192984a227b22e2dbd0a90"><div class="ttname"><a href="classblowbox_1_1_d3_d11_viewport.html#a1806c326ef192984a227b22e2dbd0a90">blowbox::D3D11Viewport::D3D11Viewport</a></div><div class="ttdeci">D3D11Viewport()</div><div class="ttdoc">Default D3D11Viewport constructor. </div><div class="ttdef"><b>Definition:</b> d3d11_viewport.cc:8</div></div>
-<div class="ttc" id="classblowbox_1_1_d3_d11_viewport_html_ae9a6964879724ad61dcd7aa81ea996aa"><div class="ttname"><a href="classblowbox_1_1_d3_d11_viewport.html#ae9a6964879724ad61dcd7aa81ea996aa">blowbox::D3D11Viewport::~D3D11Viewport</a></div><div class="ttdeci">~D3D11Viewport()</div><div class="ttdoc">Default D3D11Viewport destructor. </div><div class="ttdef"><b>Definition:</b> d3d11_viewport.cc:50</div></div>
-<div class="ttc" id="classblowbox_1_1_d3_d11_viewport_html"><div class="ttname"><a href="classblowbox_1_1_d3_d11_viewport.html">blowbox::D3D11Viewport</a></div><div class="ttdoc">Handles viewports. </div><div class="ttdef"><b>Definition:</b> d3d11_viewport.h:12</div></div>
+<div class="ttc" id="structblowbox_1_1_resolution_html"><div class="ttname"><a href="structblowbox_1_1_resolution.html">blowbox::Resolution</a></div><div class="ttdoc">Defines the resolution of the main window. </div><div class="ttdef"><b>Definition:</b> d3d11_settings.h:12</div></div>
+<div class="ttc" id="classblowbox_1_1_d3_d11_viewport_html_ae9a6964879724ad61dcd7aa81ea996aa"><div class="ttname"><a href="classblowbox_1_1_d3_d11_viewport.html#ae9a6964879724ad61dcd7aa81ea996aa">blowbox::D3D11Viewport::~D3D11Viewport</a></div><div class="ttdeci">~D3D11Viewport()</div><div class="ttdoc">Default D3D11Viewport destructor. </div><div class="ttdef"><b>Definition:</b> d3d11_viewport.cc:53</div></div>
+<div class="ttc" id="classblowbox_1_1_d3_d11_viewport_html"><div class="ttname"><a href="classblowbox_1_1_d3_d11_viewport.html">blowbox::D3D11Viewport</a></div><div class="ttdoc">Handles viewports. </div><div class="ttdef"><b>Definition:</b> d3d11_viewport.h:13</div></div>
 <div class="ttc" id="namespaceblowbox_html"><div class="ttname"><a href="namespaceblowbox.html">blowbox</a></div><div class="ttdef"><b>Definition:</b> console.cc:5</div></div>
+<div class="ttc" id="classblowbox_1_1_d3_d11_viewport_html_a3cfa540cca067ad3413483fbb5b449a9"><div class="ttname"><a href="classblowbox_1_1_d3_d11_viewport.html#a3cfa540cca067ad3413483fbb5b449a9">blowbox::D3D11Viewport::SetResolution</a></div><div class="ttdeci">void SetResolution(const float &amp;width, const float &amp;height)</div><div class="ttdoc">Sets the width & height. </div><div class="ttdef"><b>Definition:</b> d3d11_viewport.cc:67</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Mar 17 2015 10:12:36 for blowbox by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Mar 31 2015 19:14:55 for blowbox by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

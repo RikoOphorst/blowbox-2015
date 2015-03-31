@@ -11,6 +11,7 @@ var searchData=
   ['d3d11renderqueue',['D3D11RenderQueue',['../classblowbox_1_1_d3_d11_render_queue.html',1,'blowbox']]],
   ['d3d11rendertarget',['D3D11RenderTarget',['../classblowbox_1_1_d3_d11_render_target.html',1,'blowbox']]],
   ['d3d11samplerstate',['D3D11SamplerState',['../classblowbox_1_1_d3_d11_sampler_state.html',1,'blowbox']]],
+  ['d3d11settings',['D3D11Settings',['../classblowbox_1_1_d3_d11_settings.html',1,'blowbox']]],
   ['d3d11shader',['D3D11Shader',['../classblowbox_1_1_d3_d11_shader.html',1,'blowbox']]],
   ['d3d11swapchain',['D3D11SwapChain',['../classblowbox_1_1_d3_d11_swap_chain.html',1,'blowbox']]],
   ['d3d11texture',['D3D11Texture',['../classblowbox_1_1_d3_d11_texture.html',1,'blowbox']]],
