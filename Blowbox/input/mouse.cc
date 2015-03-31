@@ -2,8 +2,9 @@
 
 namespace blowbox
 {
-	Mouse::Mouse()
-		: pos_(0.0f, 0.0f)
+	//------------------------------------------------------------------------------------------------------
+	Mouse::Mouse() : 
+		pos_(0.0f, 0.0f)
 	{
 		for (unsigned int i = 0; i < 3; ++i)
 		{
@@ -13,11 +14,26 @@ namespace blowbox
 		}
 	}
 
-	Mouse::Mouse(lua_State* state)
+	//------------------------------------------------------------------------------------------------------
+	Mouse::Mouse(lua_State* L) :
+		LuaClass(L),
+		pos_(0.0f, 0.0f)
+	{
+		for (unsigned int i = 0; i < 3; ++i)
+		{
+			mouseStates_[i].down = false;
+			mouseStates_[i].pressed = false;
+			mouseStates_[i].dbl = false;
+		}
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	Mouse::~Mouse()
 	{
 
 	}
 
+	//------------------------------------------------------------------------------------------------------
 	Mouse* Mouse::Instance()
 	{
 		static SharedPtr<Mouse> ptr(new Mouse());
@@ -29,21 +45,25 @@ namespace blowbox
 		return pos_;
 	}
 
+	//------------------------------------------------------------------------------------------------------
 	bool& Mouse::IsDown(MouseButton btn)
 	{
 		return mouseStates_[btn].down;
 	}
 
+	//------------------------------------------------------------------------------------------------------
 	bool& Mouse::IsPressed(MouseButton btn)
 	{
 		return mouseStates_[btn].pressed;
 	}
 
+	//------------------------------------------------------------------------------------------------------
 	bool& Mouse::IsDbl(MouseButton btn)
 	{
 		return mouseStates_[btn].dbl;
 	}
 
+	//------------------------------------------------------------------------------------------------------
 	void Mouse::ResetStates()
 	{
 		for (unsigned int i = 0; i < 3; ++i)
@@ -53,16 +73,19 @@ namespace blowbox
 		}
 	}
 
+	//------------------------------------------------------------------------------------------------------
 	void Mouse::ReceiveEvent(MouseMoveEvent evt)
 	{
 		moveQueue_.push(evt);
 	}
 
-	void Mouse::ReceiveEvent(MouseButtonEvent button)
+	//------------------------------------------------------------------------------------------------------
+	void Mouse::ReceiveEvent(MouseButtonData button)
 	{
 		clickQueue_.push(button);
 	}
 
+	//------------------------------------------------------------------------------------------------------
 	void Mouse::Update()
 	{
 		ResetStates();
@@ -79,7 +102,7 @@ namespace blowbox
 
 		while (!clickQueue_.empty())
 		{
-			const MouseButtonEvent& evt = clickQueue_.front();
+			const MouseButtonData& evt = clickQueue_.front();
 
 			switch (evt.type)
 			{
@@ -99,6 +122,7 @@ namespace blowbox
 		}
 	}
 
+	//------------------------------------------------------------------------------------------------------
 	MouseButton Mouse::StringToButton(const char* name)
 	{
 		if (strcmp(name, "L") == 0 || strcmp(name, "l") == 0 || strcmp(name, "Left") == 0 || strcmp(name, "left") == 0)		return MouseButton::MouseLeft;
@@ -110,6 +134,7 @@ namespace blowbox
 		return MouseButton::MouseLeft;
 	}
 
+	//------------------------------------------------------------------------------------------------------
 	std::string Mouse::ButtonToString(MouseButton button)
 	{
 		switch (button)
@@ -121,15 +146,10 @@ namespace blowbox
 		}
 	}
 
-	Mouse::~Mouse()
+	//------------------------------------------------------------------------------------------------------
+	void Mouse::LuaRegisterFunctions(lua_State* L)
 	{
-
-	}
-
-	int Mouse::RegisterFunctions(lua_State* state)
-	{
-		luaL_Reg regist[] =
-		{
+		luaL_Reg regist[] = {
 			{ "getPosition", LuaGetPosition },
 			{ "isDown", LuaIsDown },
 			{ "isPressed", LuaIsPressed },
@@ -137,34 +157,30 @@ namespace blowbox
 			{ NULL, NULL }
 		};
 
-		LM_REGISTER(state, regist);
-
-		return 1;
+		luaL_register(L, NULL, regist);
 	}
 
-	int Mouse::LuaGetPosition(lua_State* state)
+	//------------------------------------------------------------------------------------------------------
+	int Mouse::LuaGetPosition(lua_State* L)
 	{
-		XMFLOAT2 pos = Mouse::Instance()->GetPosition();
-		LuaManager::PushValue(pos.x);
-		LuaManager::PushValue(pos.y);
-		return 2;
+		return LuaWrapper::Instance()->Push(L, Mouse::Instance()->GetPosition().x, Mouse::Instance()->GetPosition().y);
 	}
 
-	int Mouse::LuaIsDown(lua_State* state)
+	//------------------------------------------------------------------------------------------------------
+	int Mouse::LuaIsDown(lua_State* L)
 	{
-		LuaManager::PushValue(Mouse::Instance()->IsDown(Mouse::StringToButton(LuaManager::GetValue<const char*>(0))));
-		return 1;
+		return LuaWrapper::Instance()->Push(L, Mouse::Instance()->IsDown(Mouse::Instance()->StringToButton(LuaWrapper::Instance()->Get<std::string>(L, -1, 1).c_str())));
 	}
 
-	int Mouse::LuaIsPressed(lua_State* state)
+	//------------------------------------------------------------------------------------------------------
+	int Mouse::LuaIsPressed(lua_State* L)
 	{
-		LuaManager::PushValue(Mouse::Instance()->IsPressed(Mouse::StringToButton(LuaManager::GetValue<const char*>(0))));
-		return 1;
+		return LuaWrapper::Instance()->Push(L, Mouse::Instance()->IsPressed(Mouse::Instance()->StringToButton(LuaWrapper::Instance()->Get<std::string>(L, -1, 1).c_str())));
 	}
 
-	int Mouse::LuaIsDbl(lua_State* state)
+	//------------------------------------------------------------------------------------------------------
+	int Mouse::LuaIsDbl(lua_State* L)
 	{
-		LuaManager::PushValue(Mouse::Instance()->IsDbl(Mouse::StringToButton(LuaManager::GetValue<const char*>(0))));
-		return 1;
+		return LuaWrapper::Instance()->Push(L, Mouse::Instance()->IsDbl(Mouse::Instance()->StringToButton(LuaWrapper::Instance()->Get<std::string>(L, -1, 1).c_str())));
 	}
 }

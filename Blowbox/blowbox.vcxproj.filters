@@ -1,0 +1,285 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cc" />
+    <ClCompile Include="game.cc" />
+    <ClCompile Include="win32\window.cc">
+      <Filter>win32</Filter>
+    </ClCompile>
+    <ClCompile Include="input\mouse.cc">
+      <Filter>input</Filter>
+    </ClCompile>
+    <ClCompile Include="input\keyboard.cc">
+      <Filter>input</Filter>
+    </ClCompile>
+    <ClCompile Include="d3d11\d3d11_render_device.cc">
+      <Filter>d3d11</Filter>
+    </ClCompile>
+    <ClCompile Include="d3d11\d3d11_swap_chain.cc">
+      <Filter>d3d11</Filter>
+    </ClCompile>
+    <ClCompile Include="d3d11\d3d11_texture.cc">
+      <Filter>d3d11</Filter>
+    </ClCompile>
+    <ClCompile Include="d3d11\d3d11_vertex_buffer.cc">
+      <Filter>d3d11</Filter>
+    </ClCompile>
+    <ClCompile Include="d3d11\d3d11_viewport.cc">
+      <Filter>d3d11</Filter>
+    </ClCompile>
+    <ClCompile Include="d3d11\d3d11_blend_state.cc">
+      <Filter>d3d11</Filter>
+    </ClCompile>
+    <ClCompile Include="d3d11\d3d11_camera.cc">
+      <Filter>d3d11</Filter>
+    </ClCompile>
+    <ClCompile Include="d3d11\d3d11_constant_buffer.cc">
+      <Filter>d3d11</Filter>
+    </ClCompile>
+    <ClCompile Include="d3d11\d3d11_depth_stencil.cc">
+      <Filter>d3d11</Filter>
+    </ClCompile>
+    <ClCompile Include="d3d11\d3d11_input_layout.cc">
+      <Filter>d3d11</Filter>
+    </ClCompile>
+    <ClCompile Include="d3d11\d3d11_rasterizer_state.cc">
+      <Filter>d3d11</Filter>
+    </ClCompile>
+    <ClCompile Include="d3d11\d3d11_render_element.cc">
+      <Filter>d3d11</Filter>
+    </ClCompile>
+    <ClCompile Include="d3d11\d3d11_sampler_state.cc">
+      <Filter>d3d11</Filter>
+    </ClCompile>
+    <ClCompile Include="d3d11\d3d11_shader.cc">
+      <Filter>d3d11</Filter>
+    </ClCompile>
+    <ClCompile Include="d3d11\d3d11_render_target.cc">
+      <Filter>d3d11</Filter>
+    </ClCompile>
+    <ClCompile Include="d3d11\d3d11_render_queue.cc">
+      <Filter>d3d11</Filter>
+    </ClCompile>
+    <ClCompile Include="elements\quad.cc">
+      <Filter>elements</Filter>
+    </ClCompile>
+    <ClCompile Include="memory\allocated_memory.cc">
+      <Filter>memory</Filter>
+    </ClCompile>
+    <ClCompile Include="lua\lua_state.cc">
+      <Filter>lua</Filter>
+    </ClCompile>
+    <ClCompile Include="lua\lua_wrapper.cc">
+      <Filter>lua</Filter>
+    </ClCompile>
+    <ClCompile Include="lua\lua_register.cc">
+      <Filter>lua</Filter>
+    </ClCompile>
+    <ClCompile Include="lua\lua_class.cc">
+      <Filter>lua</Filter>
+    </ClCompile>
+    <ClCompile Include="lua\lua_callback.cc">
+      <Filter>lua</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\lua_enum.cc">
+      <Filter>utility</Filter>
+    </ClCompile>
+    <ClCompile Include="console\console.cc">
+      <Filter>console</Filter>
+    </ClCompile>
+    <ClCompile Include="win32\file_watch.cc">
+      <Filter>win32</Filter>
+    </ClCompile>
+    <ClCompile Include="content\content_manager.cc">
+      <Filter>content</Filter>
+    </ClCompile>
+    <ClCompile Include="elements\cube.cc">
+      <Filter>elements</Filter>
+    </ClCompile>
+    <ClCompile Include="d3d11\d3d11_settings.cc">
+      <Filter>d3d11</Filter>
+    </ClCompile>
+    <ClCompile Include="elements\polygon.cc">
+      <Filter>elements</Filter>
+    </ClCompile>
+    <ClCompile Include="elements\widget.cc">
+      <Filter>elements</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\lua_require.cc">
+      <Filter>utility</Filter>
+    </ClCompile>
+    <ClCompile Include="elements\line.cc">
+      <Filter>elements</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="game.h" />
+    <ClInclude Include="memory\shared_ptr.h">
+      <Filter>memory</Filter>
+    </ClInclude>
+    <ClInclude Include="win32\window.h">
+      <Filter>win32</Filter>
+    </ClInclude>
+    <ClInclude Include="logging.h" />
+    <ClInclude Include="input\keyboard.h">
+      <Filter>input</Filter>
+    </ClInclude>
+    <ClInclude Include="input\mouse.h">
+      <Filter>input</Filter>
+    </ClInclude>
+    <ClInclude Include="input\key.h">
+      <Filter>input</Filter>
+    </ClInclude>
+    <ClInclude Include="d3d11\d3d11_render_device.h">
+      <Filter>d3d11</Filter>
+    </ClInclude>
+    <ClInclude Include="d3d11\d3d11_shader.h">
+      <Filter>d3d11</Filter>
+    </ClInclude>
+    <ClInclude Include="d3d11\d3d11_swap_chain.h">
+      <Filter>d3d11</Filter>
+    </ClInclude>
+    <ClInclude Include="d3d11\d3d11_texture.h">
+      <Filter>d3d11</Filter>
+    </ClInclude>
+    <ClInclude Include="d3d11\d3d11_vertex_buffer.h">
+      <Filter>d3d11</Filter>
+    </ClInclude>
+    <ClInclude Include="d3d11\d3d11_viewport.h">
+      <Filter>d3d11</Filter>
+    </ClInclude>
+    <ClInclude Include="d3d11\d3d11_blend_state.h">
+      <Filter>d3d11</Filter>
+    </ClInclude>
+    <ClInclude Include="d3d11\d3d11_camera.h">
+      <Filter>d3d11</Filter>
+    </ClInclude>
+    <ClInclude Include="d3d11\d3d11_constant_buffer.h">
+      <Filter>d3d11</Filter>
+    </ClInclude>
+    <ClInclude Include="d3d11\d3d11_depth_stencil.h">
+      <Filter>d3d11</Filter>
+    </ClInclude>
+    <ClInclude Include="d3d11\d3d11_input_layout.h">
+      <Filter>d3d11</Filter>
+    </ClInclude>
+    <ClInclude Include="d3d11\d3d11_rasterizer_state.h">
+      <Filter>d3d11</Filter>
+    </ClInclude>
+    <ClInclude Include="d3d11\d3d11_render_element.h">
+      <Filter>d3d11</Filter>
+    </ClInclude>
+    <ClInclude Include="d3d11\d3d11_sampler_state.h">
+      <Filter>d3d11</Filter>
+    </ClInclude>
+    <ClInclude Include="d3d11\d3d11_render_target.h">
+      <Filter>d3d11</Filter>
+    </ClInclude>
+    <ClInclude Include="d3d11\d3d11_render_queue.h">
+      <Filter>d3d11</Filter>
+    </ClInclude>
+    <ClInclude Include="elements\quad.h">
+      <Filter>elements</Filter>
+    </ClInclude>
+    <ClInclude Include="memory\allocated_memory.h">
+      <Filter>memory</Filter>
+    </ClInclude>
+    <ClInclude Include="memory\refcount.h">
+      <Filter>memory</Filter>
+    </ClInclude>
+    <ClInclude Include="d3d11\d3d11.h">
+      <Filter>d3d11</Filter>
+    </ClInclude>
+    <ClInclude Include="lua\lua_state.h">
+      <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="lua\lua.h">
+      <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="lua\lua_wrapper.h">
+      <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="lua\lua_register.h">
+      <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="lua\lua_class.h">
+      <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="lua\lua_callback.h">
+      <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\lua_enum.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="console\console.h">
+      <Filter>console</Filter>
+    </ClInclude>
+    <ClInclude Include="console\console_ui.h">
+      <Filter>console</Filter>
+    </ClInclude>
+    <ClInclude Include="win32\file_watch.h">
+      <Filter>win32</Filter>
+    </ClInclude>
+    <ClInclude Include="content\content_manager.h">
+      <Filter>content</Filter>
+    </ClInclude>
+    <ClInclude Include="elements\cube.h">
+      <Filter>elements</Filter>
+    </ClInclude>
+    <ClInclude Include="d3d11\d3d11_settings.h">
+      <Filter>d3d11</Filter>
+    </ClInclude>
+    <ClInclude Include="elements\polygon.h">
+      <Filter>elements</Filter>
+    </ClInclude>
+    <ClInclude Include="elements\widget.h">
+      <Filter>elements</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\lua_require.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="elements\line.h">
+      <Filter>elements</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="memory">
+      <UniqueIdentifier>{a5e62d8d-fc65-4c56-adc6-d2cc6f82e1cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="win32">
+      <UniqueIdentifier>{6e2139d6-c432-48a6-aa12-ab3050be4c66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="input">
+      <UniqueIdentifier>{40f249a9-c248-4196-aa69-6cc4884898bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="d3d11">
+      <UniqueIdentifier>{468021d8-2e6e-4926-9e67-81c86f0f8717}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="elements">
+      <UniqueIdentifier>{426e0dbb-bbad-4f83-8ea7-87d72370d1ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shaders">
+      <UniqueIdentifier>{3e47977d-7aee-4706-bb8c-35f79c1b04e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lua">
+      <UniqueIdentifier>{64690f3f-c635-4a01-a678-cccf902bf082}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utility">
+      <UniqueIdentifier>{2a44a5b4-6135-42e2-804e-4922036d3e78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="console">
+      <UniqueIdentifier>{1e16303c-5429-4190-a1e6-3635af0b0943}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="content">
+      <UniqueIdentifier>{b0857c93-a052-41f1-9e70-23dcb80d1625}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="shaders\base.fx">
+      <Filter>shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shaders\post_processing.fx">
+      <Filter>shaders</Filter>
+    </FxCompile>
+  </ItemGroup>
+</Project>

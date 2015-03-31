@@ -1,7 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Blowbox", "Blowbox\Blowbox.vcxproj", "{109B79C6-B601-475F-B083-6FBEE99474D8}"
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "blowbox", "blowbox\blowbox.vcxproj", "{513E9999-0C42-4DCF-90F1-E30B6C29EA39}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,14 +13,14 @@ Global
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{109B79C6-B601-475F-B083-6FBEE99474D8}.Debug|Win32.ActiveCfg = Debug|Win32
-		{109B79C6-B601-475F-B083-6FBEE99474D8}.Debug|Win32.Build.0 = Debug|Win32
-		{109B79C6-B601-475F-B083-6FBEE99474D8}.Debug|x64.ActiveCfg = Debug|x64
-		{109B79C6-B601-475F-B083-6FBEE99474D8}.Debug|x64.Build.0 = Debug|x64
-		{109B79C6-B601-475F-B083-6FBEE99474D8}.Release|Win32.ActiveCfg = Release|Win32
-		{109B79C6-B601-475F-B083-6FBEE99474D8}.Release|Win32.Build.0 = Release|Win32
-		{109B79C6-B601-475F-B083-6FBEE99474D8}.Release|x64.ActiveCfg = Release|x64
-		{109B79C6-B601-475F-B083-6FBEE99474D8}.Release|x64.Build.0 = Release|x64
+		{513E9999-0C42-4DCF-90F1-E30B6C29EA39}.Debug|Win32.ActiveCfg = Debug|Win32
+		{513E9999-0C42-4DCF-90F1-E30B6C29EA39}.Debug|Win32.Build.0 = Debug|Win32
+		{513E9999-0C42-4DCF-90F1-E30B6C29EA39}.Debug|x64.ActiveCfg = Debug|x64
+		{513E9999-0C42-4DCF-90F1-E30B6C29EA39}.Debug|x64.Build.0 = Debug|x64
+		{513E9999-0C42-4DCF-90F1-E30B6C29EA39}.Release|Win32.ActiveCfg = Release|Win32
+		{513E9999-0C42-4DCF-90F1-E30B6C29EA39}.Release|Win32.Build.0 = Release|Win32
+		{513E9999-0C42-4DCF-90F1-E30B6C29EA39}.Release|x64.ActiveCfg = Release|x64
+		{513E9999-0C42-4DCF-90F1-E30B6C29EA39}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

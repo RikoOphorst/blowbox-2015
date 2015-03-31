@@ -1,61 +1,83 @@
 #pragma once
 
-#include "lua_manager.h"
-#include <iostream>
+#include "../../blowbox/lua/lua.h"
+#include "../../blowbox/lua/lua_wrapper.h"
+#include <vector>
 
 namespace blowbox
 {
-
-	template<typename...Args>
+	/**
+	* @class blowbox::LuaCallback
+	* @brief Creates an object that can call a lua function
+	* @author Riko Ophorst
+	*/
 	class LuaCallback
 	{
 	public:
-		LuaCallback(){}
-		LuaCallback(const char* fnc)
-		{
-			fnc_ = fnc;
-			table_ = "";
-		};
+		/**
+		* @brief Default LuaCallback constructor
+		* @param[in] tree (std::vector<LuaValue) the tree
+		*/
+		LuaCallback(std::vector<LuaValue> tree);
 
-		LuaCallback(const char* table, const char* fnc)
-		{
-			fnc_ = fnc;
-			table_ = table;
-		};
+		/**
+		* @brief Default LuaCallback destructor
+		*/
+		~LuaCallback();
 
-		~LuaCallback()
-		{
+		/**
+		* @brief Calls the actual function
+		* @param[in] L (lua_State*) the lua state
+		* @param[in] anything (anything) ...
+		*/
+		template<typename...Args>
+		void Call(lua_State* L, Args...args);
 
-		}
-
-		void Call(Args...args)
-		{
-			int toPop = 0;
-			if (table_ != "")
-			{
-				lua_getglobal(LuaManager::Instance()->GetState(), table_.c_str());
-				lua_getfield(LuaManager::Instance()->GetState(), -1, fnc_.c_str());
-				toPop = 1;
-			}
-			else
-			{
-				lua_getglobal(LuaManager::Instance()->GetState(), fnc_.c_str());
-			}
-
-
-			int nargs = LuaManager::Instance()->push_data(args...);
-
-			int result = lua_pcall(LuaManager::Instance()->GetState(), nargs, 0, 0);
-
-			if (result != 0)
-			{
-				BLOW_CONSOLE_ERROR("There was an error executing a lua callback, error code: " + result);
-			}
-
-			lua_pop(LuaManager::Instance()->GetState(), toPop);
-		}
+		/**
+		* @brief Converts the internal tree vector to a string
+		*/
+		std::string TreeToString();
 	private:
-		std::string fnc_;
-		std::string table_;
+		std::vector<LuaValue> tree_;
 	};
+
+	//------------------------------------------------------------------------------------------------------
+	template<typename...Args>
+	inline void LuaCallback::Call(lua_State* L, Args...args)
+	{
+		int top = lua_gettop(L);
+
+		for (unsigned int i = 0; i < tree_.size(); ++i)
+		{
+			LuaValue it = tree_.at(i);
+			
+			if (it.location == LUA_LOCATION::LUA_LOCATION_GLOBAL)
+			{
+				lua_getglobal(L, it.identifier.c_str());
+			}
+			
+			if (it.location == LUA_LOCATION::LUA_LOCATION_FIELD)
+			{
+				lua_getfield(L, -1, it.identifier.c_str());
+			}
+		}
+
+		if (!lua_isfunction(L, -1))
+		{
+			Console::Instance()->Log("LuaCallback tree is invalid, trying to call: " + TreeToString(), LOG_COLOR_TYPES::LOG_COLOR_NOTICE);
+
+			lua_settop(L, top);
+			return;
+		}
+
+		int arg_count = LuaWrapper::Instance()->Push(L, args...);
+
+		if (lua_pcall(L, arg_count, 0, 0))
+		{
+			Console::Instance()->Log(LuaWrapper::Instance()->ToString(L, -1), LOG_COLOR_TYPES::LOG_COLOR_ERROR);
+		}
+
+		// Clear the stack
+		lua_settop(L, top);
+	}
 }

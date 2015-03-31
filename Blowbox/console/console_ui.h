@@ -14,104 +14,83 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QHeaderView>
-#include <QtWidgets/QLineEdit>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPlainTextEdit>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
-#include <QtWidgets/QTabWidget>
-#include <QtWidgets/QTreeWidget>
-#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QTextEdit>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
 
-class Ui_Console
+class Ui_MainWindow
 {
 public:
     QWidget *centralwidget;
-    QTabWidget *tabWidget;
-    QWidget *tab;
-    QWidget *layoutWidget;
-    QVBoxLayout *verticalLayout;
-    QPlainTextEdit *plainTextEdit;
-    QLineEdit *lineEdit;
-    QWidget *tab_2;
-    QTreeWidget *treeWidget;
+    QTextEdit *terminal;
+    QLabel *header;
+    QPushButton *enter;
+    QPlainTextEdit *input;
     QStatusBar *statusbar;
 
-    void setupUi(QMainWindow *Console)
+    void setupUi(QMainWindow *MainWindow)
     {
-        if (Console->objectName().isEmpty())
-            Console->setObjectName(QStringLiteral("Console"));
-        Console->resize(722, 525);
-        Console->setMinimumSize(QSize(722, 525));
-        Console->setMaximumSize(QSize(722, 525));
-        Console->setWindowOpacity(1);
-        Console->setStyleSheet(QStringLiteral(""));
-        centralwidget = new QWidget(Console);
+        if (MainWindow->objectName().isEmpty())
+            MainWindow->setObjectName(QStringLiteral("MainWindow"));
+        MainWindow->resize(800, 600);
+        MainWindow->setMaximumSize(QSize(800, 600));
+        centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
-        tabWidget = new QTabWidget(centralwidget);
-        tabWidget->setObjectName(QStringLiteral("tabWidget"));
-        tabWidget->setGeometry(QRect(10, 10, 701, 501));
-        tab = new QWidget();
-        tab->setObjectName(QStringLiteral("tab"));
-        layoutWidget = new QWidget(tab);
-        layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
-        layoutWidget->setGeometry(QRect(10, 10, 702, 458));
-        verticalLayout = new QVBoxLayout(layoutWidget);
-        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        verticalLayout->setContentsMargins(0, 0, 0, 0);
-        plainTextEdit = new QPlainTextEdit(layoutWidget);
-        plainTextEdit->setObjectName(QStringLiteral("plainTextEdit"));
-        plainTextEdit->setMinimumSize(QSize(400, 430));
-        plainTextEdit->setMaximumSize(QSize(675, 460));
-
-        verticalLayout->addWidget(plainTextEdit);
-
-        lineEdit = new QLineEdit(layoutWidget);
-        lineEdit->setObjectName(QStringLiteral("lineEdit"));
-        lineEdit->setMaximumSize(QSize(675, 16777215));
-
-        verticalLayout->addWidget(lineEdit);
-
-        tabWidget->addTab(tab, QString());
-        tab_2 = new QWidget();
-        tab_2->setObjectName(QStringLiteral("tab_2"));
-        treeWidget = new QTreeWidget(tab_2);
-        treeWidget->setObjectName(QStringLiteral("treeWidget"));
-        treeWidget->setGeometry(QRect(10, 10, 675, 451));
-        treeWidget->setMaximumSize(QSize(675, 16777215));
-        treeWidget->header()->setDefaultSectionSize(337);
-        treeWidget->header()->setHighlightSections(false);
-        treeWidget->header()->setProperty("showSortIndicator", QVariant(false));
-        tabWidget->addTab(tab_2, QString());
-        Console->setCentralWidget(centralwidget);
-        statusbar = new QStatusBar(Console);
+        terminal = new QTextEdit(centralwidget);
+        terminal->setObjectName(QStringLiteral("terminal"));
+        terminal->setGeometry(QRect(10, 50, 781, 431));
+        terminal->setFrameShape(QFrame::StyledPanel);
+        terminal->setFrameShadow(QFrame::Sunken);
+        terminal->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+        terminal->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+        terminal->setDocumentTitle(QStringLiteral(""));
+        terminal->setUndoRedoEnabled(false);
+        terminal->setReadOnly(true);
+        terminal->setHtml(QLatin1String("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"));
+        terminal->setTextInteractionFlags(Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse|Qt::TextBrowserInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
+        header = new QLabel(centralwidget);
+        header->setObjectName(QStringLiteral("header"));
+        header->setGeometry(QRect(10, 10, 781, 31));
+        header->setAlignment(Qt::AlignCenter);
+        header->setWordWrap(false);
+        header->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse);
+        enter = new QPushButton(centralwidget);
+        enter->setObjectName(QStringLiteral("enter"));
+        enter->setGeometry(QRect(680, 490, 111, 81));
+        input = new QPlainTextEdit(centralwidget);
+        input->setObjectName(QStringLiteral("input"));
+        input->setGeometry(QRect(10, 490, 661, 81));
+        MainWindow->setCentralWidget(centralwidget);
+        statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName(QStringLiteral("statusbar"));
-        Console->setStatusBar(statusbar);
+        MainWindow->setStatusBar(statusbar);
 
-        retranslateUi(Console);
+        retranslateUi(MainWindow);
 
-        tabWidget->setCurrentIndex(1);
-
-
-        QMetaObject::connectSlotsByName(Console);
+        QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
 
-    void retranslateUi(QMainWindow *Console)
+    void retranslateUi(QMainWindow *MainWindow)
     {
-        Console->setWindowTitle(QApplication::translate("Console", "Blowbox - Console", 0));
-        tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("Console", "Tab 1", 0));
-        QTreeWidgetItem *___qtreewidgetitem = treeWidget->headerItem();
-        ___qtreewidgetitem->setText(1, QApplication::translate("Console", "Value", 0));
-        ___qtreewidgetitem->setText(0, QApplication::translate("Console", "Name", 0));
-        tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("Console", "Tab 2", 0));
+        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
+        header->setText(QApplication::translate("MainWindow", "blowbox - console window", 0));
+        enter->setText(QApplication::translate("MainWindow", "Enter", 0));
     } // retranslateUi
 
 };
 
 namespace Ui {
-    class Console: public Ui_Console {};
+    class MainWindow: public Ui_MainWindow {};
 } // namespace Ui
 
 QT_END_NAMESPACE

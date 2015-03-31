@@ -1,16 +1,21 @@
 #include "window.h"
 
+#include "../../blowbox/logging.h"
+#include "../../blowbox/input/keyboard.h"
+
 namespace blowbox
 {
+	//------------------------------------------------------------------------------------------------------
 	Window::Window() :
 		started_(false),
 		instance_(NULL),
 		handle_(NULL)
 	{
-		
+
 	}
 
-	void Window::Make(std::string name, int width, int height)
+	//------------------------------------------------------------------------------------------------------
+	void Window::Create(std::string name, int width, int height)
 	{
 		WNDCLASSA wndclass;
 		instance_ = GetModuleHandle(0);
@@ -48,48 +53,83 @@ namespace blowbox
 		started_ = true;
 	}
 
-	void Window::OnClose()
+	//------------------------------------------------------------------------------------------------------
+	void Window::SetResolution(const float& width, const float& height)
 	{
-		set_started(false);
+		RECT client_rect;
+		client_rect.left = client_rect.top = 0;
+		client_rect.right = (LONG)width;
+		client_rect.bottom = (LONG)height;
+
+		int style = WS_OVERLAPPED | WS_MAXIMIZEBOX | WS_SYSMENU | WS_CAPTION | WS_MINIMIZEBOX | WS_SIZEBOX;
+
+		AdjustWindowRect(&client_rect, style, FALSE);
+		int actualWidth = client_rect.right - client_rect.left;
+		int actualHeight = client_rect.bottom - client_rect.top;
+		int x = GetSystemMetrics(SM_CXSCREEN) / 2 - actualWidth / 2;
+		int y = GetSystemMetrics(SM_CYSCREEN) / 2 - actualHeight / 2;
+		
+		SetWindowPos(handle_, 0, x, y, actualWidth, actualHeight, SWP_NOOWNERZORDER | SWP_NOZORDER);
 	}
 
+	//------------------------------------------------------------------------------------------------------
+	RECT Window::GetDimensions()
+	{
+		RECT rect;
+		GetClientRect(handle_, &rect);
+
+		return rect;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	void Window::OnClose()
+	{
+		SetStarted(false);
+	}
+
+	//------------------------------------------------------------------------------------------------------
 	void Window::OnSetFocus()
 	{
 
 	}
 
+	//------------------------------------------------------------------------------------------------------
 	void Window::OnKillFocus()
 	{
 
 	}
 
+	//------------------------------------------------------------------------------------------------------
 	void Window::OnMouseDbl(MouseButton button)
 	{
-		MouseButtonEvent buttonEvent;
+		MouseButtonData buttonEvent;
 		buttonEvent.button = button;
-		buttonEvent.type = MouseDblEvent;
+		buttonEvent.type = MouseButtonEvent::MouseDblEvent;
 
 		Mouse::Instance()->ReceiveEvent(buttonEvent);
 	}
 
+	//------------------------------------------------------------------------------------------------------
 	void Window::OnMouseDown(MouseButton button)
 	{
-		MouseButtonEvent buttonEvent;
+		MouseButtonData buttonEvent;
 		buttonEvent.button = button;
-		buttonEvent.type = MouseDownEvent;
+		buttonEvent.type = MouseButtonEvent::MouseDownEvent;
 
 		Mouse::Instance()->ReceiveEvent(buttonEvent);
 	}
 
+	//------------------------------------------------------------------------------------------------------
 	void Window::OnMouseUp(MouseButton button)
 	{
-		MouseButtonEvent buttonEvent;
+		MouseButtonData buttonEvent;
 		buttonEvent.button = button;
-		buttonEvent.type = MouseUpEvent;
+		buttonEvent.type = MouseButtonEvent::MouseUpEvent;
 
 		Mouse::Instance()->ReceiveEvent(buttonEvent);
 	}
 
+	//------------------------------------------------------------------------------------------------------
 	void Window::OnMouseMove(float x, float y)
 	{
 		MouseMoveEvent moveEvent;
@@ -99,29 +139,33 @@ namespace blowbox
 		Mouse::Instance()->ReceiveEvent(moveEvent);
 	}
 
+	//------------------------------------------------------------------------------------------------------
 	void Window::OnWheel(LPARAM lParam, WPARAM wParam)
 	{
 
 	}
 
+	//------------------------------------------------------------------------------------------------------
 	void Window::OnKeyDown(LPARAM lParam, WPARAM wParam)
 	{
 		KeyData evt;
-		evt.type = kePressed;
+		evt.type = KeyEvent::Pressed;
 		evt.key = static_cast<Key>(wParam);
 
 		Keyboard::Instance()->ReceiveEvent(evt);
 	}
 
+	//------------------------------------------------------------------------------------------------------
 	void Window::OnKeyUp(LPARAM lParam, WPARAM wParam)
 	{
 		KeyData evt;
-		evt.type = keReleased;
+		evt.type = KeyEvent::Released;
 		evt.key = static_cast<Key>(wParam);
 
 		Keyboard::Instance()->ReceiveEvent(evt);
 	}
 
+	//------------------------------------------------------------------------------------------------------
 	LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	{
 		if (message == WM_CREATE)
@@ -131,13 +175,13 @@ namespace blowbox
 		}
 		Window* window = reinterpret_cast<Window*>(GetWindowLongPtrA(hWnd, GWLP_USERDATA));
 
-		POINT p; 
+		POINT p;
 		if (GetCursorPos(&p))
 		{
-			ScreenToClient(hWnd, &p); 
+			ScreenToClient(hWnd, &p);
 		}
 
-		switch(message)
+		switch (message)
 		{
 		case WM_CLOSE:
 			window->OnClose();
@@ -191,6 +235,7 @@ namespace blowbox
 		return DefWindowProcA(hWnd, message, wParam, lParam);
 	}
 
+	//------------------------------------------------------------------------------------------------------
 	void Window::ProcessMessages()
 	{
 		if (handle_ != nullptr)
@@ -206,26 +251,31 @@ namespace blowbox
 		}
 	}
 
-	bool Window::started()
+	//------------------------------------------------------------------------------------------------------
+	bool Window::GetStarted()
 	{
 		return started_;
 	}
 
-	void Window::set_started(bool val)
+	//------------------------------------------------------------------------------------------------------
+	void Window::SetStarted(bool val)
 	{
 		started_ = val;
 	}
 
-	HINSTANCE Window::getInstance()
+	//------------------------------------------------------------------------------------------------------
+	HINSTANCE Window::GetInstance()
 	{
 		return instance_;
 	}
 
-	HWND Window::getHandle()
+	//------------------------------------------------------------------------------------------------------
+	HWND Window::GetHandle()
 	{
 		return handle_;
 	}
 
+	//------------------------------------------------------------------------------------------------------
 	Window::~Window()
 	{
 

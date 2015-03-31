@@ -171,7 +171,4 @@ namespace blowbox
 
 		kNULL = NULL
 	};
-
-	Key StringToKey(const char* name);
-	std::string KeyToString(Key key);
 }

@@ -1,24 +1,50 @@
 #pragma once
 
-#include "d3d11_display_device.h"
+#include <string>
 
-#define BASE_TEXTURE std::string("")
+#include "../../blowbox/d3d11/d3d11.h"
+
+#define BLOW_BASE_TEXTURE "base_texture.png"
 
 namespace blowbox
 {
+	/**
+	* @class blowbox::D3D11Texture
+	* @brief Creates a shader
+	* @author Riko Ophorst
+	*/
 	class D3D11Texture
 	{
 	public:
-		D3D11Texture(std::string filePath);
+		/**
+		* @brief Default D3D11Texture constructor
+		* @param[in] path (const std::string&) the path to the texture file
+		*/
+		D3D11Texture(const std::string& path);
+
+		/**
+		* @brief Default D3D11Texture destructor
+		*/
 		~D3D11Texture();
 
-		ID3D11ShaderResourceView*		Get();
-		void							Set(std::string filePath);
-		void							CreateBaseTexture();
+		/**
+		* @brief Reloads this texture
+		*/
+		bool Reload();
 
-		std::string						GetPath();
+		/**
+		* @brief Gets the actual resource
+		*/
+		ID3D11ShaderResourceView* GetResource();
+
+		/**
+		* @brief Sets the resources
+		* @param[in] context (ID3D11DeviceContext*) the context
+		* @param[in] slot (const int&) the slot at which the texture should be placed
+		*/
+		void Set(ID3D11DeviceContext* context, const int& slot = 0);
 	private:
-		ID3D11ShaderResourceView*		texture_;
-		std::string						path_;
+		ID3D11ShaderResourceView* resource_;
+		std::string path_;
 	};
 }

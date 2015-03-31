@@ -1,71 +1,308 @@
 #pragma once
 
-#include "d3d11_display_device.h"
-#include "../lua/lua_manager.h"
-#include "../lua/lua_class.h"
+#include <Windows.h>
+#include <xnamath.h>
+
+#include "../../blowbox/logging.h"
+#include "../../blowbox/lua/lua_class.h"
 
 namespace blowbox
 {
-	enum D3D11CameraMode
+	/**
+	* @enum blowbox::CAMERA_PROJECTION_TYPE
+	* @brief All available projection types
+	*/
+	enum CAMERA_PROJECTION_TYPE
 	{
-		CAM_ORTHOGRAPHIC,
-		CAM_PERSPECTIVE
+		CAMERA_PROJECTION_ORTHOGRAPHIC,
+		CAMERA_PROJECTION_PERSPECTIVE
 	};
-	
-	class D3D11Camera : public LuaClass
+
+	/**
+	* @class blowbox::D3D11Camera
+	* @brief Handles a D3D11 camera and its matrix
+	* @author Riko Ophorst
+	*/
+	class D3D11Camera: public LuaClass
 	{
 	public:
-		D3D11Camera(D3D11CameraMode mode);
-		D3D11Camera(lua_State* state);
+		/**
+		* @brief Default D3D11Camera constructor
+		*/
+		D3D11Camera();
+
+		/**
+		* @brief Lua D3D11Camera constructor
+		*/
+		D3D11Camera(lua_State* L);
+
+		/**
+		* @brief Default D3D11Camera destructor
+		*/
 		~D3D11Camera();
 
-		XMMATRIX&				GetView();
-		XMMATRIX&				GetProjection();
+		/**
+		* @brief The position of the camera
+		*/
+		const XMVECTOR& GetPosition() const;
 
-		XMVECTOR&				GetPosition();
-		XMVECTOR&				GetTarget();
-		XMVECTOR&				GetUp();
-		float&					GetNearZ();
-		float&					GetFarZ();
-		float&					GetFOV();
-		D3D11CameraMode&		GetMode();
+		/**
+		* @brief The x-coordinate of the camera
+		*/
+		const float GetX() const;
 
-		void					SetPosition(float x, float y, float z);
-		void					SetTarget(float x, float y, float z);
-		void					SetUp(float x, float y, float z);
-		void					SetNearZ(float z);
-		void					SetFarZ(float z);
-		void					SetFOV(float fov);
-		void					SetMode(D3D11CameraMode mode);
+		/**
+		* @brief The y-coordinate of the camera
+		*/
+		const float GetY() const;
 
-		static int RegisterFunctions(lua_State* state);
+		/**
+		* @brief The z-coordinate of the camera
+		*/
+		const float GetZ() const;
 
-		static int LuaSetPosition(lua_State* state);
-		static int LuaSetTarget(lua_State* state);
-		static int LuaSetUp(lua_State* state);
-		static int LuaSetNearZ(lua_State* state);
-		static int LuaSetFarZ(lua_State* state);
-		static int LuaSetFOV(lua_State* state);
-		static int LuaSetMode(lua_State* state);
+		/**
+		* @brief The z value of the near z plane
+		*/
+		const float& GetNearZ() const;
 
-		static int LuaGetPosition(lua_State* state);
-		static int LuaGetTarget(lua_State* state);
-		static int LuaGetUp(lua_State* state);
-		static int LuaGetNearZ(lua_State* state);
-		static int LuaGetFarZ(lua_State* state);
-		static int LuaGetFOV(lua_State* state);
-		static int LuaGetMode(lua_State* state);
+		/**
+		* @brief The z value of the far z plane
+		*/
+		const float& GetFarZ() const;
 
-		LM_NAME("Camera");
+		/**
+		* @brief The field of view of the camera
+		*/
+		const float& GetFOV() const;
+
+		/**
+		* @brief The projection mode / type of the camera
+		*/
+		const CAMERA_PROJECTION_TYPE& GetMode() const;
+
+		/**
+		* @brief The target vector of the camera
+		*/
+		const XMVECTOR& GetTarget() const;
+
+		/**
+		* @brief The up vector of the camera
+		*/
+		const XMVECTOR& GetUp() const;
+
+		/**
+		* @brief The view matrix of the camera
+		*/
+		const XMMATRIX& GetView();
+
+		/**
+		* @brief The projection matrix of the camera
+		*/
+		const XMMATRIX& GetProjection();
+
+		/**
+		* @brief Sets the position of the camera
+		* @param[in] x (float) The x position
+		* @param[in] y (float) The y position
+		* @param[in] z (float) The z position
+		*/
+		void SetPosition(const float& x, const float& y, const float& z);
+
+		/**
+		* @brief Sets the x position of the camera
+		* @param[in] x (float) The x position
+		*/
+		void SetX(const float& x);
+
+		/**
+		* @brief Sets the x position of the camera
+		* @param[in] y (float) The y position
+		*/
+		void SetY(const float& y);
+
+		/**
+		* @brief Sets the x position of the camera
+		* @param[in] z (float) The z position
+		*/
+		void SetZ(const float& z);
+
+		/**
+		* @brief Sets the near z plane of the camera
+		* @param[in] z (const float&) the z value
+		*/
+		void SetNearZ(const float& z);
+
+		/**
+		* @brief Sets the far z plane of the camera
+		* @param[in] z (const float&) the z value
+		*/
+		void SetFarZ(const float& z);
+
+		/**
+		* @brief Sets the FOV
+		* @param[in] fov (const float&) the fov to be set
+		*/
+		void SetFOV(const float& fov);
+
+		/**
+		* @brief Sets the mode
+		* @param[in] mode (const CAMERA_PROJECTION_TYPE&) the mode to be set
+		*/
+		void SetMode(const CAMERA_PROJECTION_TYPE& mode);
+
+		/**
+		* @brief Sets the target
+		* @param[in] x (const float&) the x coordinate of the target to be set
+		* @param[in] y (const float&) the y coordinate of the target to be set
+		* @param[in] z (const float&) the z coordinate of the target to be set
+		*/
+		void SetTarget(const float& x, const float& y, const float& z);
+
+		/**
+		* @brief Sets the up
+		* @param[in] x (const float&) the x coordinate of the up to be set
+		* @param[in] y (const float&) the y coordinate of the up to be set
+		* @param[in] z (const float&) the z coordinate of the up to be set
+		*/
+		void SetUp(const float& x, const float& y, const float& z);
+
+		/**
+		* @brief Registers this object's functions
+		* @param[in] L (lua_State*) the lua state
+		*/
+		static void LuaRegisterFunctions(lua_State* L);
+
+		/**
+		* @brief Sets the position of the camera via lua
+		* @param[in] L (lua_State*) the lua state
+		*/
+		static int LuaSetPosition(lua_State* L);
+
+		/**
+		* @brief Gets the position of the camera via lua
+		* @param[in] L (lua_State*) the lua state
+		*/
+		static int LuaGetPosition(lua_State* L);
+
+		/**
+		* @brief Sets the target of the camera via lua
+		* @param[in] L (lua_State*) the lua state
+		*/
+		static int LuaSetTarget(lua_State* L);
+
+		/**
+		* @brief Gets the target of the camera via lua
+		* @param[in] L (lua_State*) the lua state
+		*/
+		static int LuaGetTarget(lua_State* L);
+
+		/**
+		* @brief Sets the up of the camera via lua
+		* @param[in] L (lua_State*) the lua state
+		*/
+		static int LuaSetUp(lua_State* L);
+
+		/**
+		* @brief Gets the up of the camera via lua
+		* @param[in] L (lua_State*) the lua state
+		*/
+		static int LuaGetUp(lua_State* L);
+
+		/**
+		* @brief Sets the position of the camera via lua
+		* @param[in] L (lua_State*) the lua state
+		*/
+		static int LuaSetPosition2D(lua_State* L);
+
+		/**
+		* @brief Gets the position of the camera via lua
+		* @param[in] L (lua_State*) the lua state
+		*/
+		static int LuaGetPosition2D(lua_State* L);
+
+		/**
+		* @brief Sets the target of the camera via lua
+		* @param[in] L (lua_State*) the lua state
+		*/
+		static int LuaSetTarget2D(lua_State* L);
+
+		/**
+		* @brief Gets the target of the camera via lua
+		* @param[in] L (lua_State*) the lua state
+		*/
+		static int LuaGetTarget2D(lua_State* L);
+
+		/**
+		* @brief Sets the up of the camera via lua
+		* @param[in] L (lua_State*) the lua state
+		*/
+		static int LuaSetUp2D(lua_State* L);
+
+		/**
+		* @brief Gets the up of the camera via lua
+		* @param[in] L (lua_State*) the lua state
+		*/
+		static int LuaGetUp2D(lua_State* L);
+
+		/**
+		* @brief Sets the near z of the camera via lua
+		* @param[in] L (lua_State*) the lua state
+		*/
+		static int LuaSetNearZ(lua_State* L);
+
+		/**
+		* @brief Gets the near z of the camera via lua
+		* @param[in] L (lua_State*) the lua state
+		*/
+		static int LuaGetNearZ(lua_State* L);
+
+		/**
+		* @brief Sets the far z of the camera via lua
+		* @param[in] L (lua_State*) the lua state
+		*/
+		static int LuaSetFarZ(lua_State* L);
+
+		/**
+		* @brief Gets the far z of the camera via lua
+		* @param[in] L (lua_State*) the lua state
+		*/
+		static int LuaGetFarZ(lua_State* L);
+
+		/**
+		* @brief Sets the fov of the camera via lua
+		* @param[in] L (lua_State*) the lua state
+		*/
+		static int LuaSetFOV(lua_State* L);
+
+		/**
+		* @brief Gets the fov of the camera via lua
+		* @param[in] L (lua_State*) the lua state
+		*/
+		static int LuaGetFOV(lua_State* L);
+
+		/**
+		* @brief Sets the mode of the camera via lua
+		* @param[in] L (lua_State*) the lua state
+		*/
+		static int LuaSetMode(lua_State* L);
+
+		/**
+		* @brief Gets the mode of the camera via lua
+		* @param[in] L (lua_State*) the lua state
+		*/
+		static int LuaGetMode(lua_State* L);
+
+		CLASSNAME("Camera");
 	private:
-		XMMATRIX				view_;
-		XMMATRIX				projection_;
-		XMVECTOR				position_;
-		XMVECTOR				target_;
-		XMVECTOR				up_;
-		D3D11CameraMode			mode_;
-		float					nearZ_;
-		float					farZ_;
-		float					fov_;
+		XMVECTOR position_;
+		XMVECTOR target_;
+		XMVECTOR up_;
+		float nearz_;
+		float farz_;
+		float fov_;
+		XMMATRIX projection_;
+		XMMATRIX view_;
+		CAMERA_PROJECTION_TYPE mode_;
 	};
 }

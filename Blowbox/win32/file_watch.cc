@@ -1,32 +1,47 @@
-#include "file_watch.h"
-#include "../content/content_manager.h"
-#include "../console/console.h"
+#include "../../blowbox/win32/file_watch.h"
+
+#include "../../blowbox/memory/shared_ptr.h"
+#include "../../blowbox/lua/lua_wrapper.h"
+#include "../../blowbox/console/console.h"
+#include "../../blowbox/content/content_manager.h"
+#include "../../blowbox/game.h"
 
 namespace blowbox
 {
-	FileWatch::FileWatch() 
+	//------------------------------------------------------------------------------------------------------
+	FileWatch::FileWatch()
 	{
 
-	};
+	}
 
-	FileWatch::~FileWatch() 
+	//------------------------------------------------------------------------------------------------------
+	FileWatch::~FileWatch()
 	{
 
-	};
+	}
 
+	//------------------------------------------------------------------------------------------------------
 	FileWatch* FileWatch::Instance()
 	{
 		static SharedPtr<FileWatch> ptr(new FileWatch());
 		return ptr.get();
 	}
 
+	//------------------------------------------------------------------------------------------------------
 	void FileWatch::Update()
 	{
-		while (!queue_.empty())
+		while (!add_queue_.empty())
 		{
-			auto it = queue_.front();
+			auto it = add_queue_.front();
 			files_.emplace(it.path, it);
-			queue_.pop();
+			add_queue_.pop();
+		}
+
+		while (!remove_queue_.empty())
+		{
+			auto it = remove_queue_.front();
+			files_.erase(it.path);
+			remove_queue_.pop();
 		}
 
 		for (auto& pair = files_.begin(); pair != files_.end(); ++pair)
@@ -34,68 +49,69 @@ namespace blowbox
 			auto& it = pair->second;
 
 			bool failed = false;
-			FILETIME lastTime = GetTimeForFile(it.path, &failed);
+			FILETIME last_changed = GetTime(it.path, failed);
 			if (!failed)
 			{
-				if (CompareFileTime(&it.lastTime, &lastTime) != 0)
+				if (CompareFileTime(&it.last_changed, &last_changed) != 0)
 				{
+					Game::Instance()->Reload(it.path);
+					
 					switch (it.type)
 					{
-					case FileType::Script:
-						ReloadScript(it);
+					case WATCH_FILE_TYPES::WATCH_FILE_SCRIPT:
+						LuaWrapper::Instance()->CompileFromFile(LuaState::Instance()->Get(), it.path, true);
+						Console::Instance()->Log(std::string("[FILEWATCH] Reloaded a script: ") + it.path, LOG_COLOR_TYPES::LOG_COLOR_NOTICE);
 						break;
-					case FileType::Shader:
-						ReloadShader(it);
+					case WATCH_FILE_TYPES::WATCH_FILE_SHADER:
+						ContentManager::Instance()->LoadShader(it.path);
+						Console::Instance()->Log(std::string("[FILEWATCH] Reloaded a shader: ") + it.path, LOG_COLOR_TYPES::LOG_COLOR_NOTICE);
 						break;
-					case FileType::Texture:
-						ReloadTexture(it);
+					case WATCH_FILE_TYPES::WATCH_FILE_TEXTURE:
+						ContentManager::Instance()->LoadTexture(it.path);
+						Console::Instance()->Log(std::string("[FILEWATCH] Reloaded a texture: ") + it.path, LOG_COLOR_TYPES::LOG_COLOR_NOTICE);
 						break;
 					}
-					it.lastTime = lastTime;
+					it.last_changed = last_changed;
 					break;
 				}
 			}
 		}
 	}
 
-	void FileWatch::Add(std::string& path, FileType type) 
+	//------------------------------------------------------------------------------------------------------
+	void FileWatch::Add(const std::string& path, const WATCH_FILE_TYPES& type)
 	{
 		if (files_.find(path) == files_.end())
 		{
-			FileWatched file;
+			WatchedFile file;
+			ZeroMemory(&file, sizeof(file));
+
 			file.path = path;
-			bool failed = false;
-			file.lastTime = GetTimeForFile(path, &failed);
 			file.type = type;
+
+			bool failed = false;
+			file.last_changed = GetTime(path, failed);
 
 			while (failed)
 			{
-				file.lastTime = GetTimeForFile(path, &failed);
+				file.last_changed = GetTime(path, failed);
 			}
 
-			queue_.push(file);
+			add_queue_.push(file);
 		}
 	}
 
-	void FileWatch::ReloadScript(FileWatched& file)
+	//------------------------------------------------------------------------------------------------------
+	void FileWatch::Remove(const std::string& path)
 	{
-		LuaManager::Instance()->LoadScript(file.path, true);
-		BLOW_CONSOLE_LOG("Hot reloaded a script: " + file.path);
+		if (files_.find(path) != files_.end())
+		{
+			remove_queue_.push(files_.find(path)->second);
+		}
 	}
 
-	void FileWatch::ReloadTexture(FileWatched& file)
-	{
-		ContentManager::Instance()->LoadTexture(file.path);
-		BLOW_CONSOLE_LOG("Hot reloaded a texture: " + file.path);
-	}
-
-	void FileWatch::ReloadShader(FileWatched& file)
-	{
-		ContentManager::Instance()->LoadShader(file.path);
-		BLOW_CONSOLE_LOG("Hot reloaded a shader: " + file.path);
-	}
-
-	FILETIME FileWatch::GetTimeForFile(std::string& path, bool* failed)
+	//------------------------------------------------------------------------------------------------------
+	FILETIME FileWatch::GetTime(const std::string& path, bool& failed)
 	{
 		FILETIME creationTime;
 		FILETIME lastAccessTime;
@@ -105,7 +121,7 @@ namespace blowbox
 
 		if (file == INVALID_HANDLE_VALUE)
 		{
-			*failed = true;
+			failed = true;
 			LPTSTR msg = nullptr;
 			DWORD err = GetLastError();
 			FormatMessage(

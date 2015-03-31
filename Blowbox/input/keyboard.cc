@@ -2,103 +2,7 @@
 
 namespace blowbox
 {
-	Keyboard::Keyboard()
-		: lastKey_(kA)
-	{
-		for (unsigned int i = 0; i < 255; ++i)
-		{
-			keyStates_[i].down = false;
-			keyStates_[i].released = false;
-			keyStates_[i].pressed = false;
-		}
-	}
-
-	Keyboard::Keyboard(lua_State* state)
-	{
-		
-	}
-
-	Keyboard::~Keyboard()
-	{
-
-	}
-
-	Keyboard* Keyboard::Instance()
-	{
-		static SharedPtr<Keyboard> ptr(new Keyboard());
-		return ptr.get();
-	}
-
-	bool& Keyboard::IsDown(Key key)
-	{
-		return keyStates_[key].down;
-	}
-
-	bool& Keyboard::IsPressed(Key key)
-	{
-		return keyStates_[key].pressed;
-	}
-
-	bool& Keyboard::IsReleased(Key key)
-	{
-		return keyStates_[key].released;
-	}
-
-	Key Keyboard::LastKey()
-	{
-		if (lastKey_ != kNULL)
-		{
-			Key key = lastKey_;
-			
-			lastKey_ = kNULL;
-
-			return key;
-		}
-
-		return kNULL;
-	}
-
-	void Keyboard::ReceiveEvent(KeyData evt)
-	{
-		queue_.push(evt);
-	}
-
-	void Keyboard::ResetStates()
-	{
-		for (unsigned int i = 0; i < 255; ++i)
-		{
-			keyStates_[i].pressed = false;
-			keyStates_[i].released = false;
-		}
-	}
-
-	void Keyboard::Update()
-	{
-		ResetStates();
-
-		while (!queue_.empty())
-		{
-			const KeyData& evt = queue_.front();
-
-			switch (evt.type)
-			{
-			case kePressed:
-				if (!keyStates_[evt.key].down)
-					keyStates_[evt.key].pressed = true;
-
-				keyStates_[evt.key].down = true;
-				lastKey_ = evt.key;
-				break;
-			case keReleased:
-				keyStates_[evt.key].down = false;
-				keyStates_[evt.key].released = true;
-				break;
-			}
-
-			queue_.pop();
-		}
-	}
-
+	//------------------------------------------------------------------------------------------------------
 	std::string KeyToString(Key key)
 	{
 		switch (key)
@@ -261,6 +165,7 @@ namespace blowbox
 		}
 	}
 
+	//------------------------------------------------------------------------------------------------------
 	Key StringToKey(const char* name)
 	{
 		if (strcmp(name, "Backspace") == 0)				return Key::kBackspace;
@@ -422,45 +327,155 @@ namespace blowbox
 		return Key::kBackspace;
 	}
 
-	int Keyboard::RegisterFunctions(lua_State* state)
+	//------------------------------------------------------------------------------------------------------
+	Keyboard::Keyboard()
+		: lastKey_(kA)
 	{
-		luaL_Reg regist[] =
+		for (unsigned int i = 0; i < 255; ++i)
 		{
-			{ "isDown", LuaIsDown },
+			keyStates_[i].down = false;
+			keyStates_[i].released = false;
+			keyStates_[i].pressed = false;
+		}
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	Keyboard::Keyboard(lua_State* L) :
+		LuaClass(L)
+	{
+		for (unsigned int i = 0; i < 255; ++i)
+		{
+			keyStates_[i].down = false;
+			keyStates_[i].released = false;
+			keyStates_[i].pressed = false;
+		}
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	Keyboard::~Keyboard()
+	{
+
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	Keyboard* Keyboard::Instance()
+	{
+		static SharedPtr<Keyboard> ptr(new Keyboard());
+		return ptr.get();
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	bool& Keyboard::IsDown(Key key)
+	{
+		return keyStates_[key].down;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	bool& Keyboard::IsPressed(Key key)
+	{
+		return keyStates_[key].pressed;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	bool& Keyboard::IsReleased(Key key)
+	{
+		return keyStates_[key].released;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	Key Keyboard::LastKey()
+	{
+		if (lastKey_ != kNULL)
+		{
+			Key key = lastKey_;
+
+			lastKey_ = kNULL;
+
+			return key;
+		}
+
+		return kNULL;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	void Keyboard::ReceiveEvent(KeyData evt)
+	{
+		queue_.push(evt);
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	void Keyboard::ResetStates()
+	{
+		for (unsigned int i = 0; i < 255; ++i)
+		{
+			keyStates_[i].pressed = false;
+			keyStates_[i].released = false;
+		}
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	void Keyboard::Update()
+	{
+		ResetStates();
+
+		while (!queue_.empty())
+		{
+			const KeyData& evt = queue_.front();
+
+			switch (evt.type)
+			{
+			case KeyEvent::Pressed:
+				if (!keyStates_[evt.key].down)
+					keyStates_[evt.key].pressed = true;
+
+				keyStates_[evt.key].down = true;
+				lastKey_ = evt.key;
+				break;
+			case KeyEvent::Released:
+				keyStates_[evt.key].down = false;
+				keyStates_[evt.key].released = true;
+				break;
+			}
+
+			queue_.pop();
+		}
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	void Keyboard::LuaRegisterFunctions(lua_State* L)
+	{
+		luaL_Reg regist[] = {
 			{ "isPressed", LuaIsPressed },
 			{ "isReleased", LuaIsReleased },
+			{ "isDown", LuaIsDown },
+			{ "lastKey", LuaLastKey },
 			{ NULL, NULL }
 		};
 
-		LM_REGISTER(state, regist);
-
-		return 1;
+		luaL_register(L, NULL, regist);
 	}
 
-	int Keyboard::LuaIsDown(lua_State* state)
+	//------------------------------------------------------------------------------------------------------
+	int Keyboard::LuaIsPressed(lua_State* L)
 	{
-		const char* it = LuaManager::GetValue<const char*>(0);
-
-		LuaManager::PushValue(Keyboard::Instance()->IsDown(StringToKey(it)));
-
-		return 1;
+		return LuaWrapper::Instance()->Push(L, Keyboard::Instance()->IsPressed(StringToKey(LuaWrapper::Instance()->Get<std::string>(L, -1, 1).c_str())));
 	}
 
-	int Keyboard::LuaIsPressed(lua_State* state)
+	//------------------------------------------------------------------------------------------------------
+	int Keyboard::LuaIsReleased(lua_State* L)
 	{
-		const char* it = LuaManager::GetValue<const char*>(0);
-
-		LuaManager::PushValue(Keyboard::Instance()->IsPressed(StringToKey(it)));
-
-		return 1;
+		return LuaWrapper::Instance()->Push(L, Keyboard::Instance()->IsReleased(StringToKey(LuaWrapper::Instance()->Get<std::string>(L, -1, 1).c_str())));
 	}
 
-	int Keyboard::LuaIsReleased(lua_State* state)
+	//------------------------------------------------------------------------------------------------------
+	int Keyboard::LuaIsDown(lua_State* L)
 	{
-		const char* it = LuaManager::GetValue<const char*>(0);
+		return LuaWrapper::Instance()->Push(L, Keyboard::Instance()->IsDown(StringToKey(LuaWrapper::Instance()->Get<std::string>(L, -1, 1).c_str())));
+	}
 
-		LuaManager::PushValue(Keyboard::Instance()->IsReleased(StringToKey(it)));
-
-		return 1;
+	//------------------------------------------------------------------------------------------------------
+	int Keyboard::LuaLastKey(lua_State* L)
+	{
+		return LuaWrapper::Instance()->Push(L, KeyToString(Keyboard::Instance()->LastKey()));
 	}
 }

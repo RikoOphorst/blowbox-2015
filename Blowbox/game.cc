@@ -1,132 +1,186 @@
 #include "game.h"
 
-#include "input/keyboard.h"
-#include "input/mouse.h"
+#include "../blowbox/win32/window.h"
+#include "../blowbox/win32/file_watch.h"
+#include "../blowbox/input/mouse.h"
+#include "../blowbox/input/keyboard.h"
+#include "../blowbox/d3d11/d3d11_render_device.h"
+#include "../blowbox/d3d11/d3d11_render_target.h"
+#include "../blowbox/d3d11/d3d11_render_queue.h"
+#include "../blowbox/elements/quad.h"
+#include "../blowbox/lua/lua_state.h"
+#include "../blowbox/lua/lua_register.h"
+#include "../blowbox/console/console.h"
 
-#include "geom/quad.h"
-#include "geom/cube.h"
-
-#include "d3d11/d3d11_display_device.h"
-#include "d3d11/d3d11_camera.h"
-#include "d3d11/d3d11_render_element.h"
-
-#include "win32/window.h"
-#include "win32/file_watch.h"
-
-#include <QtWidgets\qapplication.h>
+#include <vector>
 
 namespace blowbox
 {
+	//------------------------------------------------------------------------------------------------------
 	Game::Game() :
-		displayDevice_(D3D11DisplayDevice::Instance()),
-		keyboard_(Keyboard::Instance()),
-		mouse_(Mouse::Instance()),
-		fileWatch_(FileWatch::Instance()),
-		luaManager_(LuaManager::Instance()),
-		window_(new Window()),
-		LuaInit_(LuaCallback<>("Game", "Init")),
-		LuaUpdate_(LuaCallback<double>("Game", "Update")),
-		LuaRender_(LuaCallback<double>("Game", "Render")),
-		paused_(false)
-	{}
+		delta_time_(0),
+		time_elapsed_(0)
+	{
+		window_ = new Window();
+		mouse_ = Mouse::Instance();
+		keyboard_ = Keyboard::Instance();
+		renderDevice_ = D3D11RenderDevice::Instance();
 
+		cb_init_ = new LuaCallback(std::vector<LuaValue>({
+			LuaValue(LUA_TYPE::LUA_TYPE_TABLE, LUA_LOCATION::LUA_LOCATION_GLOBAL, "Game"),
+			LuaValue(LUA_TYPE::LUA_TYPE_FUNCTION, LUA_LOCATION::LUA_LOCATION_FIELD, "Initialise")
+		}));
+
+		cb_update_ = new LuaCallback(std::vector<LuaValue>({
+			LuaValue(LUA_TYPE::LUA_TYPE_TABLE, LUA_LOCATION::LUA_LOCATION_GLOBAL, "Game"),
+			LuaValue(LUA_TYPE::LUA_TYPE_FUNCTION, LUA_LOCATION::LUA_LOCATION_FIELD, "Update")
+		}));
+
+		cb_fixed_update_ = new LuaCallback(std::vector<LuaValue>({
+			LuaValue(LUA_TYPE::LUA_TYPE_TABLE, LUA_LOCATION::LUA_LOCATION_GLOBAL, "Game"),
+			LuaValue(LUA_TYPE::LUA_TYPE_FUNCTION, LUA_LOCATION::LUA_LOCATION_FIELD, "FixedUpdate")
+		}));
+
+		cb_draw_ = new LuaCallback(std::vector<LuaValue>({
+			LuaValue(LUA_TYPE::LUA_TYPE_TABLE, LUA_LOCATION::LUA_LOCATION_GLOBAL, "Game"),
+			LuaValue(LUA_TYPE::LUA_TYPE_FUNCTION, LUA_LOCATION::LUA_LOCATION_FIELD, "Draw")
+		}));
+
+		cb_reload_ = new LuaCallback(std::vector<LuaValue>({
+			LuaValue(LUA_TYPE::LUA_TYPE_TABLE, LUA_LOCATION::LUA_LOCATION_GLOBAL, "Game"),
+			LuaValue(LUA_TYPE::LUA_TYPE_FUNCTION, LUA_LOCATION::LUA_LOCATION_FIELD, "OnReload")
+		}));
+	}
+
+	//------------------------------------------------------------------------------------------------------
 	Game::~Game()
 	{
-		
+
 	}
 
+	//------------------------------------------------------------------------------------------------------
 	Game* Game::Instance()
 	{
-		static SharedPtr<Game> game(new Game());
-		return game.get();
+		static SharedPtr<Game> ptr(new Game());
+		return ptr.get();
 	}
 
-	void Game::CreateWin32(std::string name, int width, int height)
-	{
-		window_->Make(name, width, height);
-	}
-
-	void Game::CreateDisplayDevice()
-	{
-		displayDevice_->Create(window_->getHandle());
-	}
-
+	//------------------------------------------------------------------------------------------------------
 	void Game::Run()
 	{
-		displayDevice_->InitScene(D3D11CameraMode::CAM_ORTHOGRAPHIC);
-		
-		InitDeltaTime();
-		
-		LuaManager::Instance()->LoadScript("main.lua");
-		LuaInit_.Call();
+		Window* window = window_.get();
 
-		while (window_->started())
+		if (LuaWrapper::Instance()->CompileFromFile(LuaState::Instance()->Get(), "main.lua"))
 		{	
-			UpdateDeltaTime();
-			Update();
-			Draw();
+			window->Create(std::string("blowbox"), 640, 480);
+			window->SetStarted(true);
 
-			fileWatch_->Update();
+			renderDevice_->Initialize(window);
+			
+			cb_init_->Call<>(LuaState::Instance()->Get());
 
-			qApp->processEvents();
+			last_time_ = high_resolution_clock::now();
+			current_time_ = high_resolution_clock::now();
+			
+			while (window->GetStarted())
+			{
+				Update();
+				FixedUpdate();
+				Draw();
+			}
 		}
-
-		displayDevice_->Release();
 	}
 
+	//------------------------------------------------------------------------------------------------------
 	void Game::Update()
-	{
-		D3D11DisplayDevice::Instance()->AddTime(static_cast<float>(deltaTime_));
+	{	
+		current_time_ = high_resolution_clock::now();
+		delta_time_ = duration_cast<duration<double, std::milli>>(current_time_ - last_time_).count() * 1e-3f;
+		last_time_ = current_time_;
 		
+		FileWatch::Instance()->Update();
+
 		window_->ProcessMessages();
+		mouse_->Update();
+		keyboard_->Update();
 
-		if (paused_ == false)
-		{
-			keyboard_->Update();
-			mouse_->Update();
+		cb_update_->Call<double>(LuaState::Instance()->Get(), delta_time_);
 
-			LuaUpdate_.Call(deltaTime_);
-		}
+		lua_gc(LuaState::Instance()->Get(), LUA_GCCOLLECT, 0);
 
-		lua_gc(LM_STATE, LUA_GCSTEP, 0);
+		qApp->processEvents();
 	}
 
+	//------------------------------------------------------------------------------------------------------
+	void Game::FixedUpdate()
+	{
+		time_elapsed_ += delta_time_ * 1000;
+		int timesteps = 0;
+		double fixed_delta = 1000.0f / 60;
+
+		time_elapsed_ = min(time_elapsed_, static_cast<double>(fixed_delta * 2));
+
+		while (time_elapsed_ > fixed_delta)
+		{
+			cb_fixed_update_->Call<int, double>(LuaState::Instance()->Get(), ++timesteps, fixed_delta);
+
+			time_elapsed_ -= fixed_delta;
+		}
+	}
+	
+	//------------------------------------------------------------------------------------------------------
 	void Game::Draw()
 	{
-		if (paused_ == false)
-		{
-			LuaRender_.Call(deltaTime_);
-			displayDevice_->BeginDraw();
-			displayDevice_->Draw();
-			displayDevice_->EndDraw();
-		}
+		cb_draw_->Call<>(LuaState::Instance()->Get());
 	}
 
-	double& Game::GetDeltaTime()
+	//------------------------------------------------------------------------------------------------------
+	const double& Game::GetDeltaTime()
 	{
-		return deltaTime_;
+		return delta_time_;
+	}
+	
+	//------------------------------------------------------------------------------------------------------
+	Window* Game::GetWindow()
+	{
+		return window_.get();
 	}
 
-	void Game::InitDeltaTime()
+	//------------------------------------------------------------------------------------------------------
+	void Game::Reload(const std::string& path)
 	{
-		lastTime_ = high_resolution_clock::now();
-		currentTime_ = high_resolution_clock::now();
+		cb_reload_->Call<std::string>(LuaState::Instance()->Get(), path);
 	}
 
-	void Game::UpdateDeltaTime()
+	//------------------------------------------------------------------------------------------------------
+	void Game::LuaRegisterFunctions(lua_State* L)
 	{
-		currentTime_ = high_resolution_clock::now();
-		deltaTime_ = duration_cast<duration<double, std::milli>>(currentTime_ - lastTime_).count() * 1e-3f;
-		lastTime_ = currentTime_;
+		luaL_Reg regist[] = {
+			{ "Update", LuaUpdate },
+			{ "Draw", LuaDraw },
+			{ "Render", LuaRender },
+			{ NULL, NULL }
+		};
+
+		luaL_register(L, NULL, regist);
 	}
 
-	bool Game::GetPaused()
+	//------------------------------------------------------------------------------------------------------
+	int Game::LuaUpdate(lua_State* L)
 	{
-		return paused_;
+		return 0;
 	}
 
-	void Game::SetPaused(bool paused)
+	//------------------------------------------------------------------------------------------------------
+	int Game::LuaDraw(lua_State* L)
 	{
-		paused_ = paused;
+		return 0;
+	}
+
+	//------------------------------------------------------------------------------------------------------
+	int Game::LuaRender(lua_State* L)
+	{
+		D3D11RenderDevice::Instance()->Draw(LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, 1), LuaWrapper::Instance()->ParseUserdata<D3D11Camera>(L, 2));
+		return 0;
 	}
 }

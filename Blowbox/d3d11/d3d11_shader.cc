@@ -1,72 +1,101 @@
-#include "d3d11_shader.h"
+#include "../../blowbox/d3d11/d3d11_shader.h"
 
-#include "../win32/file_watch.h"
+#include "../../blowbox/logging.h"
+#include "../../blowbox/d3d11/d3d11_render_device.h"
+#include "../../blowbox/console/console.h"
+#include "../../blowbox/win32/file_watch.h"
 
 namespace blowbox
 {
-	D3D11Shader::D3D11Shader(std::string path)
-		: vs_(NULL), vsBuffer_(NULL), ps_(NULL), psBuffer_(NULL)
+	//------------------------------------------------------------------------------------------------------
+	D3D11Shader::D3D11Shader(const std::string& path) :
+		pixel_shader_(nullptr),
+		pixel_shader_buffer_(nullptr),
+		vertex_shader_(nullptr),
+		vertex_shader_buffer_(nullptr)
 	{
-		Set(path);
+		path_ = path;
+
+		Reload();
 	}
 
+	//------------------------------------------------------------------------------------------------------
 	D3D11Shader::~D3D11Shader()
 	{
-		BLOW_SAFE_RELEASE(vs_);
-		BLOW_SAFE_RELEASE(vsBuffer_);
-
-		BLOW_SAFE_RELEASE(ps_);
-		BLOW_SAFE_RELEASE(psBuffer_);
+		BLOW_SAFE_RELEASE(pixel_shader_);
+		BLOW_SAFE_RELEASE(pixel_shader_buffer_);
+		BLOW_SAFE_RELEASE(vertex_shader_);
+		BLOW_SAFE_RELEASE(vertex_shader_buffer_);
 	}
 
-	void D3D11Shader::Set(std::string path)
+	//------------------------------------------------------------------------------------------------------
+	void D3D11Shader::Reload()
 	{
 		HRESULT hr = S_OK;
 
-		BLOW_SAFE_RELEASE_NB(vs_);
-		BLOW_SAFE_RELEASE_NB(vsBuffer_);
-		BLOW_SAFE_RELEASE_NB(ps_);
-		BLOW_SAFE_RELEASE_NB(psBuffer_);
+		BLOW_RELEASE(vertex_shader_);
+		BLOW_RELEASE(vertex_shader_buffer_);
+		BLOW_RELEASE(pixel_shader_);
+		BLOW_RELEASE(pixel_shader_buffer_);
 
-		hr = D3DX11CompileFromFileA(path.c_str(), 0, 0, "VS", "vs_4_0", 0, 0, 0, &vsBuffer_, 0, 0);
-		BLOW_ASSERT_HR(hr, "Error compiling vertex shader: " + path);
+		ID3D10Blob* errors;
+		ZeroMemory(&errors, sizeof(errors));
 
-		hr = D3DX11CompileFromFileA(path.c_str(), 0, 0, "PS", "ps_4_0", 0, 0, 0, &psBuffer_, 0, 0);
-		BLOW_ASSERT_HR(hr, "Error compiling pixel shader: " + path);
+		hr = D3DX11CompileFromFileA(path_.c_str(), 0, 0, "VS", "vs_4_0", D3D10_SHADER_PACK_MATRIX_ROW_MAJOR, 0, 0, &vertex_shader_buffer_, &errors, 0);
+		if (hr != S_OK)
+		{
+			const char* error = static_cast<const char*>(errors->GetBufferPointer());
+			Console::Instance()->Log("[SHADER] Error compiling shader (" + path_ + "), this is the error message:\n\n" + error, LOG_COLOR_TYPES::LOG_COLOR_ERROR);
+			return;
+		}
 
-		hr = D3D11DisplayDevice::Instance()->GetDevice()->CreateVertexShader(vsBuffer_->GetBufferPointer(), vsBuffer_->GetBufferSize(), NULL, &vs_);
-		BLOW_ASSERT_HR(hr, "Error creating vertex shader: " + path);
+		hr = D3DX11CompileFromFileA(path_.c_str(), 0, 0, "PS", "ps_4_0", D3D10_SHADER_PACK_MATRIX_ROW_MAJOR, 0, 0, &pixel_shader_buffer_, &errors, 0);
+		if (hr != S_OK)
+		{
+			const char* error = static_cast<const char*>(errors->GetBufferPointer());
+			Console::Instance()->Log("[SHADER] Error compiling shader (" + path_ + "), this is the error message:\n\n" + error, LOG_COLOR_TYPES::LOG_COLOR_ERROR);
 
-		hr = D3D11DisplayDevice::Instance()->GetDevice()->CreatePixelShader(psBuffer_->GetBufferPointer(), psBuffer_->GetBufferSize(), NULL, &ps_);
-		BLOW_ASSERT_HR(hr, "Error creating pixel shader: " + path);
+			return;
+		}
 
-		path_ = path;
+		//------------------------------------ Shader creation ---------------------------------------------
+		hr = D3D11RenderDevice::Instance()->GetDevice()->CreateVertexShader(vertex_shader_buffer_->GetBufferPointer(), vertex_shader_buffer_->GetBufferSize(), NULL, &vertex_shader_);
+		BLOW_ASSERT_HR(hr, "Error creating vertex shader: " + path_);
 
-		FileWatch::Instance()->Add(path, FileType::Shader);
+		hr = D3D11RenderDevice::Instance()->GetDevice()->CreatePixelShader(pixel_shader_buffer_->GetBufferPointer(), pixel_shader_buffer_->GetBufferSize(), NULL, &pixel_shader_);
+		BLOW_ASSERT_HR(hr, "Error creating pixel shader: " + path_);
+
+		FileWatch::Instance()->Add(path_, WATCH_FILE_TYPES::WATCH_FILE_SHADER);
 	}
 
-	ID3D11VertexShader* D3D11Shader::GetVS()
+	//------------------------------------------------------------------------------------------------------
+	ID3D11VertexShader* D3D11Shader::GetVertexShader() const
 	{
-		return vs_;
+		return vertex_shader_;
 	}
 
-	ID3D10Blob* D3D11Shader::GetVSBuffer()
+	//------------------------------------------------------------------------------------------------------
+	ID3D10Blob* D3D11Shader::GetVertexShaderBuffer() const
 	{
-		return vsBuffer_;
+		return vertex_shader_buffer_;
 	}
 
-	ID3D11PixelShader* D3D11Shader::GetPS()
+	//------------------------------------------------------------------------------------------------------
+	ID3D11PixelShader* D3D11Shader::GetPixelShader() const
 	{
-		return ps_;
+		return pixel_shader_;
 	}
 
-	ID3D10Blob* D3D11Shader::GetPSBuffer()
+	//------------------------------------------------------------------------------------------------------
+	ID3D10Blob* D3D11Shader::GetPixelShaderBuffer() const
 	{
-		return psBuffer_;
+		return pixel_shader_buffer_;
 	}
 
-	std::string D3D11Shader::GetPath()
+	//------------------------------------------------------------------------------------------------------
+	void D3D11Shader::Set(ID3D11DeviceContext* context)
 	{
-		return path_;
+		context->VSSetShader(vertex_shader_, 0, 0);
+		context->PSSetShader(pixel_shader_, 0, 0);
 	}
 }

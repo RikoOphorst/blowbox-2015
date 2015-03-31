@@ -1,86 +1,113 @@
-#include "d3d11_texture.h"
-#include "../win32/file_watch.h"
+#include "../../blowbox/d3d11/d3d11_texture.h"
+
+#include "../../blowbox/d3d11/d3d11_render_device.h"
+#include "../../blowbox/win32/file_watch.h"
+#include "../../blowbox/console/console.h"
 
 namespace blowbox
 {
-	D3D11Texture::D3D11Texture(std::string filePath)
-		: texture_(nullptr)
+	//------------------------------------------------------------------------------------------------------
+	D3D11Texture::D3D11Texture(const std::string& path)
 	{
-		Set(filePath);
+		BLOW_RELEASE(resource_);
+
+		path_ = path;
+
+		Reload();
 	}
 
+	//------------------------------------------------------------------------------------------------------
 	D3D11Texture::~D3D11Texture()
 	{
-		texture_->Release();
+		BLOW_RELEASE(resource_);
 	}
 
-	ID3D11ShaderResourceView* D3D11Texture::Get()
+	//------------------------------------------------------------------------------------------------------
+	bool D3D11Texture::Reload()
 	{
-		return texture_;
-	}
+		BLOW_RELEASE(resource_);
 
-	void D3D11Texture::CreateBaseTexture()
-	{
 		HRESULT hr = S_OK;
-		
-		ID3D11Texture2D* texture;
-		D3D11_TEXTURE2D_DESC texDesc;
-		texDesc.ArraySize = 1;
-		texDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
-		texDesc.CPUAccessFlags = 0;
-		texDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
-		texDesc.Width = 1;
-		texDesc.Height = 1;
-		texDesc.MipLevels = 0;
-		texDesc.Usage = D3D11_USAGE_DEFAULT;
-		texDesc.SampleDesc.Count = 1;
-		texDesc.SampleDesc.Quality = 0;
-		texDesc.MiscFlags = 0;
 
-		D3DXCOLOR data(1.0f, 1.0f, 1.0f, 1.0f);
-		D3D11_SUBRESOURCE_DATA initData;
-		initData.pSysMem = data;
-		initData.SysMemPitch = sizeof(data);
-		initData.SysMemSlicePitch = sizeof(data);
-
-		BLOW_SAFE_RELEASE_NB(texture_);
-
-		hr = D3D11DisplayDevice::Instance()->GetDevice()->CreateTexture2D(&texDesc, &initData, &texture);
-		BLOW_ASSERT_HR(hr, "Error creating texture");
-
-		hr = D3D11DisplayDevice::Instance()->GetDevice()->CreateShaderResourceView(texture, NULL, &texture_);
-		BLOW_ASSERT_HR(hr, "Error creating resource view");
-
-		path_ = "";
-
-		texture->Release();
-	}
-
-	void D3D11Texture::Set(std::string filePath)
-	{
-		if (filePath == BASE_TEXTURE)
+		if (path_ != BLOW_BASE_TEXTURE)
 		{
-			CreateBaseTexture();
+			hr = D3DX11CreateShaderResourceViewFromFileA(D3D11RenderDevice::Instance()->GetDevice(), path_.c_str(), NULL, NULL, &resource_, NULL);
+
+			if (hr != S_OK)
+			{
+				Console::Instance()->Log("[TEXTURE] There was an error while loading a texture: " + path_, LOG_COLOR_TYPES::LOG_COLOR_ERROR);
+				return false;
+			}
+			FileWatch::Instance()->Add(path_, WATCH_FILE_TYPES::WATCH_FILE_TEXTURE);
 		}
 		else
 		{
-			BLOW_SAFE_RELEASE_NB(texture_);
+			ID3D11Texture2D* texture;
 
-			HRESULT hr = S_OK;
+			D3D11_TEXTURE2D_DESC texDesc;
+			texDesc.ArraySize = 1;
+			texDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
+			texDesc.CPUAccessFlags = 0;
+			texDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+			texDesc.Width = 1;
+			texDesc.Height = 1;
+			texDesc.MipLevels = 0;
+			texDesc.Usage = D3D11_USAGE_DEFAULT;
+			texDesc.SampleDesc.Count = 1;
+			texDesc.SampleDesc.Quality = 0;
+			texDesc.MiscFlags = 0;
 
-			hr = D3DX11CreateShaderResourceViewFromFileA(D3D11DisplayDevice::Instance()->GetDevice(), filePath.c_str(), NULL, NULL, &texture_, NULL);
+			D3DXCOLOR data(1.0f, 1.0f, 1.0f, 1.0f);
+			D3D11_SUBRESOURCE_DATA initData;
+			initData.pSysMem = data;
+			initData.SysMemPitch = sizeof(data);
+			initData.SysMemSlicePitch = sizeof(data);
 
-			BLOW_ASSERT_HR(hr, "There was an error loading a texture, filepath: " + filePath);
+			BLOW_RELEASE(resource_);
 
-			path_ = filePath;
+			hr = D3D11RenderDevice::Instance()->GetDevice()->CreateTexture2D(&texDesc, &initData, &texture);
+			
+			if (hr != S_OK)
+			{
+				Console::Instance()->Log("[TEXTURE] There was an error while creating the base texture", LOG_COLOR_TYPES::LOG_COLOR_ERROR);
 
-			FileWatch::Instance()->Add(filePath, FileType::Texture);
+				BLOW_RELEASE(texture);
+
+				return false;
+			}
+
+			hr = D3D11RenderDevice::Instance()->GetDevice()->CreateShaderResourceView(texture, NULL, &resource_);
+			
+			if (hr != S_OK)
+			{
+				Console::Instance()->Log("[TEXTURE] There was an error while creating the base texture", LOG_COLOR_TYPES::LOG_COLOR_ERROR);
+
+				BLOW_RELEASE(texture);
+				return false;
+			}
+
+			BLOW_RELEASE(texture);
 		}
+		return true;
 	}
 
-	std::string D3D11Texture::GetPath()
+	//------------------------------------------------------------------------------------------------------
+	ID3D11ShaderResourceView* D3D11Texture::GetResource()
 	{
-		return path_;
+		return resource_;
 	}
 
+	//------------------------------------------------------------------------------------------------------
+	void D3D11Texture::Set(ID3D11DeviceContext* context, const int& slot)
+	{
+		ID3D11ShaderResourceView* last_resource;
+		context->PSGetShaderResources(slot, 1, &last_resource);
+
+		if (last_resource != resource_)
+		{
+			context->PSSetShaderResources(slot, 1, &resource_);
+		}
+
+		BLOW_RELEASE(last_resource);
+	}
 }

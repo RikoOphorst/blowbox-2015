@@ -1,29 +1,67 @@
 #pragma once
 
-#include "d3d11_display_device.h"
+#include <string>
 
-#define BASE_SHADER std::string("shaders/effects.fx")
+#include "../../blowbox/d3d11/d3d11.h"
+
+#define BLOW_BASE_SHADER "shaders/base.fx"
 
 namespace blowbox
 {
+	/**
+	* @class blowbox::D3D11Shader
+	* @brief Creates a shader
+	* @author Riko Ophorst
+	*/
 	class D3D11Shader
 	{
 	public:
-		D3D11Shader(std::string path);
+		/**
+		* @brief Default D3D11Shader constructor
+		* @param[in] path (const std::string&) the path to the shader
+		*/
+		D3D11Shader(const std::string& path);
+
+		/**
+		* @brief Default D3D11Shader destructor
+		*/
 		~D3D11Shader();
 
-		void						Set(std::string path);
+		/**
+		* @brief Reloads & recompiles its shader
+		*/
+		void Reload();
 
-		ID3D11VertexShader*			GetVS();
-		ID3D10Blob*					GetVSBuffer();
-		ID3D11PixelShader*			GetPS();
-		ID3D10Blob*					GetPSBuffer();
-		std::string					GetPath();
+		/**
+		* @return ID3D11VertexShader* The vertex shader
+		*/
+		ID3D11VertexShader* GetVertexShader() const;
+
+		/**
+		* @return ID3D10Blob* The vertex shader buffer
+		*/
+		ID3D10Blob* GetVertexShaderBuffer() const;
+
+		/**
+		* @return ID3D11PixelShader* The pixel shader
+		*/
+		ID3D11PixelShader* GetPixelShader() const;
+
+		/**
+		* @return ID3D10Blob* The pixel shader buffer
+		*/
+		ID3D10Blob* GetPixelShaderBuffer() const;
+
+		/**
+		* @brief Sets the shader
+		* @param[in] context (ID3D11DeviceContext*) the context
+		*/
+		void Set(ID3D11DeviceContext* context);
 	private:
-		ID3D11PixelShader*			ps_;
-		ID3D11VertexShader*			vs_;
-		ID3D10Blob*					vsBuffer_;
-		ID3D10Blob*					psBuffer_;
+		ID3D11PixelShader*			pixel_shader_;
+		ID3D10Blob*					pixel_shader_buffer_;
+		ID3D11VertexShader*			vertex_shader_;
+		ID3D10Blob*					vertex_shader_buffer_;
 		std::string					path_;
 	};
 }
