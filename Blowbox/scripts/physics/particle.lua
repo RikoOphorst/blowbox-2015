@@ -6,6 +6,7 @@ Particle.new = function (x, y)
 
 	self.pos = Vector2D.new(x, y)
 	self.lastPos = Vector2D.new(x, y)
+	self.mass = 1
 
 	setmetatable(self, Particle)
 

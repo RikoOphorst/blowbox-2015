@@ -63,17 +63,17 @@ function Button:update(mousePos)
 end
 
 function Button:onHoverIn()
-	print('hoverin')
+
 end
 
 function Button:onHoverOut()
-	print('hoverout')
+
 end
 
 function Button:onDown()
-	print('down')
+
 end
 
 function Button:onUp()
-	print('up')
+
 end

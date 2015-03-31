@@ -3,8 +3,13 @@ require('./scripts/utility/console.lua')
 require('./scripts/physics/verlet.lua')
 
 require('./scripts/ui/button.lua')
+require('./scripts/ui/slider.lua')
 
 math.randomseed(os.time())
+
+function lerp(v0, v1, t)
+	return (1-t)*v0 + t*v1
+end
 
 Game.Initialise = function ()
 	Game.Cameras = {
@@ -32,7 +37,13 @@ Game.Initialise = function ()
 	ContentManager.loadTexture('./textures/reset_up.png')
 	ContentManager.loadTexture('./textures/play.png')
 	ContentManager.loadTexture('./textures/pause.png')
+	ContentManager.loadTexture('./textures/switch.png')
+	ContentManager.loadTexture('./textures/lenna.png')
+	ContentManager.loadTexture('./textures/slider_bg.png')
+	ContentManager.loadTexture('./textures/slider_title.png')
+	ContentManager.loadTexture('./textures/slider_button.png')
 	ContentManager.loadShader('./shaders/blob.fx')
+	ContentManager.loadShader('./shaders/cloth.fx')
 
 	Game.Background = Quad.new(Game.RenderQueues.Default)
 	Game.Background:setScale2D(1024, 720)
@@ -61,12 +72,27 @@ Game.Initialise = function ()
 		Game.resetBtn.widget:setTexture('./textures/reset.png')
 	end
 
+	Game.switchBtn = Button.new(Game.RenderQueues.Default, 298, -252, 200, 75, './textures/switch.png')
+	function Game.switchBtn:onUp()
+		if (Game.Mode == 'cloth') then
+			Game.Mode = 'line'
+		elseif (Game.Mode == 'line') then
+			Game.Mode = 'blob'
+		elseif (Game.Mode == 'blob') then
+			Game.Mode = 'cloth'
+		end
+
+		Game.CreatePhysics()
+	end
+
+	Game.slider = Slider.new(Game.RenderQueues.Default, Vector2D.new(400, 0), 200, 75, './textures/slider_bg.png', './textures/slider_title.png', 200, 75, './textures/slider_button.png', 75, 75)
+
 	Game.playpause = Widget.new(Game.RenderQueues.Default)
 	Game.playpause:setAlpha(0)
 	Game.playpause:setTexture('./textures/play.png')
 	Game.playpause:setScale2D(150, 150)
 
-	Game.Mode = "cloth"
+	Game.Mode = "line"
 
 	Game.CreatePhysics()
 end
@@ -78,13 +104,64 @@ Game.Update = function (dt)
 	local mx, my = Mouse.getPosition()
 	local mousePos = { x = mx - (1024/2), y = my - (720/2) }
 	Game.resetBtn:update(mousePos)
+	Game.switchBtn:update(mousePos)
+	Game.slider:update(mousePos)
 
-	for i, v in ipairs(Game.composite.particles) do
-		local pos = Game.composite.particles[i].pos
-		if (i - 1 ~= #Game.composite.particles - 1) then
-			Game.polly:setPoint(pos.x, pos.y, 0, 0, 0.5, 0, 1, 0, 0, 0, 0, 0, i-1)
-		else
-			Game.polly:setPoint(pos.x, pos.y, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, i-1)
+	if (Game.Mode == 'blob') then
+		for i, v in ipairs(Game.composite.particles) do
+			local pos = Game.composite.particles[i].pos
+			if (i - 1 ~= #Game.composite.particles - 1) then
+				Game.polly:setPoint(pos.x, pos.y, 0, 0, 0.5, 0, 1, 0, 0, 0, 0, 0, i-1)
+			else
+				Game.polly:setPoint(pos.x, pos.y, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, i-1)
+			end
+		end
+	elseif(Game.Mode == 'cloth') then
+		local segments = 10
+
+		for i, v in ipairs(Game.composite.particles) do
+			local p1 = Game.composite.particles[i].pos
+			local p2, p3
+
+			if (math.fmod(i, segments) ~= 0) then
+				if (i + segments < #Game.composite.particles) then
+					p3 = Game.composite.particles[i+segments].pos
+				else
+					p3 = Game.composite.particles[i-segments].pos
+				end
+
+				p2 = Game.composite.particles[i+1].pos
+			else
+				if (i + segments < #Game.composite.particles) then
+					p3 = Game.composite.particles[i+segments].pos
+				else
+					p3 = Game.composite.particles[i-segments].pos
+				end
+
+				p2 = Game.composite.particles[i-1].pos
+			end
+
+			local distX = p1:distance(p2)
+			local distY = p1:distance(p3)
+
+			local vX = distX / 25 - 1
+			local vY = distY / 25 - 1
+
+			local u, v
+
+			u = (i % segments) / segments
+			v = (i / segments) / segments
+
+			if (i%segments == 0) then u = 1 end
+			if (v > 1) then v = 1 end
+
+			Game.polly:setPoint(p1.x, p1.y, 0, 0, 0.5, 0, 1, vX, vY, 1, u, v, i-1)
+		end
+	elseif (Game.Mode == 'line') then
+		for i=0, (#Game.composite.particles-1) * 2, 2 do
+			local pos = Game.composite.particles[(i / 2) + 1].pos
+			Game.polly:setPoint(pos.x, pos.y - 5, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, i)
+			Game.polly:setPoint(pos.x, pos.y + 5, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, i+1)
 		end
 	end
 
@@ -171,16 +248,20 @@ Game.OnReload = function (path)
 end
 
 Game.CreatePhysics = function ()
-	Game.simulate = false
+	Game.simulate = true
 	Game.playpause:setTexture('./textures/pause.png')
 	Game.playpause:setAlpha(1)
 
 	Game.Physics = Verlet.new()
 
 	if (Game.Mode == "blob") then
-		local segments = 40
+		local multiplier = Game.slider:getValue()
+		local segments = math.floor(40 * multiplier + 0.5)
+		local radius = 100 * multiplier
+		local spokestiffness = 0.1 
+		local treadstiffness = 0.7
 
-		Game.composite = Game.Physics:addBlob(Vector2D.new(-89, -100), 100, segments, 0.1, 0.7)
+		Game.composite = Game.Physics:addBlob(Vector2D.new(-89, -100), radius, segments, spokestiffness, treadstiffness)
 
 		local vertices = {}
 		local indices = {}
@@ -200,6 +281,7 @@ Game.CreatePhysics = function ()
 			if (i == segments - 1) then
 				idx = 1
 			end
+
 			table.insert(indices, idx)
 			table.insert(indices, i)
 			table.insert(indices, #Game.composite.particles - 1)
@@ -211,11 +293,11 @@ Game.CreatePhysics = function ()
 
 	if (Game.Mode == "cloth") then
 		local origin = Vector2D.new(-89, -100)
-		local width = 200
-		local height = 200
-		local segments = 20
-		local pinMod = 4
-		local stiffness = 0.1
+		local width = 300 * Game.slider:getValue()
+		local height = 300 * Game.slider:getValue()
+		local segments = 10
+		local pinMod = 1
+		local stiffness = 0.1 * Game.slider:getValue()
 
 		Game.composite = Game.Physics:addCloth(origin, width, height, segments, pinMod, stiffness)
 
@@ -241,6 +323,71 @@ Game.CreatePhysics = function ()
 				table.insert(indices, y*segments+x+1)
 				table.insert(indices, y*segments+x)
 			end
+		end
+
+		Game.polly = Polygon.new(Game.RenderQueues.Default, vertices, indices, Topology.TriangleList)
+		Game.polly:setShader('./shaders/cloth.fx')
+		Game.polly:setTexture('./textures/lenna.png')
+	end
+
+	if (Game.Mode == "line") then
+		local verts = {}
+
+		local startingpoint = Vector2D.new(-440, 0)
+		local endpoint = Vector2D.new(255, 0)
+		local segments = 50
+		local pinMod = 20
+
+		for i = 1, segments, 1 do
+			local vert = Vector2D.new(
+					lerp(
+						startingpoint.x, 
+						endpoint.x, 
+						i/segments
+					),
+					lerp(
+						startingpoint.y,
+						endpoint.y,
+						i/segments
+					)
+				)
+
+			table.insert(verts, vert)
+		end
+
+		Game.composite = Game.Physics:addComposite(verts, 0.1)
+
+		for i=1, segments, 1 do
+			if (math.fmod(i, pinMod) == 0 or i == 1 or i == segments) then
+				Game.composite:pin(i)
+			end
+		end
+
+		local vertices = {}
+		local indices = {}
+
+		for i, v in ipairs(Game.composite.particles) do
+			local particle = Game.composite.particles[i]
+			table.insert(vertices, {
+				particle.pos.x,
+				particle.pos.y - 5,
+				0
+			})
+
+			table.insert(vertices, {
+				particle.pos.x,
+				particle.pos.y + 5,
+				0
+			})
+		end
+
+		for i=1, #vertices, 2 do
+			table.insert(indices, i-1)
+			table.insert(indices, i+2)
+			table.insert(indices, i)
+			table.insert(indices, i-1)
+			table.insert(indices, i+2)
+			table.insert(indices, i+1)
 		end
 
 		Game.polly = Polygon.new(Game.RenderQueues.Default, vertices, indices, Topology.TriangleList)
