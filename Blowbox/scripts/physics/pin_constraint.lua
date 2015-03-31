@@ -6,6 +6,7 @@ PinConstraint.new = function (a, pos)
 
 	self.a = a
 	self.pos = Vector2D.new(pos.x, pos.y)
+	self.type = 'pin'
 
 	setmetatable(self, PinConstraint)
 

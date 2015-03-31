@@ -4,6 +4,8 @@ require('./scripts/physics/verlet.lua')
 
 require('./scripts/ui/button.lua')
 
+math.randomseed(os.time())
+
 Game.Initialise = function ()
 	Game.Cameras = {
 		Main = Camera.new(),
@@ -63,6 +65,8 @@ Game.Initialise = function ()
 	Game.playpause:setAlpha(0)
 	Game.playpause:setTexture('./textures/play.png')
 	Game.playpause:setScale2D(150, 150)
+
+	Game.Mode = "cloth"
 
 	Game.CreatePhysics()
 end
@@ -173,33 +177,72 @@ Game.CreatePhysics = function ()
 
 	Game.Physics = Verlet.new()
 
-	local segments = 40
+	if (Game.Mode == "blob") then
+		local segments = 40
 
-	Game.composite = Game.Physics:addBlob(Vector2D.new(-89, -100), 100, segments, 0.1, 0.7)
+		Game.composite = Game.Physics:addBlob(Vector2D.new(-89, -100), 100, segments, 0.1, 0.7)
 
-	local vertices = {}
-	local indices = {}
+		local vertices = {}
+		local indices = {}
 
-	for i, v in ipairs(Game.composite.particles) do
-		local vert = {
-			Game.composite.particles[i].pos.x,
-			Game.composite.particles[i].pos.y,
-			0
-		}
+		for i, v in ipairs(Game.composite.particles) do
+			local vert = {
+				Game.composite.particles[i].pos.x,
+				Game.composite.particles[i].pos.y,
+				0
+			}
 
-		table.insert(vertices, vert)
-	end
-
-	for i=1, segments, 1 do
-		local idx = i + 1
-		if (i == segments - 1) then
-			idx = 1
+			table.insert(vertices, vert)
 		end
-		table.insert(indices, idx)
-		table.insert(indices, i)
-		table.insert(indices, #Game.composite.particles - 1)
+
+		for i=1, segments, 1 do
+			local idx = i + 1
+			if (i == segments - 1) then
+				idx = 1
+			end
+			table.insert(indices, idx)
+			table.insert(indices, i)
+			table.insert(indices, #Game.composite.particles - 1)
+		end
+
+		Game.polly = Polygon.new(Game.RenderQueues.Default, vertices, indices, Topology.TriangleList)
+		Game.polly:setShader('./shaders/blob.fx')
 	end
 
-	Game.polly = Polygon.new(Game.RenderQueues.Default, vertices, indices, Topology.TriangleList)
-	Game.polly:setShader('./shaders/blob.fx')
+	if (Game.Mode == "cloth") then
+		local origin = Vector2D.new(-89, -100)
+		local width = 200
+		local height = 200
+		local segments = 20
+		local pinMod = 4
+		local stiffness = 0.1
+
+		Game.composite = Game.Physics:addCloth(origin, width, height, segments, pinMod, stiffness)
+
+		local vertices = {}
+		local indices = {}
+
+		for i, v in ipairs(Game.composite.particles) do
+			local vert = {
+				Game.composite.particles[i].pos.x,
+				Game.composite.particles[i].pos.y,
+				0
+			}
+
+			table.insert(vertices, vert)
+		end
+
+		for y=0, segments - 1, 1 do
+			for x=0, segments - 2, 1 do
+				table.insert(indices, y*segments+x)
+				table.insert(indices, (y+1)*segments+x)
+				table.insert(indices, (y+1)*segments+x+1)
+				table.insert(indices, (y+1)*segments+x+1)
+				table.insert(indices, y*segments+x+1)
+				table.insert(indices, y*segments+x)
+			end
+		end
+
+		Game.polly = Polygon.new(Game.RenderQueues.Default, vertices, indices, Topology.TriangleList)
+	end
 end

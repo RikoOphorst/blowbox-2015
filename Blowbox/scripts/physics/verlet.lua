@@ -72,9 +72,10 @@ function Verlet:update(step)
 end
 
 function Verlet:getNearestParticle(point)
-	local d2Nearest = 0;
-	local nearest;
+	local d2Nearest = 0
+	local nearest
 	local selectionRadius = 20
+	local nearestConstraints = {}
 
 	for i, v in ipairs(self.composites) do
 		local particles = self.composites[i].particles
@@ -83,8 +84,15 @@ function Verlet:getNearestParticle(point)
 			local d2 = particles[j].pos:distanceSq(point)
 			if (d2 <= selectionRadius^2 and (nearest == nil or d2 < d2Nearest)) then
 				nearest = particles[j]
+				nearestConstraints = self.composites[i].constraints
 				d2Nearest = d2
 			end
+		end
+	end
+
+	for i, v in ipairs(nearestConstraints) do
+		if (nearestConstraints[i].type == 'pin' and nearestConstraints[i].a == nearest) then
+			nearest = nearestConstraints[i]
 		end
 	end
 
@@ -137,8 +145,12 @@ function Verlet:addBlob(origin, radius, segments, spokeStiffness, treadStiffness
 	local center = Particle.new(origin.x, origin.y)
 	table.insert(composite.particles, center)
 	
+	local chance = math.random()
+
 	for i=0, segments - 1, 1 do
-		table.insert(composite.constraints, DistanceConstraint.new(composite.particles[i+1], composite.particles[math.fmod(i+1, segments)+1], treadStiffness))
+		if (chance > 0.001) then
+			table.insert(composite.constraints, DistanceConstraint.new(composite.particles[i+1], composite.particles[math.fmod(i+1, segments)+1], treadStiffness))
+		end
 		table.insert(composite.constraints, DistanceConstraint.new(composite.particles[i+1], center, spokeStiffness))
 		table.insert(composite.constraints, DistanceConstraint.new(composite.particles[i+1], composite.particles[math.fmod(i+5, segments)+1], treadStiffness))
 	end

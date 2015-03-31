@@ -50,7 +50,7 @@ namespace blowbox
 
 		vertex_stride_size_ = sizeof(Vertex);
 		vertex_offset_ = 0;
-		vertex_size_ = vertices.size();
+		vertex_size_ = static_cast<UINT>(vertices.size());
 
 		// Topology
 		topology_ = topology;
@@ -89,14 +89,14 @@ namespace blowbox
 
 		vertex_stride_size_ = sizeof(Vertex);
 		vertex_offset_ = 0;
-		vertex_size_ = vertices.size();
+		vertex_size_ = static_cast<UINT>(vertices.size());
 
 		// Index buffer
 		ZeroMemory(&buffer_desc, sizeof(D3D11_BUFFER_DESC));
 		ZeroMemory(&subresource_data, sizeof(D3D11_SUBRESOURCE_DATA));
 
 		buffer_desc.Usage = D3D11_USAGE::D3D11_USAGE_DEFAULT;
-		buffer_desc.ByteWidth = static_cast<UINT>(sizeof(Vertex) * indices.size());
+		buffer_desc.ByteWidth = static_cast<UINT>(sizeof(int) * indices.size());
 		buffer_desc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_INDEX_BUFFER;
 		buffer_desc.CPUAccessFlags = 0;
 		buffer_desc.MiscFlags = 0;

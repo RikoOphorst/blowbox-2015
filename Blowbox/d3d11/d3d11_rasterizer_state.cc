@@ -7,7 +7,7 @@ namespace blowbox
 	//------------------------------------------------------------------------------------------------------
 	D3D11RasterizerState::D3D11RasterizerState() :
 		fill_mode_(D3D11_FILL_MODE::D3D11_FILL_SOLID),
-		cull_mode_(D3D11_CULL_MODE::D3D11_CULL_BACK)
+		cull_mode_(D3D11_CULL_MODE::D3D11_CULL_NONE)
 	{
 		SetFillMode(fill_mode_);
 		SetCullMode(cull_mode_);
