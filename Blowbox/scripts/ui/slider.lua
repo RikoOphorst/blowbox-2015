@@ -12,7 +12,7 @@ Slider.new = function (queue, origin, width, height, background, title, twidth, 
 	self.title = Widget.new(queue)
 	self.title:setTexture(title)
 	self.title:setScale2D(twidth, theight)
-	self.title:setPosition2D(origin.x, origin.y - 100)
+	self.title:setPosition2D(origin.x, origin.y - 53)
 
 	self.button = Widget.new(queue)
 	self.button:setTexture(button)
@@ -32,15 +32,22 @@ Slider.new = function (queue, origin, width, height, background, title, twidth, 
 	return self
 end
 
+function Slider:setTitle(title, width, height)
+	self.title:setTexture(title)
+	self.title:setScale2D(width, height)
+	self.pos.x = self.origin.x
+	self.pos.y = self.origin.y
+end
+
 function Slider:getValue()
 	return (self.pos.x - self.origin.x + self.width / 2) / self.width * 2
 end
 
 function Slider:update(mousePos)
-	if (mousePos.x > self.pos.x - self.size.x / 2 and
-		mousePos.x < self.pos.x + self.size.x / 2 and
-		mousePos.y > self.pos.y - self.size.y / 2 and
-		mousePos.y < self.pos.y + self.size.y / 2) then
+	if (mousePos.x > self.origin.x - self.width / 2 and
+		mousePos.x < self.origin.x + self.width / 2 and
+		mousePos.y > self.origin.y - self.height / 2 and
+		mousePos.y < self.origin.y + self.height / 2) then
 		if (not self.hovered) then
 			self.hovered = true
 			self:onHoverIn()

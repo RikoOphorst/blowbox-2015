@@ -3,6 +3,7 @@ require('./scripts/physics/particle.lua')
 require('./scripts/physics/composite.lua')
 require('./scripts/physics/pin_constraint.lua')
 require('./scripts/physics/distance_constraint.lua')
+require('./scripts/physics/ragdoll.lua')
 
 Verlet = {}
 Verlet.__index = Verlet
@@ -113,7 +114,7 @@ function Verlet:bounds(particle)
 	end
 end
 
-function Verlet:addComposite(vertices, stiffness)
+function Verlet:addLine(vertices, stiffness)
 	local composite = Composite.new()
 
 	for i, v in ipairs(vertices) do
@@ -195,7 +196,7 @@ function Verlet:addCloth(origin, width, height, segments, pinMod, stiffness)
 		end
 	end
 	
-	for x=0, segments, 1 do
+	for x=0, segments - 1, 1 do
 		if (math.fmod(x, pinMod) == 0) then
 			composite:pin(x+1)
 		end
