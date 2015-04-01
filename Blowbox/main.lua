@@ -45,6 +45,7 @@ Game.Initialise = function ()
 	ContentManager.loadTexture('./textures/play.png')
 	ContentManager.loadTexture('./textures/pause.png')
 	ContentManager.loadTexture('./textures/switch.png')
+	ContentManager.loadTexture('./textures/switch_up.png')
 	ContentManager.loadTexture('./textures/lenna.png')
 	ContentManager.loadTexture('./textures/slider_bg.png')
 	ContentManager.loadTexture('./textures/slider_title.png')
@@ -55,6 +56,7 @@ Game.Initialise = function ()
 	ContentManager.loadTexture('./textures/slider_title_spoke.png')
 	ContentManager.loadTexture('./textures/slider_title_tread.png')
 	ContentManager.loadTexture('./textures/slider_title_size.png')
+	ContentManager.loadTexture('./textures/slider_title_ragdolls.png')
 	ContentManager.loadTexture('./textures/slider_title_pinmod.png')
 	ContentManager.loadTexture('./textures/slider_title_stiffness.png')
 	ContentManager.loadShader('./shaders/blob.fx')
@@ -71,7 +73,7 @@ Game.Initialise = function ()
 	Game.highlighter:setTexture('./textures/highlighter.png')
 	Game.highlighter:setPosition(0, 0, 5)
 
-	Game.resetBtn = Button.new(Game.RenderQueues.Default, 298, -337, 200, 75, './textures/reset.png')
+	Game.resetBtn = Button.new(Game.RenderQueues.Default, 298, -252, 200, 75, './textures/reset.png')
 	function Game.resetBtn:onHoverIn()
 		Game.resetBtn.widget:setTexture('./textures/reset_up.png')
 	end
@@ -87,17 +89,33 @@ Game.Initialise = function ()
 		Game.resetBtn.widget:setTexture('./textures/reset.png')
 	end
 
-	Game.switchBtn = Button.new(Game.RenderQueues.Default, 298, -252, 200, 75, './textures/switch.png')
-	function Game.switchBtn:onUp()
-		if (Game.Mode == 'cloth') then
-			Game.Mode = 'line'
-		elseif (Game.Mode == 'line') then
+	Game.switchBtn = Button.new(Game.RenderQueues.Default, 298, -337, 200, 75, './textures/switch.png')
+	function Game.switchBtn:onHoverIn()
+		Game.switchBtn.widget:setTexture('./textures/switch_up.png')
+	end
+
+	function Game.switchBtn:onDown()
+		Game.switchBtn.widget:setTexture('./textures/switch_up.png')
+		
+		if (Game.Mode == 'line') then
 			Game.Mode = 'blob'
 		elseif (Game.Mode == 'blob') then
 			Game.Mode = 'cloth'
+		elseif (Game.Mode == 'cloth') then
+			Game.Mode = 'ragdoll'
+		elseif (Game.Mode == 'ragdoll') then
+			Game.Mode = 'line'
 		end
 
-		Game.CreatePhysics()
+		Game.CreatePhysics(true)
+	end
+
+	function Game.switchBtn:onHoverOut()
+		Game.switchBtn.widget:setTexture('./textures/switch.png')
+	end
+
+	function Game.switchBtn:onUp()
+		Game.switchBtn.widget:setTexture('./textures/switch.png')
 	end
 
 	Game.slider1 = Slider.new(Game.RenderQueues.Default, Vector2D.new(400, -90), 200, 75, './textures/slider_bg.png', './textures/slider_title_none.png', 200, 45, './textures/slider_button.png', 30, 75)
@@ -110,9 +128,11 @@ Game.Initialise = function ()
 	Game.playpause:setTexture('./textures/play.png')
 	Game.playpause:setScale2D(150, 150)
 
-	Game.Mode = "ragdoll"
+	Game.Mode = "blob"
 
-	Game.CreatePhysics()
+	Game.CreatePhysics(true)
+
+	Game.simulate = false
 end
 
 Game.Update = function (dt)
@@ -280,7 +300,7 @@ Game.OnReload = function (path)
 	--Game.CreatePhysics()
 end
 
-Game.CreatePhysics = function ()
+Game.CreatePhysics = function (sliderReset)
 	Game.simulate = true
 	Game.playpause:setTexture('./textures/pause.png')
 	Game.playpause:setAlpha(1)
@@ -288,10 +308,12 @@ Game.CreatePhysics = function ()
 	Game.Physics = Verlet.new()
 
 	if (Game.Mode == "blob") then
-		Game.slider1:setTitle('./textures/slider_title_segments.png', 200, 45)
-		Game.slider2:setTitle('./textures/slider_title_radius.png', 200, 45)
-		Game.slider3:setTitle('./textures/slider_title_spoke.png', 200, 45)
-		Game.slider4:setTitle('./textures/slider_title_tread.png', 200, 45)
+		if (sliderReset == true) then 
+			Game.slider1:setTitle('./textures/slider_title_segments.png', 200, 45)
+			Game.slider2:setTitle('./textures/slider_title_radius.png', 200, 45)
+			Game.slider3:setTitle('./textures/slider_title_spoke.png', 200, 45)
+			Game.slider4:setTitle('./textures/slider_title_tread.png', 200, 45)
+		end
 
 		local segments = math.floor(40 * Game.slider1:getValue() + 0.5)
 		local radius = 100 * Game.slider2:getValue()
@@ -332,10 +354,12 @@ Game.CreatePhysics = function ()
 	end
 
 	if (Game.Mode == "cloth") then
-		Game.slider1:setTitle('./textures/slider_title_segments.png', 200, 45)
-		Game.slider2:setTitle('./textures/slider_title_size.png', 200, 45)
-		Game.slider3:setTitle('./textures/slider_title_pinmod.png', 200, 45)
-		Game.slider4:setTitle('./textures/slider_title_stiffness.png', 200, 45)
+		if (sliderReset == true) then 
+			Game.slider1:setTitle('./textures/slider_title_segments.png', 200, 45)
+			Game.slider2:setTitle('./textures/slider_title_size.png', 200, 45)
+			Game.slider3:setTitle('./textures/slider_title_pinmod.png', 200, 45)
+			Game.slider4:setTitle('./textures/slider_title_stiffness.png', 200, 45)
+		end
 
 		local origin = Vector2D.new(-89, -100)
 		local width = 300 * Game.slider2:getValue()
@@ -381,12 +405,19 @@ Game.CreatePhysics = function ()
 	end
 
 	if (Game.Mode == "line") then
+		if (sliderReset == true) then 
+			Game.slider1:setTitle('./textures/slider_title_segments.png', 200, 45)
+			Game.slider2:setTitle('./textures/slider_title_pinmod.png', 200, 45)
+			Game.slider3:setTitle('./textures/slider_title_stiffness.png', 200, 45)
+			Game.slider4:setTitle('./textures/slider_title_none.png', 200, 45)
+		end
+
 		local verts = {}
 
 		local startingpoint = Vector2D.new(-440, 0)
 		local endpoint = Vector2D.new(255, 0)
-		local segments = 50
-		local pinMod = 20
+		local segments = math.floor(50 * Game.slider1:getValue() + 0.5)
+		local pinMod = math.floor(20 * Game.slider2:getValue() + 0.5)
 
 		for i = 1, segments, 1 do
 			local vert = Vector2D.new(
@@ -405,7 +436,7 @@ Game.CreatePhysics = function ()
 			table.insert(verts, vert)
 		end
 
-		Game.composite = Game.Physics:addLine(verts, 0.1)
+		Game.composite = Game.Physics:addLine(verts, 0.2 * Game.slider3:getValue())
 
 		for i=1, segments, 1 do
 			if (math.fmod(i, pinMod) == 0 or i == 1 or i == segments) then
@@ -445,16 +476,20 @@ Game.CreatePhysics = function ()
 	end
 
 	if (Game.Mode == 'ragdoll') then
-		Game.simulate = false
+		if (sliderReset == true) then 
+			Game.slider1:setTitle('./textures/slider_title_ragdolls.png', 200, 45)
+			Game.slider2:setTitle('./textures/slider_title_size.png', 200, 45)
+			Game.slider3:setTitle('./textures/slider_title_none.png', 200, 45)
+			Game.slider4:setTitle('./textures/slider_title_none.png', 200, 45)
+		end
 
 		Game.polly = nil
-
 		Game.ragdolls = {}
 
-		for i=1, 200, 1 do
+		for i=1, 50 * (Game.slider1:getValue() * 2), 1 do
 			math.randomseed(i * os.time())
 
-			local ragdoll = Ragdoll.new(Game.RenderQueues.Default, Vector2D.new(math.random() * 600 - 400, math.random() * 200 - 300), randomRange(30, 60))
+			local ragdoll = Ragdoll.new(Game.RenderQueues.Default, Vector2D.new(math.random() * 600 - 400, math.random() * 200 - 300), randomRange(30, 60) * Game.slider2:getValue())
 
 			table.insert(Game.ragdolls, ragdoll)
 
